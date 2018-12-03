@@ -1,0 +1,53 @@
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .session-words {
+        border: black 2px solid;
+        overflow: auto;
+        flex: 1;
+        min-height: 200px;
+        height: 0;
+        .session-word {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            overflow: auto;
+            padding: 5px;
+            cursor: pointer;
+            border-bottom: 1px solid white;
+            transition: background-color 0.2s;
+            .wordInfo {
+                max-width: calc(100% - 80px);
+                display: flex;
+                flex-direction: column;
+                p {
+                    margin: 5px 0;
+                    .lang {
+                        font-weight: bold;
+                        font-size: 10px;
+                        color: black;
+                        margin-right: 5px;
+                    }
+                }
+                .location {
+                    color: blue;
+                    font-weight: bold;
+                }
+            }
+            .buttons {
+                width: 80px;
+            }
+            &.active {
+                background-color: #5c6fd8;
+            }
+            &:hover {
+                background-color: #595959;
+            }
+        }
+    }
+}
+
+:host {
+    flex: 1;
+}

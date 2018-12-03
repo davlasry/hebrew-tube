@@ -1,0 +1,42 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { WordsComponent } from './components/words-parent/words.component';
+
+
+
+const routes: Routes = [
+  {
+    path: '',
+    component: WordsComponent,
+    // children: [
+    //   {path: '', redirectTo: 'list', pathMatch: 'full'},
+    //   {
+    //     path: 'list',
+    //     component: WordsListComponent
+    //   },
+    //   {
+    //     path: 'create',
+    //     component: AddWordComponent
+    //   },
+      // {
+      //   path: 'my-recipes',
+      //   component: MyRecipesComponent
+      // },
+      // {
+      //   path: 'edit/:id',
+      //   component: EditRecipeComponent
+      // },
+    //   {
+    //     path: ':id',
+    //     component: WordComponent
+    //   }
+    // ]
+  }
+];
+
+@NgModule({
+  imports: [ RouterModule.forChild(routes) ],
+  exports: [ RouterModule ]
+})
+export class WordsRoutingModule { }
+

@@ -1,0 +1,37 @@
+<div class="container">
+    <h3 mat-dialog-title>Edit word</h3>
+    <div mat-dialog-content>
+        <form [formGroup]="wordForm">
+            <mat-form-field class="form-field">
+                <input type="text" matInput placeholder="עברית" formControlName="hebrew" required>
+            </mat-form-field>
+
+            <div class="definitions form-group" formArrayName="definitions">
+                <div class="definitions-header">
+                    <h4>Definition</h4>
+                    <button mat-stroked-button color="primary" (click)="addDefinition()">Add Definition</button>
+                </div>
+
+                <div *ngFor="let definition of definitionsForm.controls; let i=index" [formGroupName]="i" class="definition">
+                    <mat-form-field>
+                        <input type="text" placeholder="French" matInput formControlName="french">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="text" placeholder="English" matInput formControlName="english">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="text" placeholder="Pronounciation" matInput formControlName="phonetic">
+                    </mat-form-field>
+                    <button mat-stroked-button color="warn" *ngIf="i>0" (click)="deleteDefinition(i)">Delete</button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+    <div>
+        <button mat-raised-button (click)="onNoClick()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="onSave()">Save</button>
+    </div>
+</div>

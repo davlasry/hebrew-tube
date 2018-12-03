@@ -1,0 +1,19 @@
+<div class="video" #videoDiv>
+    <div class="player-container" [class.adjust]="videoId">
+        <div class="loading" *ngIf="!isPlayerReady">Loading...</div>
+        <div id="youtube-player"></div>
+    </div>
+
+    <div class="url">
+        <mat-form-field class="form-field youtube-link">
+            <input type="text" matInput placeholder="Youtube link" [(ngModel)]="inputUrl">
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" (click)="onLoad()">Load video</button>
+        <button mat-raised-button color="primary" type="submit" (click)="onSaveLink()">Save</button>
+    </div>
+
+</div>
+<div class="words" [class.small]="!isWordsOpen">
+    <!-- <button (click)="onToggleWords()">Toggle Sidebar</button> -->
+    <app-dictionaries [isPlayerReady]="isPlayerReady" [session]="session" [style.display]="isWordsOpen ? 'inherit' : 'none'"></app-dictionaries>
+</div>

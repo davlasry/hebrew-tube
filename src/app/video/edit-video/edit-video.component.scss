@@ -1,0 +1,69 @@
+:host {
+    overflow: auto;
+}
+
+.container {
+    height: 100%;
+    padding: 20px 50px;
+    display: flex;
+    flex-direction: column;
+    mat-form-field {
+        margin-right: 20px;
+    }
+    .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: auto;
+    }
+    .middle-section {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex: 1;
+      .subtitles-area {
+        display: flex;
+        flex-direction: column;
+        min-width: 200px;
+        padding: 20px;
+      }
+    }
+    .subtitlesArea {
+        background: grey;
+        padding: 10px;
+        overflow: auto;
+        padding-right: 20px;
+        max-height: 200px;
+        flex: 1;
+        .subtitles {
+            display: flex;
+            flex-direction: column;
+            .subtitle {
+                display: flex;
+                flex-direction: column;
+                .words-area {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    .sentence-number {
+                        margin: 20px;
+                        font-size: 30px;
+                    }
+                    .words {
+                        display: flex;
+                        flex-direction: column;
+                        word {
+                            display: flex;
+                            flex-direction: column;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .videoArea {
+        flex: 1;
+        overflow: auto;
+        margin-bottom: 20px;
+    }
+}

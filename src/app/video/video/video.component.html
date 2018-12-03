@@ -1,0 +1,35 @@
+<div class="container" *ngIf="video">
+    <div class="header">
+        <span class="video-title">{{ video.name }}</span>
+        <a [routerLink]="['/videos', 'edit', video._id]">
+            <button mat-raised-button color="primary">EDIT</button>
+        </a>
+    </div>
+    <div class="video">
+        <app-youtube [video]="video"></app-youtube>
+    </div>
+
+    <!-- <div class="subtitles-buttons">
+        <div>
+            {{ currentTime | youtubeCurrentTime }}
+        </div>
+        <button mat-raised-button color="primary" (click)="onClickPause()">Pause</button>
+    </div> -->
+
+    <div class="subtitles">
+        <div>
+            <button mat-raised-button color="primary" [disabled]="selectedSentence === 0" (click)="onClickPrevious()">PREVIOUS</button>
+        </div>
+        <div class="sentence">
+            <div class="word" *ngFor="let word of video.subtitles[selectedSentence].words; let i = index" (mouseover)="showDefinition(i)" (mouseout)="showDefinition(null)">
+                {{ word.hebrew }}
+                <div class="definition" *ngIf="i === definitionShowed">
+                    {{ word.french }}
+                </div>
+            </div>
+        </div>
+        <div>
+            <button mat-raised-button color="primary" [disabled]="selectedSentence === video.subtitles.length -1" (click)="onClickNext()">NEXT</button>
+        </div>
+    </div>
+</div>

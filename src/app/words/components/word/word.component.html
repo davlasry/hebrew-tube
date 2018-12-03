@@ -1,0 +1,20 @@
+<div *ngIf='word'>
+    <div>
+        עברית: {{word.hebrew}}
+    </div>
+    <div>
+        Français: {{word.french}}
+    </div>
+    <div>
+        English: {{word.english}}
+    </div>
+    <div>
+        Phonetic: {{word.phonetic}}
+    </div>
+    <div>
+        Notes: {{word.notes}}
+    </div>
+    <div>
+        Source: <a href="{{word.source}}" target="_blank">{{word.source}}</a>
+    </div>
+</div>

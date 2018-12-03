@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="option-boxes">
+        <div class="option-box" (click)="onOptionSelected('youtube')" [class.selected]="optionSelected == 'youtube'">
+            <h2>Youtube Session</h2>
+            <p>Learn new words while watching your favorite youtube videos</p>
+        </div>
+        <div class="option-box" (click)="onOptionSelected('article')" [class.selected]="optionSelected == 'article'">
+            <h2>Article Session</h2>
+            <p>Learn new words while reading your favorite articles</p>
+        </div>
+    </div>
+    <form class="option-form" [class.active]="optionSelected == 'article'">
+        <p>Available soon...</p>
+    </form>
+    <form class="option-form" [formGroup]="sessionForm" [class.active]="optionSelected == 'youtube'">
+        <mat-form-field class="form-field">
+            <input type="text" matInput placeholder="Session name" formControlName="name" required>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <input type="text" matInput placeholder="Youtube Link" formControlName="youtubeLink">
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" (click)="onCreate()">Create Session</button>
+    </form>
+</div>

@@ -1,0 +1,14 @@
+<div class="container">
+    <h1>My Sessions</h1>
+    <div *ngIf="sessions">
+        <div class="session" *ngFor="let session of sessions">
+            <div class="session-info">
+                <a [routerLink]="['/study', 'youtube', session._id]">{{session.name}}</a>
+                <p>{{session.createdAt | date}}</p>
+            </div>
+            <div class="session-buttons">
+                <button mat-raised-button color="warn" (click)="onDeleteSession(session)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
