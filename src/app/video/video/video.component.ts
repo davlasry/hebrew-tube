@@ -149,7 +149,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   onClickPrevious() {
-    this.youtubePlayer.skipTo(this.video.subtitles[this.selectedSentence - 1].startTime);
+    this.youtubePlayer.skipTo(parseInt(this.video.subtitles[this.selectedSentence - 1].startTime, 10) + 0.1);
     this.selectedSentence --;
     this.currentTime = this.youtubePlayer.getCurrentTime();
   }

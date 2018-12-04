@@ -68,23 +68,42 @@ export class EditVideoComponent implements OnInit {
   }
 
   setWords() {
-    this.video.subtitles.forEach(subtitle => {
+    this.video.subtitles.forEach((subtitle, index) => {
+      // console.log(subtitle);
       const subtitleControl = <FormArray>this.videoForm.get('subtitles');
       subtitleControl.push(this.fb.group({
         words: this.fb.array([]),
         startTime: [subtitle.startTime],
         endTime: [subtitle.endTime]
       }));
-      subtitleControl.controls.forEach(subtitleFormGroup => {
-        subtitle.words.forEach(word => {
-          const wordControl = <FormArray>subtitleFormGroup.get('words');
-          wordControl.push(this.fb.group({
-            hebrew: [word.hebrew],
-            french: [word.french]
-          }));
-        });
+
+      // console.log(subtitleControl);
+      console.log(subtitleControl.controls[index]);
+
+      const subtitleFormGroup = subtitleControl.controls[index];
+
+      subtitle.words.forEach(word => {
+        // console.log(word);
+        const wordControl = <FormArray>subtitleFormGroup.get('words');
+        wordControl.push(this.fb.group({
+          hebrew: [word.hebrew],
+          french: [word.french]
+        }));
       });
+
+      // subtitleControl.controls.forEach(subtitleFormGroup => {
+      //   // console.log(subtitleFormGroup);
+      //   subtitle.words.forEach(word => {
+      //     // console.log(word);
+      //     const wordControl = <FormArray>subtitleFormGroup.get('words');
+      //     wordControl.push(this.fb.group({
+      //       hebrew: [word.hebrew],
+      //       french: [word.french]
+      //     }));
+      //   });
+      // });
     });
+    console.log(this.videoForm.value);
   }
 
   addSubtitle() {
@@ -107,14 +126,31 @@ export class EditVideoComponent implements OnInit {
   }
 
   deleteWord(i, j) {
-    console.log(i, j);
-    console.log(this.subtitlesForm);
+    // console.log(i, j);
+    // console.log(this.subtitlesForm);
     this.subtitlesForm.controls.forEach((subtitle: FormGroup) => {
-      console.log(subtitle);
-      console.log(subtitle.controls['words']);
+      // console.log(subtitle);
+      // console.log(subtitle.controls['words']);
       (<FormArray>subtitle.controls['words'] as FormArray).removeAt(j);
     });
 
+  }
+
+  moveWordUp(i, j) {
+    const wordControl = ((<FormArray>this.videoForm.controls['subtitles']).at(i).get('words') as FormArray);
+    console.log(i, j);
+    console.log(wordControl);
+    console.log(wordControl.controls[j]);
+    const word = wordControl.controls[j];
+    wordControl.removeAt(j);
+    wordControl.insert(j - 1, word);
+  }
+
+  moveWordDown(i, j) {
+    const wordControl = ((<FormArray>this.videoForm.controls['subtitles']).at(i).get('words') as FormArray);
+    const word = wordControl.controls[j];
+    wordControl.removeAt(j);
+    wordControl.insert(j + 1, word);
   }
 
 

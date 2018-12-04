@@ -1,30 +1,58 @@
 <div class="container" *ngIf="video">
     <div class="header">
         <h2>{{video.name}}</h2>
+        <div style="flex: 1"></div>
         <a [routerLink]="['/videos', video._id]">
-            <button mat-raised-button color="primary">VIEW</button>
+          <button mat-raised-button color="primary">VIEW</button>
         </a>
+        <button mat-raised-button>Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!videoForm.valid" (click)="onSubmit()">Save</button>
     </div>
     <div class="middle-section">
       <div class="videoArea">
           <app-youtube [video]='video'></app-youtube>
       </div>
       <div class="subtitles-area" [formGroup]="videoForm">
-          <span>Subtitles</span>
+          <!-- <span>Subtitles</span>
           <mat-form-field class="form-field">
               <input type="text" matInput placeholder="Youtube Link" formControlName="youtubeLink" required>
           </mat-form-field>
 
           <mat-form-field class="form-field">
               <input type="text" matInput placeholder="Name of video" formControlName="name" required>
-          </mat-form-field>
-          <div *ngFor="let subtitle of video.subtitles; let i = index">
-            {{ i }} // {{ subtitle.startTime }} - {{ subtitle.endTime }}
+          </mat-form-field> -->
+          <div>
+              <button mat-raised-button color="primary" (click)="addSubtitle()">
+                <mat-icon>add</mat-icon>
+                Add subtitle
+              </button>
           </div>
+          <div formArrayName="subtitles">
+            <div *ngFor="let subtitle of videoForm['controls'].subtitles['controls']; let i=index" [formGroupName]="i" class="subtitle">
+                <div class="fields">
+                  <mat-form-field>
+                      <input type="text" placeholder="Start time" matInput formControlName="startTime">
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input type="text" placeholder="End time" matInput formControlName="endTime">
+                  </mat-form-field>
+                </div>
+                <div class="buttons">
+                    <div>
+                        <button mat-raised-button color="warn" *ngIf="i>0" (click)="deleteSubtitle(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <!-- <div *ngFor="let subtitle of video.subtitles; let i = index">
+            {{ i }} // {{ subtitle.startTime }} - {{ subtitle.endTime }}
+          </div> -->
       </div>
     </div>
     <div class="subtitlesArea">
-        <h3>Create subtitles</h3>
+        <!-- <h3>Create subtitles</h3> -->
         <div>
             <form [formGroup]="videoForm">
                 <!-- <mat-form-field class="form-field">
@@ -37,23 +65,24 @@
 
                 <div class="subtitles form-group" formArrayName="subtitles">
                     <div *ngFor="let subtitle of videoForm['controls'].subtitles['controls']; let i=index" [formGroupName]="i" class="subtitle">
-                        <div>
-                            <h4>Subtitle</h4>
+                        <!-- <div>
                             <button mat-stroked-button color="primary" (click)="addSubtitle()">Add subtitle</button>
                         </div>
                         <div>
                             <button mat-stroked-button color="warn" *ngIf="i>0" (click)="deleteSubtitle(i)">Delete Subtitle</button>
-                        </div>
-                        <mat-form-field>
+                        </div> -->
+                        <!-- <mat-form-field>
                             <input type="text" placeholder="Start time" matInput formControlName="startTime">
                         </mat-form-field>
                         <mat-form-field>
                             <input type="text" placeholder="End time" matInput formControlName="endTime">
-                        </mat-form-field>
-                        <button mat-stroked-button color="primary" (click)="addWord(i)">Add word</button>
-                        <hr>
+                        </mat-form-field> -->
+                        <button mat-raised-button color="primary" (click)="addWord(i)">
+                          <mat-icon>add</mat-icon>
+                          Add word
+                        </button>
                         <div class="words-area form-group" formArrayName="words">
-                            <div class="sentence-number">{{i}}</div>
+                            <!-- <div class="sentence-number">{{i}}</div> -->
                             <div class="words">
                                 <div *ngFor="let word of subtitle['controls'].words['controls']; let j=index" [formGroupName]="j" class="word">
                                     <mat-form-field>
@@ -62,7 +91,19 @@
                                     <mat-form-field>
                                         <input type="text" placeholder="French" matInput formControlName="french">
                                     </mat-form-field>
-                                    <button mat-stroked-button color="warn" *ngIf="j>0" (click)="deleteWord(i, j)">Delete word</button>
+                                    <div class="move-word">
+                                      <button mat-raised-button color="primary" *ngIf="j>0" (click)="moveWordUp(i, j)">
+                                          <!-- <mat-icon>delete</mat-icon> -->
+                                          UP
+                                      </button>
+                                      <button mat-raised-button color="primary" *ngIf="j != subtitle['controls'].words['controls'].length - 1" (click)="moveWordDown(i, j)">
+                                          <!-- <mat-icon>delete</mat-icon> -->
+                                          DOWN
+                                      </button>
+                                    </div>
+                                    <button mat-raised-button color="warn" *ngIf="j>0" (click)="deleteWord(i, j)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
                                 </div>
                             </div>
 
@@ -72,9 +113,9 @@
             </form>
         </div>
         <div>
-            <button mat-raised-button (click)="resetForm()">Reset Form</button>
-            <button mat-raised-button>Cancel</button>
-            <button mat-raised-button color="primary" type="submit" [disabled]="!videoForm.valid" (click)="onSubmit()">Save</button>
+            <!-- <button mat-raised-button (click)="resetForm()">Reset Form</button> -->
+            <!-- <button mat-raised-button>Cancel</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!videoForm.valid" (click)="onSubmit()">Save</button> -->
         </div>
     </div>
 </div>
