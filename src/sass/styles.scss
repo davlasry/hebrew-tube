@@ -1,23 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import './_variables';
 @import url('//fonts.googleapis.com/icon?family=Material+Icons');
+
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: "Helvetica Neue", Helvetica;
-    border: 0;
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    color: #d0d0d0;
-    background-color: #1d1d1d;
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
+  font-family: "Helvetica Neue", Helvetica;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  color: #d0d0d0;
+  background-color: #1d1d1d;
+  font-family: 'Roboto', sans-serif;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }

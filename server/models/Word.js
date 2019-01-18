@@ -1,46 +1,44 @@
 const mongoose = require('mongoose');
 
-// const definitionSchema = new mongoose.Schema({
-//     french: String,
-//     english: String,
-//     notes: String,
-//     phonetic: String,
-//     source: String,
-//     image: {
-//         type: String,
-//         default: ''
-//     },
-//     category: String,
-//     difficulty: String,
-//     sessions: [{
-//         _id: false,
-//         location: { type: String, default: '0' },
-//         session: {
-//             type: mongoose.Schema.Types.ObjectId,
-//             ref: 'Session'
-//         }
-//     }],
-//     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
-// });
-
 const wordSchema = new mongoose.Schema({
-    hebrew: String,
-    definition: String,
-    createdAt: Date,
-    lastEditedAt: Date,
+  hebrew: String,
+  french: String,
+  pronunciation: String,
+  type: String,
+  createdAt: Date,
+  lastEditedAt: Date,
+  videosId: [{
+    id: String,
+    subtitlesId: []
+  }]
 });
 
 wordSchema.index({
-        hebrew: 'text',
-        // english: 'text',
-        // french: 'text',
-    },
-    // {
-    //     weights: {
-    //         name: 5,
-    //     },
-    // }
+    hebrew: 'text',
+    // english: 'text',
+    // french: 'text',
+  },
+  // {
+  //     weights: {
+  //         name: 5,
+  //     },
+  // }
 );
+
+// wordSchema.pre('save', async function () {
+//   const self = this;
+//   // console.log(self.hebrew);
+//   await Word.count({
+//     hebrew: self.hebrew
+//   }, function (err, count) {
+//     // console.log(count);
+//     if (count == 0) {
+//       // console.log('Word does not exist', self.hebrew)
+//     } else {
+//       console.log('word exists: ', self.hebrew);
+//     }
+//   });
+// });
 
 const Word = mongoose.model('Word', wordSchema);
 

@@ -1,10 +1,18 @@
 <div class="header">
-    <a class="logo" routerLink="">Hebrew Words</a>
-    <nav>
-        <!-- <a routerLink="words" [routerLinkActive]="['is-active']">My Words</a>
+  <a class="logo" routerLink="">Hebrew Words</a>
+  <nav>
+    <!-- <a routerLink="words" [routerLinkActive]="['is-active']">My Words</a>
         <a [routerLink]="['/study', 'list']" [routerLinkActive]="['is-active']">My Sessions</a>
         <a [routerLink]="['/study', 'new']" [routerLinkActive]="['is-active']">New Session</a> -->
-        <a [routerLink]="['/videos']" [routerLinkActive]="['is-active']">Videos</a>
-        <a [routerLink]="['/videos', 'create']" [routerLinkActive]="['is-active']">Create Video</a>
-    </nav>
+    <a [routerLink]="['/videos']" [routerLinkActive]="['is-active']">Videos</a>
+    <a [routerLink]="['/videos', 'create']" [routerLinkActive]="['is-active']">Create Video</a>
+    <a [routerLink]="['/words']" [routerLinkActive]="['is-active']">Words</a>
+    <a [routerLink]="['/words/my-words']" [routerLinkActive]="['is-active']">My Words</a>
+    <a [routerLink]="['/login']" [routerLinkActive]="['is-active']">Login</a>
+    <a [routerLink]="['/signup']" [routerLinkActive]="['is-active']">Signup</a>
+  </nav>
+  <div style="flex: 1"></div>
+  <div *ngIf="currentUser" class="user">
+    {{ currentUser.firstName | titlecase}}
+  </div>
 </div>

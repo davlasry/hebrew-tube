@@ -18,8 +18,9 @@ import { AddNewWordComponent } from './shared/dialogs/add-new-word/add-new-word.
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { appReducers } from './app-state';
-import { VideoModule } from './video/video.module';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { UserModule } from './authentication/user.module';
 
 @NgModule({
   declarations: [
@@ -38,16 +39,22 @@ import { VideoModule } from './video/video.module';
   ],
   imports: [
     AppRoutingModule,
+    UserModule,
     BrowserModule,
     BrowserAnimationsModule,
     CoreModule,
     SharedModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
-    VideoModule,
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

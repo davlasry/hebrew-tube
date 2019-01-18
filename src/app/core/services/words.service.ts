@@ -1,19 +1,11 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class WordsService {
-
-  wordsSubject = new BehaviorSubject([]);
-  words$ = this.wordsSubject.asObservable();
-
-  constructor(
-    private http: HttpClient,
-  ) {
-    this.getWords();
-  }
+  constructor(private http: HttpClient) {}
 
   getWords() {
     return this.http.get<any[]>(`${environment.API_URL}/words`);
@@ -24,7 +16,7 @@ export class WordsService {
     return this.http.get<any>(`${environment.API_URL}/words/${id}`);
   }
 
-  addWord(word): Observable<any>  {
+  addWord(word): Observable<any> {
     return this.http.post<any>(`${environment.API_URL}/words`, word);
   }
 
@@ -37,7 +29,10 @@ export class WordsService {
       return selectedWord._id;
     });
     console.log(wordsIds);
-    return this.http.put<any>(`${environment.API_URL}/words/deleteMany`, wordsIds);
+    return this.http.put<any>(
+      `${environment.API_URL}/words/deleteMany`,
+      wordsIds
+    );
   }
 
   // Search Morfix translation
@@ -49,7 +44,8 @@ export class WordsService {
   // Find all words for a specific session
   getSessionWords(sessionId): Observable<any> {
     // console.log(sessionId);
-    return this.http.get<any>(`${environment.API_URL}/words/session-words/${sessionId}`);
+    return this.http.get<any>(
+      `${environment.API_URL}/words/session-words/${sessionId}`
+    );
   }
-
 }

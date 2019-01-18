@@ -1,6 +1,13 @@
 import { YoutubePlayerService } from 'src/app/core/services/youtube-player.service';
 import { YoutubeApiService } from './../../core/services/youtube-api.service';
-import { Component, OnInit, AfterContentInit, ViewChild, ElementRef, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterContentInit,
+  ViewChild,
+  ElementRef,
+  Input
+} from '@angular/core';
 import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
@@ -9,7 +16,6 @@ import { distinctUntilChanged } from 'rxjs/operators';
   styleUrls: ['./youtube.component.scss']
 })
 export class YoutubeComponent implements OnInit, AfterContentInit {
-
   @Input() video;
 
   @ViewChild('videoDiv') videoElem: ElementRef;
@@ -21,9 +27,7 @@ export class YoutubeComponent implements OnInit, AfterContentInit {
   videoWidth;
   videoHeight;
 
-  constructor(
-    private youtubePlayer: YoutubePlayerService
-  ) { }
+  constructor(private youtubePlayer: YoutubePlayerService) {}
 
   ngOnInit() {
     // console.log(this.videoElem.nativeElement.offsetWidth, this.videoElem.nativeElement.offsetHeight);
@@ -60,14 +64,19 @@ export class YoutubeComponent implements OnInit, AfterContentInit {
   }
 
   getVideoId(link) {
-    return link.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/)[1];
+    return link.match(
+      /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/
+    )[1];
   }
 
   createPlayer() {
     this.videoWidth = this.videoElem.nativeElement.offsetWidth;
     this.videoHeight = this.videoElem.nativeElement.offsetHeight;
-    // sconsole.log(this.videoWidth, this.videoHeight);
-    this.youtubePlayer.createPlayer(this.getVideoId(this.video.youtubeLink), this.videoWidth, this.videoHeight);
+    console.log(this.videoWidth, this.videoHeight);
+    this.youtubePlayer.createPlayer(
+      this.getVideoId(this.video.youtubeLink),
+      this.videoWidth,
+      this.videoHeight
+    );
   }
-
 }

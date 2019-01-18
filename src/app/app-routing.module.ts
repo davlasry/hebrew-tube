@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import { SignUpComponent } from './authentication/components/sign-up/sign-up.component';
+import { LogInComponent } from './authentication/components/log-in/log-in.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'words'},
+  { path: '', pathMatch: 'full', redirectTo: 'words' },
   { path: 'words', loadChildren: './words/words.module#WordsModule' },
   { path: 'study', loadChildren: './study/study.module#StudyModule' },
   { path: 'videos', loadChildren: './video/video.module#VideoModule' },
-  { path: '**', redirectTo: '' }
+  { path: 'login', component: LogInComponent },
+  { path: 'signup', component: SignUpComponent },
+  { path: '**', redirectTo: 'words' }
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule { }
-
+export class AppRoutingModule {}

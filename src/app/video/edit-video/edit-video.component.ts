@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { VideosService } from 'src/app/core/services/videos.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { startWith, map, filter } from 'rxjs/operators';
+import { WordsService } from 'src/app/core/services/words.service';
 
 @Component({
   selector: 'app-edit-video',
@@ -9,36 +12,109 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-video.component.scss']
 })
 export class EditVideoComponent implements OnInit {
-
   videoForm: FormGroup;
   video: any;
+
+  selectedSubtitle = 0;
+
+  filteredWords = [];
+
+  wordsList;
 
   constructor(
     private fb: FormBuilder,
     private videosService: VideosService,
     private router: Router,
     private route: ActivatedRoute,
-    // private store: Store<WordsState>
-  ) { }
+    private wordsService: WordsService // private store: Store<WordsState>
+  ) {}
 
   ngOnInit() {
+    this.getWords();
+
     this.getVideo();
+  }
+
+  get subtitlesForm(): FormArray {
+    return this.videoForm.get('subtitles') as FormArray;
+  }
+
+  getSubtitleFormGroup(i) {
+    return this.subtitlesForm['controls'][i];
+  }
+
+  getWordsFormArray(i): FormArray {
+    return this.getSubtitleFormGroup(i)['controls']['words'] as FormArray;
+  }
+
+  getWordFormGroup(i, j): FormGroup {
+    return this.getWordsFormArray(i)['controls'][j] as FormGroup;
+  }
+
+  getWords() {
+    this.wordsService.getWords().subscribe(result => {
+      this.wordsList = result;
+      console.log(this.wordsList);
+    });
+  }
+
+  addAutocompletion(subtitleIndex, wordIndex) {
+    if (!this.filteredWords[subtitleIndex]) {
+      this.filteredWords[subtitleIndex] = [];
+    }
+
+    this.filteredWords[subtitleIndex].push(
+      this.getWordFormGroup(subtitleIndex, wordIndex)['controls'][
+        'hebrew'
+      ].valueChanges.pipe(
+        startWith(
+          this.getWordFormGroup(subtitleIndex, wordIndex)['controls']['hebrew']
+            .value
+        ),
+        map(word => {
+          return word && word.length > 1 ? this._filterWords(word) : null;
+        })
+      )
+    );
+  }
+
+  onAutocompleteSelect(selectedWord, wordIndex) {
+    console.log(selectedWord, wordIndex);
+    const foundWord = this.wordsList.find(word => {
+      return word.hebrew === selectedWord;
+    });
+    console.log(foundWord);
+    this.getWordFormGroup(this.selectedSubtitle, wordIndex)['controls'][
+      'french'
+    ].patchValue(foundWord.french);
+    this.getWordFormGroup(this.selectedSubtitle, wordIndex)['controls'][
+      'pronunciation'
+    ].patchValue(foundWord.pronunciation);
+  }
+
+  deleteAutocompletion(i) {
+    this.filteredWords.splice(i, 1);
+  }
+
+  private _filterWords(value): any[] {
+    const filterValue = value.toLowerCase();
+
+    return this.wordsList.filter(word => {
+      return word.hebrew.toLowerCase().indexOf(filterValue) === 0;
+    });
   }
 
   getVideo(): void {
     const id: string = this.route.snapshot.paramMap.get('id');
-    // console.log(id);
     this.videosService.getVideo(id).subscribe(result => {
       console.log(result);
       this.video = result;
       this.initVideoForm();
-      // console.log(this.video.subtitles);
       this.setWords();
-      // console.log(this.videoForm.get('subtitles'));
     });
   }
 
-  initVideoForm () {
+  initVideoForm() {
     this.videoForm = this.fb.group({
       youtubeLink: [this.video.youtubeLink, [Validators.required]],
       createdAt: [this.video.createdAt],
@@ -52,7 +128,7 @@ export class EditVideoComponent implements OnInit {
     return this.fb.group({
       words: this.fb.array([]),
       startTime: [''],
-      endTime: [''],
+      endTime: ['']
     });
   }
 
@@ -60,114 +136,105 @@ export class EditVideoComponent implements OnInit {
     return this.fb.group({
       hebrew: [''],
       french: [''],
+      pronunciation: [''],
+      type: ['']
     });
-  }
-
-  get subtitlesForm() {
-    return this.videoForm.get('subtitles') as FormArray;
   }
 
   setWords() {
-    this.video.subtitles.forEach((subtitle, index) => {
+    this.video.subtitles.forEach((subtitle, subtitleIndex) => {
       // console.log(subtitle);
-      const subtitleControl = <FormArray>this.videoForm.get('subtitles');
-      subtitleControl.push(this.fb.group({
-        words: this.fb.array([]),
-        startTime: [subtitle.startTime],
-        endTime: [subtitle.endTime]
-      }));
-
-      // console.log(subtitleControl);
-      console.log(subtitleControl.controls[index]);
-
-      const subtitleFormGroup = subtitleControl.controls[index];
-
-      subtitle.words.forEach(word => {
-        // console.log(word);
-        const wordControl = <FormArray>subtitleFormGroup.get('words');
-        wordControl.push(this.fb.group({
-          hebrew: [word.hebrew],
-          french: [word.french]
-        }));
+      this.subtitlesForm.push(
+        this.fb.group({
+          words: this.fb.array([]),
+          startTime: [subtitle.startTime],
+          endTime: [subtitle.endTime]
+        })
+      );
+      subtitle.words.forEach((word, wordIndex) => {
+        this.getWordsFormArray(subtitleIndex).push(
+          this.fb.group({
+            hebrew: [word.hebrew],
+            french: [word.french],
+            pronunciation: [word.pronunciation],
+            type: [word.type]
+          })
+        );
+        // console.log(subtitleIndex, wordIndex);
+        this.addAutocompletion(subtitleIndex, wordIndex);
       });
-
-      // subtitleControl.controls.forEach(subtitleFormGroup => {
-      //   // console.log(subtitleFormGroup);
-      //   subtitle.words.forEach(word => {
-      //     // console.log(word);
-      //     const wordControl = <FormArray>subtitleFormGroup.get('words');
-      //     wordControl.push(this.fb.group({
-      //       hebrew: [word.hebrew],
-      //       french: [word.french]
-      //     }));
-      //   });
-      // });
     });
-    console.log(this.videoForm.value);
+    // console.log(this.videoForm.value);
   }
 
   addSubtitle() {
-    const control = <FormArray>this.videoForm.get('subtitles');
-    control.push(this.initSubtitle());
+    this.subtitlesForm.push(this.initSubtitle());
+    this.addWord(this.subtitlesForm.length - 1);
   }
 
-  addWord(j) {
-    console.log('add word');
-    // const wordGroup = this.fb.group({
-    //   hebrew: [''],
-    //   french: [''],
-    // });
-    const control = ((<FormArray>this.videoForm.controls['subtitles']).at(j).get('words') as FormArray);
-    control.push(this.initWord());
+  addWord(i) {
+    console.log(i);
+    this.getWordsFormArray(i).push(this.initWord());
+    console.log(this.getWordsFormArray(i)['controls'].length);
+    this.addAutocompletion(i, this.getWordsFormArray(i)['controls'].length - 1);
   }
 
   deleteSubtitle(i) {
-    (this.videoForm.controls['subtitles'] as FormArray).removeAt(i);
+    this.subtitlesForm.removeAt(i);
   }
 
   deleteWord(i, j) {
-    // console.log(i, j);
-    // console.log(this.subtitlesForm);
-    this.subtitlesForm.controls.forEach((subtitle: FormGroup) => {
-      // console.log(subtitle);
-      // console.log(subtitle.controls['words']);
-      (<FormArray>subtitle.controls['words'] as FormArray).removeAt(j);
-    });
-
+    this.getWordsFormArray(i).removeAt(j);
   }
 
-  moveWordUp(i, j) {
-    const wordControl = ((<FormArray>this.videoForm.controls['subtitles']).at(i).get('words') as FormArray);
-    console.log(i, j);
-    console.log(wordControl);
-    console.log(wordControl.controls[j]);
-    const word = wordControl.controls[j];
-    wordControl.removeAt(j);
-    wordControl.insert(j - 1, word);
+  onClickSubtitle(i) {
+    this.selectedSubtitle = i;
+    console.log(this.selectedSubtitle);
+  }
+
+  goPreviousSubtitle() {
+    if (this.selectedSubtitle > 0) {
+      this.selectedSubtitle--;
+    }
+  }
+
+  goNextSubtitle() {
+    if (this.selectedSubtitle < this.subtitlesForm.length) {
+      this.selectedSubtitle++;
+    }
   }
 
   moveWordDown(i, j) {
-    const wordControl = ((<FormArray>this.videoForm.controls['subtitles']).at(i).get('words') as FormArray);
+    const wordControl = this.subtitlesForm.at(i).get('words') as FormArray;
     const word = wordControl.controls[j];
+    const filteredWord = this.filteredWords[i][j];
     wordControl.removeAt(j);
+    this.filteredWords[i].splice(j, 1);
+    wordControl.insert(j - 1, word);
+    this.filteredWords[i].splice(j - 1, 0, filteredWord);
+  }
+
+  moveWordUp(i, j) {
+    const wordControl = this.subtitlesForm.at(i).get('words') as FormArray;
+    const word = wordControl.controls[j];
+    const filteredWord = this.filteredWords[i][j];
+    wordControl.removeAt(j);
+    this.filteredWords[i].splice(j, 1);
     wordControl.insert(j + 1, word);
+    this.filteredWords[i].splice(j + 1, 0, filteredWord);
   }
 
-
-  resetForm() {
-
-  }
+  resetForm() {}
 
   onSubmit() {
-    console.log(this.videoForm.get('youtubeLink'));
+    // console.log(this.videoForm.get('youtubeLink'));
     this.videoForm.patchValue({
-      lastEdit: Date.now(),
+      lastEdit: Date.now()
     });
     console.log(this.videoForm.value);
-    this.videosService.saveVideo(this.videoForm.value)
-      .subscribe( res => {
-        console.log(res);
-      });
+    this.videosService.saveVideo(this.videoForm.value).subscribe(res => {
+      console.log(res);
+    });
     // this.store.dispatch(new AddWord(this.wordForm.value));
     // this.router.navigateByUrl('/videos');
   }

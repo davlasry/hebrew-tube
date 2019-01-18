@@ -1,35 +1,26 @@
-import { VideosService } from './../../core/services/videos.service';
-import { Component, OnInit } from '@angular/core';
+import { VideosService } from "./../../core/services/videos.service";
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-videos',
-  templateUrl: './videos.component.html',
-  styleUrls: ['./videos.component.scss']
+  selector: "app-videos",
+  templateUrl: "./videos.component.html",
+  styleUrls: ["./videos.component.scss"]
 })
 export class VideosComponent implements OnInit {
-
   videos;
 
-  constructor(
-    private videosService: VideosService,
-  ) { }
+  constructor(private videosService: VideosService) {}
 
   ngOnInit() {
-    this.videosService.getVideos().subscribe( res => {
+    this.videosService.getVideos().subscribe(res => {
+      console.log(res);
       this.videos = res;
     });
   }
 
-  onClickCreateVideo() {
+  onClickCreateVideo() {}
 
-  }
+  onDeleteVideo(video) {}
 
-  onDeleteVideo(video) {
-
-  }
-
-  onEditVideo(video) {
-
-  }
-
+  onEditVideo(video) {}
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Store } from '@ngrx/store';
-import { WordsState } from 'src/app/words/state/words.reducer';
+import { WordsState } from 'src/app/words/state/words.reducers';
 import { EditWord } from 'src/app/words/state/words.actions';
 
 @Component({
@@ -11,20 +11,22 @@ import { EditWord } from 'src/app/words/state/words.actions';
   styleUrls: ['./edit-word-dialog.component.scss']
 })
 export class EditWordDialogComponent implements OnInit {
-
   wordForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EditWordDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    private store: Store<WordsState>,
-  ) { }
+    private store: Store<WordsState>
+  ) {}
 
   ngOnInit() {
     this.wordForm = this.fb.group({
-      hebrew: [this.data.word.hebrew, [Validators.required, Validators.pattern(/^[א-ת\s]+$/)]],
-      definitions: this.fb.array(this.setInitialDefinitions()),
+      hebrew: [
+        this.data.word.hebrew,
+        [Validators.required, Validators.pattern(/^[א-ת\s]+$/)]
+      ],
+      definitions: this.fb.array(this.setInitialDefinitions())
     });
   }
 
@@ -48,7 +50,7 @@ export class EditWordDialogComponent implements OnInit {
         french: [definition.french],
         english: [definition.english],
         phonetic: [definition.phonetic],
-        notes: [definition.notes],
+        notes: [definition.notes]
       });
     });
   }
@@ -58,7 +60,7 @@ export class EditWordDialogComponent implements OnInit {
       french: [''],
       english: [''],
       phonetic: [''],
-      notes: [''],
+      notes: ['']
     });
     this.definitionsForm.push(definitionGroup);
   }
@@ -66,6 +68,4 @@ export class EditWordDialogComponent implements OnInit {
   deleteDefinition(i) {
     this.definitionsForm.removeAt(i);
   }
-
-
 }

@@ -1,79 +1,101 @@
 .container {
-    padding: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: calc(100% - 40px);
+  box-sizing: content-box;
+
+  .header {
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: calc(100% - 40px);
-    box-sizing: content-box;
-    .header {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        .video-title {
-          font-size: 20px;
-        }
+    margin-bottom: 20px;
+
+    .video-title {
+      font-size: 20px;
     }
-    .video {
-        width: 100%;
-        flex: 1;
-    }
-    .subtitles-buttons {
-        display: flex;
-        flex-direction: row;
-        min-height: 36px;
-        width: 100%;
-    }
-    .subtitles {
-        padding-top: 40px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        min-height: 100px;
-        .sentence {
-            display: flex;
-            flex-direction: row-reverse;
-            justify-content: center;
-            align-items: center;
-            padding: 10px 50px;
-            background-color: grey;
-            .word {
-                display: inline-block;
-                position: relative;
-                margin: 20px 20px;
-                cursor: pointer;
-                font-size: 30px;
-                &:hover {
-                    text-decoration: underline dotted blue;
-                }
-                .definition {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    position: absolute;
-                    border: 1px solid white;
-                    padding: 10px;
-                    bottom: 50px;
-                    left: 50%;
-                    margin-left: -100px;
-                    background-color: white;
-                    color: black;
-                    width: 200px;
-                    font-size: 18px;
-                }
-            }
+  }
+
+  .video {
+    width: 100%;
+    flex: 1;
+  }
+
+  .subtitles-buttons {
+    display: flex;
+    flex-direction: row;
+    min-height: 36px;
+    width: 100%;
+  }
+
+  .subtitles {
+    padding-top: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100px;
+    overflow: hidden;
+
+    .sentence {
+      min-width: 60%;
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 20px;
+      background-color: grey;
+
+      .word {
+        display: inline-block;
+        position: relative;
+        margin: 0 10px;
+        cursor: pointer;
+        font-size: 30px;
+
+        &:hover {
+          text-decoration: underline dotted blue;
         }
-        /deep/ .mat-raised-button.mat-warn[disabled],
-        .mat-raised-button[disabled][disabled] {
-            background-color: white;
+
+        .definition {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          border: 1px solid white;
+          padding: 10px;
+          bottom: 50px;
+          left: 50%;
+          margin-left: -100px;
+          background-color: white;
+          color: black;
+          width: 200px;
+          font-size: 18px;
         }
-        button {
-            margin: 0 30px;
-        }
+      }
     }
+
+    /deep/ .mat-raised-button.mat-warn[disabled],
+    .mat-raised-button[disabled] {
+      background-color: white;
+    }
+
+    button {
+      margin: 0 10px;
+      max-width: 33px;
+
+      &.loop-btn {
+        background-color: grey;
+      }
+
+      &.activated {
+        background-color: blue;
+      }
+    }
+  }
 }

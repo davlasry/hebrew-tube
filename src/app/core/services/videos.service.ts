@@ -5,10 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class VideosService {
-
-  constructor(
-    private http: HttpClient,
-  ) { }
+  constructor(private http: HttpClient) {}
 
   getVideos(): Observable<any[]> {
     return this.http.get<any[]>(`${environment.API_URL}/videos`);
@@ -24,7 +21,10 @@ export class VideosService {
   }
 
   saveVideo(video): Observable<any> {
-    return this.http.patch<any>(`${environment.API_URL}/videos/${video._id}`, video);
+    return this.http.patch<any>(
+      `${environment.API_URL}/videos/${video._id}`,
+      video
+    );
   }
 
   deleteVideo(videoId): Observable<any> {

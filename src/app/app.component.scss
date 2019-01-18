@@ -1,11 +1,17 @@
 .container {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    .router-container {
-        flex: 1;
-        overflow: auto;
-    }
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  /deep/ .mat-raised-button.mat-warn[disabled],
+  .mat-raised-button[disabled] {
+    background-color: white;
+  }
+
+  .router-container {
+    flex: 1;
+    overflow: auto;
+  }
 }

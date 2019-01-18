@@ -3,7 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Store } from '@ngrx/store';
-import { WordsState } from 'src/app/words/state/words.reducer';
+import { WordsState } from 'src/app/words/state/words.reducers';
 import { AddWord } from 'src/app/words/state/words.actions';
 
 @Component({
@@ -12,7 +12,6 @@ import { AddWord } from 'src/app/words/state/words.actions';
   styleUrls: ['./add-new-word.component.scss']
 })
 export class AddNewWordComponent implements OnInit {
-
   wordForm: FormGroup;
 
   constructor(
@@ -21,13 +20,13 @@ export class AddNewWordComponent implements OnInit {
     private wordsService: WordsService,
     @Inject(MAT_DIALOG_DATA) public data,
     private store: Store<WordsState>
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.wordForm = this.fb.group({
       hebrew: ['', [Validators.required, Validators.pattern(/^[א-ת\s]+$/)]],
       createdAt: [''],
-      definitions: this.fb.array([]),
+      definitions: this.fb.array([])
     });
     this.addDefinition();
   }
@@ -41,7 +40,7 @@ export class AddNewWordComponent implements OnInit {
       french: [''],
       english: [''],
       phonetic: [''],
-      notes: [''],
+      notes: ['']
     });
     this.definitionsForm.push(definitionGroup);
   }
@@ -54,9 +53,7 @@ export class AddNewWordComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  resetForm() {
-
-  }
+  resetForm() {}
 
   onSubmit() {
     console.log(this.wordForm.value);
@@ -66,5 +63,4 @@ export class AddNewWordComponent implements OnInit {
     this.store.dispatch(new AddWord(this.wordForm.value));
     this.dialogRef.close();
   }
-
 }

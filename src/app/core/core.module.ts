@@ -7,11 +7,11 @@ import { YoutubePlayerService } from './services/youtube-player.service';
 import { YoutubeApiService } from './services/youtube-api.service';
 import { SessionsService } from './services/sessions.service';
 import { VideosService } from './services/videos.service';
+import { UsersService } from './services/users.service';
+import { JwtService } from './services/jwt.service';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   declarations: [],
   providers: [
     WordsService,
@@ -19,7 +19,9 @@ import { VideosService } from './services/videos.service';
     YoutubePlayerService,
     LayoutService,
     SessionsService,
-    VideosService
-]
+    VideosService,
+    UsersService,
+    JwtService
+  ]
 })
-export class CoreModule { }
+export class CoreModule {}
