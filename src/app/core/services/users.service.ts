@@ -72,6 +72,7 @@ export class UsersService {
   }
 
   getWordsByUser(userId) {
+    console.log(userId);
     return this.http.get<any>(`${environment.API_URL}/users/words/${userId}`);
   }
 }

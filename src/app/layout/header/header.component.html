@@ -10,6 +10,7 @@
     <a [routerLink]="['/words/my-words']" [routerLinkActive]="['is-active']">My Words</a>
     <a [routerLink]="['/login']" [routerLinkActive]="['is-active']">Login</a>
     <a [routerLink]="['/signup']" [routerLinkActive]="['is-active']">Signup</a>
+    <a (click)="onClickSignout()">Logout</a>
   </nav>
   <div style="flex: 1"></div>
   <div *ngIf="currentUser" class="user">

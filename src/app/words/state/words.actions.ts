@@ -31,6 +31,8 @@ export class AddWord implements Action {
 
 export class LoadMyWords implements Action {
   readonly type = LOAD_MY_WORDS;
+
+  constructor(public payload: any) {}
 }
 
 export class LoadMyWordsSuccess implements Action {

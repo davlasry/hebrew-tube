@@ -11,13 +11,17 @@ import {
 } from './words.actions';
 import { UsersService } from 'src/app/core/services/users.service';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { ApplicationState } from 'src/app/app-state';
+import { getUser } from 'src/app/authentication/state/user.selectors';
 
 @Injectable()
 export class WordsEffects {
   constructor(
     private actions$: Actions,
     private wordsService: WordsService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private store: Store<ApplicationState>
   ) {}
 
   @Effect()
@@ -33,15 +37,12 @@ export class WordsEffects {
 
   @Effect()
   getMyWords$ = this.actions$.ofType(LOAD_MY_WORDS).pipe(
-    withLatestFrom(this.usersService.currentUser$, (action, currentUser) => {
-      // console.log(currentUser);
-      return currentUser;
-    }),
-    map(myWords => new LoadMyWordsSuccess(myWords))
-    // switchMap(currentUser =>
-    //   this.usersService
-    //     .getWordsByUser(currentUser)
-    //     .pipe(map(data => map(myWords => new LoadMyWordsSuccess(myWords))))
-    // )
+    switchMap((action: LoadWordsSuccess) => {
+      return this.usersService.getWordsByUser(action.payload).pipe(
+        map(myWords => {
+          return new LoadMyWordsSuccess(myWords);
+        })
+      );
+    })
   );
 }

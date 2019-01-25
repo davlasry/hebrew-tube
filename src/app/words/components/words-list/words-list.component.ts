@@ -49,13 +49,14 @@ export class WordsListComponent implements OnInit, OnDestroy, OnChanges {
   ) {}
 
   ngOnInit() {
-    console.log('hellooooooo');
     // TO DO: add to store
-    this.usersService.currentUser$.subscribe(
-      user => (this.currentUserId = user._id)
-    );
+    this.usersService.currentUser$.subscribe(user => {
+      if (user) {
+        this.currentUserId = user._id;
+      }
+    });
 
-    this.store.dispatch(new LoadMyWords());
+    this.store.dispatch(new LoadMyWords(this.currentUserId));
 
     this.myWords$ = this.store.pipe(select(getMyWords));
   }
@@ -70,7 +71,9 @@ export class WordsListComponent implements OnInit, OnDestroy, OnChanges {
     console.log(word);
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       // width: '250px',
-      data: { words: [word] }
+      data: {
+        words: [word]
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -88,7 +91,9 @@ export class WordsListComponent implements OnInit, OnDestroy, OnChanges {
   onEditWord(word) {
     const dialogRef = this.dialog.open(EditWordDialogComponent, {
       // width: '250px',
-      data: { word }
+      data: {
+        word
+      }
     });
   }
 
