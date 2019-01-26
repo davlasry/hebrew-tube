@@ -1,20 +1,15 @@
-import {
-  MetaReducer,
-  createSelector,
-  createFeatureSelector
-} from '@ngrx/store';
-import { storeFreeze } from 'ngrx-store-freeze';
+import { createSelector } from '@ngrx/store';
 
-import * as wordsList from './words.actions';
+import * as myWordsList from './myWords.actions';
 
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 // WORD STATE INTERFACE
-export interface WordsState extends EntityState<any> {
+export interface MyWordsState extends EntityState<any> {
   entities: { [id: string]: any };
   ids: string[];
-  loading: Boolean;
-  loaded: Boolean;
+  myWordsLoading: Boolean;
+  myWordsLoaded: Boolean;
 }
 
 // NGRX/ENTITY
@@ -23,31 +18,35 @@ export const adapter: EntityAdapter<any> = createEntityAdapter<any>({
 });
 
 // INITIAL WORDS STATE
-export const INITIAL_WORDS_STATE: WordsState = adapter.getInitialState({
+export const INITIAL_MY_WORDS_STATE: MyWordsState = adapter.getInitialState({
   entites: {},
   ids: [],
-  loading: false,
-  loaded: false
+  myWordsLoading: false,
+  myWordsLoaded: false
 });
 
 // WORDS REDUCER
-export function wordsReducer(
-  state: WordsState = INITIAL_WORDS_STATE,
-  action: wordsList.Actions
-): WordsState {
+export function myWordsReducer(
+  state: MyWordsState = INITIAL_MY_WORDS_STATE,
+  action: myWordsList.Actions
+): MyWordsState {
   switch (action.type) {
-    case wordsList.LOAD_WORDS: {
-      return Object.assign({}, state, {
-        loading: true
+    case myWordsList.LOAD_MY_WORDS_SUCCESS: {
+      // console.log(action.payload);
+      return adapter.addAll(action.payload, {
+        ...state,
+        myWordsLoading: false,
+        myWordsLoaded: true
       });
     }
 
-    case wordsList.LOAD_WORDS_SUCCESS: {
-      return adapter.addAll(action.payload, {
-        ...state,
-        loading: false,
-        loaded: true
-      });
+    case myWordsList.ADD_TO_MY_WORDS: {
+      return adapter.addOne(action.payload, state);
+    }
+
+    case myWordsList.DELETE_FROM_MY_WORDS: {
+      // console.log(action.payload);
+      return adapter.removeOne(action.payload._id, state);
     }
 
     default: {
@@ -64,9 +63,9 @@ export const {
   selectTotal
 } = adapter.getSelectors();
 
-export const getEntities = (state: WordsState) => state.entities;
+export const getEntities = (state: MyWordsState) => state.entities;
 
-export const getIds = (state: WordsState) => state.ids;
+export const getIds = (state: MyWordsState) => state.ids;
 
 // export const getSelectedId = (state: WordsState) => state.selectedBookId;
 

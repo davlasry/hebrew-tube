@@ -6,14 +6,15 @@
         <a [routerLink]="['/study', 'new']" [routerLinkActive]="['is-active']">New Session</a> -->
     <a [routerLink]="['/videos']" [routerLinkActive]="['is-active']">Videos</a>
     <a [routerLink]="['/videos', 'create']" [routerLinkActive]="['is-active']">Create Video</a>
-    <a [routerLink]="['/words']" [routerLinkActive]="['is-active']">Words</a>
-    <a [routerLink]="['/words/my-words']" [routerLinkActive]="['is-active']">My Words</a>
+    <a [routerLink]="['/words/list']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:true}">Words</a>
+    <a [routerLink]="['/words/my-words']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:true}">My
+      Words</a>
     <a [routerLink]="['/login']" [routerLinkActive]="['is-active']">Login</a>
     <a [routerLink]="['/signup']" [routerLinkActive]="['is-active']">Signup</a>
     <a (click)="onClickSignout()">Logout</a>
   </nav>
   <div style="flex: 1"></div>
   <div *ngIf="currentUser" class="user">
-    {{ currentUser.firstName | titlecase}}
+    {{ currentUser?.firstName | titlecase}}
   </div>
 </div>

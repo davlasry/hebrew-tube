@@ -1,17 +1,16 @@
-import { SessionsListComponent } from './sessions-list/sessions-list.component';
-import { YoutubeComponent } from './youtube/youtube.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SessionsListComponent } from './sessions-list/sessions-list.component';
+import { YoutubeComponent } from './youtube/youtube.component';
 import { StudyComponent } from './study.component';
 import { NewSessionComponent } from './new-session/new-session.component';
-
 
 const routes: Routes = [
   {
     path: '',
     component: StudyComponent,
     children: [
-      {path: '', redirectTo: 'list', pathMatch: 'full'},
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
       {
         path: 'youtube/:id',
         component: YoutubeComponent
@@ -23,7 +22,7 @@ const routes: Routes = [
       {
         path: 'new',
         component: NewSessionComponent
-      },
+      }
       // {
       //   path: 'edit/:id',
       //   component: EditRecipeComponent
@@ -37,8 +36,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forChild(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
-export class StudyRoutingModule { }
-
+export class StudyRoutingModule {}

@@ -3,15 +3,13 @@
 </h1>
 
 <div class="container">
-  <div *ngFor="let word of words$ | async" class="words">
+  <div *ngFor="let word of words; trackBy: trackById;" class="words">
     <div>
       {{ word.hebrew }} - {{ word.french }}
     </div>
     <div class="favorite-btn">
-      <mat-icon (click)="addToFavorite(word)">favorite_border</mat-icon>
-    </div>
-    <div class="favorite-btn">
-      <mat-icon (click)="addToFavorite(word)">favorite</mat-icon>
+      <mat-icon (click)="onAddToMyWords(word)" *ngIf="!checkIfWordInMyWords(word._id)">favorite_border</mat-icon>
+      <mat-icon (click)="onDeleteFromMyWords(word)" *ngIf="checkIfWordInMyWords(word._id)">favorite</mat-icon>
     </div>
   </div>
 </div>

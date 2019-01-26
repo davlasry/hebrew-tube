@@ -1,28 +1,22 @@
-import {
-  MetaReducer,
-  createSelector,
-  createFeatureSelector
-} from '@ngrx/store';
-import { storeFreeze } from 'ngrx-store-freeze';
-
 import * as userActions from './user.actions';
 
 // import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-
-// USER STATE INTERFACE
-// export interface UserState extends EntityState<any> {
-//   user: any;
-//   loggedIn: Boolean;
-// }
-export interface UserState {
-  user: any;
-  loggedIn: Boolean;
-}
 
 // // NGRX/ENTITY
 // export const adapter: EntityAdapter<any> = createEntityAdapter<any>({
 //   selectId: user => user._id
 // });
+
+// export interface UserState extends EntityState<any> {
+//   user: any;
+//   loggedIn: Boolean;
+// }
+
+// USER STATE INTERFACE
+export interface UserState {
+  user: any;
+  loggedIn: Boolean;
+}
 
 // INITIAL USER STATE
 export const INITIAL_USER_STATE: UserState = {
@@ -37,7 +31,7 @@ export function userReducer(
 ): UserState {
   switch (action.type) {
     case userActions.LOAD_USER:
-      console.log('LOAD USER');
+      // console.log('LOAD USER');
       return Object.assign({}, state, {
         loggedIn: true
       });
@@ -47,12 +41,6 @@ export function userReducer(
         loggedIn: true,
         user: action.payload
       });
-
-    // case user.LOAD_USER_SUCCESS:
-    //   return adapter.addAll(action.payload, {
-    //     ...state,
-    //     loggedIn: true
-    //   });
 
     default: {
       return state;

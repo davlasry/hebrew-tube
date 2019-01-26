@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/core/services/users.service';
+import { Store, select } from '@ngrx/store';
+import { getUser } from 'src/app/authentication/state/user.selectors';
+import { UserState } from 'src/app/authentication/state/user.reducers';
 
 @Component({
   selector: 'app-header',
@@ -9,17 +12,19 @@ import { UsersService } from 'src/app/core/services/users.service';
 export class HeaderComponent implements OnInit {
   currentUser;
 
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private store: Store<UserState>
+  ) {}
 
   ngOnInit() {
     this.getCurrentUser();
   }
 
   getCurrentUser() {
-    this.usersService.currentUser$.subscribe(currentUser => {
-      console.log(currentUser);
-      this.currentUser = currentUser;
-    });
+    this.store
+      .pipe(select(getUser))
+      .subscribe(user => (this.currentUser = user));
   }
 
   onClickSignout() {

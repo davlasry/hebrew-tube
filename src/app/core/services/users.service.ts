@@ -20,7 +20,7 @@ export class UsersService {
   }
 
   logIn(logInForm) {
-    console.log(logInForm);
+    // console.log(logInForm);
     return this.http.post<any>(`${environment.API_URL}/auth/login`, logInForm);
   }
 
@@ -31,9 +31,9 @@ export class UsersService {
   }
 
   signUp(signUpForm) {
-    console.log(signUpForm.value);
+    // console.log(signUpForm.value);
     signUpForm.value.role = 'admin';
-    console.log(signUpForm.value);
+    // console.log(signUpForm.value);
     return this.http.post<any>(`${environment.API_URL}/auth`, signUpForm.value);
   }
 
@@ -54,7 +54,7 @@ export class UsersService {
   }
 
   updateUser(recipeId, userDetails) {
-    console.log(userDetails);
+    // console.log(userDetails);
     return this.http.patch<any>(
       `${environment.API_URL}/users/words/${recipeId}`,
       userDetails
@@ -63,8 +63,8 @@ export class UsersService {
 
   addWordToFavorite(wordToAdd) {
     const userId = this.currentUserSubject.value._id;
-    console.log(userId);
-    console.log(wordToAdd);
+    // console.log(userId);
+    // console.log(wordToAdd);
     return this.http.patch(
       `${environment.API_URL}/users/addWord/${userId}`,
       wordToAdd
@@ -72,7 +72,7 @@ export class UsersService {
   }
 
   getWordsByUser(userId) {
-    console.log(userId);
+    // console.log(userId);
     return this.http.get<any>(`${environment.API_URL}/users/words/${userId}`);
   }
 }

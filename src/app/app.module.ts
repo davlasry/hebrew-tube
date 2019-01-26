@@ -21,6 +21,9 @@ import { appReducers } from './app-state';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { UserModule } from './authentication/user.module';
+import { WordsEffects } from './words/state/words.effects';
+import { MyWordsEffects } from './words/state/myWords.effects';
+import { UserEffects } from './authentication/state/user.effects';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,7 @@ import { UserModule } from './authentication/user.module';
     CoreModule,
     SharedModule,
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([WordsEffects, MyWordsEffects, UserEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [

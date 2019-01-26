@@ -26,26 +26,7 @@ export class UserEffects {
   ) {}
 
   @Effect()
-  getUser$ = this.actions$.ofType(LOAD_USER).pipe(
-    mapTo(new LoadUserSuccess(this.jwtService.currentUser))
-    // switchMap(() => {
-    //   console.log('effect');
-    //   return this.jwtService.currentUser.pipe(
-    //     map(user => {
-    //       console.log(user);
-    //       return new LoadUserSuccess(user);
-    //     })
-    //   );
-    //   // catchError(error => new LoadWordsFail(error));
-    // })
-  );
-
-  // @Effect()
-  // getMyWords$ = this.actions$.ofType(LOAD_MY_WORDS).pipe(
-  //   withLatestFrom(this.usersService.currentUser$, (action, currentUser) => {
-  //     console.log(currentUser);
-  //     return currentUser;
-  //   }),
-  //   map(myWords => new LoadMyWordsSuccess(myWords))
-  // );
+  getUser$ = this.actions$
+    .ofType(LOAD_USER)
+    .pipe(mapTo(new LoadUserSuccess(this.jwtService.currentUser)));
 }

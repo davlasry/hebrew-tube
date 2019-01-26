@@ -33,15 +33,13 @@ export class AppComponent implements OnInit {
       .pipe(select(getLoggedIn))
       .pipe(take(1))
       .subscribe(loggedIn => {
-        console.log(loggedIn);
+        // console.log(loggedIn);
         if (!loggedIn) {
           this.store.dispatch(new LoadUser());
         }
       });
-    this.store.pipe(select(getUser)).subscribe(user => console.log(user));
+    // this.store.pipe(select(getUser)).subscribe(user => console.log(user));
 
-    this.usersService
-      .getCurrentUserDetail()
-      .subscribe(user => console.log(user));
+    this.usersService.getCurrentUserDetail().subscribe(user => null);
   }
 }

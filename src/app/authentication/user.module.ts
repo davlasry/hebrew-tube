@@ -13,9 +13,9 @@ import { CoreModule } from '../core/core.module';
   imports: [
     CoreModule,
     SharedModule,
-    CommonModule,
-    StoreModule.forFeature('user', userReducer),
-    EffectsModule.forFeature([UserEffects])
+    CommonModule
+    // StoreModule.forFeature('user', userReducer),
+    // EffectsModule.forFeature([UserEffects])
   ],
   declarations: [SignUpComponent, LogInComponent]
 })
