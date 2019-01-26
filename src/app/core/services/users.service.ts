@@ -7,27 +7,15 @@ import { JwtService } from './jwt.service';
 
 @Injectable()
 export class UsersService {
-  private loggedInSubject = new BehaviorSubject<Boolean>(false);
-  public loggedIn = this.loggedInSubject.asObservable();
-
-  private currentUserSubject = new BehaviorSubject<any>({});
-  public currentUser$ = this.currentUserSubject
-    .asObservable()
-    .pipe(distinctUntilChanged());
-
-  constructor(private http: HttpClient, private jwtService: JwtService) {
-    this.setCurrentUser();
-  }
+  constructor(private http: HttpClient, private jwtService: JwtService) {}
 
   logIn(logInForm) {
-    // console.log(logInForm);
+    console.log(logInForm);
     return this.http.post<any>(`${environment.API_URL}/auth/login`, logInForm);
   }
 
   logOut() {
     this.jwtService.destroyToken();
-    this.setLoggedInValue(false);
-    this.setCurrentUser();
   }
 
   signUp(signUpForm) {
@@ -35,14 +23,6 @@ export class UsersService {
     signUpForm.value.role = 'admin';
     // console.log(signUpForm.value);
     return this.http.post<any>(`${environment.API_URL}/auth`, signUpForm.value);
-  }
-
-  setLoggedInValue(value) {
-    this.loggedInSubject.next(value);
-  }
-
-  setCurrentUser() {
-    this.currentUserSubject.next(this.jwtService.currentUser);
   }
 
   getCurrentUserDetail() {
@@ -61,8 +41,7 @@ export class UsersService {
     );
   }
 
-  addToMyWords(wordToAdd) {
-    const userId = this.currentUserSubject.value._id;
+  addToMyWords(wordToAdd, userId) {
     // console.log(userId);
     console.log(wordToAdd);
     return this.http.patch(
@@ -71,8 +50,7 @@ export class UsersService {
     );
   }
 
-  deleteFromMyWords(wordToDelete) {
-    const userId = this.currentUserSubject.value._id;
+  deleteFromMyWords(wordToDelete, userId) {
     // console.log(userId);
     console.log(wordToDelete);
     return this.http.patch(
@@ -82,7 +60,7 @@ export class UsersService {
   }
 
   getWordsByUser(userId) {
-    // console.log(userId);
+    console.log(userId);
     return this.http.get<any>(`${environment.API_URL}/users/words/${userId}`);
   }
 }

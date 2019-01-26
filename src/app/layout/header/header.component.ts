@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  OnChanges,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { UsersService } from 'src/app/core/services/users.service';
 import { Store, select } from '@ngrx/store';
 import {
@@ -10,32 +18,23 @@ import { UserState } from 'src/app/authentication/state/user.reducers';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit {
-  currentUser;
-  isLoggedIn: Boolean;
+export class HeaderComponent implements OnInit, OnChanges {
+  @Input() currentUser: any;
+  @Input() isLoggedIn: Boolean;
 
-  constructor(
-    private usersService: UsersService,
-    private store: Store<UserState>
-  ) {}
+  @Output() signOut = new EventEmitter();
 
-  ngOnInit() {
-    this.getCurrentUser();
+  constructor(private usersService: UsersService) {}
 
-    this.store
-      .pipe(select(getLoggedIn))
-      .subscribe(loggedIn => (this.isLoggedIn = loggedIn));
-  }
+  ngOnInit() {}
 
-  getCurrentUser() {
-    this.store
-      .pipe(select(getUser))
-      .subscribe(user => (this.currentUser = user));
-  }
+  ngOnChanges() {}
 
   onClickSignout() {
+    this.signOut.emit();
     this.usersService.logOut();
   }
 }

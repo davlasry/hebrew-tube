@@ -7,7 +7,6 @@ import { ProfileComponent } from './authentication/components/profile/profile.co
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  // { path: 'words', loadChildren: './words/words.module#WordsModule' },
   { path: 'study', loadChildren: './study/study.module#StudyModule' },
   { path: 'videos', loadChildren: './video/video.module#VideoModule' },
   { path: 'login', component: LogInComponent },

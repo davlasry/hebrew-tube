@@ -12,7 +12,7 @@
     <a (click)="onClickSignout()" *ngIf="isLoggedIn">Logout</a>
   </nav>
   <div style="flex: 1"></div>
-  <div *ngIf="currentUser" class="user">
+  <div *ngIf="isLoggedIn" class="user">
     <a [routerLink]="['/profile']">{{ currentUser?.firstName | titlecase}}</a>
   </div>
 </div>

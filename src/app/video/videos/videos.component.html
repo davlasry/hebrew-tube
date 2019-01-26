@@ -1,27 +1,27 @@
 <div class="container">
-    <div class="header">
-        <h1>My Videos</h1>
+  <div class="header">
+    <h1>My Videos</h1>
 
-        <a [routerLink]="['.', 'create']">
-            <button mat-raised-button (click)="onClickCreateVideo()">
-              <mat-icon>add</mat-icon>
-              Create a Video
-            </button>
+    <a [routerLink]="['.', 'create']">
+      <button mat-raised-button>
+        <mat-icon>add</mat-icon>
+        Create a Video
+      </button>
+    </a>
+  </div>
+  <div *ngIf="videos">
+    <div class="video" *ngFor="let video of videos">
+      <div class="video-info">
+        <a [routerLink]="['/videos', video._id]">{{video.name}}</a>
+        <p>{{video.createdAt | date}}</p>
+        <p>{{video.youtubeLink}}</p>
+      </div>
+      <div class="video-buttons">
+        <a [routerLink]="['/videos', 'edit', video._id]">
+          <button mat-raised-button color="primary">Edit</button>
         </a>
+        <button mat-raised-button color="warn">Delete</button>
+      </div>
     </div>
-    <div *ngIf="videos">
-        <div class="video" *ngFor="let video of videos">
-            <div class="video-info">
-                <a [routerLink]="['/videos', video._id]">{{video.name}}</a>
-                <p>{{video.createdAt | date}}</p>
-                <p>{{video.youtubeLink}}</p>
-            </div>
-            <div class="video-buttons">
-                <a [routerLink]="['/videos', 'edit', video._id]">
-                    <button mat-raised-button color="primary">Edit</button>
-                </a>
-                <button mat-raised-button color="warn" (click)="onDeleteVideo(video)">Delete</button>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>

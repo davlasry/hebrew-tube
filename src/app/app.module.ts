@@ -21,8 +21,6 @@ import { appReducers } from './app-state';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { UserModule } from './authentication/user.module';
-import { WordsEffects } from './words/state/words.effects';
-import { MyWordsEffects } from './words/state/myWords.effects';
 import { UserEffects } from './authentication/state/user.effects';
 import { WordsModule } from './words/words.module';
 import { HomeComponent } from './layout/home/home.component';

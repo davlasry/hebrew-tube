@@ -15,7 +15,6 @@ import {
   DeleteFromMyWordsSuccess
 } from './myWords.actions';
 import { Observable } from 'rxjs';
-import { Action } from '@ngrx/store';
 
 @Injectable()
 export class MyWordsEffects {
@@ -24,6 +23,7 @@ export class MyWordsEffects {
   @Effect()
   getMyWords$ = this.actions$.ofType(LOAD_MY_WORDS).pipe(
     switchMap((action: LoadMyWordsSuccess) => {
+      console.log(action.payload);
       return this.usersService.getWordsByUser(action.payload).pipe(
         map(myWords => {
           return new LoadMyWordsSuccess(myWords);
@@ -36,8 +36,8 @@ export class MyWordsEffects {
   addToMyWords$: Observable<any> = this.actions$.ofType(ADD_TO_MY_WORDS).pipe(
     switchMap((action: AddToMyWords) => {
       const payload = action.payload;
-      // console.log(action.payload);
-      return this.usersService.addToMyWords(payload).pipe(
+      console.log(action.payload);
+      return this.usersService.addToMyWords(payload.word, payload.userId).pipe(
         map(myWords => {
           return new AddToMyWordsSuccess(myWords);
         })
@@ -45,18 +45,18 @@ export class MyWordsEffects {
     })
   );
 
-  @Effect()
-  deleteFromMyWords$: Observable<any> = this.actions$
-    .ofType(DELETE_FROM_MY_WORDS)
-    .pipe(
-      switchMap((action: DeleteFromMyWords) => {
-        const payload = action.payload;
-        console.log(payload);
-        return this.usersService.deleteFromMyWords(payload).pipe(
-          map(myWords => {
-            return new DeleteFromMyWordsSuccess(myWords);
-          })
-        );
-      })
-    );
+  // @Effect()
+  // deleteFromMyWords$: Observable<any> = this.actions$
+  //   .ofType(DELETE_FROM_MY_WORDS)
+  //   .pipe(
+  //     switchMap((action: DeleteFromMyWords) => {
+  //       const payload = action.payload;
+  //       console.log(payload);
+  //       return this.usersService.deleteFromMyWords(payload).pipe(
+  //         map(myWords => {
+  //           return new DeleteFromMyWordsSuccess(myWords);
+  //         })
+  //       );
+  //     })
+  //   );
 }

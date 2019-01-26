@@ -99,22 +99,28 @@ router.patch('/deleteWord/:userId', (req, res, next) => {
 // GET words for one user
 router.get('/words/:userId', (req, res, next) => {
   const id = req.params.userId;
-  // console.log(id);
-  User
-    .findById(id)
-    // .sort('-createdAt')
-    .populate('words')
-    .exec()
-    .then(user => {
-      // console.log(user);
-      res.status(200).json(user.words);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
+  console.log(id !== 'undefined');
+  if (id !== 'undefined') {
+    User
+      .findById(id)
+      // .sort('-createdAt')
+      .populate('words')
+      .exec()
+      .then(user => {
+        // console.log(user);
+        res.status(200).json(user.words);
       })
-    });
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        })
+      });
+  } else {
+    res.status(500).json({
+      error: 'err'
+    })
+  }
 });
 
 module.exports = router;

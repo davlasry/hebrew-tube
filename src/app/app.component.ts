@@ -3,10 +3,14 @@ import { JwtService } from './core/services/jwt.service';
 import { UsersService } from './core/services/users.service';
 import { ApplicationState } from './app-state';
 import { Store, select } from '@ngrx/store';
-import { LoadUser } from './authentication/state/user.actions';
+import {
+  LoadUser,
+  LoadUserSuccess,
+  UserSignOut
+} from './authentication/state/user.actions';
 import { take } from 'rxjs/operators';
 import { getLoggedIn, getUser } from './authentication/state/user.selectors';
-import { LoadWords } from './words/state/words.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -14,32 +18,30 @@ import { LoadWords } from './words/state/words.actions';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  currentUser$: Observable<any>;
+  isLoggedIn$: Observable<Boolean>;
+
   constructor(
     private jwtService: JwtService,
-    private usersService: UsersService,
     private store: Store<ApplicationState>
   ) {}
 
   ngOnInit() {
+    this.currentUser$ = this.store.select(getUser);
+    this.isLoggedIn$ = this.store.select(getLoggedIn);
+
     if (this.jwtService.getToken() && !this.jwtService.checkIfTokenExpired()) {
-      this.usersService.setLoggedInValue(true);
+      const userDetails = this.jwtService.decodeToken(
+        this.jwtService.getToken()
+      );
+      // console.log(this.jwtService.decodeToken(this.jwtService.getToken()));
+      this.store.dispatch(new LoadUserSuccess(userDetails));
     }
+  }
 
-    // console.log(LoadWords);
-
-    // console.log(LoadUser);
-
-    this.store
-      .pipe(select(getLoggedIn))
-      .pipe(take(1))
-      .subscribe(loggedIn => {
-        // console.log(loggedIn);
-        if (!loggedIn) {
-          this.store.dispatch(new LoadUser());
-        }
-      });
-    // this.store.pipe(select(getUser)).subscribe(user => console.log(user));
-
-    this.usersService.getCurrentUserDetail().subscribe(user => null);
+  signOut(): void {
+    console.log('SIGN OUT');
+    this.jwtService.destroyToken();
+    this.store.dispatch(new UserSignOut());
   }
 }

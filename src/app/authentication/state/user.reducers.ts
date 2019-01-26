@@ -30,16 +30,16 @@ export function userReducer(
   action: userActions.Actions
 ): UserState {
   switch (action.type) {
-    case userActions.LOAD_USER:
-      // console.log('LOAD USER');
-      return Object.assign({}, state, {
-        loggedIn: true
-      });
-
     case userActions.LOAD_USER_SUCCESS:
       return Object.assign({}, state, {
         loggedIn: true,
         user: action.payload
+      });
+
+    case userActions.USER_SIGN_OUT:
+      return Object.assign({}, state, {
+        loggedIn: false,
+        user: {}
       });
 
     default: {

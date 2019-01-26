@@ -4,13 +4,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { VideoComponent } from './video/video.component';
 import { EditVideoComponent } from './edit-video/edit-video.component';
-
-
+import { VideosContainerComponent } from './videos-container/videos-container.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: VideosComponent
+    component: VideosContainerComponent
   },
   {
     path: 'create',
@@ -23,36 +22,34 @@ const routes: Routes = [
   {
     path: ':id',
     component: VideoComponent
-  },
-    // children: [
-    //   // {path: '', redirectTo: 'list', pathMatch: 'full'},
-    //   {
-    //     path: 'create',
-    //     component: CreateVideoComponent
-    //   },
-    //   {
-    //     path: 'create',
-    //     component: AddWordComponent
-    //   },
-      // {
-      //   path: 'my-recipes',
-      //   component: MyRecipesComponent
-      // },
-      // {
-      //   path: 'edit/:id',
-      //   component: EditRecipeComponent
-      // },
-    //   {
-    //     path: ':id',
-    //     component: WordComponent
-    //   }
-    // ]
-
+  }
+  // children: [
+  //   // {path: '', redirectTo: 'list', pathMatch: 'full'},
+  //   {
+  //     path: 'create',
+  //     component: CreateVideoComponent
+  //   },
+  //   {
+  //     path: 'create',
+  //     component: AddWordComponent
+  //   },
+  // {
+  //   path: 'my-recipes',
+  //   component: MyRecipesComponent
+  // },
+  // {
+  //   path: 'edit/:id',
+  //   component: EditRecipeComponent
+  // },
+  //   {
+  //     path: ':id',
+  //     component: WordComponent
+  //   }
+  // ]
 ];
 
 @NgModule({
-  imports: [ RouterModule.forChild(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
-export class VideoRoutingModule { }
-
+export class VideoRoutingModule {}

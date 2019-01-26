@@ -10,6 +10,9 @@ import {
 import { Router } from '@angular/router';
 import { JwtService } from 'src/app/core/services/jwt.service';
 import { UsersService } from 'src/app/core/services/users.service';
+import { Store } from '@ngrx/store';
+import { UserState } from '../../state/user.reducers';
+import { LoadUser } from '../../state/user.actions';
 
 @Component({
   selector: 'app-log-in',
@@ -17,7 +20,7 @@ import { UsersService } from 'src/app/core/services/users.service';
   styleUrls: ['./log-in.component.scss']
 })
 export class LogInComponent implements OnInit {
-  logInForm: FormGroup;
+  loginForm: FormGroup;
 
   serverError: String;
 
@@ -26,12 +29,11 @@ export class LogInComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private jwtService: JwtService,
-    private usersService: UsersService
+    private store: Store<UserState>
   ) {}
 
   ngOnInit() {
-    this.logInForm = this.fb.group({
+    this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
       password: ['', Validators.required],
       rememberMe: [false]
@@ -39,24 +41,24 @@ export class LogInComponent implements OnInit {
   }
 
   get email(): AbstractControl {
-    return this.logInForm.get('email');
+    return this.loginForm.get('email');
   }
   get password(): AbstractControl {
-    return this.logInForm.get('password');
+    return this.loginForm.get('password');
   }
 
   login() {
-    this.usersService.logIn(this.logInForm.value).subscribe(
-      res => {
-        this.jwtService.saveToken(res.token);
-        this.usersService.setLoggedInValue(true);
-        this.usersService.setCurrentUser();
-        this.router.navigateByUrl('profile');
-      },
-      err => {
-        this.serverError = err.error.msg;
-        console.log(err);
-      }
-    );
+    console.log('LOG IN');
+    this.store.dispatch(new LoadUser(this.loginForm.value));
+    // this.usersService.logIn(this.logInForm.value).subscribe(
+    //   res => {
+    //     this.jwtService.saveToken(res.token);
+    //     this.router.navigateByUrl('profile');
+    //   },
+    //   err => {
+    //     this.serverError = err.error.msg;
+    //     console.log(err);
+    //   }
+    // );
   }
 }
