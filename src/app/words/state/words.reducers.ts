@@ -1,18 +1,12 @@
-import {
-  MetaReducer,
-  createSelector,
-  createFeatureSelector
-} from '@ngrx/store';
-import { storeFreeze } from 'ngrx-store-freeze';
+import { createSelector } from '@ngrx/store';
 
 import * as wordsList from './words.actions';
 
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 // WORD STATE INTERFACE
-export interface WordsState extends EntityState<any> {
-  entities: { [id: string]: any };
-  ids: string[];
+export interface AllWordsState extends EntityState<any> {
+  entities: { [id: number]: any };
   loading: Boolean;
   loaded: Boolean;
 }
@@ -23,18 +17,17 @@ export const adapter: EntityAdapter<any> = createEntityAdapter<any>({
 });
 
 // INITIAL WORDS STATE
-export const INITIAL_WORDS_STATE: WordsState = adapter.getInitialState({
-  entites: {},
-  ids: [],
+export const INITIAL_ALL_WORDS_STATE: AllWordsState = adapter.getInitialState({
+  entities: {},
   loading: false,
   loaded: false
 });
 
 // WORDS REDUCER
-export function wordsReducer(
-  state: WordsState = INITIAL_WORDS_STATE,
+export function allWordsReducer(
+  state: AllWordsState = INITIAL_ALL_WORDS_STATE,
   action: wordsList.Actions
-): WordsState {
+): AllWordsState {
   switch (action.type) {
     case wordsList.LOAD_WORDS: {
       return Object.assign({}, state, {
@@ -64,11 +57,15 @@ export const {
   selectTotal
 } = adapter.getSelectors();
 
-export const getEntities = (state: WordsState) => state.entities;
-
-export const getIds = (state: WordsState) => state.ids;
-
-// export const getSelectedId = (state: WordsState) => state.selectedBookId;
+export const getAllWordsLoading = (state: AllWordsState) => {
+  // console.log(state);
+  return state.loading;
+};
+export const getAllWordsLoaded = (state: AllWordsState) => {
+  // console.log(state);
+  return state.loaded;
+};
+export const getAllWords = (state: AllWordsState) => state.entities;
 
 // export const getSelected = createSelector(
 //   getEntities,
@@ -78,13 +75,13 @@ export const getIds = (state: WordsState) => state.ids;
 //   }
 // );
 
-export const getAll = createSelector(
-  getEntities,
-  getIds,
-  (entities, ids) => {
-    return ids.map(id => entities[id]);
-  }
-);
+// export const getAll = createSelector(
+//   getEntities,
+//   getIds,
+//   (entities, ids) => {
+//     return ids.map(id => entities[id]);
+//   }
+// );
 
 // export const metaReducers: MetaReducer<ApplicationState>[] =
 //   !environment.production ? [storeFreeze] : [];

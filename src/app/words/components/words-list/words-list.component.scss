@@ -1,6 +1,12 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
 .container {
   margin-top: 20px;
   width: 100%;
+  overflow: auto;
 
   .header {
     display: flex;

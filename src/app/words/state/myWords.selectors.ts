@@ -1,31 +1,28 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { MyWordsState, selectAll, selectEntities } from './myWords.reducers';
+import { createSelector } from '@ngrx/store';
+import * as fromMyWords from './myWords.reducers';
+import { getWordsState, WordsState } from '.';
 
-export const getMyWordsState = createFeatureSelector<any>('myWords');
-
+export const getMyWordsState = createSelector(
+  getWordsState,
+  (state: WordsState) => state.myWords
+);
 export const getMyWords = createSelector(
   getMyWordsState,
-  selectAll
+  fromMyWords.selectAll
 );
 export const getMyWordsEntities = createSelector(
   getMyWordsState,
-  selectEntities
+  fromMyWords.selectEntities
+);
+export const getMyWordsIds = createSelector(
+  getMyWordsState,
+  fromMyWords.selectIds
 );
 export const getMyWordsLoading = createSelector(
   getMyWordsState,
-  (state: MyWordsState) => state.myWordsLoading
+  fromMyWords.getMyWordsLoading
 );
 export const getMyWordsLoaded = createSelector(
   getMyWordsState,
-  (state: MyWordsState) => state.myWordsLoaded
+  fromMyWords.getMyWordsLoaded
 );
-// export const getWordById = (id: string) => {
-//   createSelector(
-//     getWordsEntities,
-//     words => words[id]
-//   );
-// };
-
-// export const isWordInMyWords = createSelector(getCollectionBookIds, , (ids, selected) => {
-//   return ids.indexOf(selected) > -1;
-// });

@@ -25,6 +25,7 @@
       color: inherit;
       font-size: 14px;
       font-weight: bold;
+      cursor: pointer;
 
       &:hover {
         color: #ff3a7d;
@@ -38,5 +39,9 @@
 
   .user {
     cursor: pointer;
+
+    a {
+      color: white;
+    }
   }
 }

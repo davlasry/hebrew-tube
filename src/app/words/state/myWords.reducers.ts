@@ -6,10 +6,9 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 // WORD STATE INTERFACE
 export interface MyWordsState extends EntityState<any> {
-  entities: { [id: string]: any };
-  ids: string[];
-  myWordsLoading: Boolean;
-  myWordsLoaded: Boolean;
+  entities: { [id: number]: any };
+  loading: Boolean;
+  loaded: Boolean;
 }
 
 // NGRX/ENTITY
@@ -19,10 +18,9 @@ export const adapter: EntityAdapter<any> = createEntityAdapter<any>({
 
 // INITIAL WORDS STATE
 export const INITIAL_MY_WORDS_STATE: MyWordsState = adapter.getInitialState({
-  entites: {},
-  ids: [],
-  myWordsLoading: false,
-  myWordsLoaded: false
+  entities: {},
+  loading: false,
+  loaded: false
 });
 
 // WORDS REDUCER
@@ -41,11 +39,13 @@ export function myWordsReducer(
     }
 
     case myWordsList.ADD_TO_MY_WORDS: {
+      console.log(action.payload);
       return adapter.addOne(action.payload, state);
     }
 
     case myWordsList.DELETE_FROM_MY_WORDS: {
-      // console.log(action.payload);
+      console.log(action.payload);
+      // console.log(state);
       return adapter.removeOne(action.payload._id, state);
     }
 
@@ -63,11 +63,9 @@ export const {
   selectTotal
 } = adapter.getSelectors();
 
-export const getEntities = (state: MyWordsState) => state.entities;
-
-export const getIds = (state: MyWordsState) => state.ids;
-
-// export const getSelectedId = (state: WordsState) => state.selectedBookId;
+export const getMyWords = (state: MyWordsState) => state.entities;
+export const getMyWordsLoading = (state: MyWordsState) => state.loading;
+export const getMyWordsLoaded = (state: MyWordsState) => state.loaded;
 
 // export const getSelected = createSelector(
 //   getEntities,
@@ -77,13 +75,13 @@ export const getIds = (state: MyWordsState) => state.ids;
 //   }
 // );
 
-export const getAll = createSelector(
-  getEntities,
-  getIds,
-  (entities, ids) => {
-    return ids.map(id => entities[id]);
-  }
-);
+// export const getAll = createSelector(
+//   getEntities,
+//   getIds,
+//   (entities, ids) => {
+//     return ids.map(id => entities[id]);
+//   }
+// );
 
 // export const metaReducers: MetaReducer<ApplicationState>[] =
 //   !environment.production ? [storeFreeze] : [];

@@ -1,20 +1,18 @@
 <div class="header">
   <a class="logo" routerLink="">Hebrew Words</a>
   <nav>
-    <!-- <a routerLink="words" [routerLinkActive]="['is-active']">My Words</a>
-        <a [routerLink]="['/study', 'list']" [routerLinkActive]="['is-active']">My Sessions</a>
-        <a [routerLink]="['/study', 'new']" [routerLinkActive]="['is-active']">New Session</a> -->
-    <a [routerLink]="['/videos']" [routerLinkActive]="['is-active']">Videos</a>
-    <a [routerLink]="['/videos', 'create']" [routerLinkActive]="['is-active']">Create Video</a>
+    <a [routerLink]="['/videos']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:true}">Videos</a>
+    <a [routerLink]="['/videos', 'create']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:true}">Create
+      Video</a>
     <a [routerLink]="['/words/list']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:true}">Words</a>
     <a [routerLink]="['/words/my-words']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:true}">My
       Words</a>
-    <a [routerLink]="['/login']" [routerLinkActive]="['is-active']">Login</a>
-    <a [routerLink]="['/signup']" [routerLinkActive]="['is-active']">Signup</a>
-    <a (click)="onClickSignout()">Logout</a>
+    <a [routerLink]="['/login']" [routerLinkActive]="['is-active']" *ngIf="!isLoggedIn">Login</a>
+    <a [routerLink]="['/signup']" [routerLinkActive]="['is-active']" *ngIf="!isLoggedIn">Signup</a>
+    <a (click)="onClickSignout()" *ngIf="isLoggedIn">Logout</a>
   </nav>
   <div style="flex: 1"></div>
   <div *ngIf="currentUser" class="user">
-    {{ currentUser?.firstName | titlecase}}
+    <a [routerLink]="['/profile']">{{ currentUser?.firstName | titlecase}}</a>
   </div>
 </div>

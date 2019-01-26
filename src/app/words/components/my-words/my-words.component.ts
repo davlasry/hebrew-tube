@@ -1,29 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { UsersService } from 'src/app/core/services/users.service';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  SimpleChanges,
+  OnChanges,
+  Input,
+  ViewChild
+} from '@angular/core';
+import { MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-my-words',
   templateUrl: './my-words.component.html',
-  styleUrls: ['./my-words.component.scss']
+  styleUrls: ['./my-words.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MyWordsComponent implements OnInit {
-  currentUserId;
-  currentUserWords;
+export class MyWordsComponent implements OnInit, OnChanges {
+  @Input() myWords;
 
-  dataSource;
+  @ViewChild(MatSort) sort: MatSort;
 
+  dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['hebrew', 'french', 'pronunciation', 'type'];
 
-  constructor(private usersService: UsersService) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.usersService.currentUser$.subscribe(
-      user => (this.currentUserId = user._id)
-    );
-    this.usersService.getWordsByUser(this.currentUserId).subscribe(words => {
-      this.currentUserWords = words;
-      this.dataSource = words;
-      console.log(this.currentUserWords);
-    });
+  ngOnInit() {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.myWords.length > 0) {
+      this.dataSource = new MatTableDataSource(this.myWords);
+      this.dataSource.sort = this.sort;
+    }
   }
 }

@@ -24,6 +24,9 @@ import { UserModule } from './authentication/user.module';
 import { WordsEffects } from './words/state/words.effects';
 import { MyWordsEffects } from './words/state/myWords.effects';
 import { UserEffects } from './authentication/state/user.effects';
+import { WordsModule } from './words/words.module';
+import { HomeComponent } from './layout/home/home.component';
+import { ProfileComponent } from './authentication/components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,9 @@ import { UserEffects } from './authentication/state/user.effects';
     DeleteDialogComponent,
     DeleteSessionDialogComponent,
     EditWordDialogComponent,
-    AddNewWordComponent
+    AddNewWordComponent,
+    HomeComponent,
+    ProfileComponent
   ],
   entryComponents: [
     DeleteDialogComponent,
@@ -46,9 +51,10 @@ import { UserEffects } from './authentication/state/user.effects';
     BrowserModule,
     BrowserAnimationsModule,
     CoreModule,
+    WordsModule,
     SharedModule,
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([WordsEffects, MyWordsEffects, UserEffects]),
+    EffectsModule.forRoot([UserEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [

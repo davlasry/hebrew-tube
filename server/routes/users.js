@@ -73,6 +73,29 @@ router.patch('/addWord/:userId', (req, res, next) => {
     });
 })
 
+// PATCH Add word to favorite
+router.patch('/deleteWord/:userId', (req, res, next) => {
+  const userId = req.params.userId;
+  const wordId = req.body._id;
+  console.log(wordId);
+  User.update({
+      _id: userId
+    }, {
+      $pull: {
+        words: wordId,
+      }
+    })
+    .exec()
+    .then(result => {
+      res.status(200).json(result)
+
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+})
+
 // GET words for one user
 router.get('/words/:userId', (req, res, next) => {
   const id = req.params.userId;

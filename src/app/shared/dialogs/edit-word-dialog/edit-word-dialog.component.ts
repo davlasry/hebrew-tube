@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Store } from '@ngrx/store';
-import { WordsState } from 'src/app/words/state/words.reducers';
 import { EditWord } from 'src/app/words/state/words.actions';
 
 @Component({
@@ -17,7 +16,7 @@ export class EditWordDialogComponent implements OnInit {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EditWordDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    private store: Store<WordsState>
+    private store: Store<any>
   ) {}
 
   ngOnInit() {

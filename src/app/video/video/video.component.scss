@@ -45,6 +45,7 @@
     .sentence {
       min-width: 60%;
       display: flex;
+      flex-wrap: wrap;
       flex-direction: row-reverse;
       justify-content: center;
       align-items: center;

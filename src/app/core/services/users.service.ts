@@ -61,13 +61,23 @@ export class UsersService {
     );
   }
 
-  addWordToFavorite(wordToAdd) {
+  addToMyWords(wordToAdd) {
     const userId = this.currentUserSubject.value._id;
     // console.log(userId);
-    // console.log(wordToAdd);
+    console.log(wordToAdd);
     return this.http.patch(
       `${environment.API_URL}/users/addWord/${userId}`,
       wordToAdd
+    );
+  }
+
+  deleteFromMyWords(wordToDelete) {
+    const userId = this.currentUserSubject.value._id;
+    // console.log(userId);
+    console.log(wordToDelete);
+    return this.http.patch(
+      `${environment.API_URL}/users/deleteWord/${userId}`,
+      wordToDelete
     );
   }
 

@@ -3,7 +3,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Store } from '@ngrx/store';
-import { WordsState } from 'src/app/words/state/words.reducers';
 import { AddWord } from 'src/app/words/state/words.actions';
 
 @Component({
@@ -17,9 +16,8 @@ export class AddNewWordComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AddNewWordComponent>,
-    private wordsService: WordsService,
     @Inject(MAT_DIALOG_DATA) public data,
-    private store: Store<WordsState>
+    private store: Store<any>
   ) {}
 
   ngOnInit() {
