@@ -5,7 +5,9 @@
       <button mat-raised-button color="primary">EDIT</button>
     </a>
   </div>
-  <div class="video"><app-youtube [video]="video"></app-youtube></div>
+  <div class="video">
+    <app-youtube [video]="video"></app-youtube>
+  </div>
 
   <!-- <div class="subtitles-buttons">
         <div>
@@ -21,25 +23,16 @@
       </button>
     </div>
     <div>
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="selectedSentence === 0"
-        (click)="onClickPrevious()"
-      >
+      <button mat-raised-button color="primary" [disabled]="selectedSentence === 0" (click)="onClickPrevious()">
         <mat-icon>chevron_left</mat-icon>
       </button>
     </div>
     <div class="sentence">
-      <div
-        class="word"
-        *ngFor="
+      <div class="word" *ngFor="
           let word of video.subtitles[selectedSentence].words;
           let i = index
         "
-        (mouseover)="showDefinition(i)"
-        (mouseout)="showDefinition(null)"
-      >
+        (click)="onClickWord(word)" (mouseover)="showDefinition(i)" (mouseout)="showDefinition(null)">
         <span>{{ word.hebrew }}</span>
         <div class="definition" *ngIf="i === definitionShowed && word.french">
           {{ word.french }}
@@ -51,23 +44,12 @@
       </div>
     </div>
     <div>
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="selectedSentence === video.subtitles.length - 1"
-        (click)="onClickNext()"
-      >
+      <button mat-raised-button color="primary" [disabled]="selectedSentence === video.subtitles.length - 1" (click)="onClickNext()">
         <mat-icon>chevron_right</mat-icon>
       </button>
     </div>
     <div>
-      <button
-        mat-raised-button
-        color="primary"
-        class="loop-btn"
-        (click)="onClickLoop()"
-        [class.activated]="loopActivated"
-      >
+      <button mat-raised-button color="primary" class="loop-btn" (click)="onClickLoop()" [class.activated]="loopActivated">
         <mat-icon>loop</mat-icon>
       </button>
     </div>

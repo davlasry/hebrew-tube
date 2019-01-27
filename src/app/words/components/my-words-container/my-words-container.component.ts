@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { MyWordsState } from '../../state/myWords.reducers';
 import { Store, select } from '@ngrx/store';
-import { getMyWords } from '../../state/myWords.selectors';
+import { getAllMyWords } from '../../state/myWords.selectors';
 
 @Component({
   selector: 'app-my-words-container',
@@ -21,7 +21,7 @@ export class MyWordsContainerComponent implements OnInit, OnChanges {
   constructor(private store: Store<MyWordsState>) {}
 
   ngOnInit() {
-    this.myWords$ = this.store.pipe(select(getMyWords));
+    this.myWords$ = this.store.pipe(select(getAllMyWords));
   }
 
   ngOnChanges(changes: SimpleChanges): void {

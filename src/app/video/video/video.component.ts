@@ -11,6 +11,10 @@ import { interval, Observable, Subscription } from 'rxjs';
 import { takeWhile, distinctUntilChanged } from 'rxjs/operators';
 import { YoutubePlayerService } from 'src/app/core/services/youtube-player.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { ViewWordDialogComponent } from 'src/app/shared/dialogs/view-word/view-word.component';
+import { Store } from '@ngrx/store';
+import { getUser } from 'src/app/authentication/state/user.selectors';
 
 @Component({
   selector: 'app-video',
@@ -19,6 +23,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
   @ViewChild('videoDiv') videoElem: ElementRef;
+
+  currentUserId;
 
   definitionShowed = null;
 
@@ -48,7 +54,9 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
   constructor(
     private youtubePlayer: YoutubePlayerService,
     private route: ActivatedRoute,
-    private videosService: VideosService
+    private videosService: VideosService,
+    public dialog: MatDialog,
+    private store: Store<any>
   ) {}
 
   ngOnInit() {
@@ -60,6 +68,10 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
         // console.log('Player Ready: ', res);
         this.isPlayerReady = res;
       });
+
+    this.store
+      .select(getUser)
+      .subscribe(user => (this.currentUserId = user._id));
 
     this.youtubePlayer.youtubePlayerState$.subscribe(state => {
       console.log(`State: ${state}`);
@@ -105,6 +117,20 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
       console.log(result);
       this.video = result;
       this.inputUrl = this.video.youtubeLink;
+    });
+  }
+
+  onClickWord(word): void {
+    const dialogRef = this.dialog.open(ViewWordDialogComponent, {
+      minWidth: '60%',
+      // minHeight: '400px',
+      height: '60%',
+      data: { word, userId: this.currentUserId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
     });
   }
 

@@ -4,7 +4,6 @@ import { VideoComponent } from './video/video.component';
 import { VideoRoutingModule } from './video.routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { CreateVideoComponent } from './create-video/create-video.component';
-import { VideosComponent } from './videos/videos.component';
 import { EditVideoComponent } from './edit-video/edit-video.component';
 import { YoutubeComponent } from './youtube/youtube.component';
 import { StoreModule } from '@ngrx/store';
@@ -13,6 +12,8 @@ import { videosReducer } from './state/videos.reducers';
 import { VideosEffects } from './state/videos.effects';
 import { VideosContainerComponent } from './videos-container/videos-container.component';
 import { WordsModule } from '../words/words.module';
+import { VideosComponent } from './videos-list/videos.component';
+import { VideosListContainerComponent } from './videos-list-container/videos-list-container.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { WordsModule } from '../words/words.module';
     VideosComponent,
     EditVideoComponent,
     YoutubeComponent,
-    VideosContainerComponent
+    VideosContainerComponent,
+    VideosListContainerComponent
   ]
 })
 export class VideoModule {}

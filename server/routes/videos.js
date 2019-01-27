@@ -30,7 +30,7 @@ router.get('/:videoId', (req, res, next) => {
   Video.findById(id)
     .exec()
     .then(video => {
-      // console.log(video);
+      console.log(video);
       res.status(200).json(video);
     })
     .catch(err => {
@@ -107,7 +107,8 @@ router.patch('/:videoId', (req, res, next) => {
           })
           wordToAdd.videosId.push(videoId);
           wordToAdd.videosId[0].subtitlesId.push(index);
-          wordToAdd.save((err, mod) => {
+          wordToAdd.save((err, word) => {
+            console.log(word);
             inCb(null)
           });
         }
@@ -116,8 +117,6 @@ router.patch('/:videoId', (req, res, next) => {
       cb(null);
     })
   }, (err) => console.log('Done'))
-
-
 
   Video
     .update({
@@ -139,13 +138,6 @@ router.patch('/:videoId', (req, res, next) => {
       console.log(err);
       res.status(500).json(err);
     });
-
-
-  const word = new Word({
-    hebrew: 'hebrew',
-    french: 'french'
-  })
-
 });
 
 // Delete a video

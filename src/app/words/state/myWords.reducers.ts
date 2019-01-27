@@ -2,7 +2,7 @@ import * as myWordsList from './myWords.actions';
 
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-// WORD STATE INTERFACE
+// MYWORDS STATE INTERFACE
 export interface MyWordsState extends EntityState<any> {
   entities: { [id: number]: any };
   loading: Boolean;
@@ -14,14 +14,14 @@ export const adapter: EntityAdapter<any> = createEntityAdapter<any>({
   selectId: word => word._id
 });
 
-// INITIAL WORDS STATE
+// INITIAL MYWORDS STATE
 export const INITIAL_MY_WORDS_STATE: MyWordsState = adapter.getInitialState({
   entities: {},
   loading: false,
   loaded: false
 });
 
-// WORDS REDUCER
+// MYWORDS REDUCER
 export function myWordsReducer(
   state: MyWordsState = INITIAL_MY_WORDS_STATE,
   action: myWordsList.Actions
@@ -36,6 +36,7 @@ export function myWordsReducer(
     }
 
     case myWordsList.ADD_TO_MY_WORDS: {
+      console.log(action.payload);
       return adapter.addOne(action.payload.word, state);
     }
 
@@ -61,22 +62,6 @@ export const {
 export const getMyWords = (state: MyWordsState) => state.entities;
 export const getMyWordsLoading = (state: MyWordsState) => state.loading;
 export const getMyWordsLoaded = (state: MyWordsState) => state.loaded;
-
-// export const getSelected = createSelector(
-//   getEntities,
-//   getSelectedId,
-//   (entities, selectedId) => {
-//     return entities[selectedId];
-//   }
-// );
-
-// export const getAll = createSelector(
-//   getEntities,
-//   getIds,
-//   (entities, ids) => {
-//     return ids.map(id => entities[id]);
-//   }
-// );
 
 // export const metaReducers: MetaReducer<ApplicationState>[] =
 //   !environment.production ? [storeFreeze] : [];

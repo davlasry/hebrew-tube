@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { getAllWords } from '../../state/words.selectors';
 import { AddToMyWords, DeleteFromMyWords } from '../../state/myWords.actions';
-import { getMyWords } from '../../state/myWords.selectors';
 import { WordsState } from '../../state';
 import { getUser } from 'src/app/authentication/state/user.selectors';
+import { getAllMyWords } from '../../state/myWords.selectors';
 
 @Component({
   selector: 'app-words-list-container',
@@ -21,7 +21,7 @@ export class WordsListContainerComponent implements OnInit {
   constructor(private store: Store<any>) {}
 
   ngOnInit() {
-    this.myWords$ = this.store.pipe(select(getMyWords));
+    this.myWords$ = this.store.pipe(select(getAllMyWords));
 
     this.words$ = this.store.pipe(select(getAllWords));
     // this.words$.subscribe(words => console.log(words));

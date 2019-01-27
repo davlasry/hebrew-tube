@@ -26,12 +26,14 @@ import { WordsModule } from './words/words.module';
 import { HomeComponent } from './layout/home/home.component';
 import { ProfileComponent } from './authentication/components/profile/profile.component';
 import { CustomPreloading } from './custom-preloading';
+import { ViewWordDialogComponent } from './shared/dialogs/view-word/view-word.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     DeleteDialogComponent,
+    ViewWordDialogComponent,
     DeleteSessionDialogComponent,
     EditWordDialogComponent,
     AddNewWordComponent,
@@ -42,6 +44,7 @@ import { CustomPreloading } from './custom-preloading';
     DeleteDialogComponent,
     DeleteSessionDialogComponent,
     EditWordDialogComponent,
+    ViewWordDialogComponent,
     AddNewWordComponent
   ],
   imports: [

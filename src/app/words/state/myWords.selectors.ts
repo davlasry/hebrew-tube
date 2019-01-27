@@ -6,7 +6,7 @@ export const getMyWordsState = createSelector(
   getWordsState,
   (state: WordsState) => state.myWords
 );
-export const getMyWords = createSelector(
+export const getAllMyWords = createSelector(
   getMyWordsState,
   fromMyWords.selectAll
 );
