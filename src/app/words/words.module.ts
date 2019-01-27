@@ -30,7 +30,8 @@ import { MyWordsContainerComponent } from './components/my-words-container/my-wo
     WordComponent,
     WordsComponent,
     MyWordsComponent,
-    MyWordsContainerComponent
+    MyWordsContainerComponent,
+    WordsComponent
   ]
 })
 export class WordsModule {}
