@@ -27,9 +27,7 @@ export class MyWordsEffects {
       return this.usersService.getWordsByUser(action.payload).pipe(
         map(myWords => {
           console.log(myWords);
-          if (myWords) {
-            return new LoadMyWordsSuccess(myWords);
-          }
+          return new LoadMyWordsSuccess(myWords);
         })
       );
     })

@@ -11,7 +11,7 @@ const routes: Routes = [
     path: 'words',
     component: WordsComponent,
     children: [
-      // { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
       {
         path: 'list',
         component: WordsListContainerComponent
@@ -23,10 +23,6 @@ const routes: Routes = [
       // {
       //   path: 'create',
       //   component: AddWordComponent
-      // },
-      // {
-      //   path: 'my-recipes',
-      //   component: MyRecipesComponent
       // },
       // {
       //   path: 'edit/:id',

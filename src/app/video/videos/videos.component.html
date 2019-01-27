@@ -9,12 +9,13 @@
       </button>
     </a>
   </div>
-  <div *ngIf="videos">
+  <div *ngIf="!isVideosLoaded">Loading...</div>
+  <div *ngIf="isVideosLoaded">
     <div class="video" *ngFor="let video of videos">
       <div class="video-info">
-        <a [routerLink]="['/videos', video._id]">{{video.name}}</a>
-        <p>{{video.createdAt | date}}</p>
-        <p>{{video.youtubeLink}}</p>
+        <a [routerLink]="['/videos', video._id]">{{ video.name }}</a>
+        <p>{{ video.createdAt | date }}</p>
+        <p>{{ video.youtubeLink }}</p>
       </div>
       <div class="video-buttons">
         <a [routerLink]="['/videos', 'edit', video._id]">

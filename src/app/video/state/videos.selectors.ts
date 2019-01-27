@@ -17,11 +17,11 @@ export const getVideosIds = createSelector(
   getVideoState,
   fromVideos.selectIds
 );
-export const getVideosLoading = createSelector(
+export const getIsVideosLoading = createSelector(
   getVideoState,
   fromVideos.getVideosLoading
 );
-export const getVideosLoaded = createSelector(
+export const getIsVideosLoaded = createSelector(
   getVideoState,
   fromVideos.getVideosLoaded
 );

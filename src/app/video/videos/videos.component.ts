@@ -11,6 +11,7 @@ import { getVideos } from '../state/videos.reducers';
 })
 export class VideosComponent implements OnInit {
   @Input() videos;
+  @Input() isVideosLoaded;
 
   constructor() {}
 

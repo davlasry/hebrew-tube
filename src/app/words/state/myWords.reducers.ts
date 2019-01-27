@@ -28,29 +28,20 @@ export function myWordsReducer(
 ): MyWordsState {
   switch (action.type) {
     case myWordsList.LOAD_MY_WORDS_SUCCESS: {
-      console.log(!!action.payload[0]);
-      if (!(action.payload.word == [null])) {
-        return adapter.addAll(action.payload, {
-          ...state,
-          myWordsLoading: false,
-          myWordsLoaded: true
-        });
-      }
+      return adapter.addAll(action.payload, {
+        ...state,
+        myWordsLoading: false,
+        myWordsLoaded: true
+      });
     }
 
     case myWordsList.ADD_TO_MY_WORDS: {
-      console.log(action.payload);
-      if (!(action.payload.word == [null])) {
-        return adapter.addOne(action.payload.word, state);
-      }
+      return adapter.addOne(action.payload.word, state);
     }
 
     case myWordsList.DELETE_FROM_MY_WORDS: {
       console.log(action.payload);
-      // console.log(state);
-      if (!(action.payload.word == [null])) {
-        return adapter.removeOne(action.payload.word._id, state);
-      }
+      return adapter.removeOne(action.payload.word._id, state);
     }
 
     default: {

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadVideos } from '../state/videos.actions';
 import { Observable } from 'rxjs';
-import { VideosState, getVideosLoaded } from '../state/videos.reducers';
+import { VideosState } from '../state/videos.reducers';
 import { Store, select } from '@ngrx/store';
-import { getAllVideos } from '../state/videos.selectors';
+import { getAllVideos, getIsVideosLoaded } from '../state/videos.selectors';
 import { getWordsLoaded } from 'src/app/words/state/words.selectors';
 import { LoadWords } from 'src/app/words/state/words.actions';
 import { getMyWordsLoaded } from 'src/app/words/state/myWords.reducers';
@@ -17,13 +17,14 @@ import { getUser } from 'src/app/authentication/state/user.selectors';
 })
 export class VideosContainerComponent implements OnInit {
   videos$: Observable<any>;
+  isVideosLoaded$: Observable<any>;
 
   currentUserId;
 
   constructor(private store: Store<VideosState>) {}
 
   ngOnInit() {
-    this.store.pipe(select(getVideosLoaded)).subscribe(hasLoaded => {
+    this.store.pipe(select(getIsVideosLoaded)).subscribe(hasLoaded => {
       if (!hasLoaded) {
         this.store.dispatch(new LoadVideos());
       }
@@ -42,10 +43,12 @@ export class VideosContainerComponent implements OnInit {
 
     this.store.pipe(select(getMyWordsLoaded)).subscribe(hasLoaded => {
       if (!hasLoaded) {
-        // this.store.dispatch(new LoadMyWords(this.currentUserId));
+        this.store.dispatch(new LoadMyWords(this.currentUserId));
       }
     });
 
     this.videos$ = this.store.pipe(select(getAllVideos));
+
+    this.isVideosLoaded$ = this.store.pipe(select(getIsVideosLoaded));
   }
 }
