@@ -44,7 +44,7 @@ export function myWordsReducer(
     case myWordsList.DELETE_FROM_MY_WORDS: {
       console.log(action.payload);
       // console.log(state);
-      return adapter.removeOne(action.payload._id, state);
+      return adapter.removeOne(action.payload.word._id, state);
     }
 
     default: {

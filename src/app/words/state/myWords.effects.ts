@@ -45,18 +45,20 @@ export class MyWordsEffects {
     })
   );
 
-  // @Effect()
-  // deleteFromMyWords$: Observable<any> = this.actions$
-  //   .ofType(DELETE_FROM_MY_WORDS)
-  //   .pipe(
-  //     switchMap((action: DeleteFromMyWords) => {
-  //       const payload = action.payload;
-  //       console.log(payload);
-  //       return this.usersService.deleteFromMyWords(payload).pipe(
-  //         map(myWords => {
-  //           return new DeleteFromMyWordsSuccess(myWords);
-  //         })
-  //       );
-  //     })
-  //   );
+  @Effect()
+  deleteFromMyWords$: Observable<any> = this.actions$
+    .ofType(DELETE_FROM_MY_WORDS)
+    .pipe(
+      switchMap((action: DeleteFromMyWords) => {
+        const payload = action.payload;
+        console.log(action.payload);
+        return this.usersService
+          .deleteFromMyWords(payload.word, payload.userId)
+          .pipe(
+            map(myWords => {
+              return new DeleteFromMyWordsSuccess(myWords);
+            })
+          );
+      })
+    );
 }
