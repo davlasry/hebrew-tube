@@ -25,6 +25,7 @@ import { UserEffects } from './authentication/state/user.effects';
 import { WordsModule } from './words/words.module';
 import { HomeComponent } from './layout/home/home.component';
 import { ProfileComponent } from './authentication/components/profile/profile.component';
+import { CustomPreloading } from './custom-preloading';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ProfileComponent } from './authentication/components/profile/profile.co
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    CustomPreloading
   ],
   bootstrap: [AppComponent]
 })

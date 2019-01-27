@@ -161,7 +161,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
 
   showDefinition(i) {
     this.definitionShowed = i;
-    console.log(this.definitionShowed);
+    // console.log(this.definitionShowed);
   }
 
   onClickNext() {

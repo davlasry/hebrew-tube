@@ -46,7 +46,7 @@ export class UserEffects {
 
   @Effect({ dispatch: false })
   loginSuccess$ = this.actions$.pipe(
-    ofType(LOAD_USER_SUCCESS),
-    tap(() => this.router.navigate(['/']))
+    ofType(LOAD_USER_SUCCESS)
+    // tap(() => this.router.navigate(['/']))
   );
 }
