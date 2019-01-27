@@ -1,33 +1,45 @@
 <div class="container">
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <div *ngIf="myWords.length == 0">
+    <p>You don't have any words in your library...</p>
+    <p>
+      Clcik <span><a routerLink="/words">here</a></span> to start adding some!
+    </p>
+  </div>
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    class="mat-elevation-z8"
+    *ngIf="myWords.length > 0"
+  >
     <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
 
     <!-- Position Column -->
     <ng-container matColumnDef="hebrew">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Hebrew </th>
-      <td mat-cell *matCellDef="let element"> {{element.hebrew}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Hebrew</th>
+      <td mat-cell *matCellDef="let element">{{ element.hebrew }}</td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="french">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> French </th>
-      <td mat-cell *matCellDef="let element"> {{element.french}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>French</th>
+      <td mat-cell *matCellDef="let element">{{ element.french }}</td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="pronunciation">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Pronunciation </th>
-      <td mat-cell *matCellDef="let element"> {{element.pronunciation}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Pronunciation</th>
+      <td mat-cell *matCellDef="let element">{{ element.pronunciation }}</td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
-      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+      <td mat-cell *matCellDef="let element">{{ element.type }}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </div>

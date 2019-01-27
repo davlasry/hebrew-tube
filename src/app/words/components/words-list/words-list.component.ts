@@ -57,11 +57,9 @@ export class WordsListComponent implements OnInit, OnChanges {
   }
 
   checkIfWordInMyWords(wordId) {
-    const myWordsIds = this.myWords.map(myWord => myWord._id);
-    return myWordsIds.includes(wordId);
-  }
-
-  trackById(index, item) {
-    return item._id;
+    if (this.myWords.length > 0) {
+      const myWordsIds = this.myWords.map(myWord => myWord._id);
+      return myWordsIds.includes(wordId);
+    }
   }
 }

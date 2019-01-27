@@ -1,6 +1,6 @@
 import { WordsService } from './../../../core/services/words.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -8,12 +8,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
   styleUrls: ['./delete-dialog.component.scss']
 })
 export class DeleteDialogComponent implements OnInit {
-
   constructor(
     public dialogRef: MatDialogRef<DeleteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     private wordsService: WordsService
-  ) { }
+  ) {}
 
   ngOnInit() {
     console.log(this.data.words);
@@ -23,10 +22,9 @@ export class DeleteDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onDelete() {
-    this.wordsService.deleteManyWords(this.data.words).subscribe(res => {
-      console.log(res);
-    });
-  }
-
+  // onDelete() {
+  //   this.wordsService.deleteManyWords(this.data.words).subscribe(res => {
+  //     console.log(res);
+  //   });
+  // }
 }

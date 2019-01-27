@@ -42,7 +42,7 @@ export class VideosContainerComponent implements OnInit {
 
     this.store.pipe(select(getMyWordsLoaded)).subscribe(hasLoaded => {
       if (!hasLoaded) {
-        this.store.dispatch(new LoadMyWords(this.currentUserId));
+        // this.store.dispatch(new LoadMyWords(this.currentUserId));
       }
     });
 

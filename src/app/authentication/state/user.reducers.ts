@@ -1,17 +1,5 @@
 import * as userActions from './user.actions';
 
-// import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-
-// // NGRX/ENTITY
-// export const adapter: EntityAdapter<any> = createEntityAdapter<any>({
-//   selectId: user => user._id
-// });
-
-// export interface UserState extends EntityState<any> {
-//   user: any;
-//   loggedIn: Boolean;
-// }
-
 // USER STATE INTERFACE
 export interface UserState {
   user: any;

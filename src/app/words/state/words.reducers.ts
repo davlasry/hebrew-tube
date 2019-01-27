@@ -6,7 +6,7 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 // WORD STATE INTERFACE
 export interface AllWordsState extends EntityState<any> {
-  entities: { [id: number]: any };
+  // entities: { [id: number]: any };
   loading: Boolean;
   loaded: Boolean;
 }
@@ -18,7 +18,7 @@ export const adapter: EntityAdapter<any> = createEntityAdapter<any>({
 
 // INITIAL WORDS STATE
 export const INITIAL_ALL_WORDS_STATE: AllWordsState = adapter.getInitialState({
-  entities: {},
+  // entities: {},
   loading: false,
   loaded: false
 });
