@@ -36,16 +36,8 @@ export class WordsService {
   // }
 
   // Search Morfix translation
-  searchWord(word): Observable<any> {
-    console.log(word);
-    return this.http.get<any>(`${environment.API_URL}/words/search/${word}`);
-  }
-
-  // Find all words for a specific session
-  getSessionWords(sessionId): Observable<any> {
-    // console.log(sessionId);
-    return this.http.get<any>(
-      `${environment.API_URL}/words/session-words/${sessionId}`
-    );
-  }
+  // searchWord(word): Observable<any> {
+  //   console.log(word);
+  //   return this.http.get<any>(`${environment.API_URL}/words/search/${word}`);
+  // }
 }

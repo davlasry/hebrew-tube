@@ -129,13 +129,12 @@ router.post('/', (req, res, next) => {
       const word = new Word({
         _id: new mongoose.Types.ObjectId(),
         hebrew: req.body.hebrew,
-        source: req.body.source,
+        french: req.body.french,
         pronunciation: req.body.pronunciation,
         type: req.body.type,
         createdAt: new Date(),
         lastEditedAt: new Date(),
       });
-      word.definitions.push(...req.body.definitions);
       word
         .save()
         .then(result => {

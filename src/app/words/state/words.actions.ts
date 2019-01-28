@@ -4,6 +4,7 @@ export const LOAD_WORDS = '[Words-List] Load Words';
 export const LOAD_WORDS_SUCCESS = '[Words-List] Load Words Sucess';
 export const EDIT_WORD = '[Words-List] Edit Word';
 export const ADD_WORD = '[Words-List] Add Word';
+export const ADD_WORD_SUCCESS = '[Words-List] Add Word Success';
 
 export class LoadWords implements Action {
   readonly type = LOAD_WORDS;
@@ -27,4 +28,15 @@ export class AddWord implements Action {
   constructor(public payload: any) {}
 }
 
-export type Actions = LoadWords | LoadWordsSuccess | AddWord | EditWord;
+export class AddWordSuccess implements Action {
+  readonly type = ADD_WORD_SUCCESS;
+
+  constructor(public payload: any) {}
+}
+
+export type Actions =
+  | LoadWords
+  | LoadWordsSuccess
+  | AddWord
+  | EditWord
+  | AddWordSuccess;

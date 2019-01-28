@@ -1,4 +1,5 @@
 <div class="container">
+  <app-add-word></app-add-word>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
@@ -31,18 +32,10 @@
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let word">
         <div class="buttons">
-          <button
-            mat-icon-button
-            color="accent"
-            *ngIf="!checkIfWordInMyWords(word._id)"
-          >
+          <button mat-icon-button color="accent" *ngIf="!checkIfWordInMyWords(word._id)">
             <mat-icon (click)="onAddToMyWords(word)">favorite_border</mat-icon>
           </button>
-          <button
-            mat-icon-button
-            color="accent"
-            *ngIf="checkIfWordInMyWords(word._id)"
-          >
+          <button mat-icon-button color="accent" *ngIf="checkIfWordInMyWords(word._id)">
             <mat-icon (click)="onDeleteFromMyWords(word)">favorite</mat-icon>
           </button>
           <button mat-icon-button color="accent">

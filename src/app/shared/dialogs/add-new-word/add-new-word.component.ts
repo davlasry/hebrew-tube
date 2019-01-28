@@ -24,27 +24,9 @@ export class AddNewWordComponent implements OnInit {
     this.wordForm = this.fb.group({
       hebrew: ['', [Validators.required, Validators.pattern(/^[א-ת\s]+$/)]],
       createdAt: [''],
-      definitions: this.fb.array([])
+      french: ['', [Validators.required]],
+      pronunciation: ['']
     });
-    this.addDefinition();
-  }
-
-  get definitionsForm() {
-    return this.wordForm.get('definitions') as FormArray;
-  }
-
-  addDefinition() {
-    const definitionGroup = this.fb.group({
-      french: [''],
-      english: [''],
-      phonetic: [''],
-      notes: ['']
-    });
-    this.definitionsForm.push(definitionGroup);
-  }
-
-  deleteDefinition(i) {
-    this.definitionsForm.removeAt(i);
   }
 
   onNoClick(): void {

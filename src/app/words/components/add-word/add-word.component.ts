@@ -9,34 +9,23 @@ import { AddNewWordComponent } from 'src/app/shared/dialogs/add-new-word/add-new
   styleUrls: ['./add-word.component.scss']
 })
 export class AddWordComponent implements OnInit {
-
   @Output() wordAdded = new EventEmitter();
 
-  constructor(
-    public dialog: MatDialog
-  ) { }
+  constructor(public dialog: MatDialog) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  resetForm() {
-
-  }
+  resetForm() {}
 
   onClickAddWord() {
     const dialogRef = this.dialog.open(AddNewWordComponent, {
       // width: '250px',
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   console.log(result);
-    //   this.wordAdded.emit(result);
-    //   // if (result.hebrew) {
-    //   //   this.wordsService.addWord(result).subscribe(res => {
-    //   //     console.log(res);
-    //   //   });
-    //   // }
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // console.log(result);
+      this.wordAdded.emit(result);
+    });
   }
 }
