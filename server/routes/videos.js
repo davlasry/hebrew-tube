@@ -80,11 +80,25 @@ router.patch('/:videoId', (req, res, next) => {
 
       Word.findOne({
         hebrew: word.hebrew
-      }, function (err, doc) {
-        if (doc) {
+      }, function (err, wordFound) {
+        if (wordFound) {
           console.log('Word already exists! Update here');
+          console.log(wordFound._id);
+          // Video
+          //   .update({
+          //     _id: videoId
+          //   }, {
+          //     $set: {
+          //       name: req.body.name,
+          //       youtubeLink: req.body.youtubeLink,
+          //       lastEditedAt: new Date(),
+          //       subtitles: req.body.subtitles
+          //     }
+          //   })
+          //   .exec()
+
           Word.updateOne({
-              _id: doc._id
+              _id: word._id
             }, {
               $set: {
                 lastEditedAt: new Date(),
@@ -98,6 +112,7 @@ router.patch('/:videoId', (req, res, next) => {
             })
         } else {
           console.log('Create new word here');
+          console.log(word);
           let wordToAdd = new Word({
             hebrew: word.hebrew,
             french: word.french,
@@ -105,10 +120,10 @@ router.patch('/:videoId', (req, res, next) => {
             type: word.type,
             createdAt: new Date(),
           })
+          console.log(wordToAdd._id);
           wordToAdd.videosId.push(videoId);
           wordToAdd.videosId[0].subtitlesId.push(index);
           wordToAdd.save((err, word) => {
-            console.log(word);
             inCb(null)
           });
         }
