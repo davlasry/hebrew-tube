@@ -11,6 +11,10 @@ import {
 import { take } from 'rxjs/operators';
 import { getLoggedIn, getUser } from './authentication/state/user.selectors';
 import { Observable } from 'rxjs';
+import { getWordsLoaded } from './words/state/words.selectors';
+import { LoadWords } from './words/state/words.actions';
+import { getMyWordsLoaded } from './words/state/myWords.reducers';
+import { LoadMyWords } from './words/state/myWords.actions';
 
 @Component({
   selector: 'app-root',
@@ -21,13 +25,15 @@ export class AppComponent implements OnInit {
   currentUser$: Observable<any>;
   isLoggedIn$: Observable<Boolean>;
 
-  constructor(
-    private jwtService: JwtService,
-    private store: Store<ApplicationState>
-  ) {}
+  currentUserId;
+
+  constructor(private jwtService: JwtService, private store: Store<any>) {}
 
   ngOnInit() {
     this.currentUser$ = this.store.select(getUser);
+    this.currentUser$.subscribe(currentUser => {
+      this.currentUserId = currentUser._id;
+    });
     this.isLoggedIn$ = this.store.select(getLoggedIn);
 
     if (this.jwtService.getToken() && !this.jwtService.checkIfTokenExpired()) {
@@ -37,6 +43,18 @@ export class AppComponent implements OnInit {
       // console.log(this.jwtService.decodeToken(this.jwtService.getToken()));
       this.store.dispatch(new LoadUserSuccess(userDetails));
     }
+
+    this.store.pipe(select(getWordsLoaded)).subscribe(hasLoaded => {
+      if (!hasLoaded) {
+        this.store.dispatch(new LoadWords());
+      }
+    });
+
+    this.store.pipe(select(getMyWordsLoaded)).subscribe(hasLoaded => {
+      if (!hasLoaded) {
+        this.store.dispatch(new LoadMyWords(this.currentUserId));
+      }
+    });
   }
 
   signOut(): void {

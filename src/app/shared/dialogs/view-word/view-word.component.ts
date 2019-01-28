@@ -3,11 +3,17 @@ import { Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { AddWord } from 'src/app/words/state/words.actions';
-import { AddToMyWords } from 'src/app/words/state/myWords.actions';
+import {
+  AddToMyWords,
+  DeleteFromMyWords
+} from 'src/app/words/state/myWords.actions';
 import { getUser } from 'src/app/authentication/state/user.selectors';
 import { map } from 'rxjs/operators';
 import { getMyWords } from 'src/app/words/state/myWords.reducers';
-import { getAllMyWords } from 'src/app/words/state/myWords.selectors';
+import {
+  getAllMyWords,
+  getMyWordsIds
+} from 'src/app/words/state/myWords.selectors';
 
 @Component({
   selector: 'app-view-word',
@@ -16,6 +22,7 @@ import { getAllMyWords } from 'src/app/words/state/myWords.selectors';
 })
 export class ViewWordDialogComponent implements OnInit {
   wordForm: FormGroup;
+  isWordFavorite$;
 
   constructor(
     private fb: FormBuilder,
@@ -26,57 +33,31 @@ export class ViewWordDialogComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.data);
-    // this.wordForm = this.fb.group({
-    //   hebrew: ['', [Validators.required, Validators.pattern(/^[א-ת\s]+$/)]],
-    //   createdAt: [''],
-    //   definitions: this.fb.array([])
-    // });
-    // this.addDefinition();
-    this.store.select(getAllMyWords).subscribe(myWords => {
-      console.log(myWords);
-      if (myWords.includes(this.data.word)) {
-        console.log('word in myWords');
-      }
-    });
+    this.isWordFavorite$ = this.store.select(getMyWordsIds).pipe(
+      map((myWords: string[]) => {
+        console.log(myWords);
+        return myWords.indexOf(this.data.word._id) != -1;
+      })
+    );
+
+    this.isWordFavorite$.subscribe(val => console.log(val));
   }
 
   addToMyWords() {
-    console.log(this.data.word);
+    // console.log(this.data.word);
     this.store.dispatch(
       new AddToMyWords({ word: this.data.word, userId: this.data.userId })
+    );
+  }
+
+  deleteFromMyWords() {
+    // console.log(this.data.word);
+    this.store.dispatch(
+      new DeleteFromMyWords({ word: this.data.word, userId: this.data.userId })
     );
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-  // get definitionsForm() {
-  //   return this.wordForm.get('definitions') as FormArray;
-  // }
-
-  // addDefinition() {
-  //   const definitionGroup = this.fb.group({
-  //     french: [''],
-  //     english: [''],
-  //     phonetic: [''],
-  //     notes: ['']
-  //   });
-  //   this.definitionsForm.push(definitionGroup);
-  // }
-
-  // deleteDefinition(i) {
-  //   this.definitionsForm.removeAt(i);
-  // }
-
-  // resetForm() {}
-
-  // onSubmit() {
-  //   console.log(this.wordForm.value);
-  //   this.wordForm.patchValue({
-  //     createdAt: Date.now()
-  //   });
-  //   this.store.dispatch(new AddWord(this.wordForm.value));
-  //   this.dialogRef.close();
-  // }
 }

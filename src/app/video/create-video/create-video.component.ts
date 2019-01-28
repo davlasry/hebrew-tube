@@ -9,41 +9,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-video.component.scss']
 })
 export class CreateVideoComponent implements OnInit {
-
   videoForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private videosService: VideosService,
-    private router: Router
-    // private store: Store<WordsState>
-  ) { }
+    private router: Router // private store: Store<WordsState>
+  ) {}
 
   ngOnInit() {
     this.videoForm = this.fb.group({
-      youtubeLink: ['', [Validators.required]],
+      youtubeLink: ['TEST', [Validators.required]],
       createdAt: [''],
-      name: [''],
-      subtitles: this.fb.array([
-        this.initSubtitle()
-      ]),
+      name: ['TEST'],
+      subtitles: this.fb.array([this.initSubtitle()])
     });
   }
 
   initSubtitle() {
     return this.fb.group({
-      words: this.fb.array([
-        this.initWord()
-      ]),
+      words: this.fb.array([this.initWord()]),
       startTime: [''],
-      endTime: [''],
+      endTime: ['']
     });
   }
 
   initWord() {
     return this.fb.group({
       hebrew: [''],
-      french: [''],
+      french: ['']
     });
   }
 
@@ -58,7 +52,9 @@ export class CreateVideoComponent implements OnInit {
     //   hebrew: [''],
     //   french: [''],
     // });
-    const control = ((<FormArray>this.videoForm.controls['subtitles']).at(j).get('words') as FormArray);
+    const control = (<FormArray>this.videoForm.controls['subtitles'])
+      .at(j)
+      .get('words') as FormArray;
     control.push(this.initWord());
   }
 
@@ -70,21 +66,16 @@ export class CreateVideoComponent implements OnInit {
     // this.wordsForm.removeAt(j);
   }
 
-
-  resetForm() {
-
-  }
+  resetForm() {}
 
   onSubmit() {
-    console.log(this.videoForm.get('youtubeLink'));
+    // console.log(this.videoForm.get('youtubeLink'));
     this.videoForm.patchValue({
-      createdAt: Date.now(),
+      createdAt: Date.now()
     });
     console.log(this.videoForm.value);
-    this.videosService.addVideo(this.videoForm.value)
-      .subscribe( res => {});
-    // this.store.dispatch(new AddWord(this.wordForm.value));
-    this.router.navigateByUrl('/videos');
+    // this.videosService.addVideo(this.videoForm.value).subscribe(res => {});
+    // // this.store.dispatch(new AddWord(this.wordForm.value));
+    // this.router.navigateByUrl('/videos');
   }
-
 }

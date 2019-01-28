@@ -35,18 +35,6 @@ export class VideosListContainerComponent implements OnInit {
       return (this.currentUserId = user._id);
     });
 
-    this.store.pipe(select(getWordsLoaded)).subscribe(hasLoaded => {
-      if (!hasLoaded) {
-        this.store.dispatch(new LoadWords());
-      }
-    });
-
-    this.store.pipe(select(getMyWordsLoaded)).subscribe(hasLoaded => {
-      if (!hasLoaded) {
-        this.store.dispatch(new LoadMyWords(this.currentUserId));
-      }
-    });
-
     this.videos$ = this.store.pipe(select(getAllVideos));
 
     this.isVideosLoaded$ = this.store.pipe(select(getIsVideosLoaded));
