@@ -27,7 +27,7 @@ export class WordsListContainerComponent implements OnInit {
     // this.words$.subscribe(words => console.log(words));
 
     this.store.pipe(select(getUser)).subscribe(user => {
-      console.log(user);
+      // console.log(user);
       return (this.currentUserId = user._id);
     });
   }

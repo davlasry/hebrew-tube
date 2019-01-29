@@ -76,20 +76,17 @@ router.patch('/addWord/:userId', (req, res, next) => {
     });
 });
 
-// PATCH Add word to favorite
+// PATCH Delete word from favorite
 router.patch('/deleteWord/:userId', (req, res, next) => {
   const userId = req.params.userId;
-  const wordId = req.body._id;
-  console.log(wordId);
+  const wordsIds = req.body.wordsIds;
+  // console.log(req.body);
+  // console.log(wordsIds);
   User.update(
     {
       _id: userId
     },
-    {
-      $pull: {
-        words: wordId
-      }
-    }
+    { $pull: { words: { $in: wordsIds } } }
   )
     .exec()
     .then(result => {

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { BehaviorSubject } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs/operators';
 import { JwtService } from './jwt.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UsersService {
@@ -41,26 +40,26 @@ export class UsersService {
     );
   }
 
+  getWordsByUser(userId) {
+    // console.log(userId);
+    return this.http.get<any>(`${environment.API_URL}/users/words/${userId}`);
+  }
+
   addToMyWords(wordToAdd, userId) {
     // console.log(userId);
-    console.log(wordToAdd);
+    // console.log(wordToAdd);
     return this.http.patch(
       `${environment.API_URL}/users/addWord/${userId}`,
       wordToAdd
     );
   }
 
-  deleteFromMyWords(wordToDelete, userId) {
+  deleteFromMyWords(wordsIds, userId) {
+    // console.log(wordsIds);
     // console.log(userId);
-    console.log(wordToDelete);
     return this.http.patch(
       `${environment.API_URL}/users/deleteWord/${userId}`,
-      wordToDelete
+      { wordsIds }
     );
-  }
-
-  getWordsByUser(userId) {
-    console.log(userId);
-    return this.http.get<any>(`${environment.API_URL}/users/words/${userId}`);
   }
 }

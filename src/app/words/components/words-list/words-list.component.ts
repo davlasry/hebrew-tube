@@ -10,6 +10,7 @@ import {
   SimpleChanges
 } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-words-list',
@@ -29,12 +30,15 @@ export class WordsListComponent implements OnInit, OnChanges {
   dataSource;
 
   displayedColumns: string[] = [
+    'select',
     'hebrew',
     'french',
     'pronunciation',
     'type',
     'buttons'
   ];
+
+  selection = new SelectionModel<any>(true, []);
 
   constructor() {}
 
@@ -61,5 +65,19 @@ export class WordsListComponent implements OnInit, OnChanges {
       const myWordsIds = this.myWords.map(myWord => myWord._id);
       return myWordsIds.includes(wordId);
     }
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach(row => this.selection.select(row));
   }
 }

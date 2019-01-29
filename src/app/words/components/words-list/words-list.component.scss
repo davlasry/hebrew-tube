@@ -6,82 +6,93 @@
 .container {
   margin-top: 20px;
   width: 100%;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
 
-  .header {
+  .if-words {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 15px;
+    flex-direction: column;
 
-    mat-form-field {
-      width: 300px;
+    .table {
+      flex: 1;
+      overflow: auto;
+
+      table {
+        width: 100%;
+
+        .mat-header-cell {
+          color: white;
+        }
+
+        .mat-header-row {
+          background: #ef3e7a;
+        }
+
+        .mat-column-english {
+          max-width: 300px;
+        }
+
+        .mat-column-sessions {
+          max-width: 300px;
+        }
+
+        .mat-column-select {
+          padding-right: 24px;
+        }
+
+        .buttons {
+          display: flex;
+          flex-direction: row;
+        }
+
+        ul {
+          padding: 15px;
+        }
+      }
     }
 
-    /deep/ .mat-raised-button.mat-warn[disabled],
-    .mat-raised-button[disabled][disabled] {
-      background-color: white;
-    }
-
-    .columns-filter {
-      color: black;
-      background-color: white;
-      padding: 10px;
+    .words {
       display: flex;
       flex-direction: row;
       align-items: center;
 
-      .column-filter {
-        margin-right: 15px;
+      .favorite-btn {
+        margin-left: 20px;
+        cursor: pointer;
       }
-
-      p {
-        margin-right: 10px;
-      }
-    }
-  }
-
-  table {
-    width: 100%;
-
-    .mat-header-cell {
-      color: white;
-    }
-
-    .mat-header-row {
-      background: #ef3e7a;
-    }
-
-    .mat-column-english {
-      max-width: 300px;
-    }
-
-    .mat-column-sessions {
-      max-width: 300px;
-    }
-
-    .mat-column-select {
-      padding-right: 24px;
-    }
-
-    .buttons {
-      display: flex;
-      flex-direction: row;
-    }
-
-    ul {
-      padding: 15px;
     }
   }
 }
 
-.words {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+// .header {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   margin-bottom: 15px;
 
-  .favorite-btn {
-    margin-left: 20px;
-    cursor: pointer;
-  }
-}
+//   mat-form-field {
+//     width: 300px;
+//   }
+
+//   /deep/ .mat-raised-button.mat-warn[disabled],
+//   .mat-raised-button[disabled][disabled] {
+//     background-color: white;
+//   }
+
+//   .columns-filter {
+//     color: black;
+//     background-color: white;
+//     padding: 10px;
+//     display: flex;
+//     flex-direction: row;
+//     align-items: center;
+
+//     .column-filter {
+//       margin-right: 15px;
+//     }
+
+//     p {
+//       margin-right: 10px;
+//     }
+//   }
+// }

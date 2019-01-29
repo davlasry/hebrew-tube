@@ -33,7 +33,7 @@ export class WordsEffects {
       console.log(action.payload);
       return this.wordsService
         .addWord(action.payload)
-        .pipe(map(words => new AddWordSuccess(action.payload)));
+        .pipe(map(word => new AddWordSuccess(word)));
       // catchError(error => new LoadWordsFail(error));
     })
   );
