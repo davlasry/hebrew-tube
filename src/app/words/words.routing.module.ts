@@ -5,6 +5,7 @@ import { WordsListComponent } from './components/words-list/words-list.component
 import { WordsListContainerComponent } from './components/words-list-container/words-list-container.component';
 import { WordsComponent } from './words.component';
 import { MyWordsContainerComponent } from './components/my-words-container/my-words-container.component';
+import { LibrariesComponent } from './components/libraries/libraries.component';
 
 const routes: Routes = [
   {
@@ -19,14 +20,14 @@ const routes: Routes = [
       {
         path: 'my-words',
         component: MyWordsContainerComponent
+      },
+      {
+        path: 'library/:id',
+        component: LibrariesComponent
       }
       // {
       //   path: 'create',
       //   component: AddWordComponent
-      // },
-      // {
-      //   path: 'edit/:id',
-      //   component: EditRecipeComponent
       // },
       // {
       //   path: ':id',

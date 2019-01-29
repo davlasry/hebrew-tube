@@ -1,10 +1,16 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  SimpleChanges,
+  OnChanges,
+  OnDestroy
+} from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { WordsService } from '../../core/services/words.service';
 import { YoutubePlayerService } from 'src/app/core/services/youtube-player.service';
 import { interval } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-dictionaries',
@@ -12,7 +18,6 @@ import { distinctUntilChanged } from 'rxjs/operators';
   styleUrls: ['./dictionaries.component.scss']
 })
 export class DictionariesComponent implements OnInit, OnChanges, OnDestroy {
-
   wordForm: FormGroup;
 
   isMorfixLoading: Boolean;
@@ -31,8 +36,8 @@ export class DictionariesComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private wordsService: WordsService,
-    private youtubePlayer: YoutubePlayerService,
-  ) { }
+    private youtubePlayer: YoutubePlayerService
+  ) {}
 
   ngOnInit() {
     this.wordForm = this.fb.group({
@@ -44,54 +49,55 @@ export class DictionariesComponent implements OnInit, OnChanges, OnDestroy {
       location: ['']
     });
 
-    this.youtubePlayer.youtubePlayerState$
-      .subscribe(state => {
-        console.log(`State: ${state}`);
-        switch (state) {
-          // -1 (unstarted)
-          case -1:
-            break;
-          // 0 (ended)
-          case 0:
-            break;
-          // 1 (playing)
-          case 1:
-            this.subscribtions.push(
-              this.timer.subscribe(time => {
-                if (this.youtubePlayer.yt_player) {
-                  this.currentTime = this.youtubePlayer.getCurrentTime();
-                  if (this.session.words.length > 0 ) {
-                    this.checkWordPlayed();
-                  }
-                  this.wordForm.get('location').setValue(this.currentTime);
+    this.youtubePlayer.youtubePlayerState$.subscribe(state => {
+      console.log(`State: ${state}`);
+      switch (state) {
+        // -1 (unstarted)
+        case -1:
+          break;
+        // 0 (ended)
+        case 0:
+          break;
+        // 1 (playing)
+        case 1:
+          this.subscribtions.push(
+            this.timer.subscribe(time => {
+              if (this.youtubePlayer.yt_player) {
+                this.currentTime = this.youtubePlayer.getCurrentTime();
+                if (this.session.words.length > 0) {
+                  this.checkWordPlayed();
                 }
-              })
-            );
-            break;
-          // 2 (paused)
-          case 2:
-            this.currentTime = this.youtubePlayer.getCurrentTime();
-            this.wordForm.get('location').setValue(this.currentTime);
-            this.subscribtions.forEach(subscribtion => subscribtion.unsubscribe());
-            break;
-          // 3 (buffering)
-          case 3:
-            break;
-          // 5 (video cued)
-        }
-      });
+                this.wordForm.get('location').setValue(this.currentTime);
+              }
+            })
+          );
+          break;
+        // 2 (paused)
+        case 2:
+          this.currentTime = this.youtubePlayer.getCurrentTime();
+          this.wordForm.get('location').setValue(this.currentTime);
+          this.subscribtions.forEach(subscribtion =>
+            subscribtion.unsubscribe()
+          );
+          break;
+        // 3 (buffering)
+        case 3:
+          break;
+        // 5 (video cued)
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
     // console.log(changes);
-    if (this.session && changes.session) {
-      this.wordsService.getSessionWords(this.session._id)
-      .pipe(distinctUntilChanged())
-      .subscribe(words => {
-        console.log(words);
-        words ? this.session.words = words : this.session.words = [];
-      });
-    }
+    // if (this.session && changes.session) {
+    //   this.wordsService.getSessionWords(this.session._id)
+    //   .pipe(distinctUntilChanged())
+    //   .subscribe(words => {
+    //     console.log(words);
+    //     words ? this.session.words = words : this.session.words = [];
+    //   });
+    // }
   }
 
   ngOnDestroy() {
@@ -108,15 +114,16 @@ export class DictionariesComponent implements OnInit, OnChanges, OnDestroy {
     req['hebrew'] = this.wordForm.value.hebrew;
     // console.log(req);
     req.definitions.push({
-      'english': this.wordForm.value.english,
-      'french': this.wordForm.value.french,
-      'phonetic': this.wordForm.value.phonetic,
-      'notes': this.wordForm.value.notes,
-      'sessions': [
+      english: this.wordForm.value.english,
+      french: this.wordForm.value.french,
+      phonetic: this.wordForm.value.phonetic,
+      notes: this.wordForm.value.notes,
+      sessions: [
         {
           location: this.wordForm.value.location,
           session: this.session._id
-        }]
+        }
+      ]
     });
     this.session.words.push(req);
     this.wordsService.addWord(req).subscribe(res => {
@@ -126,16 +133,16 @@ export class DictionariesComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onSearch() {
-    console.log(this.wordForm.value);
-    this.isMorfixLoading = true;
-    this.wordsService.searchWord(this.wordForm.value.hebrew).subscribe(res => {
-      console.log(res);
-      const result = Object.values(JSON.parse(res));
-      console.log(result);
-      this.morfixHebrew = result[0];
-      this.morfixEnglish = result[1];
-      this.isMorfixLoading = false;
-    });
+    // console.log(this.wordForm.value);
+    // this.isMorfixLoading = true;
+    // this.wordsService.searchWord(this.wordForm.value.hebrew).subscribe(res => {
+    //   console.log(res);
+    //   const result = Object.values(JSON.parse(res));
+    //   console.log(result);
+    //   this.morfixHebrew = result[0];
+    //   this.morfixEnglish = result[1];
+    //   this.isMorfixLoading = false;
+    // });
   }
 
   addEnglish(english) {
@@ -146,7 +153,10 @@ export class DictionariesComponent implements OnInit, OnChanges, OnDestroy {
     this.session.words = this.session.words.map(word => {
       const wordLocation = parseFloat(word.definitions[0].sessions[0].location);
       console.log(this.currentTime);
-      if (wordLocation <= this.currentTime + 3 && wordLocation >= this.currentTime - 3) {
+      if (
+        wordLocation <= this.currentTime + 3 &&
+        wordLocation >= this.currentTime - 3
+      ) {
         console.log(word.hebrew, wordLocation);
         word['isActive'] = true;
       } else {
@@ -155,5 +165,4 @@ export class DictionariesComponent implements OnInit, OnChanges, OnDestroy {
       return word;
     });
   }
-
 }

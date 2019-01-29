@@ -14,6 +14,7 @@ import { WordsComponent } from './words.component';
 import { reducers } from './state';
 import { MyWordsEffects } from './state/myWords.effects';
 import { MyWordsContainerComponent } from './components/my-words-container/my-words-container.component';
+import { LibrariesComponent } from './components/libraries/libraries.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { MyWordsContainerComponent } from './components/my-words-container/my-wo
     WordsComponent,
     MyWordsComponent,
     MyWordsContainerComponent,
-    WordsComponent
+    WordsComponent,
+    LibrariesComponent
   ]
 })
 export class WordsModule {}
