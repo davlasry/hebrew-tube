@@ -8,9 +8,11 @@ import {
   LoadWordsSuccess,
   ADD_WORD,
   AddWord,
-  AddWordSuccess
+  AddWordSuccess,
+  DeleteWords,
+  DELETE_WORDS
 } from './words.actions';
-import { UsersService } from 'src/app/core/services/users.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class WordsEffects {
@@ -35,6 +37,20 @@ export class WordsEffects {
         .addWord(action.payload)
         .pipe(map(word => new AddWordSuccess(word)));
       // catchError(error => new LoadWordsFail(error));
+    })
+  );
+
+  @Effect({ dispatch: false })
+  deleteWords$: Observable<any> = this.actions$.ofType(DELETE_WORDS).pipe(
+    switchMap((action: DeleteWords) => {
+      console.log(action.payload);
+      return this.wordsService.deleteManyWords(action.payload);
+      // .pipe(
+      //   map(wordsIds => {
+      //     console.log(wordsIds);
+      //     return new DeleteWordsSuccess(wordsIds);
+      //   })
+      // );
     })
   );
 }

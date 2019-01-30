@@ -13,7 +13,7 @@ export class WordsService {
 
   getWord(id): Observable<any> {
     console.log(id);
-    return this.http.get<any>(`${environment.API_URL}/words/${id}`);
+    return this.http.get<any>(`${environment.API_URL}/words/getWord/${id}`);
   }
 
   addWord(word): Observable<any> {
@@ -24,15 +24,11 @@ export class WordsService {
     return this.http.delete<any>(`${environment.API_URL}/words/${wordId}`);
   }
 
-  deleteManyWords(words): Observable<any> {
-    const wordsIds = words.map(word => {
-      return word._id;
-    });
+  deleteManyWords(wordsIds): Observable<any> {
     console.log(wordsIds);
-    return this.http.put<any>(
-      `${environment.API_URL}/words/deleteMany`,
+    return this.http.patch<any>(`${environment.API_URL}/words/deleteMany`, {
       wordsIds
-    );
+    });
   }
 
   // Search Morfix translation

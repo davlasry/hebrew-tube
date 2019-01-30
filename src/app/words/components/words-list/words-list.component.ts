@@ -80,4 +80,11 @@ export class WordsListComponent implements OnInit, OnChanges {
       ? this.selection.clear()
       : this.dataSource.data.forEach(row => this.selection.select(row));
   }
+
+  deleteSelection() {
+    // console.log(this.selection.selected.map(word => word._id));
+    const wordsToDelete = this.selection.selected.map(word => word._id);
+    this.selection.clear();
+    this.deleteWords.emit(wordsToDelete);
+  }
 }

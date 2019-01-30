@@ -1,7 +1,17 @@
 <div class="container">
   <div class="if-words">
-    <app-add-word></app-add-word>
-
+    <div class="header-buttons">
+      <app-add-word></app-add-word>
+      <button
+        color="warn"
+        mat-raised-button
+        [disabled]="false"
+        (click)="deleteSelection()"
+      >
+        <mat-icon>delete</mat-icon>
+        Delete Selection
+      </button>
+    </div>
     <div class="table">
       <table
         mat-table

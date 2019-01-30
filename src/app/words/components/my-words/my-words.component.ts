@@ -67,6 +67,7 @@ export class MyWordsComponent implements OnInit, OnChanges {
   deleteSelection() {
     // console.log(this.selection.selected.map(word => word._id));
     const wordsToDelete = this.selection.selected.map(word => word._id);
+    this.selection.clear();
     this.deleteWords.emit(wordsToDelete);
   }
 }

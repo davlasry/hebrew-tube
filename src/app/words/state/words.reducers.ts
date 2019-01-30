@@ -50,8 +50,14 @@ export function allWordsReducer(
     }
 
     case wordsList.ADD_WORD_SUCCESS: {
-      console.log(action.payload);
+      // console.log(action.payload);
       return adapter.addOne(action.payload, state);
+    }
+
+    case wordsList.DELETE_WORDS: {
+      console.log(action.payload);
+      return adapter.removeMany(action.payload, state);
+      // return adapter.removeOne(action.payload.word._id, state);
     }
 
     default: {

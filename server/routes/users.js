@@ -76,7 +76,7 @@ router.patch('/addWord/:userId', (req, res, next) => {
     });
 });
 
-// PATCH Delete word from favorite
+// PATCH Delete words from favorite
 router.patch('/deleteWord/:userId', (req, res, next) => {
   const userId = req.params.userId;
   const wordsIds = req.body.wordsIds;
