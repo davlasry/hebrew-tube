@@ -39,9 +39,9 @@ export class WordsListContainerComponent implements OnInit {
   }
 
   deleteFromMyWords(word) {
-    // console.log('delete ', word);
+    console.log('delete ', word);
     this.store.dispatch(
-      new DeleteFromMyWords({ word, userId: this.currentUserId })
+      new DeleteFromMyWords({ words: [word._id], userId: this.currentUserId })
     );
   }
 
