@@ -12,7 +12,7 @@ export class WordsService {
   }
 
   getWord(id): Observable<any> {
-    console.log(id);
+    // console.log(id);
     return this.http.get<any>(`${environment.API_URL}/words/getWord/${id}`);
   }
 
@@ -25,7 +25,7 @@ export class WordsService {
   }
 
   deleteManyWords(wordsIds): Observable<any> {
-    console.log(wordsIds);
+    // console.log(wordsIds);
     return this.http.patch<any>(`${environment.API_URL}/words/deleteMany`, {
       wordsIds
     });

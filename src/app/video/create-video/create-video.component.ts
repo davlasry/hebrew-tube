@@ -47,7 +47,7 @@ export class CreateVideoComponent implements OnInit {
   }
 
   addWord(j) {
-    console.log('add word');
+    // console.log('add word');
     // const wordGroup = this.fb.group({
     //   hebrew: [''],
     //   french: [''],

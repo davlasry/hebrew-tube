@@ -33,10 +33,10 @@ export class UserEffects {
   logIn$: Observable<any> = this.actions$.ofType(LOAD_USER).pipe(
     map((action: LoadUser) => action.payload),
     switchMap(payload => {
-      console.log(payload);
+      // console.log(payload);
       return this.usersService.logIn(payload).pipe(
         map(user => {
-          console.log(user);
+          // console.log(user);
           this.jwtService.saveToken(user.token);
           return new LoadUserSuccess(user);
         })

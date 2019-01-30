@@ -15,7 +15,7 @@ export class DeleteDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.data.words);
+    // console.log(this.data.words);
   }
 
   onNoClick(): void {

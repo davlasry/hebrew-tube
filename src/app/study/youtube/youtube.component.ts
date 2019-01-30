@@ -1,4 +1,13 @@
-import { Component, OnInit, AfterContentInit, ViewChild, ElementRef, AfterViewInit, HostListener, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterContentInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  HostListener,
+  OnDestroy
+} from '@angular/core';
 import { YoutubePlayerService } from 'src/app/core/services/youtube-player.service';
 import { LayoutService } from '../../core/services/layout.service';
 import { ActivatedRoute } from '@angular/router';
@@ -10,8 +19,8 @@ import { distinctUntilChanged } from 'rxjs/operators';
   templateUrl: './youtube.component.html',
   styleUrls: ['./youtube.component.scss']
 })
-export class YoutubeComponent implements OnInit, AfterContentInit, AfterViewInit, OnDestroy {
-
+export class YoutubeComponent
+  implements OnInit, AfterContentInit, AfterViewInit, OnDestroy {
   @ViewChild('videoDiv') videoElem: ElementRef;
 
   session;
@@ -32,7 +41,7 @@ export class YoutubeComponent implements OnInit, AfterContentInit, AfterViewInit
     private sessionsService: SessionsService,
     private route: ActivatedRoute,
     private layoutService: LayoutService
-  ) { }
+  ) {}
 
   @HostListener('document:keypress', ['$event']) handleKeyboardEvent(event) {
     const elemType = event.target.nodeName;
@@ -101,12 +110,18 @@ export class YoutubeComponent implements OnInit, AfterContentInit, AfterViewInit
     } else {
       console.log(this.inputUrl);
       this.isVideoLoaded = true;
-      this.youtubePlayer.createPlayer(this.videoId, this.videoWidth, this.videoHeight);
+      this.youtubePlayer.createPlayer(
+        this.videoId,
+        this.videoWidth,
+        this.videoHeight
+      );
     }
   }
 
   getVideoId(link) {
-    return link.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/)[1];
+    return link.match(
+      /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/
+    )[1];
   }
 
   onToggleWords() {
@@ -117,7 +132,7 @@ export class YoutubeComponent implements OnInit, AfterContentInit, AfterViewInit
   }
 
   testKey() {
-    console.log('aaaaa');
+    // console.log('aaaaa');
   }
 
   onSaveLink() {
@@ -126,5 +141,4 @@ export class YoutubeComponent implements OnInit, AfterContentInit, AfterViewInit
       console.log(res);
     });
   }
-
 }

@@ -27,7 +27,7 @@ export class VideosListContainerComponent implements OnInit {
     });
 
     this.store.pipe(select(getUser)).subscribe(user => {
-      console.log(user);
+      // console.log(user);
       return (this.currentUserId = user._id);
     });
 

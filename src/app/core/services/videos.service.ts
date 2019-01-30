@@ -16,7 +16,7 @@ export class VideosService {
   }
 
   addVideo(video): Observable<any> {
-    console.log(video);
+    // console.log(video);
     return this.http.post<any>(`${environment.API_URL}/videos`, video);
   }
 
@@ -28,7 +28,7 @@ export class VideosService {
   }
 
   deleteVideo(videoId): Observable<any> {
-    console.log(videoId);
+    // console.log(videoId);
     return this.http.delete<any>(`${environment.API_URL}/videos/${videoId}`);
   }
 }

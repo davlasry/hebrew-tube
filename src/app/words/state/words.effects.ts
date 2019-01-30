@@ -32,7 +32,7 @@ export class WordsEffects {
   @Effect()
   addWord$ = this.actions$.ofType(ADD_WORD).pipe(
     switchMap((action: AddWord) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       return this.wordsService
         .addWord(action.payload)
         .pipe(map(word => new AddWordSuccess(word)));
@@ -43,7 +43,7 @@ export class WordsEffects {
   @Effect({ dispatch: false })
   deleteWords$: Observable<any> = this.actions$.ofType(DELETE_WORDS).pipe(
     switchMap((action: DeleteWords) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       return this.wordsService.deleteManyWords(action.payload);
       // .pipe(
       //   map(wordsIds => {

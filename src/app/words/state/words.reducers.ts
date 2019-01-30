@@ -55,7 +55,7 @@ export function allWordsReducer(
     }
 
     case wordsList.DELETE_WORDS: {
-      console.log(action.payload);
+      // console.log(action.payload);
       return adapter.removeMany(action.payload, state);
       // return adapter.removeOne(action.payload.word._id, state);
     }
