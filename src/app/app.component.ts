@@ -44,15 +44,20 @@ export class AppComponent implements OnInit {
       this.store.dispatch(new LoadUserSuccess(userDetails));
     }
 
-    this.store.pipe(select(getWordsLoaded)).subscribe(hasLoaded => {
-      if (!hasLoaded) {
-        this.store.dispatch(new LoadWords());
-      }
-    });
+    this.isLoggedIn$.subscribe(isLoggedIn => {
+      // console.log(isLoggedIn);
+      if (isLoggedIn) {
+        this.store.pipe(select(getWordsLoaded)).subscribe(hasLoaded => {
+          if (!hasLoaded) {
+            this.store.dispatch(new LoadWords());
+          }
+        });
 
-    this.store.pipe(select(getMyWordsLoaded)).subscribe(hasLoaded => {
-      if (!hasLoaded) {
-        this.store.dispatch(new LoadMyWords(this.currentUserId));
+        this.store.pipe(select(getMyWordsLoaded)).subscribe(hasLoaded => {
+          if (!hasLoaded) {
+            this.store.dispatch(new LoadMyWords(this.currentUserId));
+          }
+        });
       }
     });
   }

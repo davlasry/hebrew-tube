@@ -32,7 +32,7 @@ export class ViewWordDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.data);
+    // console.log(this.data);
     this.isWordFavorite$ = this.store.select(getMyWordsIds).pipe(
       map((myWords: string[]) => {
         console.log(myWords);

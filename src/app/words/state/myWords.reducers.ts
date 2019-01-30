@@ -36,13 +36,14 @@ export function myWordsReducer(
     }
 
     case myWordsList.ADD_TO_MY_WORDS: {
-      console.log(action.payload);
+      // console.log(action.payload);
       return adapter.addOne(action.payload.word, state);
     }
 
     case myWordsList.DELETE_FROM_MY_WORDS: {
-      console.log(action.payload);
-      return adapter.removeOne(action.payload.word._id, state);
+      // console.log(action.payload);
+      return adapter.removeMany(action.payload.words, state);
+      // return adapter.removeOne(action.payload.word._id, state);
     }
 
     default: {

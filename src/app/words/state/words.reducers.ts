@@ -11,9 +11,15 @@ export interface AllWordsState extends EntityState<any> {
   loaded: Boolean;
 }
 
+// SORT FUNCTION
+export function sortByCreatedAt(ob1, ob2): number {
+  return ob2.createdAt.localeCompare(ob1.createdAt);
+}
+
 // NGRX/ENTITY
 export const adapter: EntityAdapter<any> = createEntityAdapter<any>({
-  selectId: word => word._id
+  selectId: word => word._id,
+  sortComparer: sortByCreatedAt
 });
 
 // INITIAL WORDS STATE
@@ -41,6 +47,17 @@ export function allWordsReducer(
         loading: false,
         loaded: true
       });
+    }
+
+    case wordsList.ADD_WORD_SUCCESS: {
+      // console.log(action.payload);
+      return adapter.addOne(action.payload, state);
+    }
+
+    case wordsList.DELETE_WORDS: {
+      // console.log(action.payload);
+      return adapter.removeMany(action.payload, state);
+      // return adapter.removeOne(action.payload.word._id, state);
     }
 
     default: {

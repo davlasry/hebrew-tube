@@ -132,18 +132,18 @@ export class DictionariesComponent implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  onSearch() {
-    // console.log(this.wordForm.value);
-    // this.isMorfixLoading = true;
-    // this.wordsService.searchWord(this.wordForm.value.hebrew).subscribe(res => {
-    //   console.log(res);
-    //   const result = Object.values(JSON.parse(res));
-    //   console.log(result);
-    //   this.morfixHebrew = result[0];
-    //   this.morfixEnglish = result[1];
-    //   this.isMorfixLoading = false;
-    // });
-  }
+  // onSearch() {
+  //   console.log(this.wordForm.value);
+  //   this.isMorfixLoading = true;
+  //   this.wordsService.searchWord(this.wordForm.value.hebrew).subscribe(res => {
+  //     console.log(res);
+  //     const result = Object.values(JSON.parse(res));
+  //     console.log(result);
+  //     this.morfixHebrew = result[0];
+  //     this.morfixEnglish = result[1];
+  //     this.isMorfixLoading = false;
+  //   });
+  // }
 
   addEnglish(english) {
     this.wordForm.controls['english'].patchValue(english);

@@ -8,13 +8,12 @@ import { WordsService } from 'src/app/core/services/words.service';
   styleUrls: ['./word.component.css']
 })
 export class WordComponent implements OnInit {
-
   word;
 
   constructor(
     private wordsService: WordsService,
-    private route: ActivatedRoute,
-  ) { }
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.getWord();
@@ -22,11 +21,10 @@ export class WordComponent implements OnInit {
 
   getWord(): void {
     const id: string = this.route.snapshot.paramMap.get('id');
-    console.log(id);
+    // console.log(id);
     this.wordsService.getWord(id).subscribe(result => {
       this.word = result;
-      console.log(result);
+      // console.log(result);
     });
   }
-
 }

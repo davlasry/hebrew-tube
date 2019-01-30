@@ -1,4 +1,3 @@
-import { WordsService } from './../../../core/services/words.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -22,7 +21,8 @@ export class AddNewWordComponent implements OnInit {
 
   ngOnInit() {
     this.wordForm = this.fb.group({
-      hebrew: ['', [Validators.required, Validators.pattern(/^[א-ת\s]+$/)]],
+      hebrew: ['', [Validators.required]],
+      // hebrew: ['', [Validators.required, Validators.pattern(/^[א-ת\s]+$/)]],
       createdAt: [''],
       french: ['', [Validators.required]],
       pronunciation: ['']

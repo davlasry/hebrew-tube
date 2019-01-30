@@ -18,24 +18,11 @@ export class WordsComponent implements OnInit {
   constructor(private store: Store<any>) {}
 
   ngOnInit() {
-    console.log('WORDS COMPONENT');
-    this.store.pipe(select(getWordsLoaded)).subscribe(hasLoaded => {
-      if (!hasLoaded) {
-        this.store.dispatch(new LoadWords());
-      }
-    });
+    // console.log('WORDS COMPONENT');
 
     this.store.pipe(select(getUser)).subscribe(user => {
-      console.log(user);
+      // console.log(user);
       return (this.currentUserId = user._id);
-    });
-
-    this.store.pipe(select(getMyWordsLoaded)).subscribe(hasLoaded => {
-      console.log(hasLoaded);
-      if (!hasLoaded && this.currentUserId) {
-        console.log(this.currentUserId);
-        this.store.dispatch(new LoadMyWords(this.currentUserId));
-      }
     });
   }
 }
