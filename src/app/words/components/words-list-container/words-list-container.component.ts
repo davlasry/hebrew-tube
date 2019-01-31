@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { getAllWords } from '../../state/words.selectors';
-import { AddToMyWords, DeleteFromMyWords } from '../../state/myWords.actions';
+import { getAllWords } from '../../state/selectors/words.selectors';
+import {
+  AddToMyWords,
+  DeleteFromMyWords
+} from '../../state/actions/myWords.actions';
 import { WordsState } from '../../state';
 import { getUser } from 'src/app/authentication/state/user.selectors';
-import { getAllMyWords } from '../../state/myWords.selectors';
-import { DeleteWords } from '../../state/words.actions';
+import { getAllMyWords } from '../../state/selectors/myWords.selectors';
+import { DeleteWords } from '../../state/actions/words.actions';
 
 @Component({
   selector: 'app-words-list-container',

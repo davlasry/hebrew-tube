@@ -2,18 +2,16 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Store } from '@ngrx/store';
-import { AddWord } from 'src/app/words/state/words.actions';
 import {
   AddToMyWords,
   DeleteFromMyWords
-} from 'src/app/words/state/myWords.actions';
+} from 'src/app/words/state/actions/myWords.actions';
 import { getUser } from 'src/app/authentication/state/user.selectors';
 import { map } from 'rxjs/operators';
-import { getMyWords } from 'src/app/words/state/myWords.reducers';
 import {
   getAllMyWords,
   getMyWordsIds
-} from 'src/app/words/state/myWords.selectors';
+} from 'src/app/words/state/selectors/myWords.selectors';
 
 @Component({
   selector: 'app-view-word',
@@ -36,7 +34,7 @@ export class ViewWordDialogComponent implements OnInit {
     this.isWordFavorite$ = this.store.select(getMyWordsIds).pipe(
       map((myWords: string[]) => {
         console.log(myWords);
-        return myWords.indexOf(this.data.word._id) != -1;
+        return myWords.indexOf(this.data.word._id) !== -1;
       })
     );
 

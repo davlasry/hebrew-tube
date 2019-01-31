@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { getUser } from 'src/app/authentication/state/user.selectors';
 
 @Component({
-  selector: 'app-videos-list-container',
+  selector: 'app-videos-list',
   templateUrl: './videos-list-container.component.html',
   styleUrls: ['./videos-list-container.component.scss']
 })

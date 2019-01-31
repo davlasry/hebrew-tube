@@ -1,4 +1,4 @@
-import * as myWordsList from './myWords.actions';
+import * as myWordsList from '../actions/myWords.actions';
 
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 

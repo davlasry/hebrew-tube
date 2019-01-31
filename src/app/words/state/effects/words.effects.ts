@@ -1,4 +1,4 @@
-import { WordsService } from '../../core/services/words.service';
+import { WordsService } from '../../../core/services/words.service';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { switchMap, map, catchError } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import {
   AddWordSuccess,
   DeleteWords,
   DELETE_WORDS
-} from './words.actions';
+} from '../actions/words.actions';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -44,7 +44,7 @@ export class WordsEffects {
   deleteWords$: Observable<any> = this.actions$.ofType(DELETE_WORDS).pipe(
     switchMap((action: DeleteWords) => {
       // console.log(action.payload);
-      return this.wordsService.deleteManyWords(action.payload);
+      return this.wordsService.deleteWord(action.payload);
       // .pipe(
       //   map(wordsIds => {
       //     console.log(wordsIds);

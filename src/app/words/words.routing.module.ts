@@ -6,11 +6,13 @@ import { WordsListContainerComponent } from './components/words-list-container/w
 import { WordsComponent } from './words.component';
 import { MyWordsContainerComponent } from './components/my-words-container/my-words-container.component';
 import { LibrariesComponent } from './components/libraries/libraries.component';
+import { AuthGuard } from '../core/guards/auth-guard.service';
 
 const routes: Routes = [
   {
     path: 'words',
     component: WordsComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       {

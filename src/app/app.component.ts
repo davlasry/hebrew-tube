@@ -11,10 +11,10 @@ import {
 import { take } from 'rxjs/operators';
 import { getLoggedIn, getUser } from './authentication/state/user.selectors';
 import { Observable } from 'rxjs';
-import { getWordsLoaded } from './words/state/words.selectors';
-import { LoadWords } from './words/state/words.actions';
-import { getMyWordsLoaded } from './words/state/myWords.reducers';
-import { LoadMyWords } from './words/state/myWords.actions';
+import { getWordsLoaded } from './words/state/selectors/words.selectors';
+import { LoadWords } from './words/state/actions/words.actions';
+import { LoadMyWords } from './words/state/actions/myWords.actions';
+import { getMyWordsLoaded } from './words/state/reducers/myWords.reducers';
 
 @Component({
   selector: 'app-root',

@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
-import * as fromAllWords from './words.reducers';
-import { getWordsState, WordsState } from '.';
+import * as fromAllWords from '../reducers/words.reducers';
+import { getWordsState, WordsState } from '..';
 
 export const getAllWordsState = createSelector(
   getWordsState,

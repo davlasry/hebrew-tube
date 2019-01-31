@@ -1,11 +1,11 @@
-import * as fromAllWords from './words.reducers';
-import * as fromMyWords from './myWords.reducers';
+import * as fromAllWords from './reducers/words.reducers';
+import * as fromMyWords from './reducers/myWords.reducers';
 import {
   ActionReducerMap,
   createFeatureSelector,
   createSelector
 } from '@ngrx/store';
-import { getMyWordsIds } from './myWords.selectors';
+import { getMyWordsIds } from './selectors/myWords.selectors';
 
 export interface WordsState {
   allWords: fromAllWords.AllWordsState;

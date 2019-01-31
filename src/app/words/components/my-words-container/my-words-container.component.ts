@@ -5,12 +5,12 @@ import {
   SimpleChanges,
   OnChanges
 } from '@angular/core';
-import { MyWordsState } from '../../state/myWords.reducers';
 import { Store, select } from '@ngrx/store';
-import { getAllMyWords } from '../../state/myWords.selectors';
+import { getAllMyWords } from '../../state/selectors/myWords.selectors';
 import { getUser } from 'src/app/authentication/state/user.selectors';
 import { map } from 'rxjs/operators';
-import { DeleteFromMyWords } from '../../state/myWords.actions';
+import { DeleteFromMyWords } from '../../state/actions/myWords.actions';
+import { MyWordsState } from '../../state/reducers/myWords.reducers';
 
 @Component({
   selector: 'app-my-words-container',

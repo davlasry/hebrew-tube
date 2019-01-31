@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
-import * as wordsList from './words.actions';
+import * as wordsList from '../actions/words.actions';
 
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 

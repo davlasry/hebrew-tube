@@ -5,18 +5,20 @@ import { LogInComponent } from './authentication/components/log-in/log-in.compon
 import { HomeComponent } from './layout/home/home.component';
 import { ProfileComponent } from './authentication/components/profile/profile.component';
 import { CustomPreloading } from './custom-preloading';
+import { AuthGuard } from './core/guards/auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'study', loadChildren: './study/study.module#StudyModule' },
+  // { path: 'study', loadChildren: './study/study.module#StudyModule' },
   {
     path: 'videos',
     loadChildren: './video/video.module#VideoModule',
+    canActivate: [AuthGuard],
     data: { preload: true }
   },
   { path: 'login', component: LogInComponent },
   { path: 'signup', component: SignUpComponent },
-  { path: 'profile', component: ProfileComponent }
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
   // { path: '**', component: 'NotFoundComponent' }
 ];
 

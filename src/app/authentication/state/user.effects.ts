@@ -13,7 +13,8 @@ import {
   LOAD_USER,
   LoadUser,
   LOAD_USER_SUCCESS,
-  LoadUserSuccess
+  LoadUserSuccess,
+  LOGIN_REDIRECT
 } from './user.actions';
 import { UsersService } from 'src/app/core/services/users.service';
 import { JwtService } from 'src/app/core/services/jwt.service';
@@ -48,5 +49,13 @@ export class UserEffects {
   loginSuccess$ = this.actions$.pipe(
     ofType(LOAD_USER_SUCCESS)
     // tap(() => this.router.navigate(['/']))
+  );
+
+  @Effect({ dispatch: false })
+  loginRedirect$ = this.actions$.pipe(
+    ofType(LOGIN_REDIRECT),
+    tap(authed => {
+      this.router.navigate(['/login']);
+    })
   );
 }

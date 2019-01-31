@@ -2,7 +2,6 @@ import { Injectable, OnInit } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
 
-import {} from './actions/words.actions';
 import { UsersService } from 'src/app/core/services/users.service';
 import {
   LoadMyWordsSuccess,
@@ -13,7 +12,7 @@ import {
   DeleteFromMyWords,
   AddToMyWordsSuccess,
   DeleteFromMyWordsSuccess
-} from './actions/myWords.actions';
+} from '../actions/myWords.actions';
 import { Observable } from 'rxjs';
 
 @Injectable()
