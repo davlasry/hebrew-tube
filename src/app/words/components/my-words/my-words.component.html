@@ -1,4 +1,4 @@
-<div class="container">
+<div class="my-words-container">
   <div *ngIf="myWords.length == 0">
     <p>You don't have any words in your library...</p>
     <p>
@@ -8,42 +8,25 @@
 
   <div *ngIf="myWords.length > 0" class="if-words">
     <div class="buttons">
-      <button
-        mat-raised-button
-        color="warn"
-        [disabled]="false"
-        (click)="deleteSelection()"
-      >
+      <button mat-raised-button color="warn" [disabled]="false" (click)="deleteSelection()">
         <mat-icon>delete</mat-icon>
         Delete Selection
       </button>
     </div>
     <div class="table">
-      <table
-        mat-table
-        [dataSource]="dataSource"
-        matSort
-        class="mat-elevation-z8"
-      >
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
         <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
 
         <!-- Checkbox Column -->
         <ng-container matColumnDef="select">
           <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox
-              (change)="$event ? masterToggle() : null"
-              [checked]="selection.hasValue() && isAllSelected()"
-              [indeterminate]="selection.hasValue() && !isAllSelected()"
-            >
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()">
             </mat-checkbox>
           </th>
           <td mat-cell *matCellDef="let row">
-            <mat-checkbox
-              (click)="$event.stopPropagation()"
-              (change)="$event ? selection.toggle(row) : null"
-              [checked]="selection.isSelected(row)"
-            >
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
             </mat-checkbox>
           </td>
         </ng-container>
@@ -76,10 +59,7 @@
           <td mat-cell *matCellDef="let element">{{ element.type }}</td>
         </ng-container>
 
-        <tr
-          mat-header-row
-          *matHeaderRowDef="displayedColumns; sticky: true"
-        ></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
     </div>

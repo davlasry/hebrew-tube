@@ -9,7 +9,6 @@ import {
   OnDestroy
 } from '@angular/core';
 import { YoutubePlayerService } from 'src/app/core/services/youtube-player.service';
-import { LayoutService } from '../../core/services/layout.service';
 import { ActivatedRoute } from '@angular/router';
 import { SessionsService } from '../../core/services/sessions.service';
 import { distinctUntilChanged } from 'rxjs/operators';
@@ -39,8 +38,7 @@ export class YoutubeComponent
   constructor(
     private youtubePlayer: YoutubePlayerService,
     private sessionsService: SessionsService,
-    private route: ActivatedRoute,
-    private layoutService: LayoutService
+    private route: ActivatedRoute
   ) {}
 
   @HostListener('document:keypress', ['$event']) handleKeyboardEvent(event) {
@@ -128,7 +126,7 @@ export class YoutubeComponent
     this.isWordsOpen = !this.isWordsOpen;
     // this.getVideoSize();
     // this.youtubePlayer.resizePlayer(this.videoWidth, this.videoHeight);
-    this.layoutService.toggleWords(this.isWordsOpen);
+    // this.layoutService.toggleWords(this.isWordsOpen);
   }
 
   testKey() {

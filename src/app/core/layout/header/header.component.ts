@@ -8,12 +8,6 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { UsersService } from 'src/app/core/services/users.service';
-import { Store, select } from '@ngrx/store';
-import {
-  getUser,
-  getLoggedIn
-} from 'src/app/authentication/state/user.selectors';
-import { UserState } from 'src/app/authentication/state/user.reducers';
 
 @Component({
   selector: 'app-header',

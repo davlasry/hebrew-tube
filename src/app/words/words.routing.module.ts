@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MyWordsComponent } from './components/my-words/my-words.component';
-import { WordsListComponent } from './components/words-list/words-list.component';
 import { WordsListContainerComponent } from './components/words-list-container/words-list-container.component';
 import { WordsComponent } from './words.component';
 import { MyWordsContainerComponent } from './components/my-words-container/my-words-container.component';

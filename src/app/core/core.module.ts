@@ -1,4 +1,3 @@
-import { LayoutService } from './services/layout.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,15 +8,19 @@ import { SessionsService } from './services/sessions.service';
 import { VideosService } from './services/videos.service';
 import { UsersService } from './services/users.service';
 import { JwtService } from './services/jwt.service';
+import { HeaderComponent } from './layout/header/header.component';
+import { SharedModule } from '../shared/shared.module';
+import { RouterModule } from '@angular/router';
+import { AppComponent } from './layout/app.component';
+import { HomeComponent } from './layout/home/home.component';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [],
+  imports: [CommonModule, RouterModule, SharedModule],
+  declarations: [HeaderComponent, AppComponent, HomeComponent],
   providers: [
     WordsService,
     YoutubeApiService,
     YoutubePlayerService,
-    LayoutService,
     SessionsService,
     VideosService,
     UsersService,

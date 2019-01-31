@@ -25,10 +25,7 @@ export function userReducer(
       });
 
     case userActions.USER_SIGN_OUT:
-      return Object.assign({}, state, {
-        loggedIn: false,
-        user: {}
-      });
+      return INITIAL_USER_STATE;
 
     default: {
       return state;

@@ -1,5 +1,4 @@
 import { YoutubePlayerService } from 'src/app/core/services/youtube-player.service';
-import { YoutubeApiService } from './../../core/services/youtube-api.service';
 import {
   Component,
   OnInit,
