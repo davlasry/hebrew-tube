@@ -20,7 +20,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class MyWordsComponent implements OnInit, OnChanges {
   @Input() myWords;
-  @Input() currentUserId;
+  @Input() myWordsLoading;
 
   @Output() deleteWords = new EventEmitter();
 

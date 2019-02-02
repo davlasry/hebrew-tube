@@ -1,4 +1,4 @@
-import * as myWordsList from '../actions/myWords.actions';
+import * as myWordsActions from '../actions/myWords.actions';
 
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
@@ -24,23 +24,30 @@ export const INITIAL_MY_WORDS_STATE: MyWordsState = adapter.getInitialState({
 // MYWORDS REDUCER
 export function myWordsReducer(
   state: MyWordsState = INITIAL_MY_WORDS_STATE,
-  action: myWordsList.Actions
+  action: myWordsActions.Actions
 ): MyWordsState {
   switch (action.type) {
-    case myWordsList.LOAD_MY_WORDS_SUCCESS: {
+    case myWordsActions.LOAD_MY_WORDS: {
+      return {
+        ...state,
+        loading: true
+      };
+    }
+
+    case myWordsActions.LOAD_MY_WORDS_SUCCESS: {
       return adapter.addAll(action.payload, {
         ...state,
-        myWordsLoading: false,
-        myWordsLoaded: true
+        loading: false,
+        loaded: true
       });
     }
 
-    case myWordsList.ADD_TO_MY_WORDS: {
+    case myWordsActions.ADD_TO_MY_WORDS: {
       // console.log(action.payload);
       return adapter.addOne(action.payload.word, state);
     }
 
-    case myWordsList.DELETE_FROM_MY_WORDS: {
+    case myWordsActions.DELETE_FROM_MY_WORDS: {
       // console.log(action.payload);
       return adapter.removeMany(action.payload.words, state);
       // return adapter.removeOne(action.payload.word._id, state);

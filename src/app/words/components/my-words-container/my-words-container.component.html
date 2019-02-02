@@ -1,6 +1,2 @@
 <h1>MY WORDS</h1>
-<app-my-words
-  [myWords]="myWords$ | async"
-  [currentUserId]="currentUserId"
-  (deleteWords)="deleteWords($event)"
-></app-my-words>
+<app-my-words [myWords]="myWords$ | async" [myWordsLoading]="myWordsLoading$ | async" (deleteWords)="deleteWords($event)"></app-my-words>
