@@ -16,11 +16,14 @@ import {
   LoadUserSuccess,
   LOGIN_REDIRECT,
   USER_SIGN_OUT,
-  USER_SIGN_OUT_SUCCESS
+  USER_SIGN_OUT_SUCCESS,
+  SIGN_UP,
+  SignUpSuccess,
+  LoadUserFailure
 } from './user.actions';
 import { UsersService } from 'src/app/core/services/users.service';
 import { JwtService } from 'src/app/core/services/jwt.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -42,6 +45,22 @@ export class UserEffects {
           // console.log(user);
           this.jwtService.saveToken(user.token);
           return new LoadUserSuccess(user);
+        }),
+        catchError(error => of(new LoadUserFailure({ error })))
+      );
+    })
+  );
+
+  @Effect()
+  signIn$: Observable<any> = this.actions$.ofType(SIGN_UP).pipe(
+    map((action: LoadUser) => action.payload),
+    switchMap(payload => {
+      // console.log(payload);
+      return this.usersService.logIn(payload).pipe(
+        map(user => {
+          // console.log(user);
+          this.jwtService.saveToken(user.token);
+          return new SignUpSuccess(user);
         })
       );
     })

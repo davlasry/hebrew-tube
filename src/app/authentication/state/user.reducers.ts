@@ -24,6 +24,19 @@ export function userReducer(
         user: action.payload
       });
 
+    case userActions.LOAD_USER_FAILURE: {
+      return Object.assign({}, state, {
+        loggedIn: false,
+        user: action.payload
+      });
+    }
+
+    case userActions.SIGN_UP_SUCCESS:
+      return Object.assign({}, state, {
+        loggedIn: true,
+        user: action.payload
+      });
+
     case userActions.USER_SIGN_OUT:
       return INITIAL_USER_STATE;
 

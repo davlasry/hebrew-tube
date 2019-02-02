@@ -36,7 +36,7 @@ export class SignUpComponent implements OnInit {
         console.log(res);
         this.usersService.logIn(res);
         this.jwtService.saveToken(res.token);
-        this.router.navigateByUrl('profile');
+        this.router.navigateByUrl('/');
       },
       err => console.log(err)
     );
