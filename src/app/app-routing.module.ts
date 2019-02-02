@@ -12,7 +12,6 @@ const routes: Routes = [
   {
     path: 'videos',
     loadChildren: './video/video.module#VideoModule',
-    canActivate: [AuthGuard],
     data: { preload: true }
   },
   { path: 'login', component: LogInComponent },

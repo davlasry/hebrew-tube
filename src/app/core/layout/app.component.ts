@@ -47,7 +47,6 @@ export class AppComponent implements OnInit {
     }
 
     this.isLoggedIn$.subscribe(isLoggedIn => {
-      // console.log(isLoggedIn);
       if (isLoggedIn) {
         this.store.pipe(select(getWordsLoaded)).subscribe(hasLoaded => {
           if (!hasLoaded) {

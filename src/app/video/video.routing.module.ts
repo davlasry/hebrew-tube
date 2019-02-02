@@ -5,11 +5,13 @@ import { VideoComponent } from './video/video.component';
 import { EditVideoComponent } from './edit-video/edit-video.component';
 import { VideosContainerComponent } from './videos-container/videos-container.component';
 import { VideosListContainerComponent } from './videos-list-container/videos-list-container.component';
+import { AuthGuard } from '../core/guards/auth-guard.service';
 
 const routes: Routes = [
   {
     path: '',
     component: VideosContainerComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: VideosListContainerComponent },

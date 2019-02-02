@@ -12,7 +12,7 @@ import { JwtService } from 'src/app/core/services/jwt.service';
 import { UsersService } from 'src/app/core/services/users.service';
 import { Store } from '@ngrx/store';
 import { UserState } from '../../state/user.reducers';
-import { LoadUser } from '../../state/user.actions';
+import { LoadUser, Login } from '../../state/user.actions';
 
 @Component({
   selector: 'app-log-in',
@@ -48,17 +48,6 @@ export class LogInComponent implements OnInit {
   }
 
   login() {
-    console.log('LOG IN');
-    this.store.dispatch(new LoadUser(this.loginForm.value));
-    // this.usersService.logIn(this.logInForm.value).subscribe(
-    //   res => {
-    //     this.jwtService.saveToken(res.token);
-    //     this.router.navigateByUrl('profile');
-    //   },
-    //   err => {
-    //     this.serverError = err.error.msg;
-    //     console.log(err);
-    //   }
-    // );
+    this.store.dispatch(new Login(this.loginForm.value));
   }
 }

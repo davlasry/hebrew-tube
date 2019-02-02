@@ -19,7 +19,10 @@ import {
   USER_SIGN_OUT_SUCCESS,
   SIGN_UP,
   SignUpSuccess,
-  LoadUserFailure
+  LoadUserFailure,
+  LoginSuccess,
+  LOGIN,
+  LOGIN_SUCCESS
 } from './user.actions';
 import { UsersService } from 'src/app/core/services/users.service';
 import { JwtService } from 'src/app/core/services/jwt.service';
@@ -36,7 +39,7 @@ export class UserEffects {
   ) {}
 
   @Effect()
-  logIn$: Observable<any> = this.actions$.ofType(LOAD_USER).pipe(
+  loadUser$: Observable<any> = this.actions$.ofType(LOAD_USER).pipe(
     map((action: LoadUser) => action.payload),
     switchMap(payload => {
       // console.log(payload);
@@ -49,6 +52,28 @@ export class UserEffects {
         catchError(error => of(new LoadUserFailure({ error })))
       );
     })
+  );
+
+  @Effect()
+  logIn$: Observable<any> = this.actions$.ofType(LOGIN).pipe(
+    map((action: LoadUser) => action.payload),
+    switchMap(payload => {
+      // console.log(payload);
+      return this.usersService.logIn(payload).pipe(
+        map(user => {
+          // console.log(user);
+          this.jwtService.saveToken(user.token);
+          return new LoginSuccess(user);
+        }),
+        catchError(error => of(new LoadUserFailure({ error })))
+      );
+    })
+  );
+
+  @Effect({ dispatch: false })
+  loginSuccess$ = this.actions$.pipe(
+    ofType(LOGIN_SUCCESS),
+    tap(() => this.router.navigate(['/']))
   );
 
   @Effect()
@@ -67,15 +92,9 @@ export class UserEffects {
   );
 
   @Effect({ dispatch: false })
-  loginSuccess$ = this.actions$.pipe(
-    ofType(LOAD_USER_SUCCESS)
-    // tap(() => this.router.navigate(['/']))
-  );
-
-  @Effect({ dispatch: false })
   loginRedirect$ = this.actions$.pipe(
     ofType(LOGIN_REDIRECT),
-    tap(authed => {
+    tap(() => {
       this.router.navigate(['/login']);
     })
   );
@@ -84,7 +103,7 @@ export class UserEffects {
   signOut$ = this.actions$.pipe(
     ofType(USER_SIGN_OUT),
     tap(() => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/login']);
     })
   );
 }

@@ -3,6 +3,9 @@ import { Action } from '@ngrx/store';
 export const LOAD_USER = '[User] Load User';
 export const LOAD_USER_SUCCESS = '[User] Load User Sucess';
 export const LOAD_USER_FAILURE = '[User] Load User Failure';
+export const LOGIN = '[User] Login';
+export const LOGIN_SUCCESS = '[User] Login Sucess';
+export const LOGIN_FAILURE = '[User] Login Failure';
 export const USER_SIGN_OUT = '[User] User Sign Out';
 export const USER_SIGN_OUT_SUCCESS = '[User] User Sign Out Success';
 export const SIGN_UP = '[User] Sign Up';
@@ -21,6 +24,21 @@ export class LoadUserSuccess implements Action {
 }
 export class LoadUserFailure implements Action {
   readonly type = LOAD_USER_FAILURE;
+
+  constructor(public payload: any) {}
+}
+export class Login implements Action {
+  readonly type = LOGIN;
+
+  constructor(public payload: any) {}
+}
+export class LoginSuccess implements Action {
+  readonly type = LOGIN_SUCCESS;
+
+  constructor(public payload: any) {}
+}
+export class LoginFailure implements Action {
+  readonly type = LOGIN_FAILURE;
 
   constructor(public payload: any) {}
 }
@@ -48,6 +66,9 @@ export type Actions =
   | LoadUser
   | LoadUserSuccess
   | LoadUserFailure
+  | Login
+  | LoginSuccess
+  | LoginFailure
   | LoginRedirect
   | UserSignOut
   | UserSignOutSuccess

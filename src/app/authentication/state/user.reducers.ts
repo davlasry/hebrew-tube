@@ -31,6 +31,17 @@ export function userReducer(
       });
     }
 
+    case userActions.LOGIN_SUCCESS:
+      return Object.assign({}, state, {
+        loggedIn: true
+      });
+
+    case userActions.LOGIN_FAILURE: {
+      return Object.assign({}, state, {
+        loggedIn: false
+      });
+    }
+
     case userActions.SIGN_UP_SUCCESS:
       return Object.assign({}, state, {
         loggedIn: true,
