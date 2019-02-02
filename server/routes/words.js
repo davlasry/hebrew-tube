@@ -65,8 +65,8 @@ router.get('/session-words/:sessionId', (req, res, next) => {
   const sessionId = req.params.sessionId;
   console.log(sessionId);
   Word.find({
-    'definitions.sessions.session': sessionId
-  })
+      'definitions.sessions.session': sessionId
+    })
     .exec()
     .then(words => {
       // return only the specific session in word.sessions
@@ -91,11 +91,10 @@ router.post('/', (req, res, next) => {
   console.log(`Add word: ${req.body}`);
 
   // Check if word already exist
-  Word.findOne(
-    {
+  Word.findOne({
       hebrew: req.body.hebrew
     },
-    function(err, word) {
+    function (err, word) {
       if (err) {
         console.log(err);
       }
@@ -104,19 +103,16 @@ router.post('/', (req, res, next) => {
       if (word) {
         console.log('Word already exist in DB');
         // If word already exist in DB, update word
-        Word.update(
-          {
+        Word.update({
             _id: word._id
-          },
-          {
+          }, {
             $set: {
               lastEditedAt: new Date()
             },
             $push: {
               definitions: req.body.definition
             }
-          }
-        )
+          })
           .exec()
           .then(result => {
             res.status(200).json(result);
@@ -157,11 +153,9 @@ router.post('/', (req, res, next) => {
 router.patch('/getWord/:id', checkIfUserIsAuthor, (req, res, next) => {
   console.log(req.body);
   const id = req.body._id;
-  Word.update(
-    {
+  Word.update({
       _id: id
-    },
-    {
+    }, {
       $set: {
         name: req.body.name,
         category: req.body.category,
@@ -169,8 +163,7 @@ router.patch('/getWord/:id', checkIfUserIsAuthor, (req, res, next) => {
         steps: req.body.steps,
         lastEditedAt: new Date()
       }
-    }
-  )
+    })
     .exec()
     .then(result => {
       res.status(200).json(result);
@@ -186,10 +179,11 @@ router.delete('/:id', (req, res, next) => {
   const id = req.params.id;
   console.log('delete ' + id);
   Word.remove({
-    _id: id
-  })
+      _id: id
+    })
     .exec()
     .then(result => {
+      console.log(result);
       res.status(200).json(result);
     })
     .catch(err => {
@@ -205,10 +199,10 @@ router.patch('/deleteMany', (req, res, next) => {
   const wordsIds = req.body.wordsIds;
   console.log('delete Many Words', req.body.wordsIds);
   Word.deleteMany({
-    _id: {
-      $in: wordsIds
-    }
-  })
+      _id: {
+        $in: wordsIds
+      }
+    })
     .exec()
     .then(result => {
       // console.log(result);
@@ -227,18 +221,15 @@ router.post('/search', (req, res, next) => {
   console.log(req.body);
   const searchQuery = req.body.searchInput;
   console.log(searchQuery);
-  Recipe.find(
-    {
-      $text: {
-        $search: searchQuery
-      }
-    },
-    {
-      score: {
-        $meta: 'textScore'
-      }
+  Recipe.find({
+    $text: {
+      $search: searchQuery
     }
-  ).exec(function(err, recipes) {
+  }, {
+    score: {
+      $meta: 'textScore'
+    }
+  }).exec(function (err, recipes) {
     if (err) {
       res.status(500).json({
         error: err

@@ -25,15 +25,8 @@ export class WordsService {
   }
 
   deleteManyWords(wordsIds): Observable<any> {
-    // console.log(wordsIds);
     return this.http.patch<any>(`${environment.API_URL}/words/deleteMany`, {
       wordsIds
     });
   }
-
-  // Search Morfix translation
-  // searchWord(word): Observable<any> {
-  //   console.log(word);
-  //   return this.http.get<any>(`${environment.API_URL}/words/search/${word}`);
-  // }
 }

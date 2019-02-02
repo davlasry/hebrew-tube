@@ -5,6 +5,7 @@ export const LOAD_WORDS_SUCCESS = '[Words-List] Load Words Sucess';
 export const EDIT_WORD = '[Words-List] Edit Word';
 export const ADD_WORD = '[Words-List] Add Word';
 export const ADD_WORD_SUCCESS = '[Words-List] Add Word Success';
+export const DELETE_WORD = '[Words-List] Delete Word';
 export const DELETE_WORDS = '[Words-List] Delete Words';
 
 export class LoadWords implements Action {
@@ -35,6 +36,12 @@ export class AddWordSuccess implements Action {
   constructor(public payload: any) {}
 }
 
+export class DeleteWord implements Action {
+  readonly type = DELETE_WORD;
+
+  constructor(public payload: any) {}
+}
+
 export class DeleteWords implements Action {
   readonly type = DELETE_WORDS;
 
@@ -47,4 +54,5 @@ export type Actions =
   | AddWord
   | EditWord
   | DeleteWords
+  | DeleteWord
   | AddWordSuccess;

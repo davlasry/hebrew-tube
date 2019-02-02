@@ -24,6 +24,7 @@ export class WordsListComponent implements OnInit, OnChanges {
   @Output() deleteWords = new EventEmitter();
   @Output() deleteFromMyWords = new EventEmitter();
   @Output() addToMyWords = new EventEmitter();
+  @Output() deleteWord = new EventEmitter();
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -49,6 +50,10 @@ export class WordsListComponent implements OnInit, OnChanges {
       this.dataSource = new MatTableDataSource(this.words);
       this.dataSource.sort = this.sort;
     }
+  }
+
+  onDeleteWord(word) {
+    this.deleteWord.emit(word);
   }
 
   onDeleteFromMyWords(word) {

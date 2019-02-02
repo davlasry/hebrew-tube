@@ -10,9 +10,14 @@ import {
   AddWord,
   AddWordSuccess,
   DeleteWords,
-  DELETE_WORDS
+  DELETE_WORDS,
+  DELETE_WORD
 } from '../actions/words.actions';
 import { Observable } from 'rxjs';
+import {
+  DeleteFromMyWords,
+  DeleteFromMyWordsSuccess
+} from '../actions/myWords.actions';
 
 @Injectable()
 export class WordsEffects {
@@ -40,17 +45,25 @@ export class WordsEffects {
     })
   );
 
+  @Effect()
+  deleteWord$: Observable<any> = this.actions$.ofType(DELETE_WORD).pipe(
+    switchMap((action: DeleteWords) => {
+      // console.log(action.payload);
+      return this.wordsService
+        .deleteManyWords(action.payload)
+        .pipe(map(word => new DeleteFromMyWords(action.payload)));
+    })
+  );
+
   @Effect({ dispatch: false })
   deleteWords$: Observable<any> = this.actions$.ofType(DELETE_WORDS).pipe(
     switchMap((action: DeleteWords) => {
       // console.log(action.payload);
       return this.wordsService.deleteWord(action.payload);
-      // .pipe(
-      //   map(wordsIds => {
-      //     console.log(wordsIds);
-      //     return new DeleteWordsSuccess(wordsIds);
-      //   })
-      // );
-    })
+    }),
+    switchMap(res => [
+      new DeleteFromMyWords(res)
+      // new DeleteWordsFromMyWordsSuccess()
+    ])
   );
 }

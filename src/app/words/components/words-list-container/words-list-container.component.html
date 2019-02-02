@@ -1,11 +1,4 @@
 <div class="container">
-  <!-- <app-add-word></app-add-word> -->
-  <h1>WORDS</h1>
-  <app-words-list
-    [words]="words$ | async"
-    [myWords]="myWords$ | async"
-    (addToMyWords)="addToMyWords($event)"
-    (deleteFromMyWords)="deleteFromMyWords($event)"
-    (deleteWords)="deleteWords($event)"
-  ></app-words-list>
+  <app-words-list [words]="words$ | async" [myWords]="myWords$ | async" (addToMyWords)="addToMyWords($event)"
+    (deleteFromMyWords)="deleteFromMyWords($event)" (deleteWords)="deleteWords($event)" (deleteWord)="deleteWord($event)"></app-words-list>
 </div>

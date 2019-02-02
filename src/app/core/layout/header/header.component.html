@@ -1,7 +1,7 @@
 <div class="header">
   <a class="logo" routerLink="">Hebrew Words</a>
   <nav>
-    <a [routerLink]="['/videos']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn" [routerLinkActiveOptions]="{ exact: true }">Videos</a>
+    <a [routerLink]="['/videos']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn">Videos</a>
     <a [routerLink]="['/videos', 'create']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn"
       [routerLinkActiveOptions]="{ exact: true }">Create
       Video</a>

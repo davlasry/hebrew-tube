@@ -9,7 +9,7 @@ import {
 import { WordsState } from '../../state';
 import { getUser } from 'src/app/authentication/state/user.selectors';
 import { getAllMyWords } from '../../state/selectors/myWords.selectors';
-import { DeleteWords } from '../../state/actions/words.actions';
+import { DeleteWords, DeleteWord } from '../../state/actions/words.actions';
 
 @Component({
   selector: 'app-words-list-container',
@@ -51,5 +51,10 @@ export class WordsListContainerComponent implements OnInit {
   deleteWords(wordsToDelete) {
     console.log(wordsToDelete);
     this.store.dispatch(new DeleteWords(wordsToDelete));
+  }
+
+  deleteWord(wordToDelete) {
+    console.log(wordToDelete);
+    this.store.dispatch(new DeleteWord(wordToDelete));
   }
 }

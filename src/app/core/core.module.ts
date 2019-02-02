@@ -11,8 +11,8 @@ import { JwtService } from './services/jwt.service';
 import { HeaderComponent } from './layout/header/header.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
-import { AppComponent } from './layout/app.component';
 import { HomeComponent } from './layout/home/home.component';
+import { AppComponent } from './layout/app.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule, SharedModule],
