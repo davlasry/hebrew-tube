@@ -1,0 +1,32 @@
+version: '3.2'
+
+services:
+  backend_hebrew:
+    build:
+      context: ./
+      cache_from:
+        - hebrew_backend:local
+    image: hebrew_backend:local
+    container_name: hebrew_backend
+    command: "npm start"
+    restart: always
+    # volumes:
+    #   - ./server:/app
+    environment:
+      - NODE_ENV=vincent
+    ports:
+      - "4600:4600"
+    depends_on:
+      - database_mongo_hebrew
+
+
+  database_mongo_hebrew:
+    image: mongo:latest
+    restart: always
+    container_name: hebrew_mongo
+    volumes:
+      - /opt/mongodb/db:/data/db
+
+    ports:
+      - "27017:27017"
+    command: mongod
