@@ -43,7 +43,7 @@
 
       return res.status(200).send({auth: true, token: token, userID: lodash.get(userCreated, '_id')});
     } catch(err) {
-      return res.status(500).send({auth: false, error: err});
+      return res.status(500).send({auth: false, error: err.toString()});
     }
   }
 
@@ -69,7 +69,7 @@
       return res.status(200).send({auth: true, message: 'update successful'});
 
     } catch(err) {
-      return res.status(500).send({auth: false, error: err});
+      return res.status(500).send({auth: false, error: err.toString()});
     }
   }
 
@@ -93,7 +93,7 @@
       return res.status(200).send({data: user});
 
     } catch(err) {
-      return res.status(500).send({auth: false, error: err});
+      return res.status(500).send({auth: false, error: err.toString()});
     }
   }
 
@@ -110,7 +110,7 @@
       return res.status(200).send({data: users});
 
     } catch(err) {
-      return res.status(500).send({auth: false, error: err});
+      return res.status(500).send({auth: false, error: err.toString()});
     }
   }
 
@@ -129,7 +129,7 @@
       return res.status(200).send('user ' + userToDeleteID + ' successfully deleted');
 
     } catch(err) {
-      return res.status(500).send({auth: false, error: err});
+      return res.status(500).send({auth: false, error: err.toString()});
     }
   }
 })();

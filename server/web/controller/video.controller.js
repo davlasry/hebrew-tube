@@ -24,7 +24,7 @@
   };
 
   /**
-   * @description Création d'un Video
+   * @description Création d'une Video
    * @param {object} req - la requête
    * @param {object} res - la réponse
    * @return {*} la requête
@@ -37,12 +37,12 @@
 
       return res.status(200).send({data: videoCreated});
     } catch(err) {
-      return res.status(500).send({message: 'error in video creation', error: err});
+      return res.status(500).send({message: 'error in video creation', error: err.toString()});
     }
   }
 
   /**
-   * @description Update d'un Video
+   * @description Update d'une Video
    * @param {object} req - la requête
    * @param {object} res - la réponse
    * @return {*} la requête
@@ -54,19 +54,16 @@
 
       const videoUpdated = await VideoSvc.updateVideo(videoID, videoData);
 
-      // TO DO
-      //  Need to update subtitles HERE
-
       return res.status(200).send({data: videoUpdated});
     } catch(err) {
-      return res.status(500).send({message: 'error in video update', error: err});
+      return res.status(500).send({message: 'error in video update', error: err.toString()});
     }
   }
 
 
 
   /**
-   * @description Récupération d'un video
+   * @description Récupération d'une video
    * @param {object} req - la requête
    * @param {object} res - la réponse
    * @return {*} la requête
@@ -75,19 +72,16 @@
     try {
       const videoID = lodash.get(req, 'params.videoID');
       const video = await VideoSvc.getVideo(videoID);
-      
-      // TO DO
-      //  Need to get subtitles HERE
 
       return res.status(200).send({data: video});
 
     } catch(err) {
-      return res.status(500).send({auth: false, error: err});
+      return res.status(500).send({auth: false, error: err.toString()});
     }
   }
 
   /**
-   * @description Récupération de tous les videos
+   * @description Récupération de toutes les videos
    * @param {object} req - la requête
    * @param {object} res - la réponse
    * @return {*} la requête
@@ -99,12 +93,12 @@
       return res.status(200).send({data: videos});
 
     } catch(err) {
-      return res.status(500).send({auth: false, error: err});
+      return res.status(500).send({auth: false, error: err.toString()});
     }
   }
  
    /**
-   * @description Suppression d'un video
+   * @description Suppression d'une video
    * @param {object} req - la requête
    * @param {object} res - la réponse
    * @return {*} la requête
@@ -118,7 +112,7 @@
       return res.status(200).send('video ' + videoToDeleteID + ' successfully deleted');
 
     } catch(err) {
-      return res.status(500).send({auth: false, error: err});
+      return res.status(500).send({auth: false, error: err.toString()});
     }
   }
  

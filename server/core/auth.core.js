@@ -69,6 +69,7 @@
   }
 
 
+  // On vérifie qu'un user est bien connecté, sinon on le jette
   async function isConnected(req, res, next) {
     try {
       const token = lodash.get(req, 'headers.x-access-token');
@@ -87,6 +88,7 @@
     }
   }
 
+  // On vérifie qu'un user est bien Admin, sinon on le jette
   async function isAdmin(req, res, next) {
     try {
 

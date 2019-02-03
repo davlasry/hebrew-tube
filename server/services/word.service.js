@@ -79,11 +79,9 @@
   /**
    * @description Récupère les data d'un word par son ID
    *
-   * @param {{subBase: string}} dbInfos - infos de la base de données
    * @param {string} uid - id du word
-   * @param {string} course - id du cours
    *
-   * @return {Promise<object>} - Le cours du word
+   * @return {Promise<object>} - Le word
    */
   async function getWord(wordID) {
 
@@ -94,11 +92,9 @@
   /**
    * @description Récupère les data de tous les words 
    *
-   * @param {{subBase: string}} dbInfos - infos de la base de données
    * @param {string} uid - id du word
-   * @param {string} course - id du cours
    *
-   * @return {Promise<object>} - Le cours du word
+   * @return {Promise<object>} - Les data de tous les words
    */
   async function getAllWords() {
 
@@ -108,13 +104,11 @@
 
 
   /**
-   * @description Récupère les data d'un word par son Email
+   * @description Suppression d'un word par son ID
    *
-   * @param {{subBase: string}} dbInfos - infos de la base de données
    * @param {string} uid - id du word
-   * @param {string} course - id du cours
    *
-   * @return {Promise<object>} - Le cours du word
+   * @return {Promise<object>} - Confirmation delete
    */
   async function deleteWord(wordID) {
   
@@ -135,6 +129,8 @@
 
   /* private function */
 
+  // Check si un mot contenant le champ hebrew est déjà présent
+  // Renvoie true or false
   async function checkExistingHebrewWord(hebrewWord) {
     const existingHebrewWord = await WordDAO.checkExistingHebrewWord(hebrewWord);
     return !!existingHebrewWord;

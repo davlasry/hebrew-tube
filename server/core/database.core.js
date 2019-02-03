@@ -23,7 +23,6 @@
 
   exports.init = init;
   exports.isConnected = isConnected;
-  exports.convertToObjectID = isConnected;
 
 
   const options = {
@@ -32,17 +31,8 @@
       dbName: 'HebrewApp'
   };
 
-  // function init() {
-
-  //   if(process.env.NODE_ENV === 'vincent') {
-  //       mongoose.connect(dbConfig.dockerMongo, options);
-  //   } else {
-  //       mongoose.connect(dbConfig.atlas, options);
-  //   }
-  // }
 
   let database = null;
-
 
   async function init() {
     if(database) {
@@ -64,11 +54,6 @@
       // Logger.info('Erreur de connexion à Mongo : ' + err.stack);
       return false;
     });
-  }
-
-
-  function convertToObjectID(stringID) {
-    return mongoose.Types.ObjectId(stringID);
   }
 
 

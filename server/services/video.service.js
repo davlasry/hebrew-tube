@@ -28,11 +28,11 @@
 
 
   /**
-   * @description Création d'un video
+   * @description Création d'une video
    *
-   * @param {string} videoData - data du video
+   * @param {string} videoData - data de la video
    *
-   * @return {Promise<object>} - Les data du video
+   * @return {Promise<object>} - Les data de la video
    */
   async function createVideo(videoData) {
 
@@ -57,9 +57,9 @@
   /**
    * @description Update d'un video
    *
-   * @param {string} videoData - data du video
+   * @param {string} videoData - data de la video
    *
-   * @return {Promise<object>} - Les data du video
+   * @return {Promise<object>} - Les data de la video
    */
   async function updateVideo(videoID, videoData) {
 
@@ -86,13 +86,11 @@
 
 
   /**
-   * @description Récupère les data d'un video par son ID
+   * @description Récupère les data d'une video par son ID
    *
-   * @param {{subBase: string}} dbInfos - infos de la base de données
    * @param {string} uid - id du video
-   * @param {string} course - id du cours
    *
-   * @return {Promise<object>} - Le cours du video
+   * @return {Promise<object>} - Les data de la video
    */
   async function getVideo(videoID) {
 
@@ -108,13 +106,11 @@
   }
 
   /**
-   * @description Récupère les data de tous les videos 
+   * @description Récupère les data de toutes les videos 
    *
-   * @param {{subBase: string}} dbInfos - infos de la base de données
    * @param {string} uid - id du video
-   * @param {string} course - id du cours
    *
-   * @return {Promise<object>} - Le cours du video
+   * @return {Promise<object>} - Les data de toutes les videos
    */
   async function getAllVideos() {
 
@@ -124,13 +120,11 @@
 
 
   /**
-   * @description Récupère les data d'un video par son Email
+   * @description Suppression d'une vidéo par son ID
    *
-   * @param {{subBase: string}} dbInfos - infos de la base de données
-   * @param {string} uid - id du video
-   * @param {string} course - id du cours
+   * @param {string} id de la video
    *
-   * @return {Promise<object>} - Le cours du video
+   * @return {Promise<object>} - Confirmation
    */
   async function deleteVideo(videoID) {
 

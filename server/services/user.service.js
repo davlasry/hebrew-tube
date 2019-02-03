@@ -74,7 +74,7 @@
   }
 
   /**
-   * @description Récupère les data d'un user par son ID avec uniquement les paramètres visible par un User
+   * @description Récupère les data d'un user par son ID avec uniquement les paramètres visible sur le Front par un User
    *
    * @param {string} uid - id du user
    *
@@ -108,9 +108,7 @@
   /**
    * @description ADMIN FUNCTION - Récupère les data de tous les users 
    *
-   * @param {{subBase: string}} dbInfos - infos de la base de données
    * @param {string} uid - id du user
-   * @param {string} course - id du cours
    *
    * @return {Promise<object>} - Les datas de tous les users
    */
@@ -123,11 +121,9 @@
   /**
    * @description Récupère les data d'un user par son Email
    *
-   * @param {{subBase: string}} dbInfos - infos de la base de données
-   * @param {string} uid - id du user
-   * @param {string} course - id du cours
+   * @param {string} email du user
    *
-   * @return {Promise<object>} - Le cours du user
+   * @return {Promise<object>} - Les data du user
    */
   async function getUserByEmail(userEmail) {
   
@@ -136,13 +132,11 @@
   }
 
   /**
-   * @description Récupère les data d'un user par son Email
+   * @description Suppression d'un user par son ID
    *
-   * @param {{subBase: string}} dbInfos - infos de la base de données
    * @param {string} uid - id du user
-   * @param {string} course - id du cours
    *
-   * @return {Promise<object>} - Le cours du user
+   * @return {Promise<object>} - Confirmation
    */
   async function deleteUser(userID) {
   

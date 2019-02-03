@@ -14,21 +14,22 @@ export class UsersService {
 
   logOut() {
     this.jwtService.destroyToken();
+    return this.http.get<any>(`${environment.API_URL}/auth/logout`);
   }
 
   signUp(signUpForm) {
     // console.log(signUpForm.value);
     signUpForm.value.role = 'admin';
     // console.log(signUpForm.value);
-    return this.http.post<any>(`${environment.API_URL}/auth`, signUpForm.value);
+    return this.http.post<any>(`${environment.API_URL}/user`, signUpForm.value);
   }
 
   getCurrentUserDetail() {
-    return this.http.get<any>(`${environment.API_URL}/users/current`);
+    return this.http.get<any>(`${environment.API_URL}/user/current`);
   }
 
   getAllUsers() {
-    return this.http.get<any>(`${environment.API_URL}/users`);
+    return this.http.get<any>(`${environment.API_URL}/user`);
   }
 
   updateUser(recipeId, userDetails) {
@@ -41,14 +42,14 @@ export class UsersService {
 
   getWordsByUser(userId) {
     // console.log(userId);
-    return this.http.get<any>(`${environment.API_URL}/users/words/${userId}`);
+    return this.http.get<any>(`${environment.API_URL}/favorite/word`);
   }
 
   addToMyWords(wordToAdd, userId) {
     // console.log(userId);
     // console.log(wordToAdd);
     return this.http.patch(
-      `${environment.API_URL}/users/addWord/${userId}`,
+      `${environment.API_URL}/favorite/word/${userId}`,
       wordToAdd
     );
   }
@@ -56,9 +57,6 @@ export class UsersService {
   deleteFromMyWords(wordsIds, userId) {
     // console.log(wordsIds);
     // console.log(userId);
-    return this.http.patch(
-      `${environment.API_URL}/users/deleteWord/${userId}`,
-      { wordsIds }
-    );
+    return this.http.delete<any>(`${environment.API_URL}/favorite/word`, wordsIds);
   }
 }

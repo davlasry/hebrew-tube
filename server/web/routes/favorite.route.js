@@ -15,6 +15,7 @@ router.delete('/word/', Auth.isConnected, FavoriteController.deleteMultipleFavor
 
 router.post('/video', Auth.isConnected, FavoriteController.createFavoriteVideo);
 router.get('/video', Auth.isConnected, FavoriteController.getAllFavoriteVideosForUser);
+router.delete('/video/:favoriteVideoID', Auth.isConnected, FavoriteController.deleteFavoriteVideo);
 router.delete('/video/', Auth.isConnected, FavoriteController.deleteMultipleFavoriteVideos);
 
 

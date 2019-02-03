@@ -8,24 +8,24 @@ export class WordsService {
   constructor(private http: HttpClient) {}
 
   getWords() {
-    return this.http.get<any[]>(`${environment.API_URL}/words`);
+    return this.http.get<any[]>(`${environment.API_URL}/word`);
   }
 
   getWord(id): Observable<any> {
     // console.log(id);
-    return this.http.get<any>(`${environment.API_URL}/words/getWord/${id}`);
+    return this.http.get<any>(`${environment.API_URL}/word/${id}`);
   }
 
   addWord(word): Observable<any> {
-    return this.http.post<any>(`${environment.API_URL}/words`, word);
+    return this.http.post<any>(`${environment.API_URL}/word`, word);
   }
 
   deleteWord(wordId): Observable<any> {
-    return this.http.delete<any>(`${environment.API_URL}/words/${wordId}`);
+    return this.http.delete<any>(`${environment.API_URL}/word/${wordId}`);
   }
 
   deleteManyWords(wordsIds): Observable<any> {
-    return this.http.patch<any>(`${environment.API_URL}/words/deleteMany`, {
+    return this.http.delete<any>(`${environment.API_URL}/word`, {
       wordsIds
     });
   }

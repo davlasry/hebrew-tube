@@ -31,7 +31,7 @@
       return res.status(200).send({data: contextsForWord});
 
     } catch(err) {
-      return res.status(500).send({error: err});
+      return res.status(500).send({error: err.toString()});
     }
   }
  

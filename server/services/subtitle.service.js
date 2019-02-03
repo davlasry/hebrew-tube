@@ -23,9 +23,9 @@
   /**
    * @description Manager pour storage des datas en DB
    *
-   * @param {string} wordData - data du word
+   * @param {array} subtitleData - data subtitles arrivant du Front
    *
-   * @return {Promise<object>} - Les data du word
+   * @return {Promise<object>} - Les data formatté pour être stocké en DB
    */
   async function fromFrontToDBManager(subtitleData) {
 
@@ -40,11 +40,11 @@
   }
 
   /**
-   * @description Manager pour envoie des données au Front
+   * @description Manager pour envoi des données au Front
    *
-   * @param {string} wordData - data du word
+   * @param {array} subtitleData - data subtitles stockées en DB
    *
-   * @return {Promise<object>} - Les data du word
+   * @return {Promise<object>} - Les data formatté pour être envoyé au Front
    */
   async function fromDBToFrontManager(subtitleData) {
 
@@ -62,7 +62,10 @@
 
   /* private functions */
 
-
+  // 1 - On récupère les données du Front avec les data des Word
+  // 2 - On crée un word (il sera updaté s'il existe déjà)
+  // 3 - On fait une liste des ID des words
+  // 4 - On remplace les "words" par la liste d'IDs
   async function formatSubtitleToDB(subtitleData) {
 
     const subtitleWords = lodash.get(subtitleData, 'words');
@@ -84,7 +87,9 @@
     return subtitleData;
   }
 
-
+  // 1 - On récupère les données de la DB avec les IDs des Word
+  // 2 - On récupère les data du Word via l'ID
+  // 3 - On remplace la liste d'IDs des words par leurs datas
   async function formatSubtitleToFront(subtitleData) {
 
     const subtitleWords = lodash.get(subtitleData, 'words');

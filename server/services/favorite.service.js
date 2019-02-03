@@ -74,9 +74,9 @@
   }
 
   /**
-   * @description Quand un mot est supprimé je le delete partout dans les favoris
+   * @description Quand un mot est supprimé , cette méthode sert à faire un delete partout dans les favoris
    *
-   * @param {string} uid - id du favoriteWord
+   * @param {string} uid - id du word
    *
    * @return {Promise<object>} - résultat
    */
@@ -132,7 +132,7 @@
   }
 
   /**
-   * @description Delete un Favorite Video
+   * @description Quand une vidéo est supprimée, cette méthode sert à faire un delete partout dans les favoris
    *
    * @param {string} uid - id du favorite Video
    *

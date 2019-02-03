@@ -37,7 +37,7 @@
 
       return res.status(200).send({data: wordCreated});
     } catch(err) {
-      return res.status(500).send({message: 'error in word creation', error: err});
+      return res.status(500).send({message: 'error in word creation', error: err.toString()});
     }
   }
 
@@ -54,7 +54,7 @@
 
       return res.status(200).send({data: wordUpdated});
     } catch(err) {
-      return res.status(500).send({message: 'error in word update', error: err});
+      return res.status(500).send({message: 'error in word update', error: err.toString()});
     }
   }
 
@@ -75,7 +75,7 @@
       return res.status(200).send({data: word});
 
     } catch(err) {
-      return res.status(500).send({auth: false, error:  err.toString()});
+      return res.status(500).send({auth: false, error: err.toString()});
     }
   }
 
@@ -92,7 +92,7 @@
       return res.status(200).send({data: words});
 
     } catch(err) {
-      return res.status(500).send({auth: false, error:  err.toString()});
+      return res.status(500).send({auth: false, error: err.toString()});
     }
   }
  
@@ -137,7 +137,7 @@
       return res.status(200).send('words successfully deleted');
 
     } catch(err) {
-      return res.status(500).send({auth: false, error:  err.toString()});
+      return res.status(500).send({auth: false, error: err.toString()});
     }
   }
 

@@ -37,7 +37,7 @@
 
       return res.status(200).send({data: favoriteWordCreated});
     } catch(err) {
-      return res.status(500).send({message: 'error in favorite word creation', error: err});
+      return res.status(500).send({message: 'error in favorite word creation', error: err.toString()});
     }
   }
 
@@ -57,7 +57,7 @@
       return res.status(200).send({data: favoriteWords});
 
     } catch(err) {
-      return res.status(500).send({error: err});
+      return res.status(500).send({error: err.toString()});
     }
   }
  
@@ -78,12 +78,12 @@
       return res.status(200).send('favoriteWord ' + favoriteWordID + ' successfully deleted');
 
     } catch(err) {
-      return res.status(500).send({error: err});
+      return res.status(500).send({error: err.toString()});
     }
   }
 
    /**
-   * @description Suppression d'un favoriteWord
+   * @description Suppression de plusieurs favoriteWord
    * @param {object} req - la requête
    * @param {object} res - la réponse
    * @return {*} la requête
@@ -102,7 +102,7 @@
       return res.status(200).send('favoriteWord successfully deleted');
 
     } catch(err) {
-      return res.status(500).send({error: err});
+      return res.status(500).send({error: err.toString()});
     }
   }
 
@@ -122,7 +122,7 @@
 
       return res.status(200).send({data: favoriteVideoCreated});
     } catch(err) {
-      return res.status(500).send({message: 'error in favorite Video creation', error: err});
+      return res.status(500).send({message: 'error in favorite Video creation', error: err.toString()});
     }
   }
 
@@ -142,7 +142,7 @@
       return res.status(200).send({data: favoriteVideos});
 
     } catch(err) {
-      return res.status(500).send({error: err});
+      return res.status(500).send({error: err.toString()});
     }
   }
  
@@ -163,12 +163,12 @@
       return res.status(200).send('favoriteVideo ' + favoriteVideoID + ' successfully deleted');
 
     } catch(err) {
-      return res.status(500).send({error: err});
+      return res.status(500).send({error: err.toString()});
     }
   }
  
    /**
-   * @description Suppression d'un favoriteVideo
+   * @description Suppression de plusieurs favoriteVideo
    * @param {object} req - la requête
    * @param {object} res - la réponse
    * @return {*} la requête
@@ -188,7 +188,7 @@
       return res.status(200).send('favoriteVideo successfully deleted');
 
     } catch(err) {
-      return res.status(500).send({error: err});
+      return res.status(500).send({error: err.toString()});
     }
   }
  

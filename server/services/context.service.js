@@ -22,11 +22,12 @@
 
 
   /**
-   * @description Manager pour storage des datas en DB
+   * @description Récupère toutes les data pour une vidéo, et crée un contexte par mot
    *
-   * @param {string} wordData - data du word
+   * @param {string} videoID - id de la vidéo
+   * @param {object} videoData - data de la vidéo
    *
-   * @return {Promise<object>} - Les data du word
+   * @return {Promise<object>} - 
    */
   async function createContextsForVideo(videoID, videoData) {
 
@@ -46,11 +47,11 @@
 
 
   /**
-   * @description Récupère tous les favoriteVideos du user
+   * @description Récupère tous les contexts pour un mot
    *
-   * @param {string} wordID - id du user
+   * @param {string} wordID - id du word
    *
-   * @return {Promise<object>} - Tous les Video favoris d'un User
+   * @return {Promise<object>} - Tous les contexts d'un mot
    */
   async function getAllContextsForWord(wordID) {
 
@@ -60,9 +61,10 @@
 
 
   /**
-   * @description Delete un Favorite Video
+   * @description Quand on update / supprime une vidéo, on supprime d'abord tous les contextes associés à cette vidéo
+   *              Si c'est un update, ils sont recréés juste après (et ainsi on est sur qu'ils sont à jour)
    *
-   * @param {string} videoID - id du favorite Video
+   * @param {string} videoID - id de la Video
    *
    * @return {Promise<object>} - résultat
    */
