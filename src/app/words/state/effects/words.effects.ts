@@ -51,7 +51,7 @@ export class WordsEffects {
       // console.log(action.payload);
       return this.wordsService
         .deleteManyWords(action.payload)
-        .pipe(map(word => new DeleteFromMyWords(action.payload)));
+        .pipe(map(words => new DeleteFromMyWords({ words })));
     })
   );
 
