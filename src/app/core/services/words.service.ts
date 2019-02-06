@@ -24,9 +24,9 @@ export class WordsService {
     return this.http.delete<any>(`${environment.API_URL}/word/${wordId}`);
   }
 
-  deleteManyWords(wordsIds): Observable<any> {
-    return this.http.delete<any>(`${environment.API_URL}/word`, {
-      wordsIds
-    });
-  }
+  // deleteManyWords(wordsIds): Observable<any> {
+  //   return this.http.delete<any>(`${environment.API_URL}/word`, {
+  //     wordsIds
+  //   });
+  // }
 }

@@ -45,15 +45,15 @@ export class WordsEffects {
     })
   );
 
-  @Effect()
-  deleteWord$: Observable<any> = this.actions$.ofType(DELETE_WORD).pipe(
-    switchMap((action: DeleteWords) => {
-      // console.log(action.payload);
-      return this.wordsService
-        .deleteManyWords(action.payload)
-        .pipe(map(words => new DeleteFromMyWords({ words })));
-    })
-  );
+  // @Effect()
+  // deleteWord$: Observable<any> = this.actions$.ofType(DELETE_WORD).pipe(
+  //   switchMap((action: DeleteWords) => {
+  //     // console.log(action.payload);
+  //     return this.wordsService
+  //       .deleteManyWords(action.payload)
+  //       .pipe(map(words => new DeleteFromMyWords({ words })));
+  //   })
+  // );
 
   @Effect({ dispatch: false })
   deleteWords$: Observable<any> = this.actions$.ofType(DELETE_WORDS).pipe(
