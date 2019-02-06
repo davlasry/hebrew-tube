@@ -8,7 +8,7 @@ export class WordsService {
   constructor(private http: HttpClient) {}
 
   getWords() {
-    return this.http.get<any[]>(`${environment.API_URL}/word`);
+    return this.http.get(`${environment.API_URL}/word`);
   }
 
   getWord(id): Observable<any> {

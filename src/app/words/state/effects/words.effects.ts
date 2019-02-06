@@ -29,7 +29,7 @@ export class WordsEffects {
       // console.log('LOAD WORDS');
       return this.wordsService
         .getWords()
-        .pipe(map(words => new LoadWordsSuccess(words)));
+        .pipe(map((words: any) => new LoadWordsSuccess(words.data)));
       // catchError(error => new LoadWordsFail(error));
     })
   );

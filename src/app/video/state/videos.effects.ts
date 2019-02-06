@@ -18,7 +18,7 @@ export class VideosEffects {
       // console.log('LOAD VIDEOS');
       return this.videosService
         .getVideos()
-        .pipe(map(videos => new LoadVideosSuccess(videos)));
+        .pipe(map((videos: any) => new LoadVideosSuccess(videos.data)));
       // catchError(error => new LoadWordsFail(error));
     })
   );
