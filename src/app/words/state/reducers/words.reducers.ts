@@ -36,12 +36,14 @@ export function allWordsReducer(
 ): AllWordsState {
   switch (action.type) {
     case wordsList.LOAD_WORDS: {
+      console.log('LOAD WORDS');
       return Object.assign({}, state, {
         loading: true
       });
     }
 
     case wordsList.LOAD_WORDS_SUCCESS: {
+      console.log(action.payload);
       return adapter.addAll(action.payload, {
         ...state,
         loading: false,

@@ -40,13 +40,13 @@ export function myWordsReducer(
       };
     }
 
-    case myWordsActions.LOAD_MY_WORDS_SUCCESS: {
-      return adapter.addAll(action.payload, {
-        ...state,
-        loading: false,
-        loaded: true
-      });
-    }
+    // case myWordsActions.LOAD_MY_WORDS_SUCCESS: {
+    //   return adapter.addAll(action.payload, {
+    //     ...state,
+    //     loading: false,
+    //     loaded: true
+    //   });
+    // }
 
     case myWordsActions.ADD_TO_MY_WORDS: {
       // console.log(action.payload);
