@@ -20,7 +20,7 @@ export class UsersService {
   signUp(signUpForm) {
     // console.log(signUpForm.value);
     signUpForm.value.role = 'admin';
-    // console.log(signUpForm.value);
+    console.log(signUpForm.value);
     return this.http.post<any>(`${environment.API_URL}/user`, signUpForm.value);
   }
 
@@ -57,6 +57,9 @@ export class UsersService {
   deleteFromMyWords(wordsIds, userId) {
     // console.log(wordsIds);
     // console.log(userId);
-    return this.http.delete<any>(`${environment.API_URL}/favorite/word`, wordsIds);
+    return this.http.delete<any>(
+      `${environment.API_URL}/favorite/word`,
+      wordsIds
+    );
   }
 }

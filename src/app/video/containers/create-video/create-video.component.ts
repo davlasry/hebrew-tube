@@ -1,10 +1,10 @@
-import { VideosService } from './../../core/services/videos.service';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { VideosState } from '../state/videos.reducers';
-import { CreateVideo } from '../state/videos.actions';
+import { VideosState } from '../../state/videos.reducers';
+import { VideosService } from 'src/app/core/services/videos.service';
+import { CreateVideo } from '../../state/videos.actions';
 
 @Component({
   selector: 'app-create-video',
