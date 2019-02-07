@@ -22,6 +22,7 @@ export class VideosService {
   }
 
   saveVideo(video): Observable<any> {
+    console.log(video);
     return this.http.patch<any>(
       `${environment.API_URL}/video/${video._id}`,
       video

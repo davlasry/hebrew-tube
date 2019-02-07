@@ -2,6 +2,9 @@ import { VideosService } from './../../core/services/videos.service';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { VideosState } from '../state/videos.reducers';
+import { CreateVideo } from '../state/videos.actions';
 
 @Component({
   selector: 'app-create-video',
@@ -14,7 +17,8 @@ export class CreateVideoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private videosService: VideosService,
-    private router: Router // private store: Store<WordsState>
+    private router: Router,
+    private store: Store<VideosState>
   ) {}
 
   ngOnInit() {
@@ -75,7 +79,7 @@ export class CreateVideoComponent implements OnInit {
     });
     console.log(this.videoForm.value);
     // this.videosService.addVideo(this.videoForm.value).subscribe(res => {});
-    // // this.store.dispatch(new AddWord(this.wordForm.value));
+    this.store.dispatch(new CreateVideo(this.videoForm.value));
     // this.router.navigateByUrl('/videos');
   }
 }

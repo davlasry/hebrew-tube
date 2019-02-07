@@ -43,6 +43,11 @@ export function videosReducer(
       });
     }
 
+    case fromVideos.CREATE_VIDEO: {
+      console.log(action.payload);
+      return state;
+    }
+
     default: {
       return state;
     }
