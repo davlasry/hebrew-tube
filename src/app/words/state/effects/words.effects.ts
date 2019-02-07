@@ -27,13 +27,9 @@ export class WordsEffects {
   getWords$ = this.actions$.ofType(LOAD_WORDS).pipe(
     switchMap(() => {
       // console.log('LOAD WORDS');
-      return this.wordsService.getWords().pipe(
-        map(words => {
-          console.log(words);
-          return new LoadWordsSuccess(words);
-        })
-      );
-
+      return this.wordsService
+        .getWords()
+        .pipe(map((words: any) => new LoadWordsSuccess(words.data)));
       // catchError(error => new LoadWordsFail(error));
     })
   );

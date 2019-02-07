@@ -12,6 +12,7 @@ export class VideosService {
   }
 
   getVideo(id): Observable<any> {
+    console.log(id);
     return this.http.get<any>(`${environment.API_URL}/video/${id}`);
   }
 
@@ -21,6 +22,7 @@ export class VideosService {
   }
 
   saveVideo(video): Observable<any> {
+    console.log(video);
     return this.http.patch<any>(
       `${environment.API_URL}/video/${video._id}`,
       video
