@@ -34,19 +34,21 @@ export function myWordsReducer(
 ): MyWordsState {
   switch (action.type) {
     case myWordsActions.LOAD_MY_WORDS: {
+      console.log(action.payload);
       return {
         ...state,
         loading: true
       };
     }
 
-    // case myWordsActions.LOAD_MY_WORDS_SUCCESS: {
-    //   return adapter.addAll(action.payload, {
-    //     ...state,
-    //     loading: false,
-    //     loaded: true
-    //   });
-    // }
+    case myWordsActions.LOAD_MY_WORDS_SUCCESS: {
+      console.log(action.payload);
+      return adapter.addAll(action.payload, {
+        ...state,
+        loading: false,
+        loaded: true
+      });
+    }
 
     case myWordsActions.ADD_TO_MY_WORDS: {
       // console.log(action.payload);

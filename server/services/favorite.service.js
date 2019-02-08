@@ -37,8 +37,10 @@
    */
   async function createFavoriteWord(userID, wordID) {
 
-    if(!userID || !wordID) {
-      throw new Error({error: ('Invalid parameters')});
+    if (!userID || !wordID) {
+      throw new Error({
+        error: ('Invalid parameters')
+      });
     }
 
     return await FavoriteWordDAO.createFavoriteWord(userID, wordID);
@@ -69,7 +71,7 @@
    * @return {Promise<object>} - résultat
    */
   async function deleteFavoriteWord(favoriteWordID) {
-  
+
     return await FavoriteWordDAO.deleteFavoriteWord(favoriteWordID);
   }
 
@@ -81,7 +83,7 @@
    * @return {Promise<object>} - résultat
    */
   async function deleteAllFavoritesWithWord(wordID) {
-  
+
     return await FavoriteWordDAO.deleteAllFavoritesWithWord(wordID);
   }
 
@@ -94,8 +96,10 @@
    */
   async function createFavoriteVideo(userID, videoID) {
 
-    if(!userID || !videoID) {
-      throw new Error({error: ('Invalid parameters')});
+    if (!userID || !videoID) {
+      throw new Error({
+        error: ('Invalid parameters')
+      });
     }
 
     return await FavoriteVideoDAO.createFavoriteVideo(userID, videoID);
@@ -126,7 +130,7 @@
    * @return {Promise<object>} - résultat
    */
   async function deleteFavoriteVideo(favoriteVideoID) {
-  
+
     return await FavoriteVideoDAO.deleteFavoriteVideo(favoriteVideoID);
 
   }
@@ -139,7 +143,7 @@
    * @return {Promise<object>} - résultat
    */
   async function deleteAllFavoritesWithVideo(videoID) {
-  
+
     return await FavoriteVideoDAO.deleteAllFavoritesWithVideo(videoID);
 
   }
@@ -147,4 +151,3 @@
 
 
 })();
-

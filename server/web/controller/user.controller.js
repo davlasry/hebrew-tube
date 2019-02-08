@@ -30,7 +30,6 @@
    * @return {*} la requête
    */
   async function createUser(req, res) {
-    console.log('controller', req.body);
     try {
       const userID = lodash.get(req, 'userID');
       if (userID) {

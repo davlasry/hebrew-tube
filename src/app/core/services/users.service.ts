@@ -41,17 +41,15 @@ export class UsersService {
   }
 
   getWordsByUser(userId) {
-    // console.log(userId);
+    console.log(userId);
     return this.http.get<any>(`${environment.API_URL}/favorite/word`);
   }
 
-  addToMyWords(wordToAdd, userId) {
-    // console.log(userId);
-    // console.log(wordToAdd);
-    return this.http.patch(
-      `${environment.API_URL}/favorite/word/${userId}`,
-      wordToAdd
-    );
+  addToMyWords(wordToAdd) {
+    console.log(wordToAdd);
+    return this.http.post(`${environment.API_URL}/favorite/word/`, {
+      wordID: wordToAdd._id
+    });
   }
 
   deleteFromMyWords(wordsIds, userId) {

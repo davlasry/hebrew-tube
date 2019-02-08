@@ -9,7 +9,7 @@
 
   const AuthCore = require('../../core/auth.core');
 
- 
+
 
   module.exports = {
     createFavoriteWord: createFavoriteWord,
@@ -35,9 +35,16 @@
 
       const favoriteWordCreated = await FavoriteSvc.createFavoriteWord(userID, wordID);
 
-      return res.status(200).send({data: favoriteWordCreated});
-    } catch(err) {
-      return res.status(500).send({message: 'error in favorite word creation', error: err.toString()});
+      console.log(favoriteWordCreated);
+
+      return res.status(200).send({
+        data: favoriteWordCreated
+      });
+    } catch (err) {
+      return res.status(500).send({
+        message: 'error in favorite word creation',
+        error: err.toString()
+      });
     }
   }
 
@@ -53,15 +60,19 @@
       const userID = lodash.get(req, 'userID');
 
       const favoriteWords = await FavoriteSvc.getAllFavoriteWordsForUser(userID);
-      
-      return res.status(200).send({data: favoriteWords});
 
-    } catch(err) {
-      return res.status(500).send({error: err.toString()});
+      return res.status(200).send({
+        data: favoriteWords
+      });
+
+    } catch (err) {
+      return res.status(500).send({
+        error: err.toString()
+      });
     }
   }
- 
-   /**
+
+  /**
    * @description Suppression d'un favoriteWord
    * @param {object} req - la requête
    * @param {object} res - la réponse
@@ -70,19 +81,23 @@
   async function deleteFavoriteWord(req, res) {
     try {
       const favoriteWordID = lodash.get(req, 'params.favoriteWordID');
-      if(!favoriteWordID) {
-        return res.status(500).send({error: 'missing parameters'});
+      if (!favoriteWordID) {
+        return res.status(500).send({
+          error: 'missing parameters'
+        });
       }
       await FavoriteSvc.deleteFavoriteWord(favoriteWordID);
-      
+
       return res.status(200).send('favoriteWord ' + favoriteWordID + ' successfully deleted');
 
-    } catch(err) {
-      return res.status(500).send({error: err.toString()});
+    } catch (err) {
+      return res.status(500).send({
+        error: err.toString()
+      });
     }
   }
 
-   /**
+  /**
    * @description Suppression de plusieurs favoriteWord
    * @param {object} req - la requête
    * @param {object} res - la réponse
@@ -93,7 +108,7 @@
       const favoriteWordsIDArray = lodash.get(req, 'body');
 
       const promises = [];
-      for(let i = 0; i < favoriteWordsIDArray.length; i++) {
+      for (let i = 0; i < favoriteWordsIDArray.length; i++) {
         promises.push(await FavoriteSvc.deleteFavoriteWord(favoriteWordsIDArray[i]));
       }
 
@@ -101,8 +116,10 @@
 
       return res.status(200).send('favoriteWord successfully deleted');
 
-    } catch(err) {
-      return res.status(500).send({error: err.toString()});
+    } catch (err) {
+      return res.status(500).send({
+        error: err.toString()
+      });
     }
   }
 
@@ -120,9 +137,14 @@
 
       const favoriteVideoCreated = await FavoriteSvc.createFavoriteVideo(userID, videoID);
 
-      return res.status(200).send({data: favoriteVideoCreated});
-    } catch(err) {
-      return res.status(500).send({message: 'error in favorite Video creation', error: err.toString()});
+      return res.status(200).send({
+        data: favoriteVideoCreated
+      });
+    } catch (err) {
+      return res.status(500).send({
+        message: 'error in favorite Video creation',
+        error: err.toString()
+      });
     }
   }
 
@@ -138,15 +160,19 @@
       const userID = lodash.get(req, 'userID');
 
       const favoriteVideos = await FavoriteSvc.getAllFavoriteVideosForUser(userID);
-      
-      return res.status(200).send({data: favoriteVideos});
 
-    } catch(err) {
-      return res.status(500).send({error: err.toString()});
+      return res.status(200).send({
+        data: favoriteVideos
+      });
+
+    } catch (err) {
+      return res.status(500).send({
+        error: err.toString()
+      });
     }
   }
- 
-   /**
+
+  /**
    * @description Suppression d'un favoriteVideo
    * @param {object} req - la requête
    * @param {object} res - la réponse
@@ -155,19 +181,23 @@
   async function deleteFavoriteVideo(req, res) {
     try {
       const favoriteVideoID = lodash.get(req, 'params.favoriteVideoID');
-      if(!favoriteVideoID) {
-        return res.status(500).send({error: 'missing parameters'});
+      if (!favoriteVideoID) {
+        return res.status(500).send({
+          error: 'missing parameters'
+        });
       }
       await FavoriteSvc.deleteFavoriteVideo(favoriteVideoID);
-      
+
       return res.status(200).send('favoriteVideo ' + favoriteVideoID + ' successfully deleted');
 
-    } catch(err) {
-      return res.status(500).send({error: err.toString()});
+    } catch (err) {
+      return res.status(500).send({
+        error: err.toString()
+      });
     }
   }
- 
-   /**
+
+  /**
    * @description Suppression de plusieurs favoriteVideo
    * @param {object} req - la requête
    * @param {object} res - la réponse
@@ -179,7 +209,7 @@
       const favoriteVideosIDArray = lodash.get(req, 'body');
 
       const promises = [];
-      for(let i = 0; i < favoriteVideosIDArray.length; i++) {
+      for (let i = 0; i < favoriteVideosIDArray.length; i++) {
         promises.push(await FavoriteSvc.deleteFavoriteVideo(favoriteVideosIDArray[i]));
       }
 
@@ -187,11 +217,13 @@
 
       return res.status(200).send('favoriteVideo successfully deleted');
 
-    } catch(err) {
-      return res.status(500).send({error: err.toString()});
+    } catch (err) {
+      return res.status(500).send({
+        error: err.toString()
+      });
     }
   }
- 
+
 
 
 })();
