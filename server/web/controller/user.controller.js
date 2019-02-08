@@ -30,10 +30,14 @@
    * @return {*} la requête
    */
   async function createUser(req, res) {
+    console.log('controller', req.body);
     try {
       const userID = lodash.get(req, 'userID');
-      if(userID) {
-        return res.status(500).send({auth: false, error: ('Invalid parameters')});
+      if (userID) {
+        return res.status(500).send({
+          auth: false,
+          error: ('Invalid parameters')
+        });
       }
 
       const userData = lodash.get(req, 'body');
@@ -41,9 +45,17 @@
       const userCreated = await UserSvc.createUser(userData, 'user');
       const token = AuthCore.generateToken(lodash.get(userCreated, '_id'));
 
-      return res.status(200).send({auth: true, token: token, userID: lodash.get(userCreated, '_id')});
-    } catch(err) {
-      return res.status(500).send({auth: false, error: err.toString()});
+      return res.status(200).send({
+        auth: true,
+        token: token,
+        userID: lodash.get(userCreated, '_id')
+      });
+    } catch (err) {
+      console.log(err.error);
+      return res.status(500).send({
+        auth: false,
+        error: err.toString()
+      });
     }
   }
 
@@ -59,17 +71,25 @@
       const userIDFromParam = lodash.get(req, 'params.userID');
       const userIDFromToken = lodash.get(req, 'userID');
 
-      if(userIDFromToken !== userIDFromParam) {
-        return res.status(500).send({error: ('Incorrect parameters')});
+      if (userIDFromToken !== userIDFromParam) {
+        return res.status(500).send({
+          error: ('Incorrect parameters')
+        });
       }
 
       const userData = lodash.get(req, 'body');
 
       await UserSvc.updateUser(userIDFromToken, userData);
-      return res.status(200).send({auth: true, message: 'update successful'});
+      return res.status(200).send({
+        auth: true,
+        message: 'update successful'
+      });
 
-    } catch(err) {
-      return res.status(500).send({auth: false, error: err.toString()});
+    } catch (err) {
+      return res.status(500).send({
+        auth: false,
+        error: err.toString()
+      });
     }
   }
 
@@ -84,16 +104,23 @@
       const userIDFromParam = lodash.get(req, 'params.userID');
       const userIDFromToken = lodash.get(req, 'userID');
 
-      if(userIDFromToken !== userIDFromParam) {
-        return res.status(500).send({error: ('Incorrect parameters')});
+      if (userIDFromToken !== userIDFromParam) {
+        return res.status(500).send({
+          error: ('Incorrect parameters')
+        });
       }
 
       const user = await UserSvc.getUserForFront(userIDFromToken);
-      
-      return res.status(200).send({data: user});
 
-    } catch(err) {
-      return res.status(500).send({auth: false, error: err.toString()});
+      return res.status(200).send({
+        data: user
+      });
+
+    } catch (err) {
+      return res.status(500).send({
+        auth: false,
+        error: err.toString()
+      });
     }
   }
 
@@ -106,11 +133,16 @@
   async function getAllUsers(req, res) {
     try {
       const users = await UserSvc.getAllUsers();
-      
-      return res.status(200).send({data: users});
 
-    } catch(err) {
-      return res.status(500).send({auth: false, error: err.toString()});
+      return res.status(200).send({
+        data: users
+      });
+
+    } catch (err) {
+      return res.status(500).send({
+        auth: false,
+        error: err.toString()
+      });
     }
   }
 
@@ -125,11 +157,14 @@
       const userToDeleteID = lodash.get(req, 'params.userID');
 
       await UserSvc.deleteUser(userToDeleteID);
-      
+
       return res.status(200).send('user ' + userToDeleteID + ' successfully deleted');
 
-    } catch(err) {
-      return res.status(500).send({auth: false, error: err.toString()});
+    } catch (err) {
+      return res.status(500).send({
+        auth: false,
+        error: err.toString()
+      });
     }
   }
 })();

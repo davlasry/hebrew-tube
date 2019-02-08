@@ -19,7 +19,6 @@
   };
 
   async function createUser(userData, role, password) {
-    console.log(role, userData);
     return new Promise(async function (resolve, reject) {
       try {
 

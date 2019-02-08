@@ -25,15 +25,18 @@
       try {
         let userID = null;
         const token = lodash.get(req, 'headers.x-access-token');
-        if(token) {
+        if (token) {
           const decoded = await verifyToken(token);
           userID = decoded.id;
         }
 
         lodash.set(req, 'userID', userID);
         return next();
-      } catch(err) {
-        return res.status(401).send({auth: false, message: 'User not connected.'});
+      } catch (err) {
+        return res.status(401).send({
+          auth: false,
+          message: 'User not connected.'
+        });
       }
     };
   }
@@ -41,6 +44,7 @@
 
 
   function hashPassword(password) {
+    console.log('hashpassword', password);
 
     return bcrypt.hashSync(password, 8);
   }
@@ -52,14 +56,16 @@
 
   function generateToken(userID) {
 
-    return jwt.sign({id: userID}, Config.mySecret, {
-        expiresIn: 86400 // expires in 24 hours
-      });
+    return jwt.sign({
+      id: userID
+    }, Config.mySecret, {
+      expiresIn: 86400 // expires in 24 hours
+    });
   }
 
   async function verifyToken(token) {
-    return new Promise(function(resolve, reject) {
-      return jwt.verify(token, Config.mySecret,  function (err, decoded) {
+    return new Promise(function (resolve, reject) {
+      return jwt.verify(token, Config.mySecret, function (err, decoded) {
         if (err) {
           return reject(err);
         }
@@ -73,18 +79,27 @@
   async function isConnected(req, res, next) {
     try {
       const token = lodash.get(req, 'headers.x-access-token');
-      if(!token) {
-        return res.status(401).send({auth: false, message: 'No token provided.'});
+      if (!token) {
+        return res.status(401).send({
+          auth: false,
+          message: 'No token provided.'
+        });
       }
 
-      if(!lodash.get(req, 'userID')) {
-        return res.status(500).send({auth: false, message: 'Failed to authenticate token.'});
+      if (!lodash.get(req, 'userID')) {
+        return res.status(500).send({
+          auth: false,
+          message: 'Failed to authenticate token.'
+        });
       }
 
       return next();
 
-    } catch(error) {
-      return res.status(500).send({auth: false, message: 'Failed to authenticate token.'});
+    } catch (error) {
+      return res.status(500).send({
+        auth: false,
+        message: 'Failed to authenticate token.'
+      });
     }
   }
 
@@ -92,20 +107,29 @@
   async function isAdmin(req, res, next) {
     try {
 
-      if(!req.userID) {
-        return res.status(401).send({ auth: false, message: 'User not connected.' });
+      if (!req.userID) {
+        return res.status(401).send({
+          auth: false,
+          message: 'User not connected.'
+        });
       }
 
       const userData = await UserSvc.getUser(req.userID);
 
-      if(lodash.get(userData, 'role') !== 'admin') {
-        return res.status(401).send({ auth: false, message: 'User not allowed.' });
+      if (lodash.get(userData, 'role') !== 'admin') {
+        return res.status(401).send({
+          auth: false,
+          message: 'User not allowed.'
+        });
       }
 
       return next();
 
-    } catch(error) {
-      return res.status(500).send({ auth: false, message: 'Operation not allowed.' });
+    } catch (error) {
+      return res.status(500).send({
+        auth: false,
+        message: 'Operation not allowed.'
+      });
     }
   }
 
