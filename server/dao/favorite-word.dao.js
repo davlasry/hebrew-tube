@@ -46,7 +46,6 @@
       await FavoriteWordMongo.find({
         id_user: userID
       }, async function (err, res) {
-        console.log(res);;
         if (err) {
           console.log('Error in favorite-word.dao getAllFavoritesForUser', err);
           return reject(err);
