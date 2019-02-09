@@ -7,10 +7,12 @@
   // Internal dependencies
   // core
   const AuthCore = require('../core/auth.core');
-
+  // service
+  const WordDAO = require('./../dao/word.dao');
   // dao
   const FavoriteWordDAO = require('../dao/favorite-word.dao');
   const FavoriteVideoDAO = require('../dao/favorite-video.dao');
+
 
 
   // Interface du service
@@ -58,7 +60,13 @@
    */
   async function getAllFavoriteWordsForUser(userID) {
 
-    return await FavoriteWordDAO.getAllFavoriteWordsForUser(userID);
+    const favoriteWords = await FavoriteWordDAO.getAllFavoriteWordsForUser(userID);
+    const promises = [];
+    for(let i = 0; i < favoriteWords.length; i++) {
+      promises.push(await formatFavoriteWord(favoriteWords[i]));
+    }
+
+    return await Promise.all(promises);
 
   }
 
@@ -148,6 +156,20 @@
 
   }
 
+  /* private function */
+
+  async function formatFavoriteWord(favoriteWordData) {
+    const wordID = lodash.get(favoriteWordData, 'id_word');
+    const wordData = await WordDAO.getWord(wordID);
+
+    return {
+      _id: lodash.get(favoriteWordData, '_id'),
+      id_word: wordID,
+      id_user: lodash.get(favoriteWordData, 'id_user'),
+      hebrew: lodash.get(wordData, 'hebrew'),
+      pronunciation: lodash.get(wordData, 'pronunciation')
+    };
+  }
 
 
 })();
