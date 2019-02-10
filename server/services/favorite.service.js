@@ -62,7 +62,7 @@
 
     const favoriteWords = await FavoriteWordDAO.getAllFavoriteWordsForUser(userID);
     const promises = [];
-    for(let i = 0; i < favoriteWords.length; i++) {
+    for (let i = 0; i < favoriteWords.length; i++) {
       promises.push(await formatFavoriteWord(favoriteWords[i]));
     }
 
@@ -166,6 +166,7 @@
       _id: lodash.get(favoriteWordData, '_id'),
       id_word: wordID,
       id_user: lodash.get(favoriteWordData, 'id_user'),
+      wordData: wordData,
       hebrew: lodash.get(wordData, 'hebrew'),
       pronunciation: lodash.get(wordData, 'pronunciation')
     };
