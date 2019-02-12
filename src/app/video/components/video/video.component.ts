@@ -1,4 +1,3 @@
-import { VideosService } from './../../core/services/videos.service';
 import {
   Component,
   OnInit,
@@ -15,6 +14,7 @@ import { MatDialog } from '@angular/material';
 import { ViewWordDialogComponent } from 'src/app/shared/dialogs/view-word/view-word.component';
 import { Store } from '@ngrx/store';
 import { getUser } from 'src/app/authentication/state/user.selectors';
+import { VideosService } from 'src/app/core/services/videos.service';
 
 @Component({
   selector: 'app-video',

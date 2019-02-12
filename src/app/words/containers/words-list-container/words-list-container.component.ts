@@ -32,19 +32,20 @@ export class WordsListContainerComponent implements OnInit {
 
     this.store.pipe(select(getUser)).subscribe(user => {
       // console.log(user);
-      return (this.currentUserId = user._id);
+      return (this.currentUserId = user.id);
     });
   }
 
   addToMyWords(word) {
-    // console.log('add ', word);
+    console.log('add ', word);
+    console.log('currentUserId ', this.currentUserId);
     this.store.dispatch(new AddToMyWords({ word, userId: this.currentUserId }));
   }
 
   deleteFromMyWords(word) {
     console.log('delete ', word);
     this.store.dispatch(
-      new DeleteFromMyWords({ words: [word._id], userId: this.currentUserId })
+      new DeleteFromMyWords({ words: [word.id], userId: this.currentUserId })
     );
   }
 

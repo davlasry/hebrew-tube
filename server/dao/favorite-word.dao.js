@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   // External dependencies
@@ -17,7 +17,7 @@
   };
 
   async function createFavoriteWord(userID, wordID) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
       try {
 
         const data = {
@@ -30,7 +30,7 @@
 
         return resolve(favoriteWordCreated);
 
-      } catch(err) {
+      } catch (err) {
         console.log('Error in favorite-word.dao createFavoriteWord', err);
         return reject(err);
       }
@@ -41,23 +41,27 @@
 
 
   async function getAllFavoriteWordsForUser(userID) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
 
-        await FavoriteWordMongo.find({id_user: userID}, async function(err, res) {
-            if (err) {
-                console.log('Error in favorite-word.dao getAllFavoritesForUser', err);
-                return reject(err);
-            }
-            return resolve(res);
-        });
+      await FavoriteWordMongo.find({
+        id_user: userID
+      }, async function (err, res) {
+        if (err) {
+          console.log('Error in favorite-word.dao getAllFavoritesForUser', err);
+          return reject(err);
+        }
+        return resolve(res);
+      });
     });
   }
 
 
 
   async function deleteFavoriteWord(favoriteWordID) {
-    return new Promise(async function(resolve, reject) {
-      await FavoriteWordMongo.remove({_id: favoriteWordID}, async function(err, res) {
+    return new Promise(async function (resolve, reject) {
+      await FavoriteWordMongo.remove({
+        _id: favoriteWordID
+      }, async function (err, res) {
         if (err) {
           console.log('Error in favorite-word.dao deleteFavoriteWord', err);
           return reject(err);
@@ -70,8 +74,10 @@
 
 
   async function deleteAllFavoritesWithWord(wordID) {
-    return new Promise(async function(resolve, reject) {
-      await FavoriteWordMongo.remove({id_word: wordID}, async function(err, res) {
+    return new Promise(async function (resolve, reject) {
+      await FavoriteWordMongo.remove({
+        id_word: wordID
+      }, async function (err, res) {
         if (err) {
           console.log('Error in favorite-word.dao deleteAllFavoritesWithWord', err);
           return reject(err);

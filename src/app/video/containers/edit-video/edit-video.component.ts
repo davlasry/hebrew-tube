@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { VideosService } from 'src/app/core/services/videos.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { startWith, map, filter } from 'rxjs/operators';
 import { WordsService } from 'src/app/core/services/words.service';
 

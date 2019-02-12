@@ -48,6 +48,7 @@ export class LogInComponent implements OnInit {
   }
 
   login() {
+    console.log(this.loginForm.value);
     this.store.dispatch(new Login(this.loginForm.value));
   }
 }

@@ -34,7 +34,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.currentUser$ = this.store.select(getUser);
     this.currentUser$.subscribe(currentUser => {
-      this.currentUserId = currentUser._id;
+      console.log('currentUser', currentUser);
+      this.currentUserId = currentUser.id;
     });
     this.isLoggedIn$ = this.store.select(getLoggedIn);
 

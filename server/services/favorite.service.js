@@ -7,10 +7,12 @@
   // Internal dependencies
   // core
   const AuthCore = require('../core/auth.core');
-
+  // service
+  const WordDAO = require('./../dao/word.dao');
   // dao
   const FavoriteWordDAO = require('../dao/favorite-word.dao');
   const FavoriteVideoDAO = require('../dao/favorite-video.dao');
+
 
 
   // Interface du service
@@ -37,8 +39,10 @@
    */
   async function createFavoriteWord(userID, wordID) {
 
-    if(!userID || !wordID) {
-      throw new Error({error: ('Invalid parameters')});
+    if (!userID || !wordID) {
+      throw new Error({
+        error: ('Invalid parameters')
+      });
     }
 
     return await FavoriteWordDAO.createFavoriteWord(userID, wordID);
@@ -56,7 +60,13 @@
    */
   async function getAllFavoriteWordsForUser(userID) {
 
-    return await FavoriteWordDAO.getAllFavoriteWordsForUser(userID);
+    const favoriteWords = await FavoriteWordDAO.getAllFavoriteWordsForUser(userID);
+    const promises = [];
+    for (let i = 0; i < favoriteWords.length; i++) {
+      promises.push(await formatFavoriteWord(favoriteWords[i]));
+    }
+
+    return await Promise.all(promises);
 
   }
 
@@ -69,7 +79,7 @@
    * @return {Promise<object>} - résultat
    */
   async function deleteFavoriteWord(favoriteWordID) {
-  
+
     return await FavoriteWordDAO.deleteFavoriteWord(favoriteWordID);
   }
 
@@ -81,7 +91,7 @@
    * @return {Promise<object>} - résultat
    */
   async function deleteAllFavoritesWithWord(wordID) {
-  
+
     return await FavoriteWordDAO.deleteAllFavoritesWithWord(wordID);
   }
 
@@ -94,8 +104,10 @@
    */
   async function createFavoriteVideo(userID, videoID) {
 
-    if(!userID || !videoID) {
-      throw new Error({error: ('Invalid parameters')});
+    if (!userID || !videoID) {
+      throw new Error({
+        error: ('Invalid parameters')
+      });
     }
 
     return await FavoriteVideoDAO.createFavoriteVideo(userID, videoID);
@@ -126,7 +138,7 @@
    * @return {Promise<object>} - résultat
    */
   async function deleteFavoriteVideo(favoriteVideoID) {
-  
+
     return await FavoriteVideoDAO.deleteFavoriteVideo(favoriteVideoID);
 
   }
@@ -139,12 +151,26 @@
    * @return {Promise<object>} - résultat
    */
   async function deleteAllFavoritesWithVideo(videoID) {
-  
+
     return await FavoriteVideoDAO.deleteAllFavoritesWithVideo(videoID);
 
   }
 
+  /* private function */
+
+  async function formatFavoriteWord(favoriteWordData) {
+    const wordID = lodash.get(favoriteWordData, 'id_word');
+    const wordData = await WordDAO.getWord(wordID);
+
+    return {
+      _id: lodash.get(favoriteWordData, '_id'),
+      id_word: wordID,
+      id_user: lodash.get(favoriteWordData, 'id_user'),
+      wordData: wordData,
+      hebrew: lodash.get(wordData, 'hebrew'),
+      pronunciation: lodash.get(wordData, 'pronunciation')
+    };
+  }
 
 
 })();
-

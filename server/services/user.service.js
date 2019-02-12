@@ -35,16 +35,20 @@
   async function createUser(userData, role) {
 
 
-    if(!lodash.get(userData, 'email') || !lodash.get(userData, 'password')) {
-      throw new Error({error: ('Invalid parameters')});
+    if (!lodash.get(userData, 'email') || !lodash.get(userData, 'password')) {
+      throw new Error({
+        error: ('Invalid parameters')
+      });
     }
 
     const existingUser = await getUserByEmail(lodash.get(userData, 'email'));
-    if(existingUser) {
-      throw new Error({error: ('Email already taken')});
+    if (existingUser) {
+      throw new Error({
+        error: ('Email already taken')
+      });
     }
     const hashedPassword = AuthCore.hashPassword(userData.password);
-  
+
     return await UserDAO.createUser(userData, role, hashedPassword);
 
   }
@@ -60,15 +64,17 @@
   async function updateUser(userID, userData) {
 
     let hashedPassword = null;
-    if(lodash.get(userData, 'password')) {
+    if (lodash.get(userData, 'password')) {
       hashedPassword = AuthCore.hashPassword(userData.password);
     }
 
     const existingUser = await getUser(userID);
-    if(existingUser.email !== userData.email) {
-      throw new Error({error: ('Incorrect parameters')});
+    if (existingUser.email !== userData.email) {
+      throw new Error({
+        error: ('Incorrect parameters')
+      });
     }
-  
+
     return await UserDAO.updateUser(userID, userData, hashedPassword);
 
   }
@@ -106,7 +112,7 @@
   }
 
   /**
-   * @description ADMIN FUNCTION - Récupère les data de tous les users 
+   * @description ADMIN FUNCTION - Récupère les data de tous les users
    *
    * @param {string} uid - id du user
    *
@@ -126,7 +132,7 @@
    * @return {Promise<object>} - Les data du user
    */
   async function getUserByEmail(userEmail) {
-  
+
     return await UserDAO.getUserByEmail(userEmail);
 
   }
@@ -139,7 +145,7 @@
    * @return {Promise<object>} - Confirmation
    */
   async function deleteUser(userID) {
-  
+
     return await UserDAO.deleteUser(userID);
 
   }
@@ -148,4 +154,3 @@
 
 
 })();
-

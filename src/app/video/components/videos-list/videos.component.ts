@@ -1,8 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { LoadVideos } from '../state/videos.actions';
-import { getVideos } from '../state/videos.reducers';
 
 @Component({
   selector: 'app-videos',

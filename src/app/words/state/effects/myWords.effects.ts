@@ -22,7 +22,7 @@ export class MyWordsEffects {
   @Effect()
   getMyWords$ = this.actions$.ofType(LOAD_MY_WORDS).pipe(
     switchMap((action: LoadMyWordsSuccess) => {
-      // console.log(action.payload);
+      console.log(action.payload);
       return this.usersService.getWordsByUser(action.payload).pipe(
         map(myWords => {
           return new LoadMyWordsSuccess(myWords.data);
@@ -36,7 +36,7 @@ export class MyWordsEffects {
     switchMap((action: AddToMyWords) => {
       const payload = action.payload;
       // console.log(action.payload);
-      return this.usersService.addToMyWords(payload.word, payload.userId).pipe(
+      return this.usersService.addToMyWords(payload.word).pipe(
         map(myWords => {
           return new AddToMyWordsSuccess(myWords);
         })

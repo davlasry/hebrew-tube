@@ -25,6 +25,7 @@ router.post('/', (req, res, next) => {
 
 // POST login route
 router.post('/login', (req, res, next) => {
+  console.log('LOGGGGGIN');
 
   // Check if email is empty
   if (!req.body.email) {

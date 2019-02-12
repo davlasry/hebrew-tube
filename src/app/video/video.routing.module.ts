@@ -1,11 +1,11 @@
-import { CreateVideoComponent } from './create-video/create-video.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { VideoComponent } from './video/video.component';
-import { EditVideoComponent } from './edit-video/edit-video.component';
 import { AuthGuard } from '../core/guards/auth-guard.service';
 import { VideosContainerComponent } from './containers/videos-container/videos-container.component';
 import { VideosListContainerComponent } from './containers/videos-list-container/videos-list-container.component';
+import { CreateVideoComponent } from './containers/create-video/create-video.component';
+import { EditVideoComponent } from './containers/edit-video/edit-video.component';
+import { VideoComponent } from './components/video/video.component';
 
 const routes: Routes = [
   {

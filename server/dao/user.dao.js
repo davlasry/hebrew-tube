@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   // External dependencies
@@ -19,7 +19,7 @@
   };
 
   async function createUser(userData, role, password) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
       try {
 
         const data = {
@@ -35,7 +35,7 @@
 
         return resolve(userCreated);
 
-      } catch(err) {
+      } catch (err) {
         reject(err);
       }
     });
@@ -43,12 +43,14 @@
   }
 
   async function updateUser(userID, userData, password) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
       try {
 
-        const existingUser = await UserMongo.findOne({_id: userID});
+        const existingUser = await UserMongo.findOne({
+          _id: userID
+        });
         if (!!existingUser === false) {
-            return reject('nonExistingUser');
+          return reject('nonExistingUser');
         }
 
         const data = {
@@ -56,7 +58,7 @@
           firstName: userData.firstName
         };
 
-        if(password) {
+        if (password) {
           data.password = password;
         }
 
@@ -66,7 +68,7 @@
 
         return resolve(userUpdated);
 
-      } catch(err) {
+      } catch (err) {
         reject(err);
       }
     });
@@ -76,54 +78,60 @@
 
 
   async function getUser(userID) {
-    return new Promise(async function(resolve, reject) {
-        await UserMongo.findOne({_id: userID}, async function(err, res) {
-            if (err) {
-                console.log('Error in user.dao getUser', err);
-                return reject(err);
-            }
-            return resolve(res);
-        });
+    return new Promise(async function (resolve, reject) {
+      await UserMongo.findOne({
+        _id: userID
+      }, async function (err, res) {
+        if (err) {
+          console.log('Error in user.dao getUser', err);
+          return reject(err);
+        }
+        return resolve(res);
+      });
     });
   }
 
 
 
   async function getAllUsers() {
-    return new Promise(async function(resolve, reject) {
-        await UserMongo.find({}, async function(err, res) {
-            if (err) {
-                console.log('Error in user.dao getAllUsers', err);
-                return reject(err);
-            }
-            return resolve(res);
-        });
+    return new Promise(async function (resolve, reject) {
+      await UserMongo.find({}, async function (err, res) {
+        if (err) {
+          console.log('Error in user.dao getAllUsers', err);
+          return reject(err);
+        }
+        return resolve(res);
+      });
     });
   }
 
 
   async function getUserByEmail(email) {
-    return new Promise(async function(resolve, reject) {
-        await UserMongo.findOne({email: email}, async function(err, res) {
-            if (err) {
-                console.log('Error in user.dao getUserByEmail', err);
-                return reject(err);
-            }
-            return resolve(res);
-        });
+    return new Promise(async function (resolve, reject) {
+      await UserMongo.findOne({
+        email: email
+      }, async function (err, res) {
+        if (err) {
+          console.log('Error in user.dao getUserByEmail', err);
+          return reject(err);
+        }
+        return resolve(res);
+      });
     });
   }
 
 
   async function deleteUser(userID) {
-    return new Promise(async function(resolve, reject) {
-        await UserMongo.remove({_id: userID}, async function(err, res) {
-            if (err) {
-                console.log('Error in user.dao delete', err);
-                return reject(err);
-            }
-            return resolve(res);
-        });
+    return new Promise(async function (resolve, reject) {
+      await UserMongo.remove({
+        _id: userID
+      }, async function (err, res) {
+        if (err) {
+          console.log('Error in user.dao delete', err);
+          return reject(err);
+        }
+        return resolve(res);
+      });
     });
   }
 
