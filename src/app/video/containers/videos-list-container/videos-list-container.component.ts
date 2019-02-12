@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { VideosState } from '../state/videos.reducers';
-import { getIsVideosLoaded, getAllVideos } from '../state/videos.selectors';
-import { LoadVideos } from '../state/videos.actions';
 import { Observable } from 'rxjs';
 import { getUser } from 'src/app/authentication/state/user.selectors';
+import { getIsVideosLoaded, getAllVideos } from '../../state/videos.selectors';
+import { VideosState } from '../../state/videos.reducers';
+import { LoadVideos } from '../../state/videos.actions';
 
 @Component({
   selector: 'app-videos-list',
