@@ -16,30 +16,44 @@
 
 
   async function login(req, res) {
-  
+
+    console.log('login');
+    console.log(req.body);
+
     const email = lodash.get(req, 'body.email');
     const password = lodash.get(req, 'body.password');
 
     const existingUser = await UserSvc.getUserByEmail(email);
     if (!existingUser) {
+      console.log('no user');
       return res.status(404).send('No user found.');
     }
 
 
     const passwordIsValid = AuthCore.comparePassword(password, existingUser.password);
     if (!passwordIsValid) {
-      return res.status(401).send({auth: false, token: null});
+      return res.status(401).send({
+        auth: false,
+        token: null,
+        text: 'wrong password'
+      });
     }
 
     const token = AuthCore.generateToken(lodash.get(existingUser, '_id'));
-    
-    return res.status(200).send({auth: true, token: token});
+
+    return res.status(200).send({
+      auth: true,
+      token: token
+    });
 
   }
 
   async function logout(req, res) {
-  
-    return res.status(200).send({auth: false, token: null});
+
+    return res.status(200).send({
+      auth: false,
+      token: null
+    });
 
   }
 })();

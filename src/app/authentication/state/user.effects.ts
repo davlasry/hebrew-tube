@@ -1,13 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import {
-  switchMap,
-  map,
-  catchError,
-  withLatestFrom,
-  mapTo,
-  tap
-} from 'rxjs/operators';
+import { switchMap, map, catchError, tap } from 'rxjs/operators';
 
 import {
   LOAD_USER,
@@ -22,7 +15,9 @@ import {
   LoadUserFailure,
   LoginSuccess,
   LOGIN,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  Login,
+  LoginFailure
 } from './user.actions';
 import { UsersService } from 'src/app/core/services/users.service';
 import { JwtService } from 'src/app/core/services/jwt.service';
@@ -56,16 +51,16 @@ export class UserEffects {
 
   @Effect()
   logIn$: Observable<any> = this.actions$.ofType(LOGIN).pipe(
-    map((action: LoadUser) => action.payload),
+    map((action: Login) => action.payload),
     switchMap(payload => {
-      // console.log(payload);
+      console.log(payload);
       return this.usersService.logIn(payload).pipe(
         map(user => {
           // console.log(user);
           this.jwtService.saveToken(user.token);
           return new LoginSuccess(user);
         }),
-        catchError(error => of(new LoadUserFailure({ error })))
+        catchError(error => of(new LoginFailure({ error })))
       );
     })
   );

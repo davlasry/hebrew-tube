@@ -21,6 +21,7 @@
 
 
   function getUserID() {
+    console.log('getUserID');
     return async (req, res, next) => {
       try {
         let userID = null;
@@ -35,7 +36,8 @@
       } catch (err) {
         return res.status(401).send({
           auth: false,
-          message: 'User not connected.'
+          message: 'User not connected.',
+          text: 'NOTTTTT CONECT'
         });
       }
     };
@@ -105,6 +107,7 @@
 
   // On vérifie qu'un user est bien Admin, sinon on le jette
   async function isAdmin(req, res, next) {
+    console.log('isAdmin', req.body);
     try {
 
       if (!req.userID) {

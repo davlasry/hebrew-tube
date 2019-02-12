@@ -26,6 +26,7 @@ export function userReducer(
       });
 
     case userActions.LOAD_USER_FAILURE: {
+      console.log(action);
       return Object.assign({}, state, {
         loggedIn: false,
         user: action.payload
@@ -38,6 +39,7 @@ export function userReducer(
       });
 
     case userActions.LOGIN_FAILURE: {
+      console.log(action.payload);
       return Object.assign({}, state, {
         loggedIn: false
       });
