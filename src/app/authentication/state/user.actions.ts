@@ -1,5 +1,7 @@
 import { Action } from '@ngrx/store';
 
+export const CHECK_TOKEN = '[User] Check Token';
+export const CHECK_TOKEN_SUCCESS = '[User] Check Token Success';
 export const LOAD_USER = '[User] Load User';
 export const LOAD_USER_SUCCESS = '[User] Load User Sucess';
 export const LOAD_USER_FAILURE = '[User] Load User Failure';
@@ -12,6 +14,14 @@ export const SIGN_UP = '[User] Sign Up';
 export const SIGN_UP_SUCCESS = '[User] Sign Up Success';
 export const LOGIN_REDIRECT = '[User] Login Redirect';
 
+export class CheckToken implements Action {
+  readonly type = CHECK_TOKEN;
+}
+export class CheckTokenSuccess implements Action {
+  readonly type = CHECK_TOKEN_SUCCESS;
+
+  constructor(public payload: any) {}
+}
 export class LoadUser implements Action {
   readonly type = LOAD_USER;
 
@@ -63,6 +73,8 @@ export class SignUpSuccess implements Action {
 }
 
 export type Actions =
+  | CheckToken
+  | CheckTokenSuccess
   | LoadUser
   | LoadUserSuccess
   | LoadUserFailure

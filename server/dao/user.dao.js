@@ -86,6 +86,7 @@
           console.log('Error in user.dao getUser', err);
           return reject(err);
         }
+        console.log(res);
         return resolve(res);
       });
     });

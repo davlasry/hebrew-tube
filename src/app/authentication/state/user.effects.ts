@@ -17,7 +17,11 @@ import {
   LOGIN,
   LOGIN_SUCCESS,
   Login,
-  LoginFailure
+  LoginFailure,
+  SignUp,
+  CHECK_TOKEN,
+  CheckTokenSuccess,
+  CheckToken
 } from './user.actions';
 import { UsersService } from 'src/app/core/services/users.service';
 import { JwtService } from 'src/app/core/services/jwt.service';
@@ -34,14 +38,25 @@ export class UserEffects {
   ) {}
 
   @Effect()
+  checkToken$: Observable<any> = this.actions$.ofType(CHECK_TOKEN).pipe(
+    switchMap((action: CheckToken) => {
+      return this.jwtService.checkIfTokenValid().pipe(
+        map(auth => {
+          // console.log('getUserDetails', user);
+          return new CheckTokenSuccess(auth);
+        })
+        // catchError(error => of(new LoadUserFailure({ error })))
+      );
+    })
+  );
+
+  @Effect()
   loadUser$: Observable<any> = this.actions$.ofType(LOAD_USER).pipe(
     map((action: LoadUser) => action.payload),
     switchMap(payload => {
-      // console.log(payload);
-      return this.usersService.logIn(payload).pipe(
+      // console.log('LOAD USER EFFECT PAYLOAD', payload);
+      return this.usersService.getUserDetails(payload).pipe(
         map(user => {
-          // console.log(user);
-          this.jwtService.saveToken(user.token);
           return new LoadUserSuccess(user);
         }),
         catchError(error => of(new LoadUserFailure({ error })))
@@ -56,7 +71,7 @@ export class UserEffects {
       console.log(payload);
       return this.usersService.logIn(payload).pipe(
         map(user => {
-          // console.log(user);
+          console.log('user Login response', user);
           this.jwtService.saveToken(user.token);
           return new LoginSuccess(user);
         }),
@@ -73,7 +88,7 @@ export class UserEffects {
 
   @Effect()
   signIn$: Observable<any> = this.actions$.ofType(SIGN_UP).pipe(
-    map((action: LoadUser) => action.payload),
+    map((action: SignUp) => action.payload),
     switchMap(payload => {
       // console.log(payload);
       return this.usersService.logIn(payload).pipe(

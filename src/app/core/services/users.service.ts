@@ -24,8 +24,8 @@ export class UsersService {
     return this.http.post<any>(`${environment.API_URL}/user`, signUpForm.value);
   }
 
-  getCurrentUserDetail() {
-    return this.http.get<any>(`${environment.API_URL}/user/current`);
+  getUserDetails(userID) {
+    return this.http.get<any>(`${environment.API_URL}/user/${userID}`);
   }
 
   getAllUsers() {

@@ -18,11 +18,17 @@ export function userReducer(
   action: userActions.Actions
 ): UserState {
   switch (action.type) {
+    case userActions.CHECK_TOKEN_SUCCESS:
+      // console.log('CHECK TOKEN SUCCESS payload', action.payload);
+      return Object.assign({}, state, {
+        loggedIn: true
+      });
+
     case userActions.LOAD_USER_SUCCESS:
-      console.log(action.payload);
+      console.log('LOAD USER SUCCESS payload', action.payload);
       return Object.assign({}, state, {
         loggedIn: true,
-        user: action.payload
+        user: action.payload.data
       });
 
     case userActions.LOAD_USER_FAILURE: {
@@ -34,8 +40,10 @@ export function userReducer(
     }
 
     case userActions.LOGIN_SUCCESS:
+      console.log(action.payload);
       return Object.assign({}, state, {
-        loggedIn: true
+        loggedIn: true,
+        user: action.payload.user
       });
 
     case userActions.LOGIN_FAILURE: {

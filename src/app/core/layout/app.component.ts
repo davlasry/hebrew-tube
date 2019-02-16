@@ -5,7 +5,9 @@ import { ApplicationState } from '../../app-state';
 import { Store, select } from '@ngrx/store';
 import {
   LoadUserSuccess,
-  UserSignOut
+  UserSignOut,
+  LoadUser,
+  CheckToken
 } from '../../authentication/state/user.actions';
 import { take } from 'rxjs/operators';
 import {
@@ -39,13 +41,15 @@ export class AppComponent implements OnInit {
     });
     this.isLoggedIn$ = this.store.select(getLoggedIn);
 
-    if (this.jwtService.getToken() && !this.jwtService.checkIfTokenExpired()) {
-      const userDetails = this.jwtService.decodeToken(
-        this.jwtService.getToken()
-      );
-      // console.log(this.jwtService.decodeToken(this.jwtService.getToken()));
-      this.store.dispatch(new LoadUserSuccess(userDetails));
-    }
+    this.store.dispatch(new CheckToken());
+
+    this.jwtService.checkIfTokenValid().subscribe(auth => {
+      if (auth) {
+        const userDetails = this.jwtService.decodedToken();
+        console.log(userDetails.id);
+        this.store.dispatch(new LoadUser(userDetails.id));
+      }
+    });
 
     this.isLoggedIn$.subscribe(isLoggedIn => {
       if (isLoggedIn) {

@@ -9,7 +9,9 @@
       </button>
     </a>
   </div>
-  <div *ngIf="!isVideosLoaded">Loading...</div>
+  <div *ngIf="!isVideosLoaded">
+    <mat-spinner></mat-spinner>
+  </div>
   <div *ngIf="isVideosLoaded">
     <div class="video" *ngFor="let video of videos">
       <div class="video-info">

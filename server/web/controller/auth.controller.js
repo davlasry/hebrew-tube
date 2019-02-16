@@ -43,7 +43,13 @@
 
     return res.status(200).send({
       auth: true,
-      token: token
+      token: token,
+      user: {
+        firstName: lodash.get(existingUser, 'firstName'),
+        lastName: lodash.get(existingUser, 'lastName'),
+        email: lodash.get(existingUser, 'email'),
+        id: lodash.get(existingUser, 'id')
+      }
     });
 
   }

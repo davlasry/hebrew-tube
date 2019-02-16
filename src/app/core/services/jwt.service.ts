@@ -2,41 +2,41 @@ import { Injectable } from '@angular/core';
 
 import * as jwt_decode from 'jwt-decode';
 import { DecodedToken } from '../../data/decodedToken.model';
+import { of } from 'rxjs';
 
 @Injectable()
 export class JwtService {
-  constructor() {
-    // console.log(this.decodeToken(this.getToken()));
-  }
+  constructor() {}
 
-  decodeToken(token: string): any {
+  decodedToken(): any {
     try {
-      return jwt_decode(token);
+      return jwt_decode(this.getToken());
     } catch (Error) {
       return null;
     }
   }
 
   getToken(): string {
-    return window.localStorage.getItem('User_Token_Id');
+    return window.localStorage.getItem('HT_Token');
   }
 
-  checkIfTokenExpired() {
-    const now = new Date().getTime() / 1000;
-    const exp = parseInt(window.localStorage.getItem('User_Token_Exp'), 10);
-    return now > exp;
+  checkIfTokenValid() {
+    if (this.getToken()) {
+      const now = new Date().getTime() / 1000;
+      console.log(this.decodedToken());
+      const exp = parseInt(this.decodedToken()['exp'], 10);
+      return of(exp > now);
+    } else {
+      return of(false);
+    }
   }
 
   saveToken(token: string) {
-    const decodedToken = this.decodeToken(token);
-    // console.log(decodedToken);
-    window.localStorage.setItem('User_Token_Id', token);
-    window.localStorage.setItem('User_Token_Exp', decodedToken.exp);
+    window.localStorage.setItem('HT_Token', token);
   }
 
   destroyToken() {
-    window.localStorage.removeItem('User_Token_Id');
-    window.localStorage.removeItem('User_Token_Exp');
+    window.localStorage.removeItem('HT_Token');
   }
 
   get currentUser(): DecodedToken {
