@@ -6,7 +6,6 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 // WORD STATE INTERFACE
 export interface AllWordsState extends EntityState<any> {
-  // entities: { [id: number]: any };
   loading: Boolean;
   loaded: Boolean;
 }
@@ -52,8 +51,8 @@ export function allWordsReducer(
     }
 
     case wordsList.ADD_WORD_SUCCESS: {
-      // console.log(action.payload);
-      return adapter.addOne(action.payload, state);
+      console.log('ADD WORD SUCCESS REDUCER', action.payload);
+      return adapter.addOne(action.payload.data, state);
     }
 
     case wordsList.DELETE_WORDS: {

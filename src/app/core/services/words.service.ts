@@ -17,6 +17,7 @@ export class WordsService {
   }
 
   addWord(word): Observable<any> {
+    console.log('ADD WORD SERVICE', word);
     return this.http.post<any>(`${environment.API_URL}/word`, word);
   }
 

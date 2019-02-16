@@ -31,13 +31,19 @@
    * @return {*} la requête
    */
   async function createWord(req, res) {
+    console.log(req.body);
     try {
       const wordData = lodash.get(req, 'body');
       const wordCreated = await WordSvc.createWord(wordData);
 
-      return res.status(200).send({data: wordCreated});
-    } catch(err) {
-      return res.status(500).send({message: 'error in word creation', error: err.toString()});
+      return res.status(200).send({
+        data: wordCreated
+      });
+    } catch (err) {
+      return res.status(500).send({
+        message: 'error in word creation',
+        error: err.toString()
+      });
     }
   }
 
@@ -52,9 +58,14 @@
       const wordData = lodash.get(req, 'body');
       const wordUpdated = await WordSvc.updateWord(wordData);
 
-      return res.status(200).send({data: wordUpdated});
-    } catch(err) {
-      return res.status(500).send({message: 'error in word update', error: err.toString()});
+      return res.status(200).send({
+        data: wordUpdated
+      });
+    } catch (err) {
+      return res.status(500).send({
+        message: 'error in word update',
+        error: err.toString()
+      });
     }
   }
 
@@ -71,11 +82,16 @@
       const wordID = lodash.get(req, 'params.wordID');
 
       const word = await WordSvc.getWord(wordID);
-      
-      return res.status(200).send({data: word});
 
-    } catch(err) {
-      return res.status(500).send({auth: false, error: err.toString()});
+      return res.status(200).send({
+        data: word
+      });
+
+    } catch (err) {
+      return res.status(500).send({
+        auth: false,
+        error: err.toString()
+      });
     }
   }
 
@@ -88,15 +104,20 @@
   async function getAllWords(req, res) {
     try {
       const words = await WordSvc.getAllWords();
-      
-      return res.status(200).send({data: words});
 
-    } catch(err) {
-      return res.status(500).send({auth: false, error: err.toString()});
+      return res.status(200).send({
+        data: words
+      });
+
+    } catch (err) {
+      return res.status(500).send({
+        auth: false,
+        error: err.toString()
+      });
     }
   }
- 
-   /**
+
+  /**
    * @description Suppression d'un word
    * @param {object} req - la requête
    * @param {object} res - la réponse
@@ -107,16 +128,19 @@
       const wordToDeleteID = lodash.get(req, 'params.wordID');
 
       await WordSvc.deleteWord(wordToDeleteID);
-      
+
       return res.status(200).send('word ' + wordToDeleteID + ' successfully deleted');
 
-    } catch(err) {
+    } catch (err) {
 
-      return res.status(500).send({auth: false, error: err.toString()});
+      return res.status(500).send({
+        auth: false,
+        error: err.toString()
+      });
     }
   }
- 
-   /**
+
+  /**
    * @description Suppression de plusieurs words
    * @param {object} req - la requête
    * @param {object} res - la réponse
@@ -127,17 +151,20 @@
       const wordsIDArray = lodash.get(req, 'body');
 
       const promises = [];
-      for(let i = 0; i < wordsIDArray.length; i++) {
+      for (let i = 0; i < wordsIDArray.length; i++) {
         promises.push(await WordSvc.deleteWord(wordsIDArray[i]));
       }
 
       await Promise.all(promises);
 
-      
+
       return res.status(200).send('words successfully deleted');
 
-    } catch(err) {
-      return res.status(500).send({auth: false, error: err.toString()});
+    } catch (err) {
+      return res.status(500).send({
+        auth: false,
+        error: err.toString()
+      });
     }
   }
 

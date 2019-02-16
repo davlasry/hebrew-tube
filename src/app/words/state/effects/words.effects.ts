@@ -37,7 +37,7 @@ export class WordsEffects {
   @Effect()
   addWord$ = this.actions$.ofType(ADD_WORD).pipe(
     switchMap((action: AddWord) => {
-      // console.log(action.payload);
+      console.log('ADD WORD EFFECT', action.payload);
       return this.wordsService
         .addWord(action.payload)
         .pipe(map(word => new AddWordSuccess(word)));

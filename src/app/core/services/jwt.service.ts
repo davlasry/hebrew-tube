@@ -41,6 +41,6 @@ export class JwtService {
 
   get currentUser(): DecodedToken {
     // console.log(this.decodeToken(this.getToken()));
-    return this.decodeToken(this.getToken());
+    return this.decodedToken();
   }
 }
