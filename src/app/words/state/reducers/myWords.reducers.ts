@@ -34,7 +34,7 @@ export function myWordsReducer(
 ): MyWordsState {
   switch (action.type) {
     case myWordsActions.LOAD_MY_WORDS: {
-      console.log(action.payload);
+      console.log('LOAD MY WORDS ACTION', action.payload);
       return {
         ...state,
         loading: true
@@ -42,7 +42,7 @@ export function myWordsReducer(
     }
 
     case myWordsActions.LOAD_MY_WORDS_SUCCESS: {
-      console.log(action.payload);
+      console.log('LOAD MY WORDS REDUCER', action.payload);
       return adapter.addAll(action.payload, {
         ...state,
         loading: false,
@@ -51,12 +51,12 @@ export function myWordsReducer(
     }
 
     case myWordsActions.ADD_TO_MY_WORDS: {
-      // console.log(action.payload);
+      console.log('ADD TO MY WORDS REDUCER', action.payload);
       return adapter.addOne(action.payload.word, state);
     }
 
     case myWordsActions.DELETE_FROM_MY_WORDS: {
-      console.log('Delete from my words', action.payload);
+      console.log('Delete from my words reducer', action.payload);
       return adapter.removeMany(action.payload.words, state);
       // return adapter.removeOne(action.payload.word._id, state);
     }

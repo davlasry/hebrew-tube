@@ -113,6 +113,8 @@ export class UserEffects {
   signOut$ = this.actions$.pipe(
     ofType(USER_SIGN_OUT),
     tap(() => {
+      console.log('USER SIGN OUT EFFECT');
+      this.jwtService.destroyToken();
       this.router.navigate(['/login']);
     })
   );

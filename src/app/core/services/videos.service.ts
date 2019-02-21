@@ -16,8 +16,8 @@ export class VideosService {
     return this.http.get<any>(`${environment.API_URL}/video/${id}`);
   }
 
-  addVideo(video): Observable<any> {
-    // console.log(video);
+  createVideo(video): Observable<any> {
+    console.log('CREATE VIDEO SERVICE', video);
     return this.http.post<any>(`${environment.API_URL}/video`, video);
   }
 

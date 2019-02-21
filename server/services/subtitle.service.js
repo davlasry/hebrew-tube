@@ -29,9 +29,13 @@
    */
   async function fromFrontToDBManager(subtitleData) {
 
+    console.log('fromFrontToDBManager', subtitleData);
+
     const promises = [];
 
-    for(let i = 0; i < subtitleData.length; i++) {
+    for (let i = 0; i < subtitleData.length; i++) {
+      console.log('subtitleData[i]', subtitleData[i]);
+
       promises.push(await formatSubtitleToDB(subtitleData[i]));
     }
 
@@ -50,7 +54,7 @@
 
     const promises = [];
 
-    for(let i = 0; i < subtitleData.length; i++) {
+    for (let i = 0; i < subtitleData.length; i++) {
       promises.push(await formatSubtitleToFront(subtitleData[i]));
     }
 
@@ -69,16 +73,19 @@
   async function formatSubtitleToDB(subtitleData) {
 
     const subtitleWords = lodash.get(subtitleData, 'words');
+    console.log('subtitleWords', subtitleWords);
 
     const promises = [];
-    for(let i = 0; i < subtitleWords.length; i++) {
+    for (let i = 0; i < subtitleWords.length; i++) {
+      console.log('formatSubtitleToDb, subtitleWord', subtitleWords[i]);
       promises.push(await WordSvc.createWord(subtitleWords[i]));
     }
 
     const wordsData = await Promise.all(promises);
 
     const wordsList = [];
-    for(let j = 0; j < wordsData.length; j++) {
+    for (let j = 0; j < wordsData.length; j++) {
+      console.log('formatSubtitleToDB word', wordsData[j]);
       wordsList.push(lodash.get(wordsData[j], '_id'));
     }
 
@@ -95,7 +102,7 @@
     const subtitleWords = lodash.get(subtitleData, 'words');
 
     const promises = [];
-    for(let i = 0; i < subtitleWords.length; i++) {
+    for (let i = 0; i < subtitleWords.length; i++) {
       promises.push(await WordSvc.getWord(subtitleWords[i]));
     }
 

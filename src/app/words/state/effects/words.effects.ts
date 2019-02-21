@@ -11,13 +11,16 @@ import {
   AddWordSuccess,
   DeleteWords,
   DELETE_WORDS,
-  DELETE_WORD
+  DELETE_WORD,
+  LoadWordsFail,
+  LOAD_WORDS_FAIL
 } from '../actions/words.actions';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import {
   DeleteFromMyWords,
   DeleteFromMyWordsSuccess
 } from '../actions/myWords.actions';
+import { UserSignOut } from 'src/app/authentication/state/user.actions';
 
 @Injectable()
 export class WordsEffects {
@@ -27,10 +30,21 @@ export class WordsEffects {
   getWords$ = this.actions$.ofType(LOAD_WORDS).pipe(
     switchMap(() => {
       // console.log('LOAD WORDS');
-      return this.wordsService
-        .getWords()
-        .pipe(map((words: any) => new LoadWordsSuccess(words.data)));
-      // catchError(error => new LoadWordsFail(error));
+      return this.wordsService.getWords().pipe(
+        map((words: any) => new LoadWordsSuccess(words.data)),
+        catchError(error => of(new LoadWordsFail(error)))
+      );
+    })
+  );
+
+  @Effect()
+  getWordsFail$ = this.actions$.ofType(LOAD_WORDS_FAIL).pipe(
+    switchMap(() => {
+      console.log('LOAD WORDS FAIL');
+      return this.wordsService.getWords().pipe(
+        map(() => new UserSignOut())
+        // catchError(error => of(new LoadWordsFail(error)))
+      );
     })
   );
 

@@ -52,12 +52,10 @@ export class UsersService {
     });
   }
 
-  deleteFromMyWords(wordsIds, userId) {
-    // console.log(wordsIds);
-    // console.log(userId);
-    return this.http.delete<any>(
-      `${environment.API_URL}/favorite/word`,
+  deleteFromMyWords(wordsIds) {
+    console.log('DELETE FROM MY WORDS SERVICE wordsIds', wordsIds);
+    return this.http.post<any>(`${environment.API_URL}/favorite/deleteWords`, {
       wordsIds
-    );
+    });
   }
 }

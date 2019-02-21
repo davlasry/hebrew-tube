@@ -166,9 +166,11 @@
       _id: lodash.get(favoriteWordData, '_id'),
       id_word: wordID,
       id_user: lodash.get(favoriteWordData, 'id_user'),
-      wordData: wordData,
       hebrew: lodash.get(wordData, 'hebrew'),
-      pronunciation: lodash.get(wordData, 'pronunciation')
+      french: lodash.get(wordData, 'french'),
+      type: lodash.get(wordData, 'type'),
+      pronunciation: lodash.get(wordData, 'pronunciation'),
+      createdAt: lodash.get(wordData, 'createdAt')
     };
   }
 

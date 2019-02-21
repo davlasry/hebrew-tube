@@ -39,13 +39,15 @@ export class WordsListContainerComponent implements OnInit {
   addToMyWords(word) {
     console.log('add ', word);
     console.log('currentUserId ', this.currentUserId);
+    word.id_word = word._id;
     this.store.dispatch(new AddToMyWords({ word, userId: this.currentUserId }));
   }
 
   deleteFromMyWords(word) {
     console.log('delete ', word);
+    word.id_word = word._id;
     this.store.dispatch(
-      new DeleteFromMyWords({ words: [word.id], userId: this.currentUserId })
+      new DeleteFromMyWords({ words: [word._id], userId: this.currentUserId })
     );
   }
 

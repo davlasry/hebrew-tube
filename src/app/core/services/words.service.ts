@@ -22,6 +22,7 @@ export class WordsService {
   }
 
   deleteWord(wordId): Observable<any> {
+    console.log('DELETE WORD SERVICE', wordId);
     return this.http.delete<any>(`${environment.API_URL}/word/${wordId}`);
   }
 

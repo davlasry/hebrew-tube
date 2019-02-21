@@ -22,7 +22,7 @@ export class MyWordsEffects {
   @Effect()
   getMyWords$ = this.actions$.ofType(LOAD_MY_WORDS).pipe(
     switchMap((action: LoadMyWordsSuccess) => {
-      console.log(action.payload);
+      console.log('GET MY WORDS EFFECT', action.payload);
       return this.usersService.getWordsByUser(action.payload).pipe(
         map(myWords => {
           return new LoadMyWordsSuccess(myWords.data);
@@ -35,7 +35,7 @@ export class MyWordsEffects {
   addToMyWords$: Observable<any> = this.actions$.ofType(ADD_TO_MY_WORDS).pipe(
     switchMap((action: AddToMyWords) => {
       const payload = action.payload;
-      // console.log(action.payload);
+      console.log('ADD TO MY WORDS EFFECT', action.payload);
       return this.usersService.addToMyWords(payload.word).pipe(
         map(myWords => {
           return new AddToMyWordsSuccess(myWords);
@@ -50,14 +50,13 @@ export class MyWordsEffects {
     .pipe(
       switchMap((action: DeleteFromMyWords) => {
         const payload = action.payload;
-        // console.log(action.payload);
-        return this.usersService
-          .deleteFromMyWords(payload.words, payload.userId)
-          .pipe(
-            map(myWords => {
-              return new DeleteFromMyWordsSuccess(myWords);
-            })
-          );
+        console.log('DELETE FROM MY WORDS EFFECT', action.payload);
+        return this.usersService.deleteFromMyWords(payload.words).pipe(
+          map(myWords => {
+            console.log(myWords);
+            return new DeleteFromMyWordsSuccess(myWords);
+          })
+        );
       })
     );
 }

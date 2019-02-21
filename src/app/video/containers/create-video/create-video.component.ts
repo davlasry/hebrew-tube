@@ -23,7 +23,7 @@ export class CreateVideoComponent implements OnInit {
 
   ngOnInit() {
     this.videoForm = this.fb.group({
-      youtubeLink: ['TEST', [Validators.required]],
+      link: ['TEST', [Validators.required]],
       createdAt: [''],
       name: ['TEST'],
       subtitles: this.fb.array([this.initSubtitle()])
@@ -33,15 +33,15 @@ export class CreateVideoComponent implements OnInit {
   initSubtitle() {
     return this.fb.group({
       words: this.fb.array([this.initWord()]),
-      startTime: [''],
-      endTime: ['']
+      startTime: ['0'],
+      endTime: ['4']
     });
   }
 
   initWord() {
     return this.fb.group({
-      hebrew: [''],
-      french: ['']
+      hebrew: ['blabla'],
+      french: ['blibli']
     });
   }
 

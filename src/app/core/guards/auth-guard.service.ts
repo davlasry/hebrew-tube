@@ -4,21 +4,26 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { getLoggedIn } from 'src/app/authentication/state/user.selectors';
-import { LoginRedirect } from 'src/app/authentication/state/user.actions';
+import {
+  LoginRedirect,
+  UserSignOut
+} from 'src/app/authentication/state/user.actions';
+import { JwtService } from '../services/jwt.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private store: Store<any>) {}
+  constructor(private store: Store<any>, private jwtService: JwtService) {}
 
   canActivate(): Observable<boolean> {
     return this.store.pipe(
       select(getLoggedIn),
       map(loggedIn => {
-        // console.log(loggedIn);
-        if (!loggedIn) {
-          this.store.dispatch(new LoginRedirect());
+        console.log(loggedIn);
+        console.log(this.jwtService.checkIfTokenValid());
+        if (!loggedIn || !this.jwtService.checkIfTokenValid()) {
+          this.store.dispatch(new UserSignOut());
           return false;
         }
         return true;

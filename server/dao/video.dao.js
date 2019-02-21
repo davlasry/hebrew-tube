@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   // External dependencies
@@ -18,7 +18,7 @@
   };
 
   async function createVideo(videoData) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
       try {
 
         const data = {
@@ -27,12 +27,14 @@
           subtitles: lodash.get(videoData, 'subtitles')
         };
 
+        console.log('createVideo DAO data', data);
+
         const newVideo = new VideoMongo(data);
         const videoCreated = await newVideo.save();
 
         return resolve(videoCreated);
 
-      } catch(err) {
+      } catch (err) {
         console.log('Error in video.dao createVideo', err);
         return reject(err);
       }
@@ -41,7 +43,7 @@
   }
 
   async function updateVideo(videoData, existingVideo) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
       try {
 
         const data = {
@@ -54,7 +56,7 @@
 
         return resolve(videoUpdated);
 
-      } catch(err) {
+      } catch (err) {
         console.log('Error in video.dao updateVideo', err);
         reject(err);
       }
@@ -65,13 +67,15 @@
 
 
   async function getVideo(videoID) {
-    return new Promise(async function(resolve, reject) {
-      await VideoMongo.findOne({_id: videoID}, async function(err, res) {
-          if (err) {
-              console.log('Error in video.dao getVideo', err);
-              return reject(err);
-          }
-          return resolve(res);
+    return new Promise(async function (resolve, reject) {
+      await VideoMongo.findOne({
+        _id: videoID
+      }, async function (err, res) {
+        if (err) {
+          console.log('Error in video.dao getVideo', err);
+          return reject(err);
+        }
+        return resolve(res);
       });
     });
   }
@@ -79,22 +83,24 @@
 
 
   async function getAllVideos() {
-    return new Promise(async function(resolve, reject) {
-        await VideoMongo.find({}, async function(err, res) {
-            if (err) {
-                console.log('Error in video.dao getAllVideos', err);
-                return reject(err);
-            }
-            return resolve(res);
-        });
+    return new Promise(async function (resolve, reject) {
+      await VideoMongo.find({}, async function (err, res) {
+        if (err) {
+          console.log('Error in video.dao getAllVideos', err);
+          return reject(err);
+        }
+        return resolve(res);
+      });
     });
   }
 
 
 
   async function deleteVideo(videoID) {
-    return new Promise(async function(resolve, reject) {
-      await VideoMongo.remove({_id: videoID}, async function(err, res) {
+    return new Promise(async function (resolve, reject) {
+      await VideoMongo.remove({
+        _id: videoID
+      }, async function (err, res) {
         if (err) {
           console.log('Error in video.dao delete', err);
           return reject(err);

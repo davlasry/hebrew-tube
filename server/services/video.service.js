@@ -36,10 +36,14 @@
    */
   async function createVideo(videoData) {
 
-    if(!lodash.get(videoData, 'link') || !lodash.get(videoData, 'name')) {
-      throw new Error({error: ('Invalid parameters')});
+    console.log('createVideo Service', videoData);
+
+    if (!lodash.get(videoData, 'link') || !lodash.get(videoData, 'name')) {
+      throw new Error({
+        error: ('Invalid parameters')
+      });
     }
-  
+
     const subtitlesData = lodash.get(videoData, 'subtitles');
     const subtitlesFormatted = await SubtitleSvc.fromFrontToDBManager(subtitlesData);
 
@@ -63,13 +67,17 @@
    */
   async function updateVideo(videoID, videoData) {
 
-    if(!lodash.get(videoData, 'link') || !lodash.get(videoData, 'name')) {
-      throw new Error({error: ('Invalid parameters')});
+    if (!lodash.get(videoData, 'link') || !lodash.get(videoData, 'name')) {
+      throw new Error({
+        error: ('Invalid parameters')
+      });
     }
 
     const existingVideo = await getVideo(videoID);
-    if(!existingVideo) {
-      throw new Error({error: ('Invalid parameters')});
+    if (!existingVideo) {
+      throw new Error({
+        error: ('Invalid parameters')
+      });
     }
 
     await ContextSvc.deleteContextsForVideo(videoID);
@@ -79,7 +87,7 @@
     lodash.set(videoData, 'subtitles', subtitlesFormatted);
 
     await ContextSvc.createContextsForVideo(videoID, videoData);
-  
+
     return await VideoDAO.updateVideo(videoData, existingVideo);
 
   }
@@ -106,7 +114,7 @@
   }
 
   /**
-   * @description Récupère les data de toutes les videos 
+   * @description Récupère les data de toutes les videos
    *
    * @param {string} uid - id du video
    *
@@ -136,7 +144,24 @@
 
   }
 
+  /* private function */
+
+  // async function formatVideo(videoData) {
+  //   const videoID = lodash.get(favoriteWordData, 'id_word');
+  //   const wordData = await WordDAO.getWord(wordID);
+
+  //   return {
+  //     _id: lodash.get(favoriteWordData, '_id'),
+  //     id_word: wordID,
+  //     id_user: lodash.get(favoriteWordData, 'id_user'),
+  //     hebrew: lodash.get(wordData, 'hebrew'),
+  //     french: lodash.get(wordData, 'french'),
+  //     type: lodash.get(wordData, 'type'),
+  //     pronunciation: lodash.get(wordData, 'pronunciation'),
+  //     createdAt: lodash.get(wordData, 'createdAt')
+  //   };
+  // }
+
 
 
 })();
-

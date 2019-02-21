@@ -1,4 +1,3 @@
-
 const router = require('express').Router();
 
 
@@ -10,7 +9,7 @@ const FavoriteController = require('../controller/favorite.controller');
 router.post('/word', Auth.isConnected, FavoriteController.createFavoriteWord);
 router.get('/word', Auth.isConnected, FavoriteController.getAllFavoriteWordsForUser);
 router.delete('/word/:favoriteWordID', Auth.isConnected, FavoriteController.deleteFavoriteWord);
-router.delete('/word/', Auth.isConnected, FavoriteController.deleteMultipleFavoriteWords);
+router.post('/deleteWords/', Auth.isConnected, FavoriteController.deleteMultipleFavoriteWords);
 
 
 router.post('/video', Auth.isConnected, FavoriteController.createFavoriteVideo);
@@ -20,4 +19,3 @@ router.delete('/video/', Auth.isConnected, FavoriteController.deleteMultipleFavo
 
 
 module.exports = router;
-

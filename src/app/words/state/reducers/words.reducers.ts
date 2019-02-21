@@ -35,14 +35,14 @@ export function allWordsReducer(
 ): AllWordsState {
   switch (action.type) {
     case wordsList.LOAD_WORDS: {
-      console.log('LOAD WORDS');
+      // console.log('LOAD WORDS');
       return Object.assign({}, state, {
         loading: true
       });
     }
 
     case wordsList.LOAD_WORDS_SUCCESS: {
-      console.log(action.payload);
+      // console.log(action.payload);
       return adapter.addAll(action.payload, {
         ...state,
         loading: false,
@@ -50,8 +50,13 @@ export function allWordsReducer(
       });
     }
 
+    case wordsList.LOAD_WORDS_FAIL: {
+      console.log('LOAD WORDS FAIL REDUCER', action.payload.error.message);
+      return state;
+    }
+
     case wordsList.ADD_WORD_SUCCESS: {
-      console.log('ADD WORD SUCCESS REDUCER', action.payload);
+      // console.log('ADD WORD SUCCESS REDUCER', action.payload);
       return adapter.addOne(action.payload.data, state);
     }
 

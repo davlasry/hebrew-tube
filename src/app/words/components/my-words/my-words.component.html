@@ -1,5 +1,5 @@
 <div class="my-words-container">
-  <div *ngIf="myWordsLoading">
+  <div class="loadingSpinner" *ngIf="myWordsLoading">
     <mat-spinner></mat-spinner>
   </div>
   <div *ngIf="!myWordsLoading">

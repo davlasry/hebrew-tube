@@ -25,14 +25,14 @@ export function userReducer(
       });
 
     case userActions.LOAD_USER_SUCCESS:
-      console.log('LOAD USER SUCCESS payload', action.payload);
+      // console.log('LOAD USER SUCCESS payload', action.payload);
       return Object.assign({}, state, {
         loggedIn: true,
         user: action.payload.data
       });
 
     case userActions.LOAD_USER_FAILURE: {
-      console.log(action);
+      // console.log(action);
       return Object.assign({}, state, {
         loggedIn: false,
         user: action.payload
@@ -40,14 +40,14 @@ export function userReducer(
     }
 
     case userActions.LOGIN_SUCCESS:
-      console.log(action.payload);
+      // console.log(action.payload);
       return Object.assign({}, state, {
         loggedIn: true,
         user: action.payload.user
       });
 
     case userActions.LOGIN_FAILURE: {
-      console.log(action.payload);
+      // console.log(action.payload);
       return Object.assign({}, state, {
         loggedIn: false
       });

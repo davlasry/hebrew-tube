@@ -1,53 +1,54 @@
 <div class="container">
-    <h3>Create subtitles</h3>
-    <div>
-        <form [formGroup]="videoForm">
-            <mat-form-field class="form-field">
-                <input type="text" matInput placeholder="Youtube Link" formControlName="youtubeLink" required>
-            </mat-form-field>
+  <h3>Create subtitles</h3>
+  <div>
+    <form [formGroup]="videoForm">
+      <mat-form-field class="form-field">
+        <input type="text" matInput placeholder="Youtube Link" formControlName="link" required>
+      </mat-form-field>
 
-            <mat-form-field class="form-field">
-                <input type="text" matInput placeholder="Name of video" formControlName="name" required>
-            </mat-form-field>
+      <mat-form-field class="form-field">
+        <input type="text" matInput placeholder="Name of video" formControlName="name" required>
+      </mat-form-field>
 
-            <div class="definitions form-group" formArrayName="subtitles">
-                <div class="definitions-header">
-                    <h4>Subtitle</h4>
-                    <button mat-stroked-button color="primary" (click)="addSubtitle()">Add subtitle</button>
-                </div>
+      <div class="definitions form-group" formArrayName="subtitles">
+        <div class="definitions-header">
+          <h4>Subtitle</h4>
+          <button mat-stroked-button color="primary" (click)="addSubtitle()">Add subtitle</button>
+        </div>
 
-                <div *ngFor="let subtitle of videoForm['controls'].subtitles['controls']; let i=index" [formGroupName]="i" class="subtitle">
+        <div *ngFor="let subtitle of videoForm['controls'].subtitles['controls']; let i=index" [formGroupName]="i"
+          class="subtitle">
 
-                    <mat-form-field>
-                        <input type="text" placeholder="Start time" matInput formControlName="startTime">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input type="text" placeholder="End time" matInput formControlName="endTime">
-                    </mat-form-field>
-                    <button mat-stroked-button color="warn" *ngIf="i>0" (click)="deleteSubtitle(i)">Delete</button>
+          <mat-form-field>
+            <input type="text" placeholder="Start time" matInput formControlName="startTime">
+          </mat-form-field>
+          <mat-form-field>
+            <input type="text" placeholder="End time" matInput formControlName="endTime">
+          </mat-form-field>
+          <button mat-stroked-button color="warn" *ngIf="i>0" (click)="deleteSubtitle(i)">Delete</button>
 
-                    <button mat-stroked-button color="primary" (click)="addWord(i)">Add word</button>
+          <button mat-stroked-button color="primary" (click)="addWord(i)">Add word</button>
 
-                    <div class="definitions form-group" formArrayName="words">
-                        <div *ngFor="let word of subtitle['controls'].words['controls']; let j=index" [formGroupName]="j" class="words">
-                            <mat-form-field>
-                                <input type="text" placeholder="Hebrew" matInput formControlName="hebrew">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <input type="text" placeholder="French" matInput formControlName="french">
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                </div>
-
+          <div class="definitions form-group" formArrayName="words">
+            <div *ngFor="let word of subtitle['controls'].words['controls']; let j=index" [formGroupName]="j" class="words">
+              <mat-form-field>
+                <input type="text" placeholder="Hebrew" matInput formControlName="hebrew">
+              </mat-form-field>
+              <mat-form-field>
+                <input type="text" placeholder="French" matInput formControlName="french">
+              </mat-form-field>
             </div>
-        </form>
+          </div>
 
-    </div>
-    <div>
-        <button mat-raised-button (click)="resetForm()">Reset Form</button>
-        <button mat-raised-button>Cancel</button>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!videoForm.valid" (click)="onSubmit()">Save</button>
-    </div>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+  <div>
+    <button mat-raised-button (click)="resetForm()">Reset Form</button>
+    <button mat-raised-button>Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!videoForm.valid" (click)="onSubmit()">Save</button>
+  </div>
 </div>

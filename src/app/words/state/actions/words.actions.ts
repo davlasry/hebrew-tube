@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 export const LOAD_WORDS = '[Words-List] Load Words';
 export const LOAD_WORDS_SUCCESS = '[Words-List] Load Words Sucess';
+export const LOAD_WORDS_FAIL = '[Words-List] Load Words Fail';
 export const EDIT_WORD = '[Words-List] Edit Word';
 export const ADD_WORD = '[Words-List] Add Word';
 export const ADD_WORD_SUCCESS = '[Words-List] Add Word Success';
@@ -14,6 +15,11 @@ export class LoadWords implements Action {
 
 export class LoadWordsSuccess implements Action {
   readonly type = LOAD_WORDS_SUCCESS;
+
+  constructor(public payload: any) {}
+}
+export class LoadWordsFail implements Action {
+  readonly type = LOAD_WORDS_FAIL;
 
   constructor(public payload: any) {}
 }
@@ -51,6 +57,7 @@ export class DeleteWords implements Action {
 export type Actions =
   | LoadWords
   | LoadWordsSuccess
+  | LoadWordsFail
   | AddWord
   | EditWord
   | DeleteWords

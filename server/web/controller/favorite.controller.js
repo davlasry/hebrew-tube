@@ -79,6 +79,7 @@
    * @return {*} la requête
    */
   async function deleteFavoriteWord(req, res) {
+    console.log('deleteFavoriteWord req.body', req.body);
     try {
       const favoriteWordID = lodash.get(req, 'params.favoriteWordID');
       if (!favoriteWordID) {
@@ -86,7 +87,7 @@
           error: 'missing parameters'
         });
       }
-      await FavoriteSvc.deleteFavoriteWord(favoriteWordID);
+      await FavoriteSvc.deleteAllFavoritesWithWord(favoriteWordID);
 
       return res.status(200).send('favoriteWord ' + favoriteWordID + ' successfully deleted');
 
@@ -104,17 +105,18 @@
    * @return {*} la requête
    */
   async function deleteMultipleFavoriteWords(req, res) {
+    console.log('deleteMultipleFavoriteWordsFavoriteWord req.body', req.body.wordsIds);
     try {
-      const favoriteWordsIDArray = lodash.get(req, 'body');
+      const favoriteWordsIDArray = lodash.get(req, 'body.wordsIds');
 
       const promises = [];
       for (let i = 0; i < favoriteWordsIDArray.length; i++) {
-        promises.push(await FavoriteSvc.deleteFavoriteWord(favoriteWordsIDArray[i]));
+        promises.push(await FavoriteSvc.deleteAllFavoritesWithWord(favoriteWordsIDArray[i]));
       }
 
       await Promise.all(promises);
 
-      return res.status(200).send('favoriteWord successfully deleted');
+      return res.status(200).send(favoriteWordsIDArray);
 
     } catch (err) {
       return res.status(500).send({

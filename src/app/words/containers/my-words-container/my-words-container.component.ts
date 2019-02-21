@@ -26,11 +26,11 @@ export class MyWordsContainerComponent implements OnInit {
     );
     this.store
       .select(getUser)
-      .subscribe(user => (this.currentUserId = user._id));
+      .subscribe(user => (this.currentUserId = user.id));
   }
 
   deleteWords(wordsToDelete) {
-    console.log(wordsToDelete);
+    console.log('Delete Words My-Words-Container component', wordsToDelete);
     this.store.dispatch(
       new DeleteFromMyWords({
         words: wordsToDelete,

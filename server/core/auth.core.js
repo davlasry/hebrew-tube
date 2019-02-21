@@ -61,7 +61,7 @@
     return jwt.sign({
       id: userID
     }, Config.mySecret, {
-      expiresIn: 86400 // expires in 24 hours
+      expiresIn: 3600 // expires in 24 hours
     });
   }
 

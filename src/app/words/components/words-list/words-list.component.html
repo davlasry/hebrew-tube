@@ -1,5 +1,8 @@
 <div class="words-container">
-  <div class="if-words">
+  <div class="loadingSpinner" *ngIf="wordsLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div class="if-words" *ngIf="!wordsLoading">
     <div class="header-buttons">
       <app-add-word></app-add-word>
       <button color="warn" mat-raised-button [disabled]="false" (click)="deleteSelection()">

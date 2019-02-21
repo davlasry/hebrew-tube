@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.currentUser$ = this.store.select(getUser);
     this.currentUser$.subscribe(currentUser => {
-      console.log('currentUser', currentUser);
+      // console.log('currentUser', currentUser);
       this.currentUserId = currentUser.id;
     });
     this.isLoggedIn$ = this.store.select(getLoggedIn);
@@ -46,8 +46,10 @@ export class AppComponent implements OnInit {
     this.jwtService.checkIfTokenValid().subscribe(auth => {
       if (auth) {
         const userDetails = this.jwtService.decodedToken();
-        console.log(userDetails.id);
+        // console.log(userDetails.id);
         this.store.dispatch(new LoadUser(userDetails.id));
+      } else {
+        this.store.dispatch(new UserSignOut());
       }
     });
 
@@ -69,7 +71,7 @@ export class AppComponent implements OnInit {
   }
 
   signOut(): void {
-    console.log('SIGN OUT');
+    // console.log('SIGN OUT');
     this.jwtService.destroyToken();
     this.store.dispatch(new UserSignOut());
   }

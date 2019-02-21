@@ -57,17 +57,18 @@ export class WordsListComponent implements OnInit, OnChanges {
   }
 
   onDeleteFromMyWords(word) {
+    console.log('Delete From My Words Words-list component', word);
     this.deleteFromMyWords.emit(word);
   }
 
   onAddToMyWords(word) {
-    console.log(word);
+    console.log('Add To My Words Words-list component', word);
     this.addToMyWords.emit(word);
   }
 
   checkIfWordInMyWords(wordId) {
     if (this.myWords.length > 0) {
-      const myWordsIds = this.myWords.map(myWord => myWord._id);
+      const myWordsIds = this.myWords.map(myWord => myWord.id_word);
       return myWordsIds.includes(wordId);
     }
   }

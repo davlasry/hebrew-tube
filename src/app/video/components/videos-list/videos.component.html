@@ -9,10 +9,11 @@
       </button>
     </a>
   </div>
-  <div *ngIf="!isVideosLoaded">
+  <div class="loadingSpinner">
+    <!-- <div class="loadingSpinner" *ngIf="!isVideosLoaded"> -->
     <mat-spinner></mat-spinner>
   </div>
-  <div *ngIf="isVideosLoaded">
+  <!-- <div *ngIf="isVideosLoaded">
     <div class="video" *ngFor="let video of videos">
       <div class="video-info">
         <a [routerLink]="['/videos', video._id]">{{ video.name }}</a>
@@ -26,5 +27,5 @@
         <button mat-raised-button color="warn">Delete</button>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
