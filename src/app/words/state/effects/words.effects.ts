@@ -9,17 +9,15 @@ import {
   ADD_WORD,
   AddWord,
   AddWordSuccess,
-  DeleteWords,
-  DELETE_WORDS,
   DELETE_WORD,
   LoadWordsFail,
-  LOAD_WORDS_FAIL
+  LOAD_WORDS_FAIL,
+  DeleteWord,
+  DeleteManyWords,
+  DELETE_MANY_WORDS,
+  DeleteWordSuccess
 } from '../actions/words.actions';
 import { Observable, of } from 'rxjs';
-import {
-  DeleteFromMyWords,
-  DeleteFromMyWordsSuccess
-} from '../actions/myWords.actions';
 import { UserSignOut } from 'src/app/authentication/state/user.actions';
 
 @Injectable()
@@ -52,32 +50,32 @@ export class WordsEffects {
   addWord$ = this.actions$.ofType(ADD_WORD).pipe(
     switchMap((action: AddWord) => {
       console.log('ADD WORD EFFECT', action.payload);
-      return this.wordsService
-        .addWord(action.payload)
-        .pipe(map(word => new AddWordSuccess(word)));
-      // catchError(error => new LoadWordsFail(error));
+      return this.wordsService.addWord(action.payload).pipe(
+        map(word => new AddWordSuccess(word))
+        // catchError(error => new LoadWordsFail(error))
+      );
     })
   );
 
-  // @Effect()
-  // deleteWord$: Observable<any> = this.actions$.ofType(DELETE_WORD).pipe(
-  //   switchMap((action: DeleteWords) => {
-  //     // console.log(action.payload);
-  //     return this.wordsService
-  //       .deleteManyWords(action.payload)
-  //       .pipe(map(words => new DeleteFromMyWords({ words })));
-  //   })
-  // );
+  @Effect()
+  deleteManyWords$: Observable<any> = this.actions$
+    .ofType(DELETE_MANY_WORDS)
+    .pipe(
+      switchMap((action: DeleteManyWords) => {
+        // console.log(action.payload);
+        return this.wordsService
+          .deleteManyWords(action.payload)
+          .pipe(map(words => new DeleteManyWords({ words })));
+      })
+    );
 
-  @Effect({ dispatch: false })
-  deleteWords$: Observable<any> = this.actions$.ofType(DELETE_WORDS).pipe(
-    switchMap((action: DeleteWords) => {
-      // console.log(action.payload);
-      return this.wordsService.deleteWord(action.payload);
-    }),
-    switchMap(res => [
-      new DeleteFromMyWords(res)
-      // new DeleteWordsFromMyWordsSuccess()
-    ])
+  @Effect()
+  deleteWord$: Observable<any> = this.actions$.ofType(DELETE_WORD).pipe(
+    switchMap((action: DeleteWord) => {
+      console.log('DELETE WORD EFFECT', action.payload);
+      return this.wordsService
+        .deleteWord(action.payload._id)
+        .pipe(map(res => new DeleteWordSuccess(res.wordID)));
+    })
   );
 }

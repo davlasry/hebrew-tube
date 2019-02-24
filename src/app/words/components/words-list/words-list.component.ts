@@ -21,6 +21,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class WordsListComponent implements OnInit, OnChanges {
   @Input() words;
   @Input() myWords;
+  @Input() wordsLoading;
   @Output() deleteWords = new EventEmitter();
   @Output() deleteFromMyWords = new EventEmitter();
   @Output() addToMyWords = new EventEmitter();
@@ -53,6 +54,7 @@ export class WordsListComponent implements OnInit, OnChanges {
   }
 
   onDeleteWord(word) {
+    console.log('onDeleteWord', word);
     this.deleteWord.emit(word);
   }
 

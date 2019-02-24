@@ -23,9 +23,12 @@ export class CreateVideoComponent implements OnInit {
 
   ngOnInit() {
     this.videoForm = this.fb.group({
-      link: ['TEST', [Validators.required]],
-      createdAt: [''],
-      name: ['TEST'],
+      link: [
+        'https://www.youtube.com/watch?v=RkM5yU9GuTc',
+        [Validators.required]
+      ],
+      // createdAt: [''],
+      name: ['TEST', [Validators.required]],
       subtitles: this.fb.array([this.initSubtitle()])
     });
   }
@@ -74,9 +77,9 @@ export class CreateVideoComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.videoForm.get('youtubeLink'));
-    this.videoForm.patchValue({
-      createdAt: Date.now()
-    });
+    // this.videoForm.patchValue({
+    //   createdAt: Date.now()
+    // });
     console.log(this.videoForm.value);
     // this.videosService.addVideo(this.videoForm.value).subscribe(res => {});
     this.store.dispatch(new CreateVideo(this.videoForm.value));

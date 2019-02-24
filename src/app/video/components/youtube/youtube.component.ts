@@ -8,6 +8,7 @@ import {
   Input
 } from '@angular/core';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { Observable, timer } from 'rxjs';
 
 @Component({
   selector: 'app-youtube',
@@ -54,15 +55,17 @@ export class YoutubeComponent implements OnInit, AfterContentInit {
   onLoad() {
     // console.log(this.video.youtubeLink);
     if (this.isVideoLoaded) {
-      this.youtubePlayer.playVideo(this.video.youtubeLink);
+      this.youtubePlayer.playVideo(this.video.link);
     } else {
       // console.log(this.isVideoLoaded);
       this.isVideoLoaded = true;
-      this.createPlayer();
+      const source = timer(1);
+      source.subscribe(res => this.createPlayer());
     }
   }
 
   getVideoId(link) {
+    console.log('getVideoId', link);
     return link.match(
       /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/
     )[1];
@@ -71,9 +74,13 @@ export class YoutubeComponent implements OnInit, AfterContentInit {
   createPlayer() {
     this.videoWidth = this.videoElem.nativeElement.offsetWidth;
     this.videoHeight = this.videoElem.nativeElement.offsetHeight;
-    console.log(this.videoWidth, this.videoHeight);
+    console.log(
+      'videoWidth and videoHeight',
+      this.videoWidth,
+      this.videoHeight
+    );
     this.youtubePlayer.createPlayer(
-      this.getVideoId(this.video.youtubeLink),
+      this.getVideoId(this.video.link),
       this.videoWidth,
       this.videoHeight
     );

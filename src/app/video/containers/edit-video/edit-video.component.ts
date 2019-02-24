@@ -52,8 +52,8 @@ export class EditVideoComponent implements OnInit {
 
   getWords() {
     this.wordsService.getWords().subscribe(result => {
-      this.wordsList = result;
-      console.log(this.wordsList);
+      this.wordsList = result['data'];
+      console.log('getWords wordsList', this.wordsList);
     });
   }
 
@@ -98,16 +98,18 @@ export class EditVideoComponent implements OnInit {
   private _filterWords(value): any[] {
     const filterValue = value.toLowerCase();
 
-    return this.wordsList.filter(word => {
-      return word.hebrew.toLowerCase().indexOf(filterValue) === 0;
-    });
+    if (this.wordsList) {
+      return this.wordsList.filter(word => {
+        return word.hebrew.toLowerCase().indexOf(filterValue) === 0;
+      });
+    }
   }
 
   getVideo(): void {
     const id: string = this.route.snapshot.paramMap.get('id');
     this.videosService.getVideo(id).subscribe(result => {
-      console.log(result);
-      this.video = result;
+      console.log('getVideo videodata', result);
+      this.video = result.data;
       this.initVideoForm();
       this.setWords();
     });
@@ -115,7 +117,7 @@ export class EditVideoComponent implements OnInit {
 
   initVideoForm() {
     this.videoForm = this.fb.group({
-      youtubeLink: [this.video.youtubeLink, [Validators.required]],
+      link: [this.video.link, [Validators.required]],
       createdAt: [this.video.createdAt],
       name: [this.video.name],
       subtitles: this.fb.array([]),

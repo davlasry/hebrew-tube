@@ -22,7 +22,8 @@ export class MyWordsComponent implements OnInit, OnChanges {
   @Input() myWords;
   @Input() myWordsLoading;
 
-  @Output() deleteWords = new EventEmitter();
+  @Output() deleteFromMyWords = new EventEmitter();
+  @Output() deleteManyFromMyWords = new EventEmitter();
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -32,7 +33,8 @@ export class MyWordsComponent implements OnInit, OnChanges {
     'hebrew',
     'french',
     'pronunciation',
-    'type'
+    'type',
+    'buttons'
   ];
 
   selection: SelectionModel<any>;
@@ -64,10 +66,15 @@ export class MyWordsComponent implements OnInit, OnChanges {
       : this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
+  onDeleteFromMyWords(word) {
+    console.log('Delete From My Words Words-list component', word);
+    this.deleteFromMyWords.emit(word);
+  }
+
   deleteSelection() {
     // console.log(this.selection.selected.map(word => word._id));
     const wordsToDelete = this.selection.selected.map(word => word._id);
     this.selection.clear();
-    this.deleteWords.emit(wordsToDelete);
+    this.deleteManyFromMyWords.emit(wordsToDelete);
   }
 }

@@ -12,25 +12,25 @@ export class VideosService {
   }
 
   getVideo(id): Observable<any> {
-    console.log(id);
+    // console.log('getVideo ID service', id);
     return this.http.get<any>(`${environment.API_URL}/video/${id}`);
   }
 
   createVideo(video): Observable<any> {
-    console.log('CREATE VIDEO SERVICE', video);
+    // console.log('CREATE VIDEO SERVICE', video);
     return this.http.post<any>(`${environment.API_URL}/video`, video);
   }
 
   saveVideo(video): Observable<any> {
-    console.log(video);
-    return this.http.patch<any>(
+    console.log('saveVideo service', video);
+    return this.http.post<any>(
       `${environment.API_URL}/video/${video._id}`,
       video
     );
   }
 
   deleteVideo(videoId): Observable<any> {
-    // console.log(videoId);
+    console.log('deleteVideo service', videoId);
     return this.http.delete<any>(`${environment.API_URL}/video/${videoId}`);
   }
 }

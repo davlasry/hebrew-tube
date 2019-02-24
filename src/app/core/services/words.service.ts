@@ -26,6 +26,11 @@ export class WordsService {
     return this.http.delete<any>(`${environment.API_URL}/word/${wordId}`);
   }
 
+  deleteManyWords(wordId): Observable<any> {
+    console.log('DELETE MANY WORDS SERVICE', wordId);
+    return this.http.delete<any>(`${environment.API_URL}/word/`);
+  }
+
   // deleteManyWords(wordsIds): Observable<any> {
   //   return this.http.delete<any>(`${environment.API_URL}/word`, {
   //     wordsIds

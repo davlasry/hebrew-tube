@@ -1,13 +1,10 @@
 :host {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
-.words-container {
-  margin-top: 20px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+.container {
 
   .if-words {
     display: flex;

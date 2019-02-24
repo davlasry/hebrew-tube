@@ -124,15 +124,19 @@
    * @return {*} la requête
    */
   async function deleteWord(req, res) {
+    console.log('deleteWord params', req.params);
     try {
       const wordToDeleteID = lodash.get(req, 'params.wordID');
 
+      console.log('wordToDeleteID', wordToDeleteID);
+
       await WordSvc.deleteWord(wordToDeleteID);
 
-      return res.status(200).send('word ' + wordToDeleteID + ' successfully deleted');
+      return res.status(200).send({
+        wordID: wordToDeleteID
+      });
 
     } catch (err) {
-
       return res.status(500).send({
         auth: false,
         error: err.toString()

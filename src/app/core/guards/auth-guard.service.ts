@@ -20,8 +20,11 @@ export class AuthGuard implements CanActivate {
     return this.store.pipe(
       select(getLoggedIn),
       map(loggedIn => {
-        console.log(loggedIn);
-        console.log(this.jwtService.checkIfTokenValid());
+        // console.log('AUTH GUARD loggedIn', loggedIn);
+        // console.log(
+        //   'AUTH GUARD checkIfTokenValud',
+        //   this.jwtService.checkIfTokenValid()
+        // );
         if (!loggedIn || !this.jwtService.checkIfTokenValid()) {
           this.store.dispatch(new UserSignOut());
           return false;

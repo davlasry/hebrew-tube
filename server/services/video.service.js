@@ -83,8 +83,11 @@
     await ContextSvc.deleteContextsForVideo(videoID);
 
     const subtitlesData = lodash.get(videoData, 'subtitles');
+    console.log('subtitlesData', subtitlesData);
     const subtitlesFormatted = await SubtitleSvc.fromFrontToDBManager(subtitlesData);
+    console.log('subtitlesFormatted', subtitlesFormatted);
     lodash.set(videoData, 'subtitles', subtitlesFormatted);
+    console.log('newVideoData', videoData);
 
     await ContextSvc.createContextsForVideo(videoID, videoData);
 

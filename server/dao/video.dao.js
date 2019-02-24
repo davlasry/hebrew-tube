@@ -52,7 +52,11 @@
         };
 
         lodash.merge(existingVideo, data);
+        console.log('existingVideo after merge', existingVideo);
+        existingVideo.markModified('subtitles');
         const videoUpdated = await existingVideo.save();
+
+        console.log('videoUpdated', videoUpdated);
 
         return resolve(videoUpdated);
 

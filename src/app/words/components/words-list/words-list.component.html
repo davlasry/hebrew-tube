@@ -1,4 +1,4 @@
-<div class="words-container">
+<div class="container">
   <div class="loadingSpinner" *ngIf="wordsLoading">
     <mat-spinner></mat-spinner>
   </div>
@@ -56,6 +56,7 @@
           <td mat-cell *matCellDef="let element">{{ element.type }}</td>
         </ng-container>
 
+        <!-- Buttons Column -->
         <ng-container matColumnDef="buttons">
           <th mat-header-cell *matHeaderCellDef>Actions</th>
           <td mat-cell *matCellDef="let word">

@@ -79,7 +79,6 @@
    * @return {*} la requête
    */
   async function deleteFavoriteWord(req, res) {
-    console.log('deleteFavoriteWord req.body', req.body);
     try {
       const favoriteWordID = lodash.get(req, 'params.favoriteWordID');
       if (!favoriteWordID) {
@@ -89,7 +88,9 @@
       }
       await FavoriteSvc.deleteAllFavoritesWithWord(favoriteWordID);
 
-      return res.status(200).send('favoriteWord ' + favoriteWordID + ' successfully deleted');
+      return res.status(200).send({
+        wordID: favoriteWordID
+      });
 
     } catch (err) {
       return res.status(500).send({

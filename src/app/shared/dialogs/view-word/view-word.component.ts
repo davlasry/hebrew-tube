@@ -7,7 +7,7 @@ import {
   DeleteFromMyWords
 } from 'src/app/words/state/actions/myWords.actions';
 import { getUser } from 'src/app/authentication/state/user.selectors';
-import { map } from 'rxjs/operators';
+import { map, distinctUntilChanged } from 'rxjs/operators';
 import {
   getAllMyWords,
   getMyWordsIds
@@ -33,25 +33,30 @@ export class ViewWordDialogComponent implements OnInit {
     // console.log(this.data);
     this.isWordFavorite$ = this.store.select(getMyWordsIds).pipe(
       map((myWords: string[]) => {
-        console.log(myWords);
+        console.log('getMyWordsIds', myWords);
         return myWords.indexOf(this.data.word._id) !== -1;
       })
+      // distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
     );
 
     this.isWordFavorite$.subscribe(val => console.log(val));
   }
 
   addToMyWords() {
-    // console.log(this.data.word);
+    console.log('addToMyWords', this.data.word);
+    this.data.word.id_word = this.data.word._id;
     this.store.dispatch(
       new AddToMyWords({ word: this.data.word, userId: this.data.userId })
     );
   }
 
   deleteFromMyWords() {
-    // console.log(this.data.word);
+    console.log('deleteFromMyWords data', this.data);
     this.store.dispatch(
-      new DeleteFromMyWords({ word: this.data.word, userId: this.data.userId })
+      new DeleteFromMyWords({
+        wordID: this.data.word._id
+        // userId: this.data.userId
+      })
     );
   }
 

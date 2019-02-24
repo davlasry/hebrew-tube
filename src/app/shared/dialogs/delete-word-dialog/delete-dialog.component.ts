@@ -22,9 +22,9 @@ export class DeleteDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  // onDelete() {
-  //   this.wordsService.deleteManyWords(this.data.words).subscribe(res => {
-  //     console.log(res);
-  //   });
-  // }
+  onDelete() {
+    this.wordsService.deleteManyWords(this.data.words).subscribe(res => {
+      console.log(res);
+    });
+  }
 }

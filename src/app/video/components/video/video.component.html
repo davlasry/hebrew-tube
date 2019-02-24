@@ -1,57 +1,62 @@
-<div class="container" *ngIf="video">
-  <div class="header">
-    <span class="video-title">{{ video.name }}</span>
-    <a [routerLink]="['/videos', 'edit', video._id]">
-      <button mat-raised-button color="primary">EDIT</button>
-    </a>
+<div class="container">
+  <div class="loadingSpinner" *ngIf="!video">
+    <mat-spinner></mat-spinner>
   </div>
-  <div class="video">
-    <app-youtube [video]="video"></app-youtube>
-  </div>
-
-  <!-- <div class="subtitles-buttons">
-        <div>
-            {{ currentTime | youtubeCurrentTime }}
-        </div>
-        <button mat-raised-button color="primary" (click)="onClickPause()">Pause</button>
-    </div> -->
-
-  <div class="subtitles">
-    <div>
-      <button mat-raised-button color="primary" (click)="onClickBeginning()">
-        <mat-icon>skip_previous</mat-icon>
-      </button>
+  <div class="videoLoaded" *ngIf="video">
+    <div class="header">
+      <span class="video-title">{{ video.name }}</span>
+      <a [routerLink]="['/videos', 'edit', video._id]">
+        <button mat-raised-button color="primary">EDIT</button>
+      </a>
     </div>
-    <div>
-      <button mat-raised-button color="primary" [disabled]="selectedSentence === 0" (click)="onClickPrevious()">
-        <mat-icon>chevron_left</mat-icon>
-      </button>
+    <div class="video">
+      <app-youtube [video]="video"></app-youtube>
     </div>
-    <div class="sentence">
-      <div class="word" *ngFor="
-          let word of video.subtitles[selectedSentence].words;
-          let i = index
-        "
-        (click)="onClickWord(word)" (mouseover)="showDefinition(i)" (mouseout)="showDefinition(null)">
-        <span>{{ word.hebrew }}</span>
-        <div class="definition" *ngIf="i === definitionShowed && word.french">
-          {{ word.french }}
-          <span *ngIf="word.pronunciation"> - [{{ word.pronunciation }}]</span>
-          <button mat-icon-button color="accent">
-            <mat-icon>favorite_border</mat-icon>
-          </button>
+
+    <!-- <div class="subtitles-buttons">
+          <div>
+              {{ currentTime | youtubeCurrentTime }}
+          </div>
+          <button mat-raised-button color="primary" (click)="onClickPause()">Pause</button>
+      </div> -->
+
+    <div class="subtitles">
+      <div>
+        <button mat-raised-button color="primary" (click)="onClickBeginning()">
+          <mat-icon>skip_previous</mat-icon>
+        </button>
+      </div>
+      <div>
+        <button mat-raised-button color="primary" [disabled]="selectedSentence === 0" (click)="onClickPrevious()">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+      </div>
+      <div class="sentence">
+        <div class="word" *ngFor="
+            let word of video.subtitles[selectedSentence].words;
+            let i = index
+          "
+          (click)="onClickWord(word)" (mouseover)="showDefinition(i)" (mouseout)="showDefinition(null)">
+          <span>{{ word.hebrew }}</span>
+          <div class="definition" *ngIf="i === definitionShowed && word.french">
+            {{ word.french }}
+            <span *ngIf="word.pronunciation"> - [{{ word.pronunciation }}]</span>
+            <button mat-icon-button color="accent">
+              <mat-icon>favorite_border</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <div>
-      <button mat-raised-button color="primary" [disabled]="selectedSentence === video.subtitles.length - 1" (click)="onClickNext()">
-        <mat-icon>chevron_right</mat-icon>
-      </button>
-    </div>
-    <div>
-      <button mat-raised-button color="primary" class="loop-btn" (click)="onClickLoop()" [class.activated]="loopActivated">
-        <mat-icon>loop</mat-icon>
-      </button>
+      <div>
+        <button mat-raised-button color="primary" [disabled]="selectedSentence === video.subtitles.length - 1" (click)="onClickNext()">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+      <div>
+        <button mat-raised-button color="primary" class="loop-btn" (click)="onClickLoop()" [class.activated]="loopActivated">
+          <mat-icon>loop</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>

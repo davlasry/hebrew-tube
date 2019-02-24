@@ -40,7 +40,7 @@ export function userReducer(
     }
 
     case userActions.LOGIN_SUCCESS:
-      // console.log(action.payload);
+      console.log('LOGIN SUCCESS REDUCER', action.payload);
       return Object.assign({}, state, {
         loggedIn: true,
         user: action.payload.user

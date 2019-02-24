@@ -23,7 +23,7 @@ export class JwtService {
   checkIfTokenValid() {
     if (this.getToken()) {
       const now = new Date().getTime() / 1000;
-      console.log(this.decodedToken());
+      // console.log('decodedToken service', this.decodedToken());
       const exp = parseInt(this.decodedToken()['exp'], 10);
       return of(exp > now);
     } else {

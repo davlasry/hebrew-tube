@@ -5,7 +5,6 @@ const _window: any = window;
 
 @Injectable()
 export class YoutubePlayerService {
-
   currentTimeSubject = new BehaviorSubject('');
   currentTime$ = this.currentTimeSubject.asObservable();
 
@@ -17,15 +16,18 @@ export class YoutubePlayerService {
 
   public yt_player;
 
-  constructor() {
-  }
+  constructor() {}
 
   createPlayer(videoId: string, width, height): void {
     this.isPlayerReadySubject.next(false);
     // console.log(height, width);
     const youtubeInterval = setInterval(() => {
-      if ((typeof _window.YT !== 'undefined') && _window.YT && _window.YT.Player) {
-        // console.log(height, width);
+      if (
+        typeof _window.YT !== 'undefined' &&
+        _window.YT &&
+        _window.YT.Player
+      ) {
+        console.log('createPlayer', height, width);
         this.yt_player = new _window.YT.Player('youtube-player', {
           // host: 'https://www.youtube.com',
           width: width,
@@ -38,10 +40,10 @@ export class YoutubePlayerService {
             origin: 'http://localhost:4200'
           },
           events: {
-            'onReady': (ev) => {
+            onReady: ev => {
               this.onPlayerReady(ev);
             },
-            'onStateChange': (ev) => {
+            onStateChange: ev => {
               this.onPlayerStateChange(ev);
             }
           }
@@ -52,7 +54,7 @@ export class YoutubePlayerService {
   }
 
   resizePlayer(width: number, height: number) {
-    // console.log(width, height);
+    console.log('resizePlayer', width, height);
     this.yt_player.setSize(width, height);
   }
 

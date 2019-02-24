@@ -35,8 +35,10 @@
    */
   async function createWord(wordData) {
 
-    if(!lodash.get(wordData, 'hebrew') || !lodash.get(wordData, 'french')) {
-      throw new Error({error: ('Invalid parameters')});
+    if (!lodash.get(wordData, 'hebrew') || !lodash.get(wordData, 'french')) {
+      throw new Error({
+        error: ('Invalid parameters')
+      });
     }
 
 
@@ -44,10 +46,10 @@
     // In here, if the user wants to create a word but there already is an existing one with the same field hebrew,
     // the word is automatically updated to the new params
     const existingWord = await checkExistingHebrewWord(lodash.get(wordData, 'hebrew'));
-    if(existingWord) {
+    if (existingWord) {
       return await updateWord(wordData);
     }
-  
+
     return await WordDAO.createWord(wordData);
 
   }
@@ -62,15 +64,19 @@
    */
   async function updateWord(wordData) {
 
-    if(!lodash.get(wordData, 'hebrew') || !lodash.get(wordData, 'french')) {
-      throw new Error({error: ('Invalid parameters')});
+    if (!lodash.get(wordData, 'hebrew') || !lodash.get(wordData, 'french')) {
+      throw new Error({
+        error: ('Invalid parameters')
+      });
     }
 
     const existingWord = await checkExistingHebrewWord(lodash.get(wordData, 'hebrew'));
-    if(!existingWord) {
-      throw new Error({error: ('Invalid parameters')});
+    if (!existingWord) {
+      throw new Error({
+        error: ('Invalid parameters')
+      });
     }
-  
+
     return await WordDAO.updateWord(wordData);
 
   }
@@ -90,7 +96,7 @@
   }
 
   /**
-   * @description Récupère les data de tous les words 
+   * @description Récupère les data de tous les words
    *
    * @param {string} uid - id du word
    *
@@ -111,11 +117,14 @@
    * @return {Promise<object>} - Confirmation delete
    */
   async function deleteWord(wordID) {
-  
+
+    console.log('deleteWord wordID', wordID);
+
     const wordContexts = await ContextSvc.getAllContextsForWord(wordID);
 
-    if(wordContexts.length > 0) {
-      throw new Error({error: ('Not allowed, word is used in Contexts')});
+    if (wordContexts.length > 0) {
+      console.log('WORD IS USED IN CONTEXTS');
+      throw new Error('Not allowed, word is used in Contexts');
     }
 
     await FavoriteSvc.deleteAllFavoritesWithWord(wordID);
@@ -139,4 +148,3 @@
 
 
 })();
-

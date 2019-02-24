@@ -9,7 +9,8 @@ import {
 import { WordsState } from '../../state';
 import { getUser } from 'src/app/authentication/state/user.selectors';
 import { getAllMyWords } from '../../state/selectors/myWords.selectors';
-import { DeleteWords, DeleteWord } from '../../state/actions/words.actions';
+import { DeleteWord, DeleteManyWords } from '../../state/actions/words.actions';
+import * as wordsSelectors from '../../state/selectors/words.selectors';
 
 @Component({
   selector: 'app-words-list-container',
@@ -19,6 +20,7 @@ import { DeleteWords, DeleteWord } from '../../state/actions/words.actions';
 export class WordsListContainerComponent implements OnInit {
   words$: Observable<any[]>;
   myWords$: Observable<any[]>;
+  wordsLoading$: Observable<Boolean>;
 
   currentUserId;
 
@@ -30,6 +32,10 @@ export class WordsListContainerComponent implements OnInit {
     this.words$ = this.store.pipe(select(getAllWords));
     // this.words$.subscribe(words => console.log(words));
 
+    this.wordsLoading$ = this.store.pipe(
+      select(wordsSelectors.getWordsLoading)
+    );
+
     this.store.pipe(select(getUser)).subscribe(user => {
       // console.log(user);
       return (this.currentUserId = user.id);
@@ -37,27 +43,27 @@ export class WordsListContainerComponent implements OnInit {
   }
 
   addToMyWords(word) {
-    console.log('add ', word);
+    console.log('add to my words', word);
     console.log('currentUserId ', this.currentUserId);
     word.id_word = word._id;
     this.store.dispatch(new AddToMyWords({ word, userId: this.currentUserId }));
   }
 
   deleteFromMyWords(word) {
-    console.log('delete ', word);
+    console.log('Delete from my words', word);
     word.id_word = word._id;
     this.store.dispatch(
-      new DeleteFromMyWords({ words: [word._id], userId: this.currentUserId })
+      new DeleteFromMyWords({ wordID: word._id, userId: this.currentUserId })
     );
   }
 
-  deleteWords(wordsToDelete) {
-    console.log(wordsToDelete);
-    this.store.dispatch(new DeleteWords(wordsToDelete));
+  deleteManyWords(wordsToDelete) {
+    console.log('delete Many Words', wordsToDelete);
+    this.store.dispatch(new DeleteManyWords(wordsToDelete));
   }
 
   deleteWord(wordToDelete) {
-    console.log(wordToDelete);
+    console.log('delete Word', wordToDelete);
     this.store.dispatch(new DeleteWord(wordToDelete));
   }
 }

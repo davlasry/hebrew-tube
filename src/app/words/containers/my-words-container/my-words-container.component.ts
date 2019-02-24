@@ -2,7 +2,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import * as myWordsSelectors from '../../state/selectors/myWords.selectors';
 import { getUser } from 'src/app/authentication/state/user.selectors';
-import { DeleteFromMyWords } from '../../state/actions/myWords.actions';
+import {
+  DeleteFromMyWords,
+  DeleteManyFromMyWords
+} from '../../state/actions/myWords.actions';
 import { MyWordsState } from '../../state/reducers/myWords.reducers';
 import { Observable } from 'rxjs';
 
@@ -29,10 +32,20 @@ export class MyWordsContainerComponent implements OnInit {
       .subscribe(user => (this.currentUserId = user.id));
   }
 
-  deleteWords(wordsToDelete) {
-    console.log('Delete Words My-Words-Container component', wordsToDelete);
+  deleteFromMyWords(wordToDelete) {
+    console.log('deleteFromMyWords', wordToDelete);
     this.store.dispatch(
       new DeleteFromMyWords({
+        wordID: wordToDelete._id,
+        userId: this.currentUserId
+      })
+    );
+  }
+
+  deleteManyFromMyWords(wordsToDelete) {
+    console.log('deleteManyFromMyWords', wordsToDelete);
+    this.store.dispatch(
+      new DeleteManyFromMyWords({
         words: wordsToDelete,
         userId: this.currentUserId
       })

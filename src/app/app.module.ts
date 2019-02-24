@@ -11,7 +11,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { CoreModule } from './core/core.module';
 import { DeleteDialogComponent } from './shared/dialogs/delete-word-dialog/delete-dialog.component';
-import { DeleteSessionDialogComponent } from './shared/dialogs/delete-session-dialog/delete-session-dialog.component';
 import { EditWordDialogComponent } from './shared/dialogs/edit-word-dialog/edit-word-dialog.component';
 import { AddNewWordComponent } from './shared/dialogs/add-new-word/add-new-word.component';
 import { StoreModule } from '@ngrx/store';
@@ -25,12 +24,13 @@ import { ProfileComponent } from './authentication/components/profile/profile.co
 import { CustomPreloading } from './custom-preloading';
 import { ViewWordDialogComponent } from './shared/dialogs/view-word/view-word.component';
 import { AppComponent } from './core/layout/app.component';
+import { DeleteVideoDialogComponent } from './shared/dialogs/delete-video-dialog/delete-video-dialog.component';
 
 @NgModule({
   declarations: [
     AddNewWordComponent,
     DeleteDialogComponent,
-    DeleteSessionDialogComponent,
+    DeleteVideoDialogComponent,
     EditWordDialogComponent,
     ProfileComponent,
     ViewWordDialogComponent
@@ -38,7 +38,7 @@ import { AppComponent } from './core/layout/app.component';
   entryComponents: [
     AddNewWordComponent,
     DeleteDialogComponent,
-    DeleteSessionDialogComponent,
+    DeleteVideoDialogComponent,
     EditWordDialogComponent,
     ViewWordDialogComponent
   ],

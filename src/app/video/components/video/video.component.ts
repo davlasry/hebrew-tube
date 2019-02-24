@@ -60,7 +60,6 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log('Video Component');
     this.getVideo();
     this.youtubePlayer.isPlayerReady$
       .pipe(distinctUntilChanged())
@@ -71,10 +70,10 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
 
     this.store
       .select(getUser)
-      .subscribe(user => (this.currentUserId = user._id));
+      .subscribe(user => (this.currentUserId = user.id));
 
     this.youtubePlayer.youtubePlayerState$.subscribe(state => {
-      console.log(`State: ${state}`);
+      // console.log(`State: ${state}`);
       switch (state) {
         // -1 (unstarted)
         case -1:
@@ -112,11 +111,11 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
 
   getVideo(): void {
     const id: string = this.route.snapshot.paramMap.get('id');
-    // console.log(id);
+    // console.log('getVideo id route', id);
     this.videosService.getVideo(id).subscribe(result => {
-      console.log(result);
-      this.video = result;
-      this.inputUrl = this.video.youtubeLink;
+      console.log('getVideo result', result);
+      this.video = result.data;
+      // this.inputUrl = this.video.link;
     });
   }
 
@@ -136,9 +135,9 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
 
   getVideoSize() {
     this.videoWidth = this.videoElem.nativeElement.offsetWidth;
-    console.log(this.videoWidth);
+    // console.log(this.videoWidth);
     this.videoHeight = this.videoElem.nativeElement.offsetHeight;
-    console.log(this.videoHeight);
+    // console.log(this.videoHeight);
   }
 
   getCurrentTime() {
@@ -149,7 +148,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
         this.currentTime = this.youtubePlayer.getCurrentTime();
         // console.log(time, this.currentTime);
         if (this.currentTime < subtitles[subtitles.length - 1].endTime) {
-          // console.log(subtitles);
+          // console.log('subtitles', subtitles);
           if (this.loopActivated) {
             if (this.currentTime > subtitles[this.selectedSentence].endTime) {
               this.youtubePlayer.skipTo(
@@ -179,11 +178,12 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
     doc.body.appendChild(playerApi);
   }
 
-  getVideoId(link) {
-    return link.match(
-      /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/
-    )[1];
-  }
+  // getVideoId(link) {
+  //   console.log('getVideoId', link);
+  //   return link.match(
+  //     /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/
+  //   )[1];
+  // }
 
   showDefinition(i) {
     this.definitionShowed = i;
@@ -214,7 +214,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
 
   onClickLoop() {
     this.loopActivated = !this.loopActivated;
-    console.log(this.loopActivated);
+    // console.log('isLoopActivated', this.loopActivated);
   }
 
   onClickPause() {}

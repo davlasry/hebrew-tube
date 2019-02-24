@@ -51,10 +51,10 @@ export class MyWordsEffects {
       switchMap((action: DeleteFromMyWords) => {
         const payload = action.payload;
         console.log('DELETE FROM MY WORDS EFFECT', action.payload);
-        return this.usersService.deleteFromMyWords(payload.words).pipe(
-          map(myWords => {
-            console.log(myWords);
-            return new DeleteFromMyWordsSuccess(myWords);
+        return this.usersService.deleteFromMyWords(payload.wordID).pipe(
+          map(res => {
+            console.log(res);
+            return new DeleteFromMyWordsSuccess(res.wordID);
           })
         );
       })

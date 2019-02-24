@@ -1,6 +1,7 @@
 :host {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .word {
@@ -8,18 +9,11 @@
   flex-direction: row;
 }
 
-.my-words-container {
-  // padding: 20px;
-  margin-top: 20px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+.container {
 
   .if-words {
     display: flex;
     flex-direction: column;
-
-    .buttons {}
 
     .table {
       overflow: auto;

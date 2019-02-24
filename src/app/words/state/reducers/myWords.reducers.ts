@@ -16,7 +16,7 @@ export interface MyWordsState extends EntityState<any> {
 
 // NGRX/ENTITY
 export const adapter: EntityAdapter<any> = createEntityAdapter<any>({
-  selectId: word => word._id
+  selectId: word => word.id_word
   // sortComparer: sortByCreatedAt
 });
 
@@ -55,10 +55,14 @@ export function myWordsReducer(
       return adapter.addOne(action.payload.word, state);
     }
 
-    case myWordsActions.DELETE_FROM_MY_WORDS: {
-      console.log('Delete from my words reducer', action.payload);
+    case myWordsActions.DELETE_MANY_FROM_MY_WORDS_SUCCESS: {
+      console.log('DELETE MANY FROM MY WORDS REDUCER', action.payload);
       return adapter.removeMany(action.payload.words, state);
-      // return adapter.removeOne(action.payload.word._id, state);
+    }
+
+    case myWordsActions.DELETE_FROM_MY_WORDS_SUCCESS: {
+      console.log('DELETE FROM MY WORDS REDUCER', action.payload);
+      return adapter.removeOne(action.payload, state);
     }
 
     default: {

@@ -68,7 +68,7 @@ export class UserEffects {
   logIn$: Observable<any> = this.actions$.ofType(LOGIN).pipe(
     map((action: Login) => action.payload),
     switchMap(payload => {
-      console.log(payload);
+      console.log('LOGIN EFFECT', payload);
       return this.usersService.logIn(payload).pipe(
         map(user => {
           console.log('user Login response', user);
@@ -90,7 +90,7 @@ export class UserEffects {
   signIn$: Observable<any> = this.actions$.ofType(SIGN_UP).pipe(
     map((action: SignUp) => action.payload),
     switchMap(payload => {
-      // console.log(payload);
+      // console.log('SIGNUP EFFECT', payload);
       return this.usersService.logIn(payload).pipe(
         map(user => {
           // console.log(user);

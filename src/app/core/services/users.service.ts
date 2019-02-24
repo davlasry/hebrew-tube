@@ -8,7 +8,7 @@ export class UsersService {
   constructor(private http: HttpClient, private jwtService: JwtService) {}
 
   logIn(logInForm) {
-    console.log(logInForm);
+    // console.log('loginForm service', logInForm);
     return this.http.post<any>(`${environment.API_URL}/auth/login`, logInForm);
   }
 
@@ -20,7 +20,7 @@ export class UsersService {
   signUp(signUpForm) {
     // console.log(signUpForm.value);
     signUpForm.value.role = 'admin';
-    console.log(signUpForm.value);
+    // console.log(signUpForm.value);
     return this.http.post<any>(`${environment.API_URL}/user`, signUpForm.value);
   }
 
@@ -33,7 +33,7 @@ export class UsersService {
   }
 
   updateUser(recipeId, userDetails) {
-    // console.log(userDetails);
+    // console.log('updateUser Service', userDetails);
     return this.http.patch<any>(
       `${environment.API_URL}/users/words/${recipeId}`,
       userDetails
@@ -41,19 +41,26 @@ export class UsersService {
   }
 
   getWordsByUser(userId) {
-    console.log(userId);
+    // console.log('getWordsByUser service', userId);
     return this.http.get<any>(`${environment.API_URL}/favorite/word`);
   }
 
   addToMyWords(wordToAdd) {
-    console.log(wordToAdd);
+    // console.log('ADD TO MY WORDS SERVICE', wordToAdd);
     return this.http.post(`${environment.API_URL}/favorite/word/`, {
       wordID: wordToAdd._id
     });
   }
 
-  deleteFromMyWords(wordsIds) {
-    console.log('DELETE FROM MY WORDS SERVICE wordsIds', wordsIds);
+  deleteFromMyWords(wordID) {
+    // console.log('DELETE FROM MY WORDS SERVICE wordId', wordID);
+    return this.http.delete<any>(
+      `${environment.API_URL}/favorite/word/${wordID}`
+    );
+  }
+
+  deleteManyFromMyWords(wordsIds) {
+    // console.log('DELETE FROM MY WORDS SERVICE wordsIds', wordsIds);
     return this.http.post<any>(`${environment.API_URL}/favorite/deleteWords`, {
       wordsIds
     });

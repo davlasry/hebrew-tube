@@ -54,6 +54,7 @@
    * @return {*} la requête
    */
   async function updateVideo(req, res) {
+    // console.log(req.body);
     try {
       const videoData = lodash.get(req, 'body');
       const videoID = lodash.get(req, 'params.videoID');
@@ -130,7 +131,9 @@
 
       await VideoSvc.deleteVideo(videoToDeleteID);
 
-      return res.status(200).send('video ' + videoToDeleteID + ' successfully deleted');
+      return res.status(200).send({
+        videoID: videoToDeleteID
+      });
 
     } catch (err) {
       return res.status(500).send({

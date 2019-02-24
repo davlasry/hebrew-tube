@@ -49,9 +49,19 @@ export function videosReducer(
       });
     }
 
+    case fromVideos.DELETE_VIDEO_SUCCESS: {
+      console.log('DELETE VIDEO SUCCESS REDUCER', action.payload);
+      return adapter.removeOne(action.payload, state);
+    }
+
     case fromVideos.CREATE_VIDEO: {
       console.log(action.payload);
       return state;
+    }
+
+    case fromVideos.CREATE_VIDEO_SUCCESS: {
+      console.log('CREATE VIDEO SUCCESS REDUCER', action.payload);
+      return adapter.addOne(action.payload, state);
     }
 
     default: {

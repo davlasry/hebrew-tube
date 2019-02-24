@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { getUser } from 'src/app/authentication/state/user.selectors';
 import { getIsVideosLoaded, getAllVideos } from '../../state/videos.selectors';
 import { VideosState } from '../../state/videos.reducers';
-import { LoadVideos } from '../../state/videos.actions';
+import { LoadVideos, DeleteVideo } from '../../state/videos.actions';
 
 @Component({
   selector: 'app-videos-list',
@@ -34,5 +34,10 @@ export class VideosListContainerComponent implements OnInit {
     this.videos$ = this.store.pipe(select(getAllVideos));
 
     this.isVideosLoaded$ = this.store.pipe(select(getIsVideosLoaded));
+  }
+
+  deleteVideo(videoID) {
+    console.log('deleteVideo', videoID);
+    this.store.dispatch(new DeleteVideo(videoID));
   }
 }

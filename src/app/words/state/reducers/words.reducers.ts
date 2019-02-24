@@ -60,7 +60,13 @@ export function allWordsReducer(
       return adapter.addOne(action.payload.data, state);
     }
 
-    case wordsList.DELETE_WORDS: {
+    case wordsList.DELETE_WORD_SUCCESS: {
+      // console.log(action.payload);
+      return adapter.removeOne(action.payload, state);
+      // return adapter.removeOne(action.payload.word._id, state);
+    }
+
+    case wordsList.DELETE_MANY_WORDS_SUCCESS: {
       // console.log(action.payload);
       return adapter.removeMany(action.payload, state);
       // return adapter.removeOne(action.payload.word._id, state);

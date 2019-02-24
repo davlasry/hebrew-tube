@@ -7,15 +7,20 @@ import {
   LoadVideosSuccess,
   CREATE_VIDEO,
   CreateVideo,
-  CreateVideoSuccess
+  CreateVideoSuccess,
+  DELETE_VIDEO,
+  DeleteVideo,
+  DeleteVideoSuccess
 } from './videos.actions';
 import { VideosService } from 'src/app/core/services/videos.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class VideosEffects {
   constructor(
     private actions$: Actions,
-    private videosService: VideosService
+    private videosService: VideosService,
+    private router: Router
   ) {}
 
   @Effect()
@@ -35,7 +40,22 @@ export class VideosEffects {
       console.log('CREATE VIDEO EFFECT', action.payload);
       return this.videosService.createVideo(action.payload).pipe(
         map((videos: any) => {
+          this.router.navigate(['/videos']);
           return new CreateVideoSuccess(videos.data);
+        })
+        // catchError(error => new LoadWordsFail(error));
+      );
+    })
+  );
+
+  @Effect()
+  deleteVideo$ = this.actions$.ofType(DELETE_VIDEO).pipe(
+    switchMap((action: DeleteVideo) => {
+      console.log('DELETE VIDEO EFFECT', action.payload);
+      return this.videosService.deleteVideo(action.payload).pipe(
+        map(res => {
+          console.log('videoID', res);
+          return new DeleteVideoSuccess(res.videoID);
         })
         // catchError(error => new LoadWordsFail(error));
       );
