@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // External dependencies
@@ -11,9 +11,7 @@
 
   // service
 
-
   // transverse
-
 
   module.exports = {
     createUser: createUser,
@@ -35,7 +33,7 @@
       if (userID) {
         return res.status(500).send({
           auth: false,
-          error: ('Invalid parameters')
+          error: 'Invalid parameters'
         });
       }
 
@@ -58,7 +56,6 @@
     }
   }
 
-
   /**
    * @description Update d'un user
    * @param {object} req - la requête
@@ -72,7 +69,7 @@
 
       if (userIDFromToken !== userIDFromParam) {
         return res.status(500).send({
-          error: ('Incorrect parameters')
+          error: 'Incorrect parameters'
         });
       }
 
@@ -83,7 +80,6 @@
         auth: true,
         message: 'update successful'
       });
-
     } catch (err) {
       return res.status(500).send({
         auth: false,
@@ -105,16 +101,16 @@
 
       if (userIDFromToken !== userIDFromParam) {
         return res.status(500).send({
-          error: ('Incorrect parameters')
+          error: 'Incorrect parameters'
         });
       }
 
       const user = await UserSvc.getUserForFront(userIDFromToken);
+      // console.log('user', user);
 
       return res.status(200).send({
         data: user
       });
-
     } catch (err) {
       return res.status(500).send({
         auth: false,
@@ -136,7 +132,6 @@
       return res.status(200).send({
         data: users
       });
-
     } catch (err) {
       return res.status(500).send({
         auth: false,
@@ -157,8 +152,9 @@
 
       await UserSvc.deleteUser(userToDeleteID);
 
-      return res.status(200).send('user ' + userToDeleteID + ' successfully deleted');
-
+      return res
+        .status(200)
+        .send('user ' + userToDeleteID + ' successfully deleted');
     } catch (err) {
       return res.status(500).send({
         auth: false,

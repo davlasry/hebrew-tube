@@ -25,6 +25,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
   @ViewChild('videoDiv') videoElem: ElementRef;
 
   currentUserId;
+  isUserAdmin: Boolean;
 
   definitionShowed = null;
 
@@ -68,18 +69,23 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
         this.isPlayerReady = res;
       });
 
-    this.store
-      .select(getUser)
-      .subscribe(user => (this.currentUserId = user.id));
+    this.store.select(getUser).subscribe(user => {
+      this.currentUserId = user.id;
+      this.isUserAdmin = user.role === 'admin';
+    });
 
     this.youtubePlayer.youtubePlayerState$.subscribe(state => {
-      // console.log(`State: ${state}`);
+      console.log(`State: ${state}`);
       switch (state) {
         // -1 (unstarted)
         case -1:
+          if (this.timerSubscription) {
+            this.timerSubscription.unsubscribe();
+          }
           break;
         // 0 (ended)
         case 0:
+          this.timerSubscription.unsubscribe();
           break;
         // 1 (playing)
         case 1:
@@ -91,6 +97,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
         // 2 (paused)
         case 2:
           this.currentTime = this.youtubePlayer.getCurrentTime();
+          // this.timerSubscription.unsubscribe();
           break;
         // 3 (buffering)
         case 3:
@@ -106,7 +113,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.isPlayerReady = false;
-    // this.youtubePlayer.isPlayerReady$.unsubscribe();
+    this.timerSubscription.unsubscribe();
   }
 
   getVideo(): void {
@@ -145,27 +152,30 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
       .pipe(takeWhile(v => this.currentTime < this.videoLength))
       .subscribe(time => {
         const subtitles = this.video.subtitles;
-        this.currentTime = this.youtubePlayer.getCurrentTime();
-        // console.log(time, this.currentTime);
-        if (this.currentTime < subtitles[subtitles.length - 1].endTime) {
-          // console.log('subtitles', subtitles);
-          if (this.loopActivated) {
-            if (this.currentTime > subtitles[this.selectedSentence].endTime) {
-              this.youtubePlayer.skipTo(
-                subtitles[this.selectedSentence].startTime
-              );
+        if (this.isPlayerReady) {
+          this.currentTime = this.youtubePlayer.getCurrentTime();
+          // console.log(time, this.currentTime);
+          if (this.currentTime < subtitles[subtitles.length - 1].endTime) {
+            // console.log('subtitles', subtitles);
+            // console.log('loopActivated', this.loopActivated);
+            if (this.loopActivated) {
+              if (this.currentTime > subtitles[this.selectedSentence].endTime) {
+                this.youtubePlayer.skipTo(
+                  subtitles[this.selectedSentence].startTime
+                );
+              }
+            } else {
+              const currentSentence = subtitles.find(elem => {
+                // console.log(elem.startTime, elem.endTime);
+                return (
+                  this.currentTime >= elem.startTime &&
+                  this.currentTime <= elem.endTime
+                );
+              });
+              this.selectedSentence = subtitles.indexOf(currentSentence);
             }
-          } else {
-            const currentSentence = subtitles.find(elem => {
-              // console.log(elem.startTime, elem.endTime);
-              return (
-                this.currentTime >= elem.startTime &&
-                this.currentTime <= elem.endTime
-              );
-            });
-            this.selectedSentence = subtitles.indexOf(currentSentence);
+            // console.log(currentSentence, this.selectedSentence);
           }
-          // console.log(currentSentence, this.selectedSentence);
         }
       });
   }
@@ -214,7 +224,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
 
   onClickLoop() {
     this.loopActivated = !this.loopActivated;
-    // console.log('isLoopActivated', this.loopActivated);
+    console.log('isLoopActivated', this.loopActivated);
   }
 
   onClickPause() {}

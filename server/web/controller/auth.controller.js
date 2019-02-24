@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // External dependencies
@@ -14,11 +14,9 @@
     logout: logout
   };
 
-
   async function login(req, res) {
-
-    console.log('login');
-    console.log(req.body);
+    // console.log('login');
+    // console.log(req.body);
 
     const email = lodash.get(req, 'body.email');
     const password = lodash.get(req, 'body.password');
@@ -29,8 +27,10 @@
       return res.status(404).send('No user found.');
     }
 
-
-    const passwordIsValid = AuthCore.comparePassword(password, existingUser.password);
+    const passwordIsValid = AuthCore.comparePassword(
+      password,
+      existingUser.password
+    );
     if (!passwordIsValid) {
       return res.status(401).send({
         auth: false,
@@ -48,18 +48,16 @@
         firstName: lodash.get(existingUser, 'firstName'),
         lastName: lodash.get(existingUser, 'lastName'),
         email: lodash.get(existingUser, 'email'),
+        role: lodash.get(existingUser, 'role'),
         id: lodash.get(existingUser, 'id')
       }
     });
-
   }
 
   async function logout(req, res) {
-
     return res.status(200).send({
       auth: false,
       token: null
     });
-
   }
 })();

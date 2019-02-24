@@ -11,3 +11,7 @@ export const getLoggedIn = createSelector(
   getUserState,
   (state: UserState) => state.loggedIn
 );
+export const getUserRole = createSelector(
+  getUserState,
+  (state: UserState) => state.user.role
+);

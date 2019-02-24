@@ -44,6 +44,12 @@ export class YoutubeComponent implements OnInit, AfterContentInit {
     this.onLoad();
   }
 
+  ngOnDestroy(): void {
+    this.isPlayerReady = false;
+    this.youtubePlayer.destroyPlayer();
+    // this.youtubePlayer.isPlayerReady$.unsubscribe();
+  }
+
   addYoutubeApiScript() {
     // const doc = window.document;
     // const playerApi = doc.createElement('script');
