@@ -45,11 +45,11 @@ export class YoutubeComponent implements OnInit, AfterContentInit {
   }
 
   addYoutubeApiScript() {
-    const doc = window.document;
-    const playerApi = doc.createElement('script');
-    playerApi.type = 'text/javascript';
-    playerApi.src = 'https://www.youtube.com/iframe_api';
-    doc.body.appendChild(playerApi);
+    // const doc = window.document;
+    // const playerApi = doc.createElement('script');
+    // playerApi.type = 'text/javascript';
+    // playerApi.src = 'https://www.youtube.com/iframe_api';
+    // doc.body.appendChild(playerApi);
   }
 
   onLoad() {

@@ -29,7 +29,6 @@ export class YoutubePlayerService {
       ) {
         console.log('createPlayer', height, width);
         this.yt_player = new _window.YT.Player('youtube-player', {
-          // host: 'https://www.youtube.com',
           width: width,
           height: height,
           videoId: videoId,
@@ -37,7 +36,8 @@ export class YoutubePlayerService {
             iv_load_policy: '3',
             showinfo: '0',
             rel: '0',
-            origin: 'http://localhost:4200'
+            origin: 'http://localhost:4200',
+            host: 'https://www.youtube.com'
           },
           events: {
             onReady: ev => {
