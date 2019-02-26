@@ -113,7 +113,9 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.isPlayerReady = false;
-    this.timerSubscription.unsubscribe();
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
   }
 
   getVideo(): void {

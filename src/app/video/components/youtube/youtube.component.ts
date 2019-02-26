@@ -5,7 +5,8 @@ import {
   AfterContentInit,
   ViewChild,
   ElementRef,
-  Input
+  Input,
+  OnDestroy
 } from '@angular/core';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { Observable, timer } from 'rxjs';
@@ -15,7 +16,7 @@ import { Observable, timer } from 'rxjs';
   templateUrl: './youtube.component.html',
   styleUrls: ['./youtube.component.scss']
 })
-export class YoutubeComponent implements OnInit, AfterContentInit {
+export class YoutubeComponent implements OnInit, AfterContentInit, OnDestroy {
   @Input() video;
 
   @ViewChild('videoDiv') videoElem: ElementRef;
