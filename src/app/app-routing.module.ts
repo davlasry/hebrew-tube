@@ -9,11 +9,10 @@ import { HomeComponent } from './core/layout/home/home.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  {
-    path: 'videos',
-    loadChildren: './video/video.module#VideoModule',
-    data: { preload: true }
-  },
+  // {
+  //   path: 'videos',
+  //   loadChildren: './video/video.module#VideoModule'
+  // },
   { path: 'login', component: LogInComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }

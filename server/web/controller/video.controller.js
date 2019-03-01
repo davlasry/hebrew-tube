@@ -30,7 +30,7 @@
    * @return {*} la requête
    */
   async function createVideo(req, res) {
-    console.log('createVideo body', req.body);
+    // console.log('createVideo body', req.body);
     try {
       const videoData = lodash.get(req, 'body');
       const videoCreated = await VideoSvc.createVideo(videoData);

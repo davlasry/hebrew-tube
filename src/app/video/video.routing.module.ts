@@ -9,7 +9,7 @@ import { VideoComponent } from './components/video/video.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'videos',
     component: VideosContainerComponent,
     canActivate: [AuthGuard],
     children: [

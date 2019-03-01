@@ -25,3 +25,13 @@ export const getIsVideosLoaded = createSelector(
   getVideoState,
   fromVideos.getVideosLoaded
 );
+
+export const getVideoById = createSelector(
+  getVideosEntities,
+  (entities, props) => entities[props.id]
+);
+
+export const getVideosByID = createSelector(
+  getVideosEntities,
+  (entities, props) => props.ids.map(id => entities[id])
+);

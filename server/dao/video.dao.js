@@ -27,7 +27,7 @@
           subtitles: lodash.get(videoData, 'subtitles')
         };
 
-        console.log('createVideo DAO data', data);
+        // console.log('createVideo DAO data', data);
 
         const newVideo = new VideoMongo(data);
         const videoCreated = await newVideo.save();
@@ -51,12 +51,13 @@
           subtitles: lodash.get(videoData, 'subtitles')
         };
 
+        // console.log('existingVideo before merge', existingVideo);
         lodash.merge(existingVideo, data);
-        console.log('existingVideo after merge', existingVideo);
+        // console.log('existingVideo after merge', existingVideo);
         existingVideo.markModified('subtitles');
         const videoUpdated = await existingVideo.save();
 
-        console.log('videoUpdated', videoUpdated);
+        // console.log('videoUpdated', videoUpdated);
 
         return resolve(videoUpdated);
 

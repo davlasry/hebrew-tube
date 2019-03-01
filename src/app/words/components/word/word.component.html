@@ -1,20 +1,13 @@
-<div *ngIf='word'>
-    <div>
-        עברית: {{word.hebrew}}
+<div *ngIf="word">
+  <div>Hébreu: {{ word.hebrew }}</div>
+  <div>Français: {{ word.french }}</div>
+  <div *ngIf="word.pronunciation">Prononciation: {{ word.pronunciation }}</div>
+  <div>
+    <div *ngIf="videos">
+      Context:
+      <a *ngFor="let video of videos" [routerLink]="['/videos', video._id]">
+        {{ video.name }}
+      </a>
     </div>
-    <div>
-        Français: {{word.french}}
-    </div>
-    <div>
-        English: {{word.english}}
-    </div>
-    <div>
-        Phonetic: {{word.phonetic}}
-    </div>
-    <div>
-        Notes: {{word.notes}}
-    </div>
-    <div>
-        Source: <a href="{{word.source}}" target="_blank">{{word.source}}</a>
-    </div>
+  </div>
 </div>

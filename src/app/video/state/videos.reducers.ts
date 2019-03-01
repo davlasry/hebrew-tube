@@ -34,7 +34,7 @@ export function videosReducer(
 ): VideosState {
   switch (action.type) {
     case fromVideos.LOAD_VIDEOS: {
-      // console.log('LOAD VIDEOS');
+      console.log('LOAD VIDEOS REDUCER');
       return Object.assign({}, state, {
         loading: true
       });

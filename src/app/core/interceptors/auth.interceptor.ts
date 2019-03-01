@@ -31,12 +31,12 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(cloned).pipe(
         map((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
-            console.log('event--->>>', event);
+            // console.log('event--->>>', event);
           }
           return event;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log('error in response----->>>', error);
+          // console.log('error in response----->>>', error);
           let data = {};
           data = {
             reason: error && error.error.message ? error.error.message : '',

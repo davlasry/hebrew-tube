@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-words-list',
@@ -40,11 +41,13 @@ export class WordsListComponent implements OnInit, OnChanges {
     'buttons'
   ];
 
-  selection = new SelectionModel<any>(true, []);
+  selection: SelectionModel<any>;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.selection = new SelectionModel<any>(true);
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.words.length > 0) {
@@ -53,17 +56,24 @@ export class WordsListComponent implements OnInit, OnChanges {
     }
   }
 
+  showWord(row) {
+    console.log('showWord', row);
+    this.router.navigate(['/words', row._id]);
+  }
+
   onDeleteWord(word) {
     console.log('onDeleteWord', word);
     this.deleteWord.emit(word);
   }
 
-  onDeleteFromMyWords(word) {
+  onDeleteFromMyWords(word, event) {
+    event.stopPropagation();
     console.log('Delete From My Words Words-list component', word);
     this.deleteFromMyWords.emit(word);
   }
 
-  onAddToMyWords(word) {
+  onAddToMyWords(word, event) {
+    event.stopPropagation();
     console.log('Add To My Words Words-list component', word);
     this.addToMyWords.emit(word);
   }

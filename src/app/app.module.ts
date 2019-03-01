@@ -25,6 +25,7 @@ import { CustomPreloading } from './custom-preloading';
 import { ViewWordDialogComponent } from './shared/dialogs/view-word/view-word.component';
 import { AppComponent } from './core/layout/app.component';
 import { DeleteVideoDialogComponent } from './shared/dialogs/delete-video-dialog/delete-video-dialog.component';
+import { VideoModule } from './video/video.module';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { DeleteVideoDialogComponent } from './shared/dialogs/delete-video-dialog
     CoreModule,
     SharedModule,
     WordsModule,
+    VideoModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([UserEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : []

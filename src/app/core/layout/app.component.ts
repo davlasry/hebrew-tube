@@ -19,6 +19,9 @@ import { getWordsLoaded } from '../../words/state/selectors/words.selectors';
 import { LoadWords } from '../../words/state/actions/words.actions';
 import { LoadMyWords } from '../../words/state/actions/myWords.actions';
 import { getMyWordsLoaded } from '../../words/state/reducers/myWords.reducers';
+import { getVideosLoaded } from 'src/app/video/state/videos.reducers';
+import { LoadVideos } from 'src/app/video/state/videos.actions';
+import { getIsVideosLoaded } from 'src/app/video/state/videos.selectors';
 
 @Component({
   selector: 'app-root',
@@ -34,12 +37,12 @@ export class AppComponent implements OnInit {
   constructor(private jwtService: JwtService, private store: Store<any>) {}
 
   ngOnInit() {
-    this.currentUser$ = this.store.select(getUser);
+    this.currentUser$ = this.store.pipe(select(getUser));
     this.currentUser$.subscribe(currentUser => {
       // console.log('currentUser', currentUser);
       this.currentUserId = currentUser.id;
     });
-    this.isLoggedIn$ = this.store.select(getLoggedIn);
+    this.isLoggedIn$ = this.store.pipe(select(getLoggedIn));
 
     this.store.dispatch(new CheckToken());
 
@@ -64,6 +67,13 @@ export class AppComponent implements OnInit {
         this.store.pipe(select(getMyWordsLoaded)).subscribe(hasLoaded => {
           if (!hasLoaded) {
             this.store.dispatch(new LoadMyWords(this.currentUserId));
+          }
+        });
+
+        this.store.pipe(select(getIsVideosLoaded)).subscribe(hasLoaded => {
+          console.log(hasLoaded);
+          if (!hasLoaded) {
+            this.store.dispatch(new LoadVideos());
           }
         });
       }

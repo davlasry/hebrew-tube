@@ -12,7 +12,7 @@ import { YoutubePlayerService } from 'src/app/core/services/youtube-player.servi
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ViewWordDialogComponent } from 'src/app/shared/dialogs/view-word/view-word.component';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { getUser } from 'src/app/authentication/state/user.selectors';
 import { VideosService } from 'src/app/core/services/videos.service';
 
@@ -69,7 +69,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
         this.isPlayerReady = res;
       });
 
-    this.store.select(getUser).subscribe(user => {
+    this.store.pipe(select(getUser)).subscribe(user => {
       this.currentUserId = user.id;
       this.isUserAdmin = user.role === 'admin';
     });
