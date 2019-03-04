@@ -1,29 +1,31 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import * as fromVideos from './videos.reducers';
+import * as fromVideos from '../reducers/videos.reducers';
+import { getVideosState, VideosState } from '..';
 
-export const getVideoState = createFeatureSelector<fromVideos.VideosState>(
-  'videos'
+export const getAllVideosState = createSelector(
+  getVideosState,
+  (state: VideosState) => state.allVideos
 );
 
 export const getAllVideos = createSelector(
-  getVideoState,
+  getAllVideosState,
   fromVideos.selectAll
 );
 export const getVideosEntities = createSelector(
-  getVideoState,
+  getAllVideosState,
   fromVideos.selectEntities
 );
 export const getVideosIds = createSelector(
-  getVideoState,
+  getAllVideosState,
   fromVideos.selectIds
 );
 export const getIsVideosLoading = createSelector(
-  getVideoState,
-  fromVideos.getVideosLoading
+  getAllVideosState,
+  fromVideos.getAllVideosLoading
 );
 export const getIsVideosLoaded = createSelector(
-  getVideoState,
-  fromVideos.getVideosLoaded
+  getAllVideosState,
+  fromVideos.getAllVideosLoaded
 );
 
 export const getVideoById = createSelector(

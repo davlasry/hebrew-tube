@@ -1,4 +1,4 @@
-import { WordsService } from '../../core/services/words.service';
+import { WordsService } from '../../../core/services/words.service';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { switchMap, map, catchError } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import {
   DELETE_VIDEO,
   DeleteVideo,
   DeleteVideoSuccess
-} from './videos.actions';
+} from '../actions/videos.actions';
 import { VideosService } from 'src/app/core/services/videos.service';
 import { Router } from '@angular/router';
 

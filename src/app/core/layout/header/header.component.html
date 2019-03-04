@@ -2,6 +2,7 @@
   <a class="logo" routerLink="">Hebrew Words</a>
   <nav>
     <a [routerLink]="['/videos']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn">Videos</a>
+    <a [routerLink]="['/videos', 'favorite']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn">My Videos</a>
     <a [routerLink]="['/videos', 'create']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn"
       [routerLinkActiveOptions]="{ exact: true }">Create
       Video</a>

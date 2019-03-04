@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="loadingSpinner" *ngIf="myVideosLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div *ngIf="!myVideosLoading">
+    <div *ngIf="myVideos.length == 0">
+      <p>You don't have any video in your library...</p>
+      <p>
+        Clcik <span><a routerLink="/words">here</a></span> to start adding some!
+      </p>
+    </div>
+
+    <div *ngIf="myVideos.length > 0" class="if-words">
+      <div class="buttons">
+        <button mat-raised-button color="warn" [disabled]="false" (click)="deleteSelection()">
+          <mat-icon>delete</mat-icon>
+          Delete Selection
+        </button>
+      </div>
+      <div class="table">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+          <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="hebrew">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Hebrew</th>
+            <td mat-cell *matCellDef="let element">{{ element.hebrew }}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="french">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>French</th>
+            <td mat-cell *matCellDef="let element">{{ element.french }}</td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="pronunciation">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Pronunciation
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.pronunciation }}
+            </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+            <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+          </ng-container>
+
+          <!-- Buttons Column -->
+          <ng-container matColumnDef="buttons">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let word">
+              <div class="buttons">
+                <button mat-icon-button color="accent">
+                  <mat-icon (click)="onClickDeleteWord(word)">delete</mat-icon>
+                </button>
+                <button mat-icon-button color="accent">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row (click)="showWord(row)" class="matTableRow" *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

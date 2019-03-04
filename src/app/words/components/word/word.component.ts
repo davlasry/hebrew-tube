@@ -3,13 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { WordsService } from 'src/app/core/services/words.service';
 import { Store, select } from '@ngrx/store';
 import { WordsState } from '../../state';
-import {
-  getVideoById,
-  getVideosEntities,
-  getVideosByID
-} from 'src/app/video/state/videos.selectors';
-import { map } from 'rxjs/operators';
-import { getVideosLoaded } from 'src/app/video/state/videos.reducers';
+import { getVideosByID } from 'src/app/video/state/selectors/videos.selectors';
 
 @Component({
   selector: 'app-word',

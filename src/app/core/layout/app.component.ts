@@ -19,9 +19,9 @@ import { getWordsLoaded } from '../../words/state/selectors/words.selectors';
 import { LoadWords } from '../../words/state/actions/words.actions';
 import { LoadMyWords } from '../../words/state/actions/myWords.actions';
 import { getMyWordsLoaded } from '../../words/state/reducers/myWords.reducers';
-import { getVideosLoaded } from 'src/app/video/state/videos.reducers';
-import { LoadVideos } from 'src/app/video/state/videos.actions';
-import { getIsVideosLoaded } from 'src/app/video/state/videos.selectors';
+import { getIsVideosLoaded } from 'src/app/video/state/selectors/videos.selectors';
+import { LoadVideos } from 'src/app/video/state/actions/videos.actions';
+import { LoadMyVideos } from 'src/app/video/state/actions/myVideos.actions';
 
 @Component({
   selector: 'app-root',
@@ -74,6 +74,13 @@ export class AppComponent implements OnInit {
           console.log(hasLoaded);
           if (!hasLoaded) {
             this.store.dispatch(new LoadVideos());
+          }
+        });
+
+        this.store.pipe(select(getIsVideosLoaded)).subscribe(hasLoaded => {
+          console.log(hasLoaded);
+          if (!hasLoaded) {
+            this.store.dispatch(new LoadMyVideos(this.currentUserId));
           }
         });
       }

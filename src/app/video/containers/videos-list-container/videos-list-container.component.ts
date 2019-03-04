@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { getUser } from 'src/app/authentication/state/user.selectors';
-import { getIsVideosLoaded, getAllVideos } from '../../state/videos.selectors';
-import { VideosState } from '../../state/videos.reducers';
-import { LoadVideos, DeleteVideo } from '../../state/videos.actions';
+import {
+  getIsVideosLoaded,
+  getAllVideos
+} from '../../state/selectors/videos.selectors';
+import { AllVideosState } from '../../state/reducers/videos.reducers';
+import { LoadVideos, DeleteVideo } from '../../state/actions/videos.actions';
 
 @Component({
   selector: 'app-videos-list',
@@ -17,7 +20,7 @@ export class VideosListContainerComponent implements OnInit {
 
   currentUserId;
 
-  constructor(private store: Store<VideosState>) {}
+  constructor(private store: Store<AllVideosState>) {}
 
   ngOnInit() {
     this.store.pipe(select(getIsVideosLoaded)).subscribe(hasLoaded => {

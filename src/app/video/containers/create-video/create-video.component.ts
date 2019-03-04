@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { VideosState } from '../../state/videos.reducers';
+import { AllVideosState } from '../../state/reducers/videos.reducers';
 import { VideosService } from 'src/app/core/services/videos.service';
-import { CreateVideo } from '../../state/videos.actions';
+import { CreateVideo } from '../../state/actions/videos.actions';
 
 @Component({
   selector: 'app-create-video',
@@ -18,7 +18,7 @@ export class CreateVideoComponent implements OnInit {
     private fb: FormBuilder,
     private videosService: VideosService,
     private router: Router,
-    private store: Store<VideosState>
+    private store: Store<AllVideosState>
   ) {}
 
   ngOnInit() {

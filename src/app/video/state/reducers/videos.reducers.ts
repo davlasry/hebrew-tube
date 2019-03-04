@@ -1,10 +1,9 @@
-import * as fromVideos from './videos.actions';
+import * as fromVideos from '../actions/videos.actions';
 
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 // VIDEOS STATE INTERFACE
-export interface VideosState extends EntityState<any> {
-  entities: { [id: number]: any };
+export interface AllVideosState extends EntityState<any> {
   loading: Boolean;
   loaded: Boolean;
 }
@@ -21,17 +20,19 @@ export const adapter: EntityAdapter<any> = createEntityAdapter<any>({
 });
 
 // INITIAL VIDEOS STATE
-export const INITIAL_VIDEOS_STATE: VideosState = adapter.getInitialState({
-  entities: {},
-  loading: false,
-  loaded: false
-});
+export const INITIAL_ALL_VIDEOS_STATE: AllVideosState = adapter.getInitialState(
+  {
+    // entities: {},
+    loading: false,
+    loaded: false
+  }
+);
 
 // VIDEOS REDUCER
-export function videosReducer(
-  state: VideosState = INITIAL_VIDEOS_STATE,
+export function allVideosReducer(
+  state: AllVideosState = INITIAL_ALL_VIDEOS_STATE,
   action: fromVideos.Actions
-): VideosState {
+): AllVideosState {
   switch (action.type) {
     case fromVideos.LOAD_VIDEOS: {
       console.log('LOAD VIDEOS REDUCER');
@@ -78,6 +79,6 @@ export const {
   selectTotal
 } = adapter.getSelectors();
 
-export const getVideos = (state: VideosState) => state.entities;
-export const getVideosLoading = (state: VideosState) => state.loading;
-export const getVideosLoaded = (state: VideosState) => state.loaded;
+export const getAllVideos = (state: AllVideosState) => state.entities;
+export const getAllVideosLoading = (state: AllVideosState) => state.loading;
+export const getAllVideosLoaded = (state: AllVideosState) => state.loaded;
