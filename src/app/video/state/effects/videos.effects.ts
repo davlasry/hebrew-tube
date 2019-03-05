@@ -1,6 +1,6 @@
 import { WordsService } from '../../../core/services/words.service';
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import {
   LOAD_VIDEOS,
@@ -35,7 +35,8 @@ export class VideosEffects {
   );
 
   @Effect()
-  createVideo$ = this.actions$.ofType(CREATE_VIDEO).pipe(
+  createVideo$ = this.actions$.pipe(
+    ofType(CREATE_VIDEO),
     switchMap((action: CreateVideo) => {
       console.log('CREATE VIDEO EFFECT', action.payload);
       return this.videosService.createVideo(action.payload).pipe(
