@@ -46,15 +46,12 @@
     return new Promise(async function (resolve, reject) {
       try {
 
-        const data = {
-          name: lodash.get(videoData, 'name'),
-          subtitles: lodash.get(videoData, 'subtitles')
-        };
+        existingVideo.name = lodash.get(videoData, 'name');
+        existingVideo.subtitles = lodash.get(videoData, 'subtitles');
 
         // console.log('existingVideo before merge', existingVideo);
-        lodash.merge(existingVideo, data);
         // console.log('existingVideo after merge', existingVideo);
-        existingVideo.markModified('subtitles');
+        // existingVideo.markModified('subtitles');
         const videoUpdated = await existingVideo.save();
 
         // console.log('videoUpdated', videoUpdated);

@@ -68,16 +68,12 @@
   async function updateVideo(videoID, videoData) {
 
     if (!lodash.get(videoData, 'link') || !lodash.get(videoData, 'name')) {
-      throw new Error({
-        error: ('Invalid parameters')
-      });
+      throw new Error('Invalid parameters - missing link or name');
     }
 
     const existingVideo = await getVideo(videoID);
     if (!existingVideo) {
-      throw new Error({
-        error: ('Invalid parameters')
-      });
+      throw new Error('Bad ID - Invalid parameters');
     }
 
     await ContextSvc.deleteContextsForVideo(videoID);
