@@ -12,6 +12,11 @@ export class UserDetailComponent implements OnInit {
   userForm: FormGroup;
   editMode: Boolean;
 
+  roles = [
+    { value: 'admin', viewValue: 'admin' },
+    { value: 'user', viewValue: 'user' }
+  ];
+
   constructor(private fb: FormBuilder) {
     this.editMode = false;
   }
@@ -19,7 +24,7 @@ export class UserDetailComponent implements OnInit {
   ngOnInit() {
     this.userForm = this.fb.group({
       email: [this.user.email, [Validators.required]],
-      role: [this.user.role, [Validators.required, Validators.minLength(5)]],
+      Role: [this.user.role, [Validators.required]],
       firstName: [this.user.firstName, [Validators.required]],
       lastName: [this.user.lastName, [Validators.required]]
     });
