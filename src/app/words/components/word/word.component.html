@@ -5,7 +5,7 @@
   <div>
     <div *ngIf="videos">
       Context:
-      <a *ngFor="let video of videos" [routerLink]="['/videos', video._id]">
+      <a *ngFor="let video of videos; let i = index" [routerLink]="['/videos', video._id, contexts[i].subtitleIndex + 1]">
         {{ video.name }}
       </a>
     </div>

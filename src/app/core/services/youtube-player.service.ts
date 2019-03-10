@@ -18,7 +18,7 @@ export class YoutubePlayerService {
 
   constructor() {}
 
-  createPlayer(videoId: string, width, height): void {
+  createPlayer(videoId: string, width, height, startTime): void {
     this.isPlayerReadySubject.next(false);
     // console.log(height, width);
     const youtubeInterval = setInterval(() => {
@@ -41,7 +41,7 @@ export class YoutubePlayerService {
           },
           events: {
             onReady: ev => {
-              this.onPlayerReady(ev);
+              this.onPlayerReady(ev, startTime);
             },
             onStateChange: ev => {
               this.onPlayerStateChange(ev);
@@ -58,8 +58,11 @@ export class YoutubePlayerService {
     this.yt_player.setSize(width, height);
   }
 
-  onPlayerReady(ev) {
+  onPlayerReady(ev, startTime) {
     this.isPlayerReadySubject.next(true);
+    if (startTime) {
+      this.yt_player.seekTo(startTime);
+    }
     // ev.target.playVideo();
   }
 

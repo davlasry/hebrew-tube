@@ -1,59 +1,21 @@
 <div class="header">
   <a class="logo" routerLink="">Hebrew Words</a>
   <nav>
-    <a
-      [routerLink]="['/videos']"
-      [routerLinkActive]="['is-active']"
-      *ngIf="isLoggedIn"
-      >Videos</a
-    >
-    <a
-      [routerLink]="['/videos', 'create']"
-      [routerLinkActive]="['is-active']"
-      *ngIf="isLoggedIn"
-      [routerLinkActiveOptions]="{ exact: true }"
-      >Create Video</a
-    >
-    <a
-      [routerLink]="['/words/list']"
-      [routerLinkActive]="['is-active']"
-      *ngIf="isLoggedIn"
-      [routerLinkActiveOptions]="{ exact: true }"
-      >Words</a
-    >
-    <a
-      [routerLink]="['/words/my-words']"
-      [routerLinkActive]="['is-active']"
-      *ngIf="isLoggedIn"
-      [routerLinkActiveOptions]="{ exact: true }"
-      >My Words</a
-    >
-    <a
-      [routerLink]="['/users/list']"
-      [routerLinkActive]="['is-active']"
-      [routerLinkActiveOptions]="{ exact: true }"
-      *ngIf="isAdmin"
-      >Users</a
-    >
-    <a
-      [routerLink]="['/words/library/favoris']"
-      [routerLinkActive]="['is-active']"
-      [routerLinkActiveOptions]="{ exact: true }"
-      *ngIf="isLoggedIn"
-      >Libraries</a
-    >
-    <a
-      [routerLink]="['/login']"
-      [routerLinkActive]="['is-active']"
-      *ngIf="!isLoggedIn"
-      >Login</a
-    >
-    <a
-      [routerLink]="['/signup']"
-      [routerLinkActive]="['is-active']"
-      *ngIf="!isLoggedIn"
-      >Signup</a
-    >
+    <a [routerLink]="['/videos', 'list']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isLoggedIn">Videos</a>
+    <a [routerLink]="['/videos', 'favorite']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isLoggedIn">My Videos</a>
+    <a [routerLink]="['/videos', 'create']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn"
+      [routerLinkActiveOptions]="{ exact: true }">Create Video</a>
+    <a [routerLink]="['/words/list']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn" [routerLinkActiveOptions]="{ exact: true }">Words</a>
+    <a [routerLink]="['/words/my-words']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn"
+      [routerLinkActiveOptions]="{ exact: true }">My Words</a>
+    <a [routerLink]="['/users/list']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isAdmin">Users</a>
+    <a [routerLink]="['/words/library/favoris']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isLoggedIn">Libraries</a>
+    <a [routerLink]="['/login']" [routerLinkActive]="['is-active']" *ngIf="!isLoggedIn">Login</a>
+    <a [routerLink]="['/signup']" [routerLinkActive]="['is-active']" *ngIf="!isLoggedIn">Signup</a>
   </nav>
   <div style="flex: 1"></div>
   <div *ngIf="isLoggedIn" class="user">

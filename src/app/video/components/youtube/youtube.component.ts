@@ -18,6 +18,7 @@ import { Observable, timer } from 'rxjs';
 })
 export class YoutubeComponent implements OnInit, AfterContentInit, OnDestroy {
   @Input() video;
+  @Input() subtitleStartTime;
 
   @ViewChild('videoDiv') videoElem: ElementRef;
 
@@ -82,7 +83,8 @@ export class YoutubeComponent implements OnInit, AfterContentInit, OnDestroy {
     this.youtubePlayer.createPlayer(
       this.youtubePlayer.getVideoId(this.video.link),
       this.videoWidth,
-      this.videoHeight
+      this.videoHeight,
+      this.subtitleStartTime
     );
   }
 }

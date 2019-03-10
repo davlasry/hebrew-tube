@@ -28,6 +28,10 @@ const routes: Routes = [
       {
         path: ':id',
         component: VideoComponent
+      },
+      {
+        path: ':id/:subtitle',
+        component: VideoComponent
       }
     ]
   }

@@ -1,9 +1,12 @@
 @import '~@angular/material/theming';
 @include mat-core();
+
+$pink: #ff3a7d;
+
 $anms-black-primary: mat-palette($mat-grey, 700, 300, 900);
 $anms-black-accent: mat-palette($mat-blue-grey, 400);
 $anms-black-warn: mat-palette($mat-red, 500);
-$anms-black-theme: mat-dark-theme( $anms-black-primary, $anms-black-accent, $anms-black-warn);
+$anms-black-theme: mat-dark-theme($anms-black-primary, $anms-black-accent, $anms-black-warn);
 $my-app-primary: mat-palette($mat-grey, 700, 300, 900);
 $my-app-accent: mat-palette($mat-blue-grey, 400);
 $my-app-warn: mat-palette($mat-red, 500);
@@ -11,6 +14,7 @@ $my-app-theme: mat-dark-theme($my-app-primary, $my-app-accent, $my-app-warn);
 $app-input-primary: mat-palette($mat-red, 100, 200);
 $app-input-accent: mat-palette($mat-red, 100, 200);
 $app-input: mat-dark-theme($app-input-primary, $app-input-accent);
+// $bg-primary: md-color($mat-blue-grey, 400);
 @include mat-form-field-theme($app-input); // Form-Field theme
 @include mat-input-theme($app-input); // Input Theme
 // @include angular-material-theme($my-app-theme);

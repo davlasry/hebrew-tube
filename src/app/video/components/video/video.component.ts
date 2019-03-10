@@ -6,6 +6,7 @@ import {
   ViewChild,
   ElementRef
 } from '@angular/core';
+import { Location } from '@angular/common';
 import { interval, Observable, Subscription } from 'rxjs';
 import { takeWhile, distinctUntilChanged } from 'rxjs/operators';
 import { YoutubePlayerService } from 'src/app/core/services/youtube-player.service';
@@ -24,7 +25,7 @@ import { VideosService } from 'src/app/core/services/videos.service';
 export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
   @ViewChild('videoDiv') videoElem: ElementRef;
 
-  currentUserId;
+  currentUserId: string;
   isUserAdmin: Boolean;
 
   definitionShowed = null;
@@ -35,17 +36,19 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
 
   timerSubscription: Subscription;
 
-  currentTime = 0;
+  currentTime: Number = 0;
 
-  videoLength = 100000;
+  videoLength: Number = 100000;
 
   loopActivated: Boolean = false;
 
   isPlayerReady: Boolean = false;
 
-  isVideoLoaded = false;
-  videoId;
-  inputUrl;
+  isVideoLoaded: Boolean = false;
+  videoId: string;
+  subtitleStartTime: Number;
+  indexSubtitleStartTime;
+  inputUrl: string;
 
   videoHeight: number;
   videoWidth: number;
@@ -57,11 +60,15 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
     private route: ActivatedRoute,
     private videosService: VideosService,
     public dialog: MatDialog,
-    private store: Store<any>
+    private store: Store<any>,
+    private location: Location
   ) {}
 
   ngOnInit() {
+    /* Get video details and starting time if param is set */
     this.getVideo();
+
+    /* Check if the youtube playsr is ready */
     this.youtubePlayer.isPlayerReady$
       .pipe(distinctUntilChanged())
       .subscribe(res => {
@@ -69,13 +76,15 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
         this.isPlayerReady = res;
       });
 
+    /* Check if the user is Admin */
     this.store.pipe(select(getUser)).subscribe(user => {
       this.currentUserId = user.id;
       this.isUserAdmin = user.role === 'admin';
     });
 
+    /* Actions to launch according to youtube player state */
     this.youtubePlayer.youtubePlayerState$.subscribe(state => {
-      console.log(`State: ${state}`);
+      // console.log(`State: ${state}`);
       switch (state) {
         // -1 (unstarted)
         case -1:
@@ -121,18 +130,44 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   getVideo(): void {
+    /* Get Video ID from url param */
     const id: string = this.route.snapshot.paramMap.get('id');
     // console.log('getVideo id route', id);
+
+    /* Get current subtitle index from url param */
+    this.indexSubtitleStartTime = parseInt(
+      this.route.snapshot.paramMap.get('subtitle'),
+      10
+    );
+    // console.log('this.indexSubtitleStartTime', this.indexSubtitleStartTime);
+
+    /* Set current subtitle if subtitle index in param */
+    if (this.indexSubtitleStartTime) {
+      this.selectedSentence = this.indexSubtitleStartTime - 1;
+      this.loopActivated = true;
+    }
+
+    /* Get video details */
     this.videosService.getVideo(id).subscribe(result => {
-      console.log('getVideo result', result);
+      // console.log('getVideo result', result);
       this.video = result.data;
-      console.log(this.video.subtitles);
+      // console.log(this.video.subtitles);
+
+      /* Get current subtitle starting time */
+      if (this.indexSubtitleStartTime) {
+        this.subtitleStartTime = parseFloat(
+          this.video.subtitles[this.indexSubtitleStartTime - 1].startTime + 0.01
+        );
+      }
+      // console.log('this.subtitleStartTime', this.subtitleStartTime);
       // this.inputUrl = this.video.link;
     });
   }
 
   onClickWord(word): void {
     this.youtubePlayer.pauseVideo();
+
+    /* Open the word dialog */
     const dialogRef = this.dialog.open(ViewWordDialogComponent, {
       minWidth: '60%',
       // minHeight: '400px',
@@ -140,10 +175,10 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
       data: { word, userId: this.currentUserId }
     });
 
+    /* When the word dialog is closed */
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.youtubePlayer.resumeVideo();
-      // this.animal = result;
     });
   }
 
@@ -195,13 +230,6 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
     doc.body.appendChild(playerApi);
   }
 
-  // getVideoId(link) {
-  //   console.log('getVideoId', link);
-  //   return link.match(
-  //     /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/
-  //   )[1];
-  // }
-
   showDefinition(i) {
     this.definitionShowed = i;
     // console.log(this.definitionShowed);
@@ -235,4 +263,8 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   onClickPause() {}
+
+  onClickGoBack() {
+    this.location.back();
+  }
 }

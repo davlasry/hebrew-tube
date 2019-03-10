@@ -14,6 +14,7 @@ export class WordComponent implements OnInit {
   word;
   wordId;
   videos;
+  contexts;
 
   constructor(
     private wordsService: WordsService,
@@ -50,6 +51,8 @@ export class WordComponent implements OnInit {
   getWordContext() {
     this.wordsService.getWordContext(this.wordId).subscribe(result => {
       console.log(result);
+      this.contexts = result.data;
+      console.log('this.contexts', this.contexts);
       result = result.data.map(context => context.id_video);
       this.store
         .pipe(select(getVideosByID, { ids: result }))

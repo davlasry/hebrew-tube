@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
 
     this.isAdmin$ = this.store.pipe(select(isAdmin));
 
-    this.isAdmin$.subscribe(isAdmin => console.log(isAdmin));
+    this.isAdmin$.subscribe((result: Boolean) => console.log(result));
 
     this.store.dispatch(new CheckToken());
 
