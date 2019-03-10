@@ -1,9 +1,12 @@
 <div class="app-container">
-
-  <app-header [currentUser]="currentUser$ | async" [isLoggedIn]="isLoggedIn$ | async" (signOut)="signOut()"></app-header>
+  <app-header
+    [currentUser]="currentUser$ | async"
+    [isLoggedIn]="isLoggedIn$ | async"
+    [isAdmin]="isAdmin$ | async"
+    (signOut)="signOut()"
+  ></app-header>
 
   <div class="router-container">
     <router-outlet></router-outlet>
   </div>
-
 </div>

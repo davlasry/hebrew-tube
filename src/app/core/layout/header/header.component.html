@@ -29,6 +29,13 @@
       >My Words</a
     >
     <a
+      [routerLink]="['/users/list']"
+      [routerLinkActive]="['is-active']"
+      [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isAdmin"
+      >Users</a
+    >
+    <a
       [routerLink]="['/words/library/favoris']"
       [routerLinkActive]="['is-active']"
       [routerLinkActiveOptions]="{ exact: true }"
