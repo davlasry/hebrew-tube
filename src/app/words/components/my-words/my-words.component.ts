@@ -107,4 +107,12 @@ export class MyWordsComponent implements OnInit, OnChanges {
       this.deleteFromMyWords.emit(result);
     });
   }
+
+  onMoreOptions(event) {
+    event.stopPropagation();
+  }
+
+  onClickFavorite(event) {
+    event.stopPropagation();
+  }
 }

@@ -18,14 +18,20 @@ import { UsersService } from 'src/app/core/services/users.service';
 export class HeaderComponent implements OnInit, OnChanges {
   @Input() currentUser: any;
   @Input() isLoggedIn: Boolean;
+  @Input() isAdmin: Boolean;
 
   @Output() signOut = new EventEmitter();
 
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService) {
+    this.isAdmin = false;
+    this.isLoggedIn = false;
+  }
 
   ngOnInit() {}
 
-  ngOnChanges() {}
+  ngOnChanges(changes) {
+    console.log(changes);
+  }
 
   onClickSignout() {
     this.signOut.emit();

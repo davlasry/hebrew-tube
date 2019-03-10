@@ -1,22 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './../shared/shared.module';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LogInComponent } from './components/log-in/log-in.component';
-import { userReducer } from './state/user.reducers';
-import { UserEffects } from './state/user.effects';
 import { CoreModule } from '../core/core.module';
+import { UserRoutingModule } from './user.routing.module';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { UsersListComponent } from './containers/users-list-container/users-list.component';
 
 @NgModule({
   imports: [
     CoreModule,
     SharedModule,
-    CommonModule
+    CommonModule,
+    UserRoutingModule
     // StoreModule.forFeature('user', userReducer),
     // EffectsModule.forFeature([UserEffects])
   ],
-  declarations: [SignUpComponent, LogInComponent]
+  declarations: [
+    SignUpComponent,
+    LogInComponent,
+    UsersListComponent,
+    UserDetailComponent
+  ]
 })
 export class UserModule {}

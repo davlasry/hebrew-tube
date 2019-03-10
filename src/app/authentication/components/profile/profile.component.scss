@@ -1,0 +1,25 @@
+.container {
+  padding: 40px;
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      max-height: 40px;
+    }
+  }
+  .user-info {
+    span {
+      font-weight: bold;
+      display: inline-block;
+      width: 100px;
+      margin-right: 10px;
+    }
+
+    .user-field {
+      line-height: 30px;
+    }
+  }
+}

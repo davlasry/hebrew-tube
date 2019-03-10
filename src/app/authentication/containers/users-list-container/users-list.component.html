@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="header">
+    <h2>List of Users</h2>
+    <div class="buttons">
+      <button mat-raised-button color="primary" [disabled]="false">
+        <mat-icon>add</mat-icon>
+        ADD USER
+      </button>
+    </div>
+  </div>
+  <app-user-detail
+    *ngFor="let user of (users$ | async)"
+    [user]="user"
+  ></app-user-detail>
+</div>

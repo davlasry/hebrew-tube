@@ -11,6 +11,10 @@ export const getLoggedIn = createSelector(
   getUserState,
   (state: UserState) => state.loggedIn
 );
+export const isAdmin = createSelector(
+  getUserState,
+  (state: UserState) => state.user.role == 'admin'
+);
 export const getUserRole = createSelector(
   getUserState,
   (state: UserState) => state.user.role

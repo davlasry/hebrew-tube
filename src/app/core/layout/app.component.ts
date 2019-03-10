@@ -9,7 +9,8 @@ import {
 import { take } from 'rxjs/operators';
 import {
   getLoggedIn,
-  getUser
+  getUser,
+  isAdmin
 } from '../../authentication/state/user.selectors';
 import { Observable } from 'rxjs';
 import { getWordsLoaded } from '../../words/state/selectors/words.selectors';
@@ -28,6 +29,7 @@ import { LoadMyVideos } from 'src/app/video/state/actions/myVideos.actions';
 export class AppComponent implements OnInit {
   currentUser$: Observable<any>;
   isLoggedIn$: Observable<Boolean>;
+  isAdmin$: Observable<Boolean>;
 
   currentUserId;
 
@@ -40,6 +42,10 @@ export class AppComponent implements OnInit {
       this.currentUserId = currentUser.id;
     });
     this.isLoggedIn$ = this.store.pipe(select(getLoggedIn));
+
+    this.isAdmin$ = this.store.pipe(select(isAdmin));
+
+    this.isAdmin$.subscribe(isAdmin => console.log(isAdmin));
 
     this.store.dispatch(new CheckToken());
 

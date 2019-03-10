@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="user-block">
+    <div class="user-info">
+      <div *ngIf="!editMode">
+        <div class="user-field"><span>Prenom</span>{{ user?.firstName }}</div>
+        <div class="user-field"><span>Nom</span>{{ user?.lastName }}</div>
+        <div class="user-field"><span>Email</span>{{ user?.email }}</div>
+        <div class="user-field"><span>Role</span>{{ user?.role }}</div>
+        <div class="user-field"><span>ID</span>{{ user?._id }}</div>
+      </div>
+      <div *ngIf="editMode">
+        <form [formGroup]="userForm">
+          <div>
+            <mat-form-field class="form-field">
+              <input
+                type="text"
+                matInput
+                placeholder="Prenom"
+                formControlName="firstName"
+                required
+              />
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="form-field">
+              <input
+                type="text"
+                matInput
+                placeholder="Nom"
+                formControlName="lastName"
+                required
+              />
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="form-field">
+              <input
+                type="text"
+                matInput
+                placeholder="Email"
+                formControlName="email"
+                required
+              />
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field>
+              <mat-select placeholder="Role" formControlName="Role">
+                <mat-option *ngFor="let role of roles" [value]="role.value">
+                  {{ role.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="actions">
+      <button
+        *ngIf="!editMode"
+        mat-raised-button
+        color="primary"
+        [disabled]="false"
+        (click)="editMode = true"
+      >
+        <mat-icon>edit</mat-icon>
+        EDIT
+      </button>
+      <button
+        *ngIf="editMode"
+        mat-raised-button
+        color="primary"
+        [disabled]="false"
+        (click)="onClickSave()"
+      >
+        <mat-icon>save</mat-icon>
+        SAVE
+      </button>
+    </div>
+  </div>
+  <hr />
+</div>
