@@ -62,13 +62,10 @@ import { YoutubeCurrentTime } from './pipes/youtubeCurrentTime';
     MatSortModule,
     MatIconModule,
     MatDialogModule,
-<<<<<<< HEAD
     YoutubeCurrentTime,
-    FlexLayoutModule
-=======
+    FlexLayoutModule,
     MatMenuModule,
     YoutubeCurrentTime
->>>>>>> db89d4266f9a81e98bb61a3f76ca5b4d4945dd10
   ]
 })
 export class SharedModule {}
