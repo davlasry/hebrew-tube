@@ -144,7 +144,7 @@ export class EditVideoComponent implements OnInit {
 
   setWords() {
     this.video.subtitles.forEach((subtitle, subtitleIndex) => {
-      // console.log(subtitle);
+      console.log(subtitle);
       this.subtitlesForm.push(
         this.fb.group({
           words: this.fb.array([]),
@@ -153,6 +153,7 @@ export class EditVideoComponent implements OnInit {
         })
       );
       subtitle.words.forEach((word, wordIndex) => {
+        console.log(word, wordIndex);
         this.getWordsFormArray(subtitleIndex).push(
           this.fb.group({
             hebrew: [word.hebrew],

@@ -1,32 +1,29 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   SimpleChanges,
-  OnChanges,
-  Input,
-  ViewChild,
-  EventEmitter,
   Output,
-  ElementRef
+  ViewChild,
+  ElementRef,
+  EventEmitter,
+  Input
 } from '@angular/core';
-import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
+import { DeleteDialogComponent } from 'src/app/shared/dialogs/delete-word-dialog/delete-dialog.component';
+import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
-import { DeleteDialogComponent } from 'src/app/shared/dialogs/delete-word-dialog/delete-dialog.component';
 
 @Component({
-  selector: 'app-my-words',
-  templateUrl: './my-words.component.html',
-  styleUrls: ['./my-words.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-my-videos-list',
+  templateUrl: './my-videos-list.component.html',
+  styleUrls: ['./my-videos-list.component.scss']
 })
-export class MyWordsComponent implements OnInit, OnChanges {
-  @Input() myWords;
-  @Input() myWordsLoading;
+export class MyVideosListComponent implements OnInit {
+  @Input() myVideos;
+  @Input() myVideosLoading;
 
-  @Output() deleteFromMyWords = new EventEmitter();
-  @Output() deleteManyFromMyWords = new EventEmitter();
+  @Output() deleteFromMyVideos = new EventEmitter();
+  @Output() deleteManyFromMyVideos = new EventEmitter();
 
   sort;
 
@@ -38,14 +35,7 @@ export class MyWordsComponent implements OnInit, OnChanges {
   }
 
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = [
-    'select',
-    'hebrew',
-    'french',
-    'pronunciation',
-    'type',
-    'buttons'
-  ];
+  displayedColumns: string[] = ['select', 'name', 'link', 'buttons'];
 
   selection: SelectionModel<any>;
 
@@ -56,8 +46,8 @@ export class MyWordsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.myWords.length > 0) {
-      this.dataSource = new MatTableDataSource(this.myWords);
+    if (this.myVideos.length > 0) {
+      this.dataSource = new MatTableDataSource(this.myVideos);
       this.dataSource.sort = this.sort;
     }
   }
@@ -81,17 +71,17 @@ export class MyWordsComponent implements OnInit, OnChanges {
       : this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  onDeleteFromMyWords(word, event) {
+  onDeleteFromMyWords(video, event) {
     event.stopPropagation();
-    console.log('Delete From My Words Words-list component', word);
-    this.deleteFromMyWords.emit(word);
+    console.log('Delete From My Videos component', video);
+    this.deleteFromMyVideos.emit(video);
   }
 
   deleteSelection() {
     // console.log(this.selection.selected.map(word => word._id));
     const wordsToDelete = this.selection.selected.map(word => word._id);
     this.selection.clear();
-    this.deleteManyFromMyWords.emit(wordsToDelete);
+    this.deleteManyFromMyVideos.emit(wordsToDelete);
   }
 
   onClickDeleteWord(word) {

@@ -53,13 +53,10 @@
           return reject('nonExistingWord');
         }
 
-        const data = {
-          french: lodash.get(wordData, 'french'),
-          type: lodash.get(wordData, 'type'),
-          pronunciation: lodash.get(wordData, 'pronunciation')
-        };
+        existingWord.french = lodash.get(wordData, 'french');
+        existingWord.type = lodash.get(wordData, 'type');
+        existingWord.pronunciation = lodash.get(wordData, 'pronunciation');
 
-        lodash.merge(existingWord, data);
         const wordUpdated = await existingWord.save();
 
         return resolve(wordUpdated);

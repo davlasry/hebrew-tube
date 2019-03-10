@@ -65,4 +65,30 @@ export class UsersService {
       wordsIds
     });
   }
+
+  getVideosByUser(userId) {
+    console.log('getVideosByUser service', userId);
+    return this.http.get<any>(`${environment.API_URL}/favorite/video`);
+  }
+
+  addToMyVideos(videoToAdd) {
+    // console.log('ADD TO MY VIDEOS SERVICE', videoToAdd);
+    return this.http.post(`${environment.API_URL}/favorite/video/`, {
+      videoID: videoToAdd._id
+    });
+  }
+
+  deleteFromMyVideos(videoID) {
+    // console.log('DELETE FROM MY VIDEOS SERVICE videoID', videoID);
+    return this.http.delete<any>(
+      `${environment.API_URL}/favorite/video/${videoID}`
+    );
+  }
+
+  deleteManyFromMyVideos(videosIds) {
+    // console.log('DELETE FROM MY VIDEOS SERVICE videosIds', videosIds);
+    return this.http.post<any>(`${environment.API_URL}/favorite/deleteVideos`, {
+      videosIds
+    });
+  }
 }

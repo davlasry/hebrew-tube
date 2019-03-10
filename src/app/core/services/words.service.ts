@@ -16,6 +16,11 @@ export class WordsService {
     return this.http.get<any>(`${environment.API_URL}/word/${id}`);
   }
 
+  getWordContext(id): Observable<any> {
+    // console.log(id);
+    return this.http.get<any>(`${environment.API_URL}/context/${id}`);
+  }
+
   addWord(word): Observable<any> {
     console.log('ADD WORD SERVICE', word);
     return this.http.post<any>(`${environment.API_URL}/word`, word);

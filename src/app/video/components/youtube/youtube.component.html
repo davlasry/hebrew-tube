@@ -1,5 +1,8 @@
 <div class="videoDiv" #videoDiv>
   <div class="player-container">
+    <div class="loadingSpinner" *ngIf="!isPlayerReady">
+      <mat-spinner></mat-spinner>
+    </div>
     <div id="youtube-player"></div>
   </div>
 </div>

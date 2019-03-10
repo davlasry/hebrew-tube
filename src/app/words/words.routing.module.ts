@@ -5,6 +5,7 @@ import { LibrariesComponent } from './components/libraries/libraries.component';
 import { AuthGuard } from '../core/guards/auth-guard.service';
 import { MyWordsContainerComponent } from './containers/my-words-container/my-words-container.component';
 import { WordsListContainerComponent } from './containers/words-list-container/words-list-container.component';
+import { WordComponent } from './components/word/word.component';
 
 const routes: Routes = [
   {
@@ -24,15 +25,15 @@ const routes: Routes = [
       {
         path: 'library/:id',
         component: LibrariesComponent
+      },
+      {
+        path: ':id',
+        component: WordComponent
       }
       // {
       //   path: 'create',
       //   component: AddWordComponent
       // },
-      // {
-      //   path: ':id',
-      //   component: WordComponent
-      // }
     ]
   }
 ];

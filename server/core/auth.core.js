@@ -46,7 +46,7 @@
 
 
   function hashPassword(password) {
-    console.log('hashpassword', password);
+    // console.log('hashpassword', password);
 
     return bcrypt.hashSync(password, 8);
   }
@@ -61,7 +61,7 @@
     return jwt.sign({
       id: userID
     }, Config.mySecret, {
-      expiresIn: 3600 // expires in 24 hours
+      expiresIn: 3000 // expires in 24 hours
     });
   }
 
@@ -69,6 +69,7 @@
     return new Promise(function (resolve, reject) {
       return jwt.verify(token, Config.mySecret, function (err, decoded) {
         if (err) {
+          console.log('verifyToken error', err)
           return reject(err);
         }
         return resolve(decoded);

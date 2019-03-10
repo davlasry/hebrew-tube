@@ -6,15 +6,17 @@ import { VideosListContainerComponent } from './containers/videos-list-container
 import { CreateVideoComponent } from './containers/create-video/create-video.component';
 import { EditVideoComponent } from './containers/edit-video/edit-video.component';
 import { VideoComponent } from './components/video/video.component';
+import { MyVideosListContainerComponent } from './containers/my-videos-list-container/my-videos-list-container.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'videos',
     component: VideosContainerComponent,
     canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: VideosListContainerComponent },
+      { path: 'favorite', component: MyVideosListContainerComponent },
       {
         path: 'create',
         component: CreateVideoComponent

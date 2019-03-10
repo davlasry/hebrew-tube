@@ -1,16 +1,16 @@
 <div class="container">
-  <div class="loadingSpinner" *ngIf="myWordsLoading">
+  <div class="loadingSpinner" *ngIf="myVideosLoading">
     <mat-spinner></mat-spinner>
   </div>
-  <div *ngIf="!myWordsLoading">
-    <div *ngIf="myWords.length == 0">
-      <p>You don't have any words in your library...</p>
+  <div *ngIf="!myVideosLoading">
+    <div *ngIf="myVideos.length == 0">
+      <p>You don't have any video in your library...</p>
       <p>
         Clcik <span><a routerLink="/words">here</a></span> to start adding some!
       </p>
     </div>
 
-    <div *ngIf="myWords.length > 0" class="if-words">
+    <div *ngIf="myVideos.length > 0" class="if-words">
       <div class="buttons">
         <button mat-raised-button color="warn" [disabled]="false" (click)="deleteSelection()">
           <mat-icon>delete</mat-icon>
@@ -20,7 +20,7 @@
       <div class="table">
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
           <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
+            The actual rendered columns are set as a property on the row definition" -->
 
           <!-- Checkbox Column -->
           <ng-container matColumnDef="select">
