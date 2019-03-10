@@ -24,7 +24,7 @@ export class MyVideosEffects {
   getMyVideos$ = this.actions$.pipe(
     ofType(LOAD_MY_VIDEOS),
     switchMap((action: LoadMyVideos) => {
-      console.log('LOAD MY VIDEOS EFFECT', action.payload);
+      // console.log('LOAD MY VIDEOS EFFECT', action.payload);
       return this.usersService.getVideosByUser(action.payload).pipe(
         map(myVideos => {
           return new LoadMyVideosSuccess(myVideos.data);
@@ -37,7 +37,7 @@ export class MyVideosEffects {
   addToMyVideos$: Observable<any> = this.actions$.ofType(ADD_TO_MY_VIDEOS).pipe(
     switchMap((action: AddToMyVideos) => {
       const payload = action.payload;
-      console.log('ADD TO MY VIDEOS EFFECT', action.payload);
+      // console.log('ADD TO MY VIDEOS EFFECT', action.payload);
       return this.usersService.addToMyVideos(payload.video).pipe(
         map(myVideos => {
           return new AddToMyVideosSuccess(myVideos);
@@ -47,18 +47,17 @@ export class MyVideosEffects {
   );
 
   @Effect()
-  deleteFromMyVideos$: Observable<any> = this.actions$
-    .ofType(DELETE_FROM_MY_VIDEOS)
-    .pipe(
-      switchMap((action: DeleteFromMyVideos) => {
-        const payload = action.payload;
-        console.log('DELETE FROM MY VIDEOS EFFECT', action.payload);
-        return this.usersService.deleteFromMyVideos(payload.videoID).pipe(
-          map(res => {
-            console.log(res);
-            return new DeleteFromMyVideosSuccess(res.videoID);
-          })
-        );
-      })
-    );
+  deleteFromMyVideos$: Observable<any> = this.actions$.pipe(
+    ofType(DELETE_FROM_MY_VIDEOS),
+    switchMap((action: DeleteFromMyVideos) => {
+      const payload = action.payload;
+      // console.log('DELETE FROM MY VIDEOS EFFECT', action.payload);
+      return this.usersService.deleteFromMyVideos(payload.videoID).pipe(
+        map(res => {
+          console.log(res);
+          return new DeleteFromMyVideosSuccess(res.videoID);
+        })
+      );
+    })
+  );
 }

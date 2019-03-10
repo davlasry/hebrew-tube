@@ -77,12 +77,28 @@ export class YoutubePlayerService {
     this.yt_player.loadVideoById(videoId);
   }
 
+  resumeVideo() {
+    this.yt_player.playVideo();
+  }
+
+  pauseVideo() {
+    this.yt_player.pauseVideo();
+  }
+
   skipTo(time) {
     this.yt_player.seekTo(time);
   }
 
   destroyPlayer() {
-    this.yt_player.destroy();
+    if (this.yt_player) {
+      this.yt_player.destroy();
+    }
     this.youtubePlayerStateSubject.next(-1);
+  }
+
+  getVideoId(link) {
+    // console.log('getVideoId', link);
+    const regex = /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/;
+    return link.match(regex)[1];
   }
 }

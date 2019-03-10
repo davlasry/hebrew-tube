@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtService } from '../services/jwt.service';
-import { UsersService } from '../services/users.service';
-import { ApplicationState } from '../../app-state';
 import { Store, select } from '@ngrx/store';
 import {
-  LoadUserSuccess,
   UserSignOut,
   LoadUser,
   CheckToken
@@ -71,14 +68,14 @@ export class AppComponent implements OnInit {
         });
 
         this.store.pipe(select(getIsVideosLoaded)).subscribe(hasLoaded => {
-          console.log(hasLoaded);
+          // console.log(hasLoaded);
           if (!hasLoaded) {
             this.store.dispatch(new LoadVideos());
           }
         });
 
         this.store.pipe(select(getIsVideosLoaded)).subscribe(hasLoaded => {
-          console.log(hasLoaded);
+          // console.log(hasLoaded);
           if (!hasLoaded) {
             this.store.dispatch(new LoadMyVideos(this.currentUserId));
           }

@@ -34,7 +34,7 @@ export function myWordsReducer(
 ): MyWordsState {
   switch (action.type) {
     case myWordsActions.LOAD_MY_WORDS: {
-      console.log('LOAD MY WORDS ACTION', action.payload);
+      // console.log('LOAD MY WORDS ACTION', action.payload);
       return {
         ...state,
         loading: true
@@ -42,7 +42,7 @@ export function myWordsReducer(
     }
 
     case myWordsActions.LOAD_MY_WORDS_SUCCESS: {
-      console.log('LOAD MY WORDS REDUCER', action.payload);
+      // console.log('LOAD MY WORDS REDUCER', action.payload);
       return adapter.addAll(action.payload, {
         ...state,
         loading: false,
@@ -51,7 +51,7 @@ export function myWordsReducer(
     }
 
     case myWordsActions.ADD_TO_MY_WORDS: {
-      console.log('ADD TO MY WORDS REDUCER', action.payload);
+      // console.log('ADD TO MY WORDS REDUCER', action.payload);
       return adapter.addOne(action.payload.word, state);
     }
 

@@ -97,7 +97,9 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
         // 2 (paused)
         case 2:
           this.currentTime = this.youtubePlayer.getCurrentTime();
-          // this.timerSubscription.unsubscribe();
+          if (this.timerSubscription) {
+            this.timerSubscription.unsubscribe();
+          }
           break;
         // 3 (buffering)
         case 3:
@@ -124,11 +126,13 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
     this.videosService.getVideo(id).subscribe(result => {
       console.log('getVideo result', result);
       this.video = result.data;
+      console.log(this.video.subtitles);
       // this.inputUrl = this.video.link;
     });
   }
 
   onClickWord(word): void {
+    this.youtubePlayer.pauseVideo();
     const dialogRef = this.dialog.open(ViewWordDialogComponent, {
       minWidth: '60%',
       // minHeight: '400px',
@@ -138,6 +142,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.youtubePlayer.resumeVideo();
       // this.animal = result;
     });
   }
@@ -154,6 +159,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
       .pipe(takeWhile(v => this.currentTime < this.videoLength))
       .subscribe(time => {
         const subtitles = this.video.subtitles;
+        // console.log(subtitles);
         if (this.isPlayerReady) {
           this.currentTime = this.youtubePlayer.getCurrentTime();
           // console.log(time, this.currentTime);
@@ -167,16 +173,15 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
                 );
               }
             } else {
-              const currentSentence = subtitles.find(elem => {
+              this.selectedSentence = subtitles.findIndex(elem => {
                 // console.log(elem.startTime, elem.endTime);
                 return (
                   this.currentTime >= elem.startTime &&
                   this.currentTime <= elem.endTime
                 );
               });
-              this.selectedSentence = subtitles.indexOf(currentSentence);
             }
-            // console.log(currentSentence, this.selectedSentence);
+            // console.log('selectedSentence', this.selectedSentence);
           }
         }
       });

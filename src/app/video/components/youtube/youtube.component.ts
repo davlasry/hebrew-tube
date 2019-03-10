@@ -71,13 +71,6 @@ export class YoutubeComponent implements OnInit, AfterContentInit, OnDestroy {
     }
   }
 
-  getVideoId(link) {
-    console.log('getVideoId', link);
-    return link.match(
-      /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/
-    )[1];
-  }
-
   createPlayer() {
     this.videoWidth = this.videoElem.nativeElement.offsetWidth;
     this.videoHeight = this.videoElem.nativeElement.offsetHeight;
@@ -87,7 +80,7 @@ export class YoutubeComponent implements OnInit, AfterContentInit, OnDestroy {
       this.videoHeight
     );
     this.youtubePlayer.createPlayer(
-      this.getVideoId(this.video.link),
+      this.youtubePlayer.getVideoId(this.video.link),
       this.videoWidth,
       this.videoHeight
     );

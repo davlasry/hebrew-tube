@@ -108,7 +108,7 @@
 
   // On vérifie qu'un user est bien Admin, sinon on le jette
   async function isAdmin(req, res, next) {
-    console.log('isAdmin', req.body);
+    // console.log('isAdmin', req.body);
     try {
 
       if (!req.userID) {

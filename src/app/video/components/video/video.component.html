@@ -8,6 +8,9 @@
       <a [routerLink]="['/videos', 'edit', video._id]" *ngIf="isUserAdmin">
         <button mat-raised-button color="primary">EDIT</button>
       </a>
+      <button [routerLink]="['/videos', 'list']" mat-icon-button color="accent">
+        <mat-icon>arrow_back_ios</mat-icon>
+      </button>
     </div>
     <div class="video">
       <app-youtube [video]="video"></app-youtube>

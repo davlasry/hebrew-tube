@@ -1,0 +1,29 @@
+<mat-card class="video-card" [routerLink]="['/videos', video._id]">
+  <mat-card-header>
+    <div>
+      <button mat-icon-button color="accent">
+        <mat-icon>favorite_border</mat-icon>
+        <!-- <mat-icon (click)="">favorite_border</mat-icon> -->
+      </button>
+      <!-- <button mat-icon-button color="accent" *ngIf="checkIfWordInMyWords(word._id)">
+          <mat-icon (click)="">favorite</mat-icon>
+        </button> -->
+    </div>
+    <mat-card-title>{{video.name}}</mat-card-title>
+    <mat-card-subtitle>Category</mat-card-subtitle>
+  </mat-card-header>
+  <div mat-card-image class="loading" *ngIf="!loaded"></div>
+  <img mat-card-image src="{{getImageUrl()}}" (load)="onLoadImage()" alt="Photo of a Shiba Inu" [hidden]="!loaded">
+  <mat-card-content>
+
+    <p>
+      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+      bred for hunting. jdskdl fjdkfj djdjfkdjl fdjdkfj sjdkfjdlsk fjdksjfldkj skfdjfdk.
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="warn" (click)="onDeleteVideo()">DELETE</button>
+    <button mat-button>LIKE</button>
+  </mat-card-actions>
+</mat-card>

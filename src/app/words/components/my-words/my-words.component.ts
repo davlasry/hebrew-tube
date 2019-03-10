@@ -104,7 +104,7 @@ export class MyWordsComponent implements OnInit, OnChanges {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result);
-      // this.deleteFromMyWords.emit(result);
+      this.deleteFromMyWords.emit(result);
     });
   }
 }

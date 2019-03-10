@@ -1,0 +1,31 @@
+.video-card {
+  // width: 300px;
+  margin: 15px;
+  cursor: pointer;
+
+  mat-card-header {
+    flex-direction: row-reverse;
+
+
+    mat-card-title {
+      font-size: 20px;
+      font-weight: 500;
+      direction: rtl;
+    }
+
+    mat-card-subtitle {
+      direction: rtl;
+    }
+
+    /deep/ .mat-card-header-text {
+      flex: 1;
+    }
+  }
+
+
+
+  .loading {
+    padding-top: calc(75% + 36px);
+    background-color: rgb(180, 180, 180);
+  }
+}

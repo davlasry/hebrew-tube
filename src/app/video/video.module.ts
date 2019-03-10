@@ -16,6 +16,7 @@ import { MyVideosListContainerComponent } from './containers/my-videos-list-cont
 import { MyVideosListComponent } from './components/my-videos-list/my-videos-list.component';
 import { reducers } from './state';
 import { MyVideosEffects } from './state/effects/myVideos.effects';
+import { VideoCardComponent } from './components/video-card/video-card.component';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { MyVideosEffects } from './state/effects/myVideos.effects';
     VideosListContainerComponent,
     YoutubeComponent,
     MyVideosListComponent,
-    MyVideosListContainerComponent
+    MyVideosListContainerComponent,
+    VideoCardComponent
   ]
 })
 export class VideoModule {}

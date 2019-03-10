@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -38,7 +39,8 @@ import { YoutubeCurrentTime } from './pipes/youtubeCurrentTime';
     MatTableModule,
     MatSortModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    FlexLayoutModule
   ],
   exports: [
     CommonModule,
@@ -58,7 +60,8 @@ import { YoutubeCurrentTime } from './pipes/youtubeCurrentTime';
     MatSortModule,
     MatIconModule,
     MatDialogModule,
-    YoutubeCurrentTime
+    YoutubeCurrentTime,
+    FlexLayoutModule
   ]
 })
 export class SharedModule {}

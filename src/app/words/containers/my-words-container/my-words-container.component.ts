@@ -8,6 +8,7 @@ import {
 } from '../../state/actions/myWords.actions';
 import { MyWordsState } from '../../state/reducers/myWords.reducers';
 import { Observable } from 'rxjs';
+import { Word } from 'src/app/shared/models/word';
 
 @Component({
   selector: 'app-my-words-container',
@@ -16,7 +17,7 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyWordsContainerComponent implements OnInit {
-  myWords$;
+  myWords$: Observable<Word[]>;
   myWordsLoading$: Observable<Boolean>;
   currentUserId;
 
@@ -28,7 +29,7 @@ export class MyWordsContainerComponent implements OnInit {
       select(myWordsSelectors.getMyWordsLoading)
     );
     this.store
-      .select(getUser)
+      .pipe(select(getUser))
       .subscribe(user => (this.currentUserId = user.id));
   }
 
@@ -36,7 +37,7 @@ export class MyWordsContainerComponent implements OnInit {
     console.log('deleteFromMyWords', wordToDelete);
     this.store.dispatch(
       new DeleteFromMyWords({
-        wordID: wordToDelete._id,
+        wordID: wordToDelete.id_word,
         userId: this.currentUserId
       })
     );

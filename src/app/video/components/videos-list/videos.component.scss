@@ -16,23 +16,23 @@
 
   .is-videos {
     height: 100%;
-    overflow: auto;
-    flex: 1;
+    // overflow: auto;
+    // flex: 1;
     margin-top: 20px;
 
-    .video {
-      border-bottom: 1px solid grey;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
+    // .video {
+    //   border-bottom: 1px solid grey;
+    //   display: flex;
+    //   flex-direction: row;
+    //   justify-content: space-between;
+    //   align-items: center;
 
-      .video-buttons {
-        button {
-          margin-right: 20px;
-        }
-      }
-    }
+    //   .video-buttons {
+    //     button {
+    //       margin-right: 20px;
+    //     }
+    //   }
+    // }
   }
 
 }
