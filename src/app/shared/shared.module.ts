@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { YoutubeCurrentTime } from './pipes/youtubeCurrentTime';
 
@@ -38,7 +39,8 @@ import { YoutubeCurrentTime } from './pipes/youtubeCurrentTime';
     MatTableModule,
     MatSortModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule
   ],
   exports: [
     CommonModule,
@@ -58,6 +60,7 @@ import { YoutubeCurrentTime } from './pipes/youtubeCurrentTime';
     MatSortModule,
     MatIconModule,
     MatDialogModule,
+    MatMenuModule,
     YoutubeCurrentTime
   ]
 })
