@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="content" fxLayout="row">
+    <div class="word">
+      <p>{{ data.word.hebrew }}</p>
+      <p>{{ data.word.french }}</p>
+      <p>{{ data.word.pronunciation }}</p>
+      <p>{{ data.word.type }}</p>
+    </div>
+    <div class="playlists">
+      <h3>Playlists</h3>
+      <form [formGroup]="playlistsForm">
+        <div formArrayName="playlists">
+          <div
+            *ngFor="
+              let playlist of playlistsForm.controls.playlists.controls;
+              let i = index
+            "
+            [formGroupName]="i"
+            class="checkbox"
+          >
+            <mat-checkbox
+              formControlName="value"
+              [(indeterminate)]="indeterminate"
+              [labelPosition]="labelPosition"
+            >
+              {{ playlist.controls.name.value }}
+            </mat-checkbox>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button
+      mat-icon-button
+      color="accent"
+      (click)="deleteFromMyWords()"
+      *ngIf="(isWordFavorite$ | async)"
+    >
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      color="accent"
+      (click)="addToMyWords()"
+      *ngIf="!(isWordFavorite$ | async)"
+    >
+      <mat-icon>favorite_border</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" (click)="logForm()">
+      LOG FORM
+    </button>
+  </div>
+</div>

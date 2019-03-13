@@ -26,6 +26,7 @@ import { ViewWordDialogComponent } from './shared/dialogs/view-word/view-word.co
 import { AppComponent } from './core/layout/app.component';
 import { DeleteVideoDialogComponent } from './shared/dialogs/delete-video-dialog/delete-video-dialog.component';
 import { VideoModule } from './video/video.module';
+import { WordPlaylistsDialogComponent } from './shared/dialogs/word-playlists/word-playlists.component';
 
 @NgModule({
   declarations: [
@@ -34,14 +35,16 @@ import { VideoModule } from './video/video.module';
     DeleteVideoDialogComponent,
     EditWordDialogComponent,
     ProfileComponent,
-    ViewWordDialogComponent
+    ViewWordDialogComponent,
+    WordPlaylistsDialogComponent
   ],
   entryComponents: [
     AddNewWordComponent,
     DeleteDialogComponent,
     DeleteVideoDialogComponent,
     EditWordDialogComponent,
-    ViewWordDialogComponent
+    ViewWordDialogComponent,
+    WordPlaylistsDialogComponent
   ],
   imports: [
     AppRoutingModule,
