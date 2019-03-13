@@ -5,6 +5,7 @@ const router = require('express').Router();
 router.use('/user', require('./user.route'));
 router.use('/auth', require('./auth.route'));
 router.use('/word', require('./word.route'));
+router.use('/collection', require('./collection.route'));
 router.use('/video', require('./video.route'));
 router.use('/favorite', require('./favorite.route'));
 router.use('/context', require('./context.route'));

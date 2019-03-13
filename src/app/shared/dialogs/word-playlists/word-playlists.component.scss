@@ -1,13 +1,33 @@
+.container {
+  min-height: 500px;
+}
+
 .word {
-  min-width: 200px;
+  min-width: 300px;
   padding: 0 5px;
 }
 
 .playlists {
-  min-width: 200px;
+  min-width: 300px;
   padding: 0 5px;
 
   .checkbox {
     margin: 15px 0;
   }
+}
+
+mat-form-field {
+  margin-right: 10px;
+}
+
+/deep/ .mat-form-field-appearance-legacy .mat-form-field-label {
+  color: grey;
+}
+
+/deep/ .mat-form-field-ripple {
+  background-color: black !important;
+}
+
+/deep/ .mat-form-field-underline {
+  border-bottom: 1px solid grey !important;
 }

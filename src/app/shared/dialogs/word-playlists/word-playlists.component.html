@@ -7,49 +7,45 @@
       <p>{{ data.word.type }}</p>
     </div>
     <div class="playlists">
-      <h3>Playlists</h3>
+      <h3>Collections</h3>
       <form [formGroup]="playlistsForm">
         <div formArrayName="playlists">
-          <div
-            *ngFor="
-              let playlist of playlistsForm.controls.playlists.controls;
+          <div *ngFor="
+              let playlist of playlistsForm.controls['playlists'].controls;
               let i = index
             "
-            [formGroupName]="i"
-            class="checkbox"
-          >
-            <mat-checkbox
-              formControlName="value"
-              [(indeterminate)]="indeterminate"
-              [labelPosition]="labelPosition"
-            >
+            [formGroupName]="i" class="checkbox">
+            <mat-checkbox formControlName="value">
               {{ playlist.controls.name.value }}
             </mat-checkbox>
           </div>
+
         </div>
       </form>
+      <button mat-icon-button color="accent" (click)="onCreateCollection()" *ngIf="!createMode">
+        CREATE COLLECTION
+      </button>
+      <div class="create-collection" *ngIf="createMode">
+        <mat-form-field class="form-field">
+          <input type="email" matInput placeholder="Name" [(ngModel)]="newCollection">
+        </mat-form-field>
+        <button mat-icon-button color="accent" (click)="onSaveCollection()">
+          SAVE
+        </button>
+      </div>
     </div>
   </div>
 
   <div class="buttons">
-    <button
-      mat-icon-button
-      color="accent"
-      (click)="deleteFromMyWords()"
-      *ngIf="(isWordFavorite$ | async)"
-    >
+    <button mat-icon-button color="accent" (click)="deleteFromMyWords()" *ngIf="(isWordFavorite$ | async)">
       <mat-icon>favorite</mat-icon>
     </button>
-    <button
-      mat-icon-button
-      color="accent"
-      (click)="addToMyWords()"
-      *ngIf="!(isWordFavorite$ | async)"
-    >
+    <button mat-icon-button color="accent" (click)="addToMyWords()" *ngIf="!(isWordFavorite$ | async)">
       <mat-icon>favorite_border</mat-icon>
     </button>
     <button mat-icon-button color="accent" (click)="logForm()">
       LOG FORM
     </button>
+
   </div>
 </div>

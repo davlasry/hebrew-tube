@@ -7,7 +7,7 @@ import {
   FormControl
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import {
   AddToMyWords,
   DeleteFromMyWords
@@ -18,6 +18,7 @@ import {
   getAllMyWords,
   getMyWordsIds
 } from 'src/app/words/state/selectors/myWords.selectors';
+import { CollectionsService } from 'src/app/core/services/collections.service';
 
 @Component({
   selector: 'app-word-playlists',
@@ -26,6 +27,9 @@ import {
 })
 export class WordPlaylistsDialogComponent implements OnInit {
   isWordFavorite$;
+  createMode: Boolean;
+
+  newCollection;
 
   playlistsForm: FormGroup;
 
@@ -47,8 +51,11 @@ export class WordPlaylistsDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<WordPlaylistsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     private store: Store<any>,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    private collectionsService: CollectionsService
+  ) {
+    this.createMode = false;
+  }
 
   ngOnInit() {
     this.playlistsForm = this.formBuilder.group({
@@ -58,7 +65,8 @@ export class WordPlaylistsDialogComponent implements OnInit {
     console.log('this.playlistsForm', this.playlistsForm);
 
     // console.log(this.data);
-    this.isWordFavorite$ = this.store.select(getMyWordsIds).pipe(
+    this.isWordFavorite$ = this.store.pipe(
+      select(getMyWordsIds),
       map((myWords: string[]) => {
         console.log('getMyWordsIds', myWords);
         return myWords.indexOf(this.data.word._id) !== -1;
@@ -120,5 +128,19 @@ export class WordPlaylistsDialogComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onCreateCollection() {
+    this.createMode = true;
+  }
+
+  onSaveCollection() {
+    console.log('new collection', this.newCollection);
+    this.createMode = false;
+    this.collectionsService
+      .createCollection({ name: this.newCollection })
+      .subscribe(result => {
+        console.log(result);
+      });
   }
 }
