@@ -12,12 +12,8 @@ import {
   AddToMyWords,
   DeleteFromMyWords
 } from 'src/app/words/state/actions/myWords.actions';
-import { getUser } from 'src/app/authentication/state/user.selectors';
-import { map, distinctUntilChanged } from 'rxjs/operators';
-import {
-  getAllMyWords,
-  getMyWordsIds
-} from 'src/app/words/state/selectors/myWords.selectors';
+import { map } from 'rxjs/operators';
+import { getMyWordsIds } from 'src/app/words/state/selectors/myWords.selectors';
 import { CollectionsService } from 'src/app/core/services/collections.service';
 
 @Component({
