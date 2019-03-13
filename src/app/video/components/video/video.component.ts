@@ -236,6 +236,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   onClickNext() {
+    this.loopActivated = false;
     this.youtubePlayer.skipTo(
       parseInt(this.video.subtitles[this.selectedSentence + 1].startTime, 10) +
         0.5
@@ -245,6 +246,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   onClickPrevious() {
+    this.loopActivated = false;
     this.youtubePlayer.skipTo(
       parseInt(this.video.subtitles[this.selectedSentence - 1].startTime, 10) +
         0.5
@@ -254,6 +256,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   onClickBeginning() {
+    this.loopActivated = false;
     this.youtubePlayer.skipTo(0);
   }
 
