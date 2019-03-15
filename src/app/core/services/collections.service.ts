@@ -17,25 +17,22 @@ export class CollectionsService {
   }
 
   createCollection(collection): Observable<any> {
-    console.log('CREATE WORD SERVICE', collection);
+    console.log('CREATE COLLECTION SERVICE', collection);
     return this.http.post<any>(`${environment.API_URL}/collection`, collection);
   }
 
   deleteCollection(collectionId): Observable<any> {
-    console.log('DELETE WORD SERVICE', collectionId);
+    console.log('DELETE COLLECTION SERVICE', collectionId);
     return this.http.delete<any>(
       `${environment.API_URL}/collection/${collectionId}`
     );
   }
 
-  deleteManyCollections(collectionId): Observable<any> {
-    console.log('DELETE MANY WORDS SERVICE', collectionId);
-    return this.http.delete<any>(`${environment.API_URL}/collection/`);
+  updateCollection(collectionId): Observable<any> {
+    console.log('UPDATE COLLECTION SERVICE', collectionId);
+    return this.http.post<any>(
+      `${environment.API_URL}/collection/${collectionId}`,
+      collectionId
+    );
   }
-
-  // deleteManyCollections(collectionsIds): Observable<any> {
-  //   return this.http.delete<any>(`${environment.API_URL}/collection`, {
-  //     collectionsIds
-  //   });
-  // }
 }

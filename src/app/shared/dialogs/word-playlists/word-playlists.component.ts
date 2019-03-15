@@ -8,12 +8,6 @@ import {
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Store, select } from '@ngrx/store';
-import {
-  AddToMyWords,
-  DeleteFromMyWords
-} from 'src/app/words/state/actions/myWords.actions';
-import { map } from 'rxjs/operators';
-import { getMyWordsIds } from 'src/app/words/state/selectors/myWords.selectors';
 import { CollectionsService } from 'src/app/core/services/collections.service';
 
 @Component({
@@ -29,18 +23,6 @@ export class WordPlaylistsDialogComponent implements OnInit {
 
   playlistsForm: FormGroup;
 
-  mockPlaylists = [
-    {
-      name: 'Musique'
-    },
-    {
-      name: 'Documentaires'
-    },
-    {
-      name: 'Trailers'
-    }
-  ];
-
   playlists: FormArray;
 
   constructor(
@@ -55,75 +37,55 @@ export class WordPlaylistsDialogComponent implements OnInit {
 
   ngOnInit() {
     this.playlistsForm = this.formBuilder.group({
-      playlists: this.formBuilder.array(this.initPlaylist())
+      playlists: this.formBuilder.array([])
     });
 
     console.log('this.playlistsForm', this.playlistsForm);
 
-    // console.log(this.data);
-    this.isWordFavorite$ = this.store.pipe(
-      select(getMyWordsIds),
-      map((myWords: string[]) => {
-        console.log('getMyWordsIds', myWords);
-        return myWords.indexOf(this.data.word._id) !== -1;
-      })
-      // distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
-    );
-
-    this.isWordFavorite$.subscribe(val => console.log(val));
-
-    this.playlistsForm.valueChanges.subscribe(val => {
-      console.log(val);
-    });
+    this.getCollections();
   }
 
   get playlistsFormArray() {
-    return this.playlistsForm.get('playlistsGroup') as FormArray;
+    return this.playlistsForm.get('playlists') as FormArray;
   }
 
-  initPlaylist() {
-    const newMock = this.mockPlaylists.map(item => {
-      return this.formBuilder.group({
-        name: [item.name],
+  getCollections() {
+    this.collectionsService.getCollections().subscribe(result => {
+      console.log('getCollections result', result);
+      this.addPlaylist(result['data']);
+    });
+  }
+
+  addPlaylist(playlists) {
+    console.log('addPlaylist playlists', playlists);
+    if (playlists) {
+      for (const playlist of playlists) {
+        this.playlistsFormArray.push(
+          this.formBuilder.group({
+            name: [playlist.name],
+            value: [playlist.value],
+            _id: [playlist._id]
+          })
+        );
+        console.log('this.playlistsFormArray', this.playlistsFormArray);
+      }
+    } else {
+      const playlist = this.formBuilder.group({
+        name: [''],
         value: [false]
       });
-    });
-    console.log('newMock', newMock);
-    return newMock;
+      this.playlistsFormArray.push(playlist);
+    }
   }
 
-  logForm() {
-    console.log('this.playlistsForm', this.playlistsForm);
-  }
-
-  // createPlaylist(): void {
-  //   const playlistsFormArray = this.playlistsForm.controls[
-  //     'playlists'
-  //   ] as FormArray;
-  //   console.log('playlistsFormArray', playlistsFormArray);
-  //   playlistsFormArray.push(this.initPlaylist());
-  // }
-
-  addToMyWords() {
-    console.log('addToMyWords', this.data.word);
-    this.data.word.id_word = this.data.word._id;
-    this.store.dispatch(
-      new AddToMyWords({ word: this.data.word, userId: this.data.userId })
-    );
-  }
-
-  deleteFromMyWords() {
-    console.log('deleteFromMyWords data', this.data);
-    this.store.dispatch(
-      new DeleteFromMyWords({
-        wordID: this.data.word._id
-        // userId: this.data.userId
-      })
-    );
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
+  onCheckboxClick(event, collectionId) {
+    const value = event.checked;
+    console.log(collectionId, value);
+    if (value) {
+      // add word to collection
+    } else {
+      // remove word from collection
+    }
   }
 
   onCreateCollection() {
@@ -137,6 +99,11 @@ export class WordPlaylistsDialogComponent implements OnInit {
       .createCollection({ name: this.newCollection })
       .subscribe(result => {
         console.log(result);
+        this.addPlaylist([result.data]);
       });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }
