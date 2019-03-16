@@ -46,11 +46,11 @@
     return new Promise(async function (resolve, reject) {
       try {
 
-        console.log('existingVideo before merge', existingVideo);
+        // console.log('existingVideo before merge', existingVideo);
 
-        existingVideo.name = lodash.get(data, 'name');
-        existingVideo.subtitles = lodash.get(data, 'subtitles');
-        console.log('existingVideo after merge', existingVideo);
+        existingVideo.name = lodash.get(videoData, 'name');
+        existingVideo.subtitles = lodash.get(videoData, 'subtitles');
+        // console.log('existingVideo after merge', existingVideo);
         existingVideo.markModified('subtitles');
         const videoUpdated = await existingVideo.save();
         // const videoUpdated = await VideoMongo.findOneAndUpdate({
@@ -61,7 +61,7 @@
         //   return doc;
         // });
 
-        console.log('videoUpdated', videoUpdated);
+        // console.log('videoUpdated', videoUpdated);
 
         return resolve(videoUpdated);
 

@@ -1,5 +1,10 @@
 <div class="container" *ngIf="video">
   <div class="header">
+    <a [routerLink]="['/videos', 'list']">
+      <button mat-icon-button class="back-button" color="accent">
+        <mat-icon>arrow_back_ios</mat-icon>
+      </button>
+    </a>
     <h2>{{video.name}}</h2>
     <div style="flex: 1"></div>
     <a [routerLink]="['/videos', video._id]">
@@ -101,7 +106,11 @@
               <input type="text" placeholder="Pronunciation" matInput formControlName="pronunciation">
             </mat-form-field>
             <mat-form-field>
-              <input type="text" placeholder="Type" matInput formControlName="type">
+              <mat-select placeholder="Type" formControlName="type">
+                <mat-option *ngFor="let type of types" [value]="type.value">
+                  {{ type.viewValue }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
             <div class="move-word" *ngIf="subtitlesForm">
               <button mat-raised-button color="primary" [disabled]="j == getWordsFormArray(selectedSubtitle).length - 1"
@@ -121,3 +130,8 @@
     </div>
   </form>
 </div>
+
+<!--
+<div *ngFor="let subtitle of transcript">
+    {{subtitle._}}
+  </div> -->

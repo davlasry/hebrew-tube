@@ -24,6 +24,8 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button color="warn" (click)="onDeleteVideo()">DELETE</button>
-    <button mat-button>LIKE</button>
+    <a [routerLink]="['/videos', 'edit', video._id]">
+      <button mat-raised-button color="primary">EDIT</button>
+    </a>
   </mat-card-actions>
 </mat-card>

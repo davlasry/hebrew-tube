@@ -4,6 +4,9 @@ import { VideosService } from 'src/app/core/services/videos.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { startWith, map, filter } from 'rxjs/operators';
 import { WordsService } from 'src/app/core/services/words.service';
+import { YoutubeApiService } from 'src/app/core/services/youtube-api.service';
+
+import * as xml2js from 'xml2js';
 
 @Component({
   selector: 'app-edit-video',
@@ -20,11 +23,24 @@ export class EditVideoComponent implements OnInit {
 
   wordsList;
 
+  transcript;
+  newSubtitle;
+
+  types = [
+    { value: 'nom', viewValue: 'nom' },
+    { value: 'verbe', viewValue: 'verbe' },
+    { value: 'pronom', viewValue: 'pronom' },
+    { value: 'adjectif', viewValue: 'adjectif' },
+    { value: 'adverbe', viewValue: 'adverbe' },
+    { value: 'ponctuation', viewValue: 'ponctuation' }
+  ];
+
   constructor(
     private fb: FormBuilder,
     private videosService: VideosService,
     private router: Router,
     private route: ActivatedRoute,
+    private youtubeApiService: YoutubeApiService,
     private wordsService: WordsService // private store: Store<WordsState>
   ) {}
 
@@ -32,6 +48,43 @@ export class EditVideoComponent implements OnInit {
     this.getWords();
 
     this.getVideo();
+
+    const decodeHTML = function(html) {
+      const txt = document.createElement('textarea');
+      txt.innerHTML = html;
+      return txt.value;
+    };
+
+    this.youtubeApiService.getVideoSubtitlesXML().subscribe(result => {
+      // console.log(result);
+      const decodedResult = decodeHTML(result);
+      xml2js.Parser().parseString(decodedResult, (err, res) => {
+        console.log(res);
+        this.transcript = res.transcript.text;
+        this.transformTranscript();
+      });
+    });
+    // this.transcript = this.youtubeApiService.getVideoSubtitlesJson();
+    // console.log(this.transcript);
+  }
+
+  transformTranscript() {
+    // console.log('this.transcript', this.transcript);
+    this.newSubtitle = this.transcript.map(subtitle => {
+      // console.log('subtitle string', subtitle['_']);
+      let words = subtitle['_'].split(' ');
+      // console.log('words', words);
+      words = words.map(word => {
+        return { hebrew: word };
+      });
+      console.log('words', words);
+      return {
+        startTime: subtitle['$']['start'],
+        endTime: subtitle['$']['start'] + subtitle['$']['dur'],
+        words
+      };
+    });
+    console.log('this.newSubtitle', this.newSubtitle);
   }
 
   get subtitlesForm(): FormArray {
@@ -143,7 +196,8 @@ export class EditVideoComponent implements OnInit {
   }
 
   setWords() {
-    this.video.subtitles.forEach((subtitle, subtitleIndex) => {
+    // this.video.subtitles.forEach((subtitle, subtitleIndex) => {
+    this.newSubtitle.forEach((subtitle, subtitleIndex) => {
       // console.log(subtitle);
       this.subtitlesForm.push(
         this.fb.group({
@@ -157,12 +211,16 @@ export class EditVideoComponent implements OnInit {
         this.getWordsFormArray(subtitleIndex).push(
           this.fb.group({
             hebrew: [word.hebrew],
-            french: [word.french],
-            pronunciation: [word.pronunciation],
-            type: [word.type]
+            french: [word.french || ''],
+            pronunciation: [word.pronunciation || ''],
+            type: [word.type || '']
           })
         );
         // console.log(subtitleIndex, wordIndex);
+        // console.log(
+        //   'this.getWordsFormArray',
+        //   this.getWordsFormArray(subtitleIndex)
+        // );
         this.addAutocompletion(subtitleIndex, wordIndex);
       });
     });
