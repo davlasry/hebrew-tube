@@ -56,6 +56,12 @@
   async function updateCollection(req, res) {
     try {
       const collectionData = lodash.get(req, 'body');
+      const collectionId = lodash.get(collectionData, 'collectionId');
+      const wordId = lodash.get(collectionData, 'wordId');
+
+      console.log("updateCollection collectionId", collectionId);
+      console.log("updateCollection wordId", wordId);
+
       const collectionUpdated = await CollectionSvc.updateCollection(collectionData);
 
       return res.status(200).send({

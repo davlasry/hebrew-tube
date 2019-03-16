@@ -3,10 +3,16 @@
     <h2>{{video.name}}</h2>
     <div style="flex: 1"></div>
     <a [routerLink]="['/videos', video._id]">
-      <button mat-raised-button color="primary">VIEW</button>
+      <button mat-raised-button color="primary">
+        <mat-icon>visibility</mat-icon>
+        VIEW
+      </button>
     </a>
     <button mat-raised-button>Cancel</button>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!videoForm.valid" (click)="onSubmit()">Save</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!videoForm.valid" (click)="onSubmit()">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
   </div>
   <div class="middle-section">
     <div class="video-area">
@@ -62,14 +68,15 @@
     <div formArrayName="subtitles">
       <div [formGroupName]="selectedSubtitle" class="words-area">
         <div class="buttons">
-          <button mat-raised-button color="primary" [disabled]="selectedSubtitle == 0" (click)="goPreviousSubtitle()">
+          <button mat-raised-button color="primary" [disabled]="selectedSubtitle == subtitlesForm.length - 1" (click)="goNextSubtitle()">
             <mat-icon>chevron_left</mat-icon>
           </button>
+
           <button class="add-button" mat-raised-button color="primary" (click)="addWord(selectedSubtitle)">
             <mat-icon>add</mat-icon>
             Add word
           </button>
-          <button mat-raised-button color="primary" [disabled]="selectedSubtitle == subtitlesForm.length - 1" (click)="goNextSubtitle()">
+          <button mat-raised-button color="primary" [disabled]="selectedSubtitle == 0" (click)="goPreviousSubtitle()">
             <mat-icon>chevron_right</mat-icon>
           </button>
         </div>

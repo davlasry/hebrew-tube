@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -28,11 +28,11 @@ export class CollectionsService {
     );
   }
 
-  updateCollection(collectionId): Observable<any> {
-    console.log('UPDATE COLLECTION SERVICE', collectionId);
+  updateCollection(collectionId, wordId): Observable<any> {
+    console.log('UPDATE COLLECTION SERVICE', collectionId, wordId);
     return this.http.post<any>(
       `${environment.API_URL}/collection/${collectionId}`,
-      collectionId
+      { collectionId, wordId }
     );
   }
 }

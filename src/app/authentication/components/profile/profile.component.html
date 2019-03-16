@@ -2,23 +2,11 @@
   <div class="header">
     <h2>Mes informations</h2>
     <div class="buttons">
-      <button
-        *ngIf="!editMode"
-        mat-raised-button
-        color="primary"
-        [disabled]="false"
-        (click)="editMode = true"
-      >
+      <button *ngIf="!editMode" mat-raised-button color="primary" [disabled]="false" (click)="editMode = true">
         <mat-icon>edit</mat-icon>
         EDIT
       </button>
-      <button
-        *ngIf="editMode"
-        mat-raised-button
-        color="primary"
-        [disabled]="false"
-        (click)="onClickSave()"
-      >
+      <button *ngIf="editMode" mat-raised-button color="primary" [disabled]="false" (click)="onClickSave()">
         <mat-icon>save</mat-icon>
         SAVE
       </button>
@@ -42,57 +30,27 @@
       <form [formGroup]="userForm">
         <div>
           <mat-form-field class="form-field">
-            <input
-              type="text"
-              matInput
-              placeholder="Prenom"
-              formControlName="firstName"
-              required
-            />
+            <input type="text" matInput placeholder="Prenom" formControlName="firstName" required />
           </mat-form-field>
         </div>
         <div>
           <mat-form-field class="form-field">
-            <input
-              type="text"
-              matInput
-              placeholder="Nom"
-              formControlName="lastName"
-              required
-            />
+            <input type="text" matInput placeholder="Nom" formControlName="lastName" required />
           </mat-form-field>
         </div>
         <div>
           <mat-form-field class="form-field">
-            <input
-              type="text"
-              matInput
-              placeholder="Email"
-              formControlName="email"
-              required
-            />
+            <input type="text" matInput placeholder="Email" formControlName="email" required />
           </mat-form-field>
         </div>
         <div>
           <mat-form-field class="form-field">
-            <input
-              type="text"
-              matInput
-              placeholder="Role"
-              formControlName="role"
-              required
-            />
+            <input type="text" matInput placeholder="Role" formControlName="role" required />
           </mat-form-field>
         </div>
         <div>
           <mat-form-field class="form-field">
-            <input
-              type="text"
-              matInput
-              placeholder="Frist Name"
-              formControlName="firstName"
-              required
-            />
+            <input type="text" matInput placeholder="Frist Name" formControlName="firstName" required />
           </mat-form-field>
         </div>
       </form>

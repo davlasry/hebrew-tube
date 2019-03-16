@@ -57,7 +57,7 @@ export class WordPlaylistsDialogComponent implements OnInit {
   }
 
   addPlaylist(playlists) {
-    console.log('addPlaylist playlists', playlists);
+    // console.log('addPlaylist playlists', playlists);
     if (playlists) {
       for (const playlist of playlists) {
         this.playlistsFormArray.push(
@@ -67,7 +67,7 @@ export class WordPlaylistsDialogComponent implements OnInit {
             _id: [playlist._id]
           })
         );
-        console.log('this.playlistsFormArray', this.playlistsFormArray);
+        // console.log('this.playlistsFormArray', this.playlistsFormArray);
       }
     } else {
       const playlist = this.formBuilder.group({
@@ -81,8 +81,14 @@ export class WordPlaylistsDialogComponent implements OnInit {
   onCheckboxClick(event, collectionId) {
     const value = event.checked;
     console.log(collectionId, value);
+    console.log('this.data', this.data);
     if (value) {
       // add word to collection
+      this.collectionsService
+        .updateCollection(collectionId, this.data.word._id)
+        .subscribe(result => {
+          console.log('updateCollection result', result);
+        });
     } else {
       // remove word from collection
     }

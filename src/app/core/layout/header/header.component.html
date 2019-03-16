@@ -1,6 +1,6 @@
 <div class="header">
   <a class="logo" routerLink="">HT</a>
-  <nav fxLayout="column" fxLayoutAlign="space-between center">
+  <nav fxLayout="column" fxLayoutAlign="start center">
     <a [routerLink]="['/videos', 'list']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
       *ngIf="isLoggedIn">
       <mat-icon class="menu-icon">movie</mat-icon>
