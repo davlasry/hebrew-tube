@@ -56,15 +56,23 @@
     min-height: 100px;
     // overflow: hidden;
 
-    .sentence {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: row-reverse;
-      justify-content: center;
-      align-items: center;
+    .sentence-container {
       padding: 20px 20px;
       background-color: grey;
       flex: 1;
+      height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .sentence {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        justify-content: center;
+        align-items: center;
+      }
 
       .word {
         display: inline-block;

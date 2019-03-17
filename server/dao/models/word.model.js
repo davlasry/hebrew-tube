@@ -11,7 +11,7 @@
     },
     french: {
       type: String,
-      required: true
+      // required: true
     },
     pronunciation: String,
     type: String

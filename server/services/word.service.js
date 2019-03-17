@@ -34,8 +34,10 @@
    * @return {Promise<object>} - Les data du word
    */
   async function createWord(wordData) {
+    console.log('createWord', wordData);
 
-    if (!lodash.get(wordData, 'hebrew') || !lodash.get(wordData, 'french')) {
+    // if (!lodash.get(wordData, 'hebrew') || !lodash.get(wordData, 'french')) {
+    if (!lodash.get(wordData, 'hebrew')) {
       throw new Error({
         error: ('Invalid parameters')
       });
@@ -47,6 +49,7 @@
     // the word is automatically updated to the new params
     const existingWord = await checkExistingHebrewWord(lodash.get(wordData, 'hebrew'));
     if (existingWord) {
+      console.log("existingWord", existingWord);
       return await updateWord(wordData);
     }
 
@@ -63,19 +66,24 @@
    * @return {Promise<object>} - Les data du word
    */
   async function updateWord(wordData) {
+    console.log('updateWord service', wordData);
 
-    if (!lodash.get(wordData, 'hebrew') || !lodash.get(wordData, 'french')) {
+    // if (!lodash.get(wordData, 'hebrew') || !lodash.get(wordData, 'french')) {
+    if (!lodash.get(wordData, 'hebrew')) {
       throw new Error({
         error: ('Invalid parameters')
       });
     }
 
     const existingWord = await checkExistingHebrewWord(lodash.get(wordData, 'hebrew'));
+    console.log("updateWord service existingWord", existingWord);
     if (!existingWord) {
       throw new Error({
         error: ('Invalid parameters')
       });
     }
+
+    lodash.set(wordData, '_id', existingWord._id)
 
     return await WordDAO.updateWord(wordData);
 
@@ -141,8 +149,9 @@
   // Check si un mot contenant le champ hebrew est déjà présent
   // Renvoie true or false
   async function checkExistingHebrewWord(hebrewWord) {
-    const existingHebrewWord = await WordDAO.checkExistingHebrewWord(hebrewWord);
-    return !!existingHebrewWord;
+    return await WordDAO.checkExistingHebrewWord(hebrewWord);
+    console.log("checkExistingHebrewWord service", existingHebrewWord);
+    return existingHebrewWord;
 
   }
 

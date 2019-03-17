@@ -29,12 +29,12 @@
    */
   async function fromFrontToDBManager(subtitleData) {
 
-    // console.log('fromFrontToDBManager', subtitleData);
+    console.log('fromFrontToDBManager', subtitleData);
 
     const promises = [];
 
     for (let i = 0; i < subtitleData.length; i++) {
-      // console.log('subtitleData[i]', subtitleData[i]);
+      console.log('subtitleData[i]', subtitleData[i]);
 
       promises.push(await formatSubtitleToDB(subtitleData[i]));
     }
@@ -77,7 +77,7 @@
 
     const promises = [];
     for (let i = 0; i < subtitleWords.length; i++) {
-      // console.log('formatSubtitleToDb, subtitleWord', subtitleWords[i]);
+      console.log('formatSubtitleToDb, subtitleWord', subtitleWords[i]);
       promises.push(await WordSvc.createWord(subtitleWords[i]));
     }
 
@@ -85,7 +85,7 @@
 
     const wordsList = [];
     for (let j = 0; j < wordsData.length; j++) {
-      // console.log('formatSubtitleToDB word', wordsData[j]);
+      console.log('formatSubtitleToDB word', wordsData[j]);
       wordsList.push(lodash.get(wordsData[j], '_id'));
     }
 

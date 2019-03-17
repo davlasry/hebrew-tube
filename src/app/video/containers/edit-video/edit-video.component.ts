@@ -8,6 +8,12 @@ import { YoutubeApiService } from 'src/app/core/services/youtube-api.service';
 
 import * as xml2js from 'xml2js';
 
+import * as Subtitle from 'subtitle';
+
+// ES6 / TypeScript
+import { getSubtitles } from 'youtube-captions-scraper';
+import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-edit-video',
   templateUrl: './edit-video.component.html',
@@ -17,6 +23,8 @@ export class EditVideoComponent implements OnInit {
   videoForm: FormGroup;
   video: any;
 
+  convertSubtitles = false;
+
   selectedSubtitle = 0;
 
   filteredWords = [];
@@ -25,6 +33,11 @@ export class EditVideoComponent implements OnInit {
 
   transcript;
   newSubtitle;
+  captions = [];
+
+  finalResult;
+
+  srtCopy;
 
   types = [
     { value: 'nom', viewValue: 'nom' },
@@ -41,32 +54,54 @@ export class EditVideoComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private youtubeApiService: YoutubeApiService,
+    private http: HttpClient,
     private wordsService: WordsService // private store: Store<WordsState>
   ) {}
 
   ngOnInit() {
     this.getWords();
-
-    this.getVideo();
-
-    const decodeHTML = function(html) {
-      const txt = document.createElement('textarea');
-      txt.innerHTML = html;
-      return txt.value;
-    };
-
-    this.youtubeApiService.getVideoSubtitlesXML().subscribe(result => {
-      // console.log(result);
-      const decodedResult = decodeHTML(result);
-      xml2js.Parser().parseString(decodedResult, (err, res) => {
-        console.log(res);
-        this.transcript = res.transcript.text;
-        this.transformTranscript();
-      });
-    });
-    // this.transcript = this.youtubeApiService.getVideoSubtitlesJson();
-    // console.log(this.transcript);
   }
+
+  convertSrt() {
+    // console.log(this.srtCopy);
+    // console.log(Subtitle.parse(this.srtCopy));
+    let parsedSrt = Subtitle.parse(this.srtCopy);
+    parsedSrt = parsedSrt.map(subtitle => {
+      // console.log(subtitle);
+      let words = subtitle.text
+        .replace(/(?:\r\n|\r|\n)/g, ' ')
+        .replace('"', '"')
+        .match(/[a-z\u0590-\u05fe]+(?:'[a-z\u0590-\u05fe]+)*|[!?.](?![!?.])/g);
+      // console.log(words);
+      words = words.map(word => {
+        return { hebrew: word, french: '', pronunciation: '', type: '' };
+      });
+      // console.log(words);
+      return {
+        startTime: subtitle.start / 1000,
+        endTime: subtitle.end / 1000,
+        words
+      };
+    });
+    console.log(parsedSrt);
+    this.finalResult = parsedSrt;
+    console.log('this.finalResult', this.finalResult);
+    this.setWords(this.finalResult);
+    this.convertSubtitles = false;
+  }
+
+  timeToSeconds(time) {
+    console.log(time);
+    const timeArray = time.split(':');
+    return +timeArray[0] * 60 * 60 + +timeArray[1] * 60 + +timeArray[2];
+  }
+
+  decodeHTML = html => {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = html;
+    console.log('txt decodeHTML', txt);
+    return txt.value;
+  };
 
   transformTranscript() {
     // console.log('this.transcript', this.transcript);
@@ -75,9 +110,10 @@ export class EditVideoComponent implements OnInit {
       let words = subtitle['_'].split(' ');
       // console.log('words', words);
       words = words.map(word => {
-        return { hebrew: word };
+        word = word.replace('\n', ' ').replace('"', '');
+        return { hebrew: word, french: '', pronunciation: '', type: '' };
       });
-      console.log('words', words);
+      // console.log('words', words);
       return {
         startTime: subtitle['$']['start'],
         endTime: subtitle['$']['start'] + subtitle['$']['dur'],
@@ -107,6 +143,7 @@ export class EditVideoComponent implements OnInit {
     this.wordsService.getWords().subscribe(result => {
       this.wordsList = result['data'];
       console.log('getWords wordsList', this.wordsList);
+      this.getVideo();
     });
   }
 
@@ -164,7 +201,7 @@ export class EditVideoComponent implements OnInit {
       console.log('getVideo videodata', result);
       this.video = result.data;
       this.initVideoForm();
-      this.setWords();
+      this.setWords(this.video.subtitles);
     });
   }
 
@@ -195,9 +232,13 @@ export class EditVideoComponent implements OnInit {
     });
   }
 
-  setWords() {
+  setWords(videoData) {
+    console.log('videoData', videoData);
+    while (this.subtitlesForm.length !== 0) {
+      this.subtitlesForm.removeAt(0);
+    }
     // this.video.subtitles.forEach((subtitle, subtitleIndex) => {
-    this.newSubtitle.forEach((subtitle, subtitleIndex) => {
+    videoData.forEach((subtitle, subtitleIndex) => {
       // console.log(subtitle);
       this.subtitlesForm.push(
         this.fb.group({
@@ -208,6 +249,15 @@ export class EditVideoComponent implements OnInit {
       );
       subtitle.words.forEach((word, wordIndex) => {
         // console.log(word, wordIndex);
+        const foundWord = this.wordsList.find(existingWord => {
+          return existingWord.hebrew === word.hebrew;
+        });
+        console.log(foundWord);
+        if (foundWord) {
+          word.french = foundWord.french;
+          word.pronunciation = foundWord.pronunciation;
+          word.type = foundWord.type;
+        }
         this.getWordsFormArray(subtitleIndex).push(
           this.fb.group({
             hebrew: [word.hebrew],
@@ -284,7 +334,9 @@ export class EditVideoComponent implements OnInit {
     this.filteredWords[i].splice(j + 1, 0, filteredWord);
   }
 
-  resetForm() {}
+  resetForm() {
+    this.videoForm.reset();
+  }
 
   onSubmit() {
     // console.log(this.videoForm.get('youtubeLink'));

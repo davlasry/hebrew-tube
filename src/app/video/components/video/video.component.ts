@@ -30,7 +30,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
 
   definitionShowed = null;
 
-  selectedSentence = 0;
+  selectedSentence = -1;
 
   timer = interval(500);
 
@@ -151,7 +151,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
     this.videosService.getVideo(id).subscribe(result => {
       // console.log('getVideo result', result);
       this.video = result.data;
-      // console.log(this.video.subtitles);
+      console.log('this.video.subtitles', this.video.subtitles);
 
       /* Get current subtitle starting time */
       if (this.indexSubtitleStartTime) {

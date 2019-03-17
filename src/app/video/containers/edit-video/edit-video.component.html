@@ -1,4 +1,9 @@
-<div class="container" *ngIf="video">
+<div class="import" *ngIf="convertSubtitles">
+  <textarea name="" id="" cols="30" rows="10" [(ngModel)]="srtCopy"></textarea>
+  <button (click)="convertSubtitles=false">CANCEL</button>
+  <button (click)="convertSrt()">CONVERT</button>
+</div>
+<div class="container" *ngIf="video && !convertSubtitles">
   <div class="header">
     <a [routerLink]="['/videos', 'list']">
       <button mat-icon-button class="back-button" color="accent">
@@ -13,10 +18,13 @@
         VIEW
       </button>
     </a>
-    <button mat-raised-button>Cancel</button>
+    <button mat-raised-button color="primary" (click)="convertSubtitles=true">
+      CONVERT
+    </button>
+    <button mat-raised-button>RESET</button>
     <button mat-raised-button color="primary" type="submit" [disabled]="!videoForm.valid" (click)="onSubmit()">
       <mat-icon>save</mat-icon>
-      Save
+      SAVE
     </button>
   </div>
   <div class="middle-section">
@@ -100,7 +108,7 @@
             </mat-form-field>
 
             <mat-form-field>
-              <input type="text" placeholder="French" matInput formControlName="french">
+              <input type="text" placeholder="Français" matInput formControlName="french">
             </mat-form-field>
             <mat-form-field>
               <input type="text" placeholder="Pronunciation" matInput formControlName="pronunciation">

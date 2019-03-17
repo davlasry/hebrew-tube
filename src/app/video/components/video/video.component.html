@@ -34,17 +34,19 @@
           <mat-icon>chevron_left</mat-icon>
         </button>
       </div>
-      <div class="sentence">
-        <div class="word" *ngFor="
-            let word of video.subtitles[selectedSentence].words;
-            let i = index
-          "
-          (click)="onClickWord(word)" (mouseover)="showDefinition(i)" (mouseout)="showDefinition(null)">
-          <span>{{ word.hebrew }}</span>
-          <div class="definition" *ngIf="i === definitionShowed && word.french">
-            {{ word.french }}
-            <span *ngIf="word.pronunciation">
-              - [{{ word.pronunciation }}]</span>
+      <div class="sentence-container">
+        <div class="sentence" *ngIf="video.subtitles[selectedSentence]">
+          <div class="word" *ngFor="
+              let word of video.subtitles[selectedSentence].words;
+              let i = index
+            "
+            (click)="onClickWord(word)" (mouseover)="showDefinition(i)" (mouseout)="showDefinition(null)">
+            <span>{{ word.hebrew }}</span>
+            <div class="definition" *ngIf="i === definitionShowed && word.french">
+              {{ word.french }}
+              <span *ngIf="word.pronunciation">
+                - [{{ word.pronunciation }}]</span>
+            </div>
           </div>
         </div>
       </div>

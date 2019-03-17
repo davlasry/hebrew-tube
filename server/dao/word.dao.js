@@ -19,6 +19,7 @@
   };
 
   async function createWord(wordData) {
+    console.log('createWord Dao', wordData);
     return new Promise(async function (resolve, reject) {
       try {
 
@@ -43,6 +44,7 @@
   }
 
   async function updateWord(wordData) {
+    console.log('updateWord DAO', wordData);
     return new Promise(async function (resolve, reject) {
       try {
 
@@ -53,9 +55,15 @@
           return reject('nonExistingWord');
         }
 
-        existingWord.french = lodash.get(wordData, 'french');
+        if (lodash.get(wordData, 'french')) {
+          existingWord.french = lodash.get(wordData, 'french');
+        }
+        // lodash.set(existingWord, 'french', lodash.get(wordData, 'french'));
         existingWord.type = lodash.get(wordData, 'type');
         existingWord.pronunciation = lodash.get(wordData, 'pronunciation');
+        existingWord._id = lodash.get(wordData, '_id');
+
+        console.log("updateWord DAO existingWord", existingWord);
 
         const wordUpdated = await existingWord.save();
 
@@ -109,6 +117,7 @@
           console.log('Error in word.dao checkExistingHebrewWord', err);
           return reject(err);
         }
+        console.log("checkExistingHebrewWord word", res);
         return resolve(res);
       });
     });

@@ -23,7 +23,12 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const idToken = this.jwtService.getToken();
 
-    if (idToken && req.url.indexOf('google') === -1) {
+    console.log(req.url);
+
+    if (
+      idToken &&
+      (req.url.indexOf('google') === -1 && req.url.indexOf('youtube') === -1)
+    ) {
       // console.log('req.url interceptor', req.url);
       const cloned = req.clone({
         headers: req.headers.set('x-access-token', `${idToken}`)
