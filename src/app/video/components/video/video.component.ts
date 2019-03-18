@@ -152,7 +152,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
       // console.log('getVideo result', result);
       this.video = result.data;
       console.log('this.video.subtitles', this.video.subtitles);
-
+      if(this.video.subtitles[0].startTime>0){this.video.subtitles.unshift({startTime:0,endTime:this.video.subtitles[0].startTime, words: []})}
       /* Get current subtitle starting time */
       if (this.indexSubtitleStartTime) {
         this.subtitleStartTime = parseFloat(
