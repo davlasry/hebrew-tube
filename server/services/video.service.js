@@ -103,11 +103,10 @@
 
     const videoData = await VideoDAO.getVideo(videoID);
 
-    const subtitlesData = lodash.get(videoData, 'subtitles');
-    const subtitlesFormatted = await SubtitleSvc.fromDBToFrontManager(subtitlesData);
+    // const subtitlesData = lodash.get(videoData, 'subtitles');
+    // // const subtitlesFormatted = await SubtitleSvc.fromDBToFrontManager(subtitlesData);
 
-    lodash.set(videoData, 'subtitles', subtitlesFormatted);
-
+    // // lodash.set(videoData, 'subtitles', subtitlesFormatted);
     return videoData;
 
   }
