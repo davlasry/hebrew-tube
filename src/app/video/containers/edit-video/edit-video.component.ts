@@ -13,6 +13,8 @@ import * as Subtitle from 'subtitle';
 // ES6 / TypeScript
 import { getSubtitles } from 'youtube-captions-scraper';
 import { HttpClient } from '@angular/common/http';
+import { Store, select } from '@ngrx/store';
+import { getAllWords } from 'src/app/words/state/selectors/words.selectors';
 
 @Component({
   selector: 'app-edit-video',
@@ -55,6 +57,7 @@ export class EditVideoComponent implements OnInit {
     private route: ActivatedRoute,
     private youtubeApiService: YoutubeApiService,
     private http: HttpClient,
+    private store: Store<any>,
     private wordsService: WordsService // private store: Store<WordsState>
   ) {}
 
@@ -140,9 +143,9 @@ export class EditVideoComponent implements OnInit {
   }
 
   getWords() {
-    this.wordsService.getWords().subscribe(result => {
-      this.wordsList = result['data'];
-      console.log('getWords wordsList', this.wordsList);
+    this.store.pipe(select(getAllWords)).subscribe(words => {
+      this.wordsList = words;
+      console.log('this.wordsList', this.wordsList);
       this.getVideo();
     });
   }
@@ -252,7 +255,7 @@ export class EditVideoComponent implements OnInit {
         const foundWord = this.wordsList.find(existingWord => {
           return existingWord.hebrew === word.hebrew;
         });
-        console.log(foundWord);
+        // console.log(foundWord);
         if (foundWord) {
           word.french = foundWord.french;
           word.pronunciation = foundWord.pronunciation;
