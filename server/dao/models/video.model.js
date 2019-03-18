@@ -12,7 +12,14 @@
         type: String,
         required: true
       },
-      subtitles: mongoose.Schema.Types.Mixed
+      subtitles: [{
+        start: Number,
+        end: Number,
+        words: [{
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Word'
+        }]
+      }]
     },
     {
       timestamps: true
