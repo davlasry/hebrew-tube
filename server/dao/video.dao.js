@@ -77,15 +77,19 @@
 
   async function getVideo(videoID) {
     return new Promise(async function (resolve, reject) {
-      await VideoMongo.findOne({
-        _id: videoID
-      }, async function (err, res) {
-        if (err) {
-          console.log('Error in video.dao getVideo', err);
-          return reject(err);
-        }
-        return resolve(res);
-      });
+      return await VideoMongo.
+        findOne({_id: videoID}).
+        populate('subtitles.words').
+        exec(function (err, story) {
+          if(err) {
+            return reject(err);
+          }
+
+          return resolve(lodash.get(story, '_doc'));
+        });
+
+
+
     });
   }
 
