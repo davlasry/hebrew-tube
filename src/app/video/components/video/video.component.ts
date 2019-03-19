@@ -30,7 +30,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
 
   definitionShowed = null;
 
-  selectedSentence = -1;
+  selectedSentence = 0;
 
   timer = interval(500);
 
@@ -152,7 +152,14 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
       // console.log('getVideo result', result);
       this.video = result.data;
       console.log('this.video.subtitles', this.video.subtitles);
-      if(this.video.subtitles[0].startTime>0){this.video.subtitles.unshift({startTime:0,endTime:this.video.subtitles[0].startTime, words: []})}
+      if (this.video.subtitles[0].startTime > 0) {
+        this.video.subtitles.unshift({
+          startTime: 0,
+          endTime: this.video.subtitles[0].startTime - 0.05,
+          words: []
+        });
+      }
+      console.log('this.video.subtitles', this.video.subtitles);
       /* Get current subtitle starting time */
       if (this.indexSubtitleStartTime) {
         this.subtitleStartTime = parseFloat(
@@ -194,13 +201,17 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
       .pipe(takeWhile(v => this.currentTime < this.videoLength))
       .subscribe(time => {
         const subtitles = this.video.subtitles;
-        // console.log(subtitles);
+        console.log(subtitles);
         if (this.isPlayerReady) {
           this.currentTime = this.youtubePlayer.getCurrentTime();
-          // console.log(time, this.currentTime);
+          console.log(time, this.currentTime);
+          console.log(
+            'subtitles[subtitles.length - 1].endTime',
+            subtitles[subtitles.length - 1].endTime
+          );
           if (this.currentTime < subtitles[subtitles.length - 1].endTime) {
-            // console.log('subtitles', subtitles);
-            // console.log('loopActivated', this.loopActivated);
+            console.log('subtitles', subtitles);
+            console.log('loopActivated', this.loopActivated);
             if (this.loopActivated) {
               if (this.currentTime > subtitles[this.selectedSentence].endTime) {
                 this.youtubePlayer.skipTo(
@@ -209,14 +220,14 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
               }
             } else {
               this.selectedSentence = subtitles.findIndex(elem => {
-                // console.log(elem.startTime, elem.endTime);
+                console.log(elem.startTime, elem.endTime);
                 return (
                   this.currentTime >= elem.startTime &&
                   this.currentTime <= elem.endTime
                 );
               });
             }
-            // console.log('selectedSentence', this.selectedSentence);
+            console.log('selectedSentence', this.selectedSentence);
           }
         }
       });

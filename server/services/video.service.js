@@ -72,6 +72,7 @@
     }
 
     const existingVideo = await getVideo(videoID);
+    console.log("existingVideo", existingVideo);
     if (!existingVideo) {
       throw new Error('Bad ID - Invalid parameters');
     }

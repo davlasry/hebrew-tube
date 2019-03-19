@@ -344,9 +344,9 @@ export class EditVideoComponent implements OnInit {
       lastEdit: Date.now()
     });
     console.log(this.videoForm.value);
-    this.videosService.saveVideo(this.videoForm.value).subscribe(res => {
-      console.log(res);
-    });
+    // this.videosService.saveVideo(this.videoForm.value).subscribe(res => {
+    //   console.log(res);
+    // });
     // this.store.dispatch(new AddWord(this.wordForm.value));
     // this.router.navigateByUrl('/videos');
   }
