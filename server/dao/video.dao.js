@@ -42,9 +42,14 @@
 
   }
 
-  async function updateVideo(videoData, existingVideo) {
+  async function updateVideo(videoID, videoData) {
     return new Promise(async function (resolve, reject) {
       try {
+
+        const existingVideo = await VideoMongo.findOne({_id: videoID});
+        if (!!existingVideo === false) {
+          return reject('nonExisting video');
+        }
 
         // console.log('existingVideo before merge', existingVideo);
 
