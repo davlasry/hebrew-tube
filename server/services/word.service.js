@@ -34,7 +34,7 @@
    * @return {Promise<object>} - Les data du word
    */
   async function createWord(wordData) {
-    console.log('createWord', wordData);
+    // console.log('createWord', wordData);
 
     // if (!lodash.get(wordData, 'hebrew') || !lodash.get(wordData, 'french')) {
     if (!lodash.get(wordData, 'hebrew')) {
@@ -49,7 +49,7 @@
     // the word is automatically updated to the new params
     const existingWord = await checkExistingHebrewWord(lodash.get(wordData, 'hebrew'));
     if (existingWord) {
-      console.log("existingWord", existingWord);
+      // console.log("existingWord", existingWord);
       return await updateWord(wordData);
     }
 
@@ -66,7 +66,7 @@
    * @return {Promise<object>} - Les data du word
    */
   async function updateWord(wordData) {
-    console.log('updateWord service', wordData);
+    // console.log('updateWord service', wordData);
 
     // if (!lodash.get(wordData, 'hebrew') || !lodash.get(wordData, 'french')) {
     if (!lodash.get(wordData, 'hebrew')) {
@@ -76,7 +76,7 @@
     }
 
     const existingWord = await checkExistingHebrewWord(lodash.get(wordData, 'hebrew'));
-    console.log("updateWord service existingWord", existingWord);
+    // console.log("updateWord service existingWord", existingWord);
     if (!existingWord) {
       throw new Error({
         error: ('Invalid parameters')
@@ -126,12 +126,12 @@
    */
   async function deleteWord(wordID) {
 
-    console.log('deleteWord wordID', wordID);
+    // console.log('deleteWord wordID', wordID);
 
     const wordContexts = await ContextSvc.getAllContextsForWord(wordID);
 
     if (wordContexts.length > 0) {
-      console.log('WORD IS USED IN CONTEXTS');
+      // console.log('WORD IS USED IN CONTEXTS');
       throw new Error('Not allowed, word is used in Contexts');
     }
 
@@ -150,7 +150,7 @@
   // Renvoie true or false
   async function checkExistingHebrewWord(hebrewWord) {
     return await WordDAO.checkExistingHebrewWord(hebrewWord);
-    console.log("checkExistingHebrewWord service", existingHebrewWord);
+    // console.log("checkExistingHebrewWord service", existingHebrewWord);
     return existingHebrewWord;
 
   }

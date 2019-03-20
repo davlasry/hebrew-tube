@@ -31,7 +31,7 @@
    * @return {*} la requête
    */
   async function createWord(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     try {
       const wordData = lodash.get(req, 'body');
       const wordCreated = await WordSvc.createWord(wordData);
@@ -124,11 +124,11 @@
    * @return {*} la requête
    */
   async function deleteWord(req, res) {
-    console.log('deleteWord params', req.params);
+    // console.log('deleteWord params', req.params);
     try {
       const wordToDeleteID = lodash.get(req, 'params.wordID');
 
-      console.log('wordToDeleteID', wordToDeleteID);
+      // console.log('wordToDeleteID', wordToDeleteID);
 
       await WordSvc.deleteWord(wordToDeleteID);
 

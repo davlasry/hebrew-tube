@@ -72,7 +72,7 @@
     }
 
     const existingVideo = await getVideo(videoID);
-    console.log("existingVideo", existingVideo);
+    // console.log("existingVideo", existingVideo);
     if (!existingVideo) {
       throw new Error('Bad ID - Invalid parameters');
     }
@@ -80,11 +80,11 @@
     await ContextSvc.deleteContextsForVideo(videoID);
 
     const subtitlesData = lodash.get(videoData, 'subtitles');
-    console.log('subtitlesData', subtitlesData);
+    // console.log('subtitlesData', subtitlesData);
     const subtitlesFormatted = await SubtitleSvc.fromFrontToDBManager(subtitlesData);
-    console.log('subtitlesFormatted', subtitlesFormatted);
+    // console.log('subtitlesFormatted', subtitlesFormatted);
     lodash.set(videoData, 'subtitles', subtitlesFormatted);
-    console.log('nsewVideoData', videoData);
+    // console.log('nsewVideoData', videoData);
 
     await ContextSvc.createContextsForVideo(videoID, videoData);
 

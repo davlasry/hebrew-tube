@@ -57,7 +57,7 @@
 
         existingVideo.name = lodash.get(videoData, 'name');
         existingVideo.subtitles = lodash.get(videoData, 'subtitles');
-        console.log('existingVideo after merge', existingVideo);
+        // console.log('existingVideo after merge', existingVideo);
         // existingVideo.markModified('subtitles');
         const videoUpdated = await existingVideo.save();
         // const videoUpdated = await VideoMongo.findOneAndUpdate({
