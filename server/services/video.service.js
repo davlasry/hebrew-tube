@@ -88,7 +88,7 @@
 
     await ContextSvc.createContextsForVideo(videoID, videoData);
 
-    return await VideoDAO.updateVideo(videoData, existingVideo);
+    return await VideoDAO.updateVideo(videoID, videoData);
 
   }
 
