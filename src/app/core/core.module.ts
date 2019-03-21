@@ -8,16 +8,16 @@ import { SessionsService } from './services/sessions.service';
 import { VideosService } from './services/videos.service';
 import { UsersService } from './services/users.service';
 import { JwtService } from './services/jwt.service';
-import { HeaderComponent } from './layout/header/header.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './layout/home/home.component';
 import { AppComponent } from './layout/app.component';
 import { CollectionsService } from './services/collections.service';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule, SharedModule],
-  declarations: [HeaderComponent, AppComponent, HomeComponent],
+  declarations: [SidebarComponent, AppComponent, HomeComponent],
   providers: [
     WordsService,
     YoutubeApiService,
