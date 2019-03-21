@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(changes) {
-    console.log(changes);
+    // console.log(changes);
   }
 
   onClickSignout() {

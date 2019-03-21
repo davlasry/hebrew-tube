@@ -67,7 +67,7 @@ export class UsersService {
   }
 
   getVideosByUser(userId) {
-    console.log('getVideosByUser service', userId);
+    // console.log('getVideosByUser service', userId);
     return this.http.get<any>(`${environment.API_URL}/favorite/video`);
   }
 

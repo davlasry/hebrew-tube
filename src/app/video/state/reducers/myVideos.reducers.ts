@@ -34,7 +34,7 @@ export function myVideosReducer(
 ): MyVideosState {
   switch (action.type) {
     case myVideosActions.LOAD_MY_VIDEOS: {
-      console.log('LOAD MY VIDEOS ACTION', action.payload);
+      // console.log('LOAD MY VIDEOS REDUCER', action.payload);
       return {
         ...state,
         loading: true
@@ -42,7 +42,7 @@ export function myVideosReducer(
     }
 
     case myVideosActions.LOAD_MY_VIDEOS_SUCCESS: {
-      console.log('LOAD MY VIDEOS REDUCER', action.payload);
+      // console.log('LOAD MY VIDEOS SUCCESS REDUCER', action.payload);
       return adapter.addAll(action.payload, {
         ...state,
         loading: false,
@@ -51,17 +51,17 @@ export function myVideosReducer(
     }
 
     case myVideosActions.ADD_TO_MY_VIDEOS: {
-      console.log('ADD TO MY VIDEOS REDUCER', action.payload);
+      // console.log('ADD TO MY VIDEOS REDUCER', action.payload);
       return adapter.addOne(action.payload.video, state);
     }
 
     case myVideosActions.DELETE_MANY_FROM_MY_VIDEOS_SUCCESS: {
-      console.log('DELETE MANY FROM MY VIDEOS REDUCER', action.payload);
+      // console.log('DELETE MANY FROM MY VIDEOS REDUCER', action.payload);
       return adapter.removeMany(action.payload.videos, state);
     }
 
     case myVideosActions.DELETE_FROM_MY_VIDEOS_SUCCESS: {
-      console.log('DELETE FROM MY VIDEOS REDUCER', action.payload);
+      // console.log('DELETE FROM MY VIDEOS REDUCER', action.payload);
       return adapter.removeOne(action.payload, state);
     }
 

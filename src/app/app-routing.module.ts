@@ -6,6 +6,7 @@ import { ProfileComponent } from './authentication/components/profile/profile.co
 import { CustomPreloading } from './custom-preloading';
 import { AuthGuard } from './core/guards/auth-guard.service';
 import { HomeComponent } from './core/layout/home/home.component';
+import { LearnContainerComponent } from './learn/containers/learn-container/learn-container.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
