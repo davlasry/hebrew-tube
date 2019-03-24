@@ -152,7 +152,14 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
       // console.log('getVideo result', result);
       this.video = result.data;
       console.log('this.video.subtitles', this.video.subtitles);
-
+      if (this.video.subtitles[0].startTime > 0) {
+        this.video.subtitles.unshift({
+          startTime: 0,
+          endTime: this.video.subtitles[0].startTime - 0.05,
+          words: []
+        });
+      }
+      console.log('this.video.subtitles', this.video.subtitles);
       /* Get current subtitle starting time */
       if (this.indexSubtitleStartTime) {
         this.subtitleStartTime = parseFloat(
@@ -197,9 +204,18 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
         const subtitles = this.video.subtitles;
         // console.log(subtitles);
         if (this.isPlayerReady) {
+<<<<<<< HEAD
           // console.log('PLAYER READY');
           this.currentTime = this.youtubePlayer.getCurrentTime();
           console.log(time, this.currentTime);
+=======
+          this.currentTime = this.youtubePlayer.getCurrentTime() + 0.2;
+          // console.log(time, this.currentTime);
+          // console.log(
+          //   'subtitles[subtitles.length - 1].endTime',
+          //   subtitles[subtitles.length - 1].endTime
+          // );
+>>>>>>> 4ca9550f60cf43d6f5c435710acb7109bae38605
           if (this.currentTime < subtitles[subtitles.length - 1].endTime) {
             console.log(
               'subtitles[subtitles.length - 1].endTime',

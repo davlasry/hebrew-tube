@@ -10,12 +10,12 @@ import {
 import { UsersService } from 'src/app/core/services/users.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit, OnChanges {
+export class SidebarComponent implements OnInit, OnChanges {
   @Input() currentUser: any;
   @Input() isLoggedIn: Boolean;
   @Input() isAdmin: Boolean;
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(changes) {
-    console.log(changes);
+    // console.log(changes);
   }
 
   onClickSignout() {

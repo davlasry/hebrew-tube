@@ -5,28 +5,33 @@
       *ngIf="isLoggedIn">
       <mat-icon class="menu-icon">movie</mat-icon>
     </a>
-    <a [routerLink]="['/videos', 'favorite']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
-      *ngIf="isLoggedIn">
+    <a [routerLink]="['/videos', 'favorite']" [routerLinkActive]="['is-active']"
+      [routerLinkActiveOptions]="{ exact: true }" *ngIf="isLoggedIn">
       <mat-icon class="menu-icon">video_library</mat-icon>
     </a>
     <a [routerLink]="['/videos', 'create']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn"
       [routerLinkActiveOptions]="{ exact: true }">
       <mat-icon class="menu-icon">add_to_queue</mat-icon>
     </a>
-    <a [routerLink]="['/words/list']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn" [routerLinkActiveOptions]="{ exact: true }">
+    <a [routerLink]="['/words', 'list']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn"
+      [routerLinkActiveOptions]="{ exact: true }">
       <mat-icon class="menu-icon">library_books</mat-icon>
     </a>
-    <a [routerLink]="['/words/my-words']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn"
+    <a [routerLink]="['/words', 'my-words']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn"
       [routerLinkActiveOptions]="{ exact: true }">
       <mat-icon class="menu-icon">assignment</mat-icon>
     </a>
-    <a [routerLink]="['/users/list']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
+    <a [routerLink]="['/users', 'list']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
       *ngIf="isAdmin">
       <mat-icon class="menu-icon">people</mat-icon>
     </a>
-    <a [routerLink]="['/words/library/favoris']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
-      *ngIf="isLoggedIn">
+    <a [routerLink]="['/words/library/favoris']" [routerLinkActive]="['is-active']"
+      [routerLinkActiveOptions]="{ exact: true }" *ngIf="isLoggedIn">
       <mat-icon class="menu-icon">bookmarks</mat-icon>
+    </a>
+    <a [routerLink]="['/learn']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isLoggedIn">
+      <mat-icon class="menu-icon">school</mat-icon>
     </a>
     <a [routerLink]="['/login']" [routerLinkActive]="['is-active']" *ngIf="!isLoggedIn">Login</a>
     <a [routerLink]="['/signup']" [routerLinkActive]="['is-active']" *ngIf="!isLoggedIn">Signup</a>

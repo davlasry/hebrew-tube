@@ -35,14 +35,14 @@ export function allVideosReducer(
 ): AllVideosState {
   switch (action.type) {
     case fromVideos.LOAD_VIDEOS: {
-      console.log('LOAD VIDEOS REDUCER');
+      // console.log('LOAD VIDEOS REDUCER', action.payload);
       return Object.assign({}, state, {
         loading: true
       });
     }
 
     case fromVideos.LOAD_VIDEOS_SUCCESS: {
-      // console.log(action.payload);
+      // console.log('LOAD VIDEOS SUCCESS REDUCER', action.payload);
       return adapter.addAll(action.payload, {
         ...state,
         loading: false,
@@ -51,7 +51,7 @@ export function allVideosReducer(
     }
 
     case fromVideos.DELETE_VIDEO_SUCCESS: {
-      console.log('DELETE VIDEO SUCCESS REDUCER', action.payload);
+      // console.log('DELETE VIDEO SUCCESS REDUCER', action.payload);
       return adapter.removeOne(action.payload, state);
     }
 
@@ -61,7 +61,7 @@ export function allVideosReducer(
     }
 
     case fromVideos.CREATE_VIDEO_SUCCESS: {
-      console.log('CREATE VIDEO SUCCESS REDUCER', action.payload);
+      // console.log('CREATE VIDEO SUCCESS REDUCER', action.payload);
       return adapter.addOne(action.payload, state);
     }
 

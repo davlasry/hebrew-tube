@@ -1,7 +1,7 @@
 <div class="import" *ngIf="convertSubtitles">
   <textarea name="" id="" cols="30" rows="10" [(ngModel)]="srtCopy"></textarea>
   <button (click)="convertSubtitles=false">CANCEL</button>
-  <button (click)="convertSrt()">CONVERT</button>
+  <button (click)="convertSrt()">IMPORT</button>
 </div>
 <div class="container" *ngIf="video && !convertSubtitles">
   <div class="header">
@@ -19,7 +19,7 @@
       </button>
     </a>
     <button mat-raised-button color="primary" (click)="convertSubtitles=true">
-      CONVERT
+      IMPORT
     </button>
     <button mat-raised-button>RESET</button>
     <button mat-raised-button color="primary" type="submit" [disabled]="!videoForm.valid" (click)="onSubmit()">

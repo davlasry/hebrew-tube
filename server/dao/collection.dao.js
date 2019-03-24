@@ -111,7 +111,7 @@
   async function deleteCollection(collectionID) {
     console.log('deleteCollection DAO', collectionID);
     return new Promise(async function (resolve, reject) {
-      await CollectionMongo.remove({
+      await CollectionMongo.deleteOne({
         _id: collectionID
       }, async function (err, res) {
         if (err) {

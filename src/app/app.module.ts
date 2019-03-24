@@ -27,6 +27,7 @@ import { AppComponent } from './core/layout/app.component';
 import { DeleteVideoDialogComponent } from './shared/dialogs/delete-video-dialog/delete-video-dialog.component';
 import { VideoModule } from './video/video.module';
 import { WordPlaylistsDialogComponent } from './shared/dialogs/word-playlists/word-playlists.component';
+import { LearnModule } from './learn/learn.module';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { WordPlaylistsDialogComponent } from './shared/dialogs/word-playlists/wo
   ],
   imports: [
     AppRoutingModule,
+    LearnModule,
     UserModule,
     BrowserModule,
     BrowserAnimationsModule,
