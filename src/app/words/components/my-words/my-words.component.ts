@@ -14,7 +14,7 @@ import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { DeleteDialogComponent } from 'src/app/shared/dialogs/delete-word-dialog/delete-dialog.component';
-import { WordPlaylistsDialogComponent } from 'src/app/shared/dialogs/word-playlists/word-playlists.component';
+import { WordPlaylistsDialogComponent } from 'src/app/shared/dialogs/word-collections/word-playlists.component';
 
 @Component({
   selector: 'app-my-words',

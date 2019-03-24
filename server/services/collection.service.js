@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // External dependencies
@@ -13,18 +13,17 @@
   const ContextSvc = require('./context.service');
   const FavoriteSvc = require('./favorite.service');
 
-
   // Interface du service
   module.exports = {
     createCollection: createCollection,
     updateCollection: updateCollection,
+    addWordToCollection: addWordToCollection,
     getCollection: getCollection,
     getAllCollections: getAllCollections,
     deleteCollection: deleteCollection
   };
 
   // Implémentation
-
 
   /**
    * @description Création d'un collection
@@ -34,28 +33,26 @@
    * @return {Promise<object>} - Les data du collection
    */
   async function createCollection(collectionData) {
-
-    console.log("collectionData", collectionData);
+    console.log('collectionData', collectionData);
 
     if (!lodash.get(collectionData, 'name')) {
       throw new Error({
-        error: ('Invalid parameters')
+        error: 'Invalid parameters'
       });
     }
-
 
     // IMPORTANT NOTE
     // In here, if the user wants to create a collection but there already is an existing one with the same field name,
     // the collection is automatically updated to the new params
-    const existingCollection = await checkExistingCollection(lodash.get(collectionData, 'name'));
+    const existingCollection = await checkExistingCollection(
+      lodash.get(collectionData, 'name')
+    );
     if (existingCollection) {
       return await updateCollection(collectionData);
     }
 
     return await CollectionDAO.createCollection(collectionData);
-
   }
-
 
   /**
    * @description Update d'un collection
@@ -65,24 +62,52 @@
    * @return {Promise<object>} - Les data du collection
    */
   async function updateCollection(collectionData) {
-
-    if (!lodash.get(collectionData, 'hebrew') || !lodash.get(collectionData, 'french')) {
+    if (
+      !lodash.get(collectionData, 'hebrew') ||
+      !lodash.get(collectionData, 'french')
+    ) {
       throw new Error({
-        error: ('Invalid parameters')
+        error: 'Invalid parameters'
       });
     }
 
-    const existingCollection = await checkExistingHebrewCollection(lodash.get(collectionData, 'hebrew'));
+    const existingCollection = await checkExistingHebrewCollection(
+      lodash.get(collectionData, 'hebrew')
+    );
     if (!existingCollection) {
       throw new Error({
-        error: ('Invalid parameters')
+        error: 'Invalid parameters'
       });
     }
 
     return await CollectionDAO.updateCollection(collectionData);
-
   }
 
+  /**
+   * @description Update d'un collection
+   *
+   * @param {string} collectionData - data du collection
+   *
+   * @return {Promise<object>} - Les data du collection
+   */
+  async function addWordToCollection(collectionId, wordId) {
+    if (!collectionId || !wordId) {
+      throw new Error({
+        error: 'Invalid parameters'
+      });
+    }
+
+    // const existingCollection = await checkExistingWordInCollection(
+    //   lodash.get(collectionData, 'hebrew')
+    // );
+    // if (!existingCollection) {
+    //   throw new Error({
+    //     error: 'Invalid parameters'
+    //   });
+    // }
+
+    return await CollectionDAO.addWordToCollection(collectionData);
+  }
 
   /**
    * @description Récupère les data d'un collection par son ID
@@ -92,9 +117,7 @@
    * @return {Promise<object>} - Le collection
    */
   async function getCollection(collectionID) {
-
     return await CollectionDAO.getCollection(collectionID);
-
   }
 
   /**
@@ -105,11 +128,8 @@
    * @return {Promise<object>} - Les data de tous les collections
    */
   async function getAllCollections() {
-
     return await CollectionDAO.getAllCollections();
-
   }
-
 
   /**
    * @description Suppression d'un collection par son ID
@@ -119,10 +139,11 @@
    * @return {Promise<object>} - Confirmation delete
    */
   async function deleteCollection(collectionID) {
-
     console.log('deleteCollection collectionID', collectionID);
 
-    const collectionContexts = await ContextSvc.getAllContextsForCollection(collectionID);
+    const collectionContexts = await ContextSvc.getAllContextsForCollection(
+      collectionID
+    );
 
     if (collectionContexts.length > 0) {
       console.log('WORD IS USED IN CONTEXTS');
@@ -132,21 +153,16 @@
     await FavoriteSvc.deleteAllFavoritesWithCollection(collectionID);
 
     return await CollectionDAO.deleteCollection(collectionID);
-
   }
-
-
-
 
   /* private function */
 
   // Check si un mot contenant le champ name est déjà présent
   // Renvoie true or false
   async function checkExistingCollection(nameCollection) {
-    const existingCollection = await CollectionDAO.checkExistingCollection(nameCollection);
+    const existingCollection = await CollectionDAO.checkExistingCollection(
+      nameCollection
+    );
     return !!existingCollection;
-
   }
-
-
 })();

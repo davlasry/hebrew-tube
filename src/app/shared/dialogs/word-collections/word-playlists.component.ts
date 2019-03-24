@@ -85,7 +85,7 @@ export class WordPlaylistsDialogComponent implements OnInit {
     if (value) {
       // add word to collection
       this.collectionsService
-        .updateCollection(collectionId, this.data.word._id)
+        .adWordToCollection(collectionId, this.data.word._id)
         .subscribe(result => {
           console.log('updateCollection result', result);
         });
