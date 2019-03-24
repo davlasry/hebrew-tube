@@ -30,7 +30,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
 
   definitionShowed = null;
 
-  selectedSentence = -1;
+  selectedSentence = 0;
 
   timer = interval(500);
 
@@ -193,12 +193,18 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
     this.timerSubscription = this.timer
       .pipe(takeWhile(v => this.currentTime < this.videoLength))
       .subscribe(time => {
+        // console.log(time);
         const subtitles = this.video.subtitles;
         // console.log(subtitles);
         if (this.isPlayerReady) {
+          // console.log('PLAYER READY');
           this.currentTime = this.youtubePlayer.getCurrentTime();
-          // console.log(time, this.currentTime);
+          console.log(time, this.currentTime);
           if (this.currentTime < subtitles[subtitles.length - 1].endTime) {
+            console.log(
+              'subtitles[subtitles.length - 1].endTime',
+              subtitles[subtitles.length - 1].endTime
+            );
             // console.log('subtitles', subtitles);
             // console.log('loopActivated', this.loopActivated);
             if (this.loopActivated) {
@@ -208,6 +214,11 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
                 );
               }
             } else {
+              console.log(
+                'subtitles[this.selectedSentence]',
+                subtitles[this.selectedSentence]
+              );
+              console.log('this.selectedSentence', this.selectedSentence);
               this.selectedSentence = subtitles.findIndex(elem => {
                 // console.log(elem.startTime, elem.endTime);
                 return (
