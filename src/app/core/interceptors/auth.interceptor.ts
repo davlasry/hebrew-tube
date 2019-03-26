@@ -29,7 +29,7 @@ export class AuthInterceptor implements HttpInterceptor {
       idToken &&
       (req.url.indexOf('google') === -1 && req.url.indexOf('youtube') === -1)
     ) {
-      console.log('req.url interceptor', req.url);
+      // console.log('req.url interceptor', req.url);
       const cloned = req.clone({
         headers: req.headers.set('x-access-token', `${idToken}`)
       });
@@ -37,7 +37,7 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(cloned).pipe(
         map((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
-            console.log('event--->>>', event);
+            // console.log('event--->>>', event);
           }
           return event;
         }),

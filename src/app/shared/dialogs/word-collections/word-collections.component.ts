@@ -31,14 +31,14 @@ export class WordCollectionsDialogComponent implements OnInit {
     private store: Store<any>,
     private formBuilder: FormBuilder,
     private collectionsService: CollectionsService
-  ) {
-    this.createMode = false;
-  }
+  ) {}
 
   ngOnInit() {
     this.playlistsForm = this.formBuilder.group({
       playlists: this.formBuilder.array([])
     });
+
+    this.createMode = false;
 
     console.log('this.playlistsForm', this.playlistsForm);
 
@@ -101,6 +101,7 @@ export class WordCollectionsDialogComponent implements OnInit {
 
   onCreateCollection() {
     this.createMode = true;
+    this.newCollection = '';
   }
 
   onSaveCollection() {

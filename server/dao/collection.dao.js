@@ -20,11 +20,12 @@
     deleteWordFromCollection: deleteWordFromCollection
   };
 
-  async function createCollection(collectionData) {
+  async function createCollection(collectionData, userID) {
     return new Promise(async function(resolve, reject) {
       try {
         const data = {
-          name: lodash.get(collectionData, 'name')
+          name: lodash.get(collectionData, 'name'),
+          id_user: userID
         };
 
         const newCollection = new CollectionMongo(data);
@@ -131,11 +132,12 @@
     });
   }
 
-  async function checkExistingCollection(name) {
+  async function checkExistingCollection(name, userID) {
     return new Promise(async function(resolve, reject) {
       await CollectionMongo.findOne(
         {
-          name: name
+          name: name,
+          id_user: userID
         },
         async function(err, res) {
           if (err) {

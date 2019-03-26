@@ -32,8 +32,10 @@
   async function createCollection(req, res) {
     try {
       const collectionData = lodash.get(req, 'body');
+      const userID = lodash.get(req, 'userID');
       const collectionCreated = await CollectionSvc.createCollection(
-        collectionData
+        collectionData,
+        userID
       );
 
       return res.status(200).send({

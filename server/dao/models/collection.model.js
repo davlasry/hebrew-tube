@@ -9,6 +9,7 @@
         type: String,
         required: true
       },
+      id_user: String,
       words: [
         {
           type: mongoose.Schema.Types.ObjectId,

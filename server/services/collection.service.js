@@ -33,7 +33,7 @@
    *
    * @return {Promise<object>} - Les data du collection
    */
-  async function createCollection(collectionData) {
+  async function createCollection(collectionData, userID) {
     // console.log('collectionData', collectionData);
 
     if (!lodash.get(collectionData, 'name')) {
@@ -52,7 +52,7 @@
       return await updateCollection(collectionData);
     }
 
-    return await CollectionDAO.createCollection(collectionData);
+    return await CollectionDAO.createCollection(collectionData, userID);
   }
 
   /**
