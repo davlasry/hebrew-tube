@@ -34,7 +34,7 @@
    * @return {Promise<object>} - Les data du collection
    */
   async function createCollection(collectionData) {
-    console.log('collectionData', collectionData);
+    // console.log('collectionData', collectionData);
 
     if (!lodash.get(collectionData, 'name')) {
       throw new Error({
@@ -92,8 +92,8 @@
    * @return {Promise<object>} - Les data du collection
    */
   async function addWordToCollection(collectionId, wordId) {
-    console.log('addWordToCollectio SERVICE wordId:', wordId);
-    console.log('addWordToCollectio SERVICE collectionId:', collectionId);
+    // console.log('addWordToCollectio SERVICE wordId:', wordId);
+    // console.log('addWordToCollectio SERVICE collectionId:', collectionId);
     if (!collectionId || !wordId) {
       throw new Error({
         error: 'Invalid parameters'
@@ -104,8 +104,8 @@
   }
 
   async function deleteWordFromCollection(collectionId, wordId) {
-    console.log('deleteWordFromCollection SERVICE wordId:', wordId);
-    console.log('deleteWordFromCollection SERVICE collectionId:', collectionId);
+    // console.log('deleteWordFromCollection SERVICE wordId:', wordId);
+    // console.log('deleteWordFromCollection SERVICE collectionId:', collectionId);
     if (!collectionId || !wordId) {
       throw new Error({
         error: 'Invalid parameters'

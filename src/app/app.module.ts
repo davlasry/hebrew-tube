@@ -27,7 +27,7 @@ import { AppComponent } from './core/layout/app.component';
 import { DeleteVideoDialogComponent } from './shared/dialogs/delete-video-dialog/delete-video-dialog.component';
 import { VideoModule } from './video/video.module';
 import { LearnModule } from './learn/learn.module';
-import { WordPlaylistsDialogComponent } from './shared/dialogs/word-collections/word-playlists.component';
+import { WordCollectionsDialogComponent } from './shared/dialogs/word-collections/word-collections.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { WordPlaylistsDialogComponent } from './shared/dialogs/word-collections/
     EditWordDialogComponent,
     ProfileComponent,
     ViewWordDialogComponent,
-    WordPlaylistsDialogComponent
+    WordCollectionsDialogComponent
   ],
   entryComponents: [
     AddNewWordComponent,
@@ -45,7 +45,7 @@ import { WordPlaylistsDialogComponent } from './shared/dialogs/word-collections/
     DeleteVideoDialogComponent,
     EditWordDialogComponent,
     ViewWordDialogComponent,
-    WordPlaylistsDialogComponent
+    WordCollectionsDialogComponent
   ],
   imports: [
     AppRoutingModule,

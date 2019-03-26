@@ -14,7 +14,7 @@ import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { DeleteDialogComponent } from 'src/app/shared/dialogs/delete-word-dialog/delete-dialog.component';
-import { WordPlaylistsDialogComponent } from 'src/app/shared/dialogs/word-collections/word-playlists.component';
+import { WordCollectionsDialogComponent } from 'src/app/shared/dialogs/word-collections/word-collections.component';
 
 @Component({
   selector: 'app-my-words',
@@ -115,7 +115,7 @@ export class MyWordsComponent implements OnInit, OnChanges {
 
   onClickFavorite(event, word) {
     event.stopPropagation();
-    const dialogRef = this.dialog.open(WordPlaylistsDialogComponent, {
+    const dialogRef = this.dialog.open(WordCollectionsDialogComponent, {
       // width: '250px',
       data: { word: word }
     });

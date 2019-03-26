@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WordPlaylistsDialogComponent } from './word-playlists.component';
+import { WordCollectionsDialogComponent } from './word-collections.component';
 
 describe('AddNewWordComponent', () => {
-  let component: WordPlaylistsDialogComponent;
-  let fixture: ComponentFixture<WordPlaylistsDialogComponent>;
+  let component: WordCollectionsDialogComponent;
+  let fixture: ComponentFixture<WordCollectionsDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [WordPlaylistsDialogComponent]
+      declarations: [WordCollectionsDialogComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WordPlaylistsDialogComponent);
+    fixture = TestBed.createComponent(WordCollectionsDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

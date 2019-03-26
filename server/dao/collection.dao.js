@@ -59,13 +59,11 @@
   }
 
   async function addWordToCollection(collectionId, wordId) {
-    console.log('addWordToCollection DAO collectionId', collectionId);
-    console.log('addWordToCollection DAO wordId', wordId);
+    // console.log('addWordToCollection DAO collectionId', collectionId);
+    // console.log('addWordToCollection DAO wordId', wordId);
     return new Promise(async function(resolve, reject) {
       try {
         const collection = await CollectionMongo.findOne({ _id: collectionId });
-
-        console.log(collection.words);
 
         if (collection.words.indexOf(wordId.toString()) == -1) {
           collection.words.push(wordId);
@@ -74,7 +72,7 @@
           throw new Error('Word already exists in collection');
         }
 
-        console.log('addWordToCollection collection:', collection);
+        // console.log('addWordToCollection collection:', collection);
 
         return resolve(collection);
       } catch (err) {
@@ -85,18 +83,16 @@
   }
 
   async function deleteWordFromCollection(collectionId, wordId) {
-    console.log('deleteWordFromCollection DAO collectionId', collectionId);
-    console.log('deleteWordFromCollection DAO wordId', wordId);
+    // console.log('deleteWordFromCollection DAO collectionId', collectionId);
+    // console.log('deleteWordFromCollection DAO wordId', wordId);
     return new Promise(async function(resolve, reject) {
       try {
         const collection = await CollectionMongo.findOne({ _id: collectionId });
 
-        console.log(collection.words);
-
         collection.words.splice(collection.words.indexOf(wordId), 1);
         collection.save();
 
-        console.log('collection:', collection);
+        // console.log('collection deleteWordFromCollection:', collection);
 
         return resolve(collection);
       } catch (err) {

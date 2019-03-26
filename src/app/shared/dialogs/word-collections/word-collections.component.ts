@@ -11,11 +11,11 @@ import { Store, select } from '@ngrx/store';
 import { CollectionsService } from 'src/app/core/services/collections.service';
 
 @Component({
-  selector: 'app-word-playlists',
-  templateUrl: './word-playlists.component.html',
-  styleUrls: ['./word-playlists.component.scss']
+  selector: 'app-word-collections',
+  templateUrl: './word-collections.component.html',
+  styleUrls: ['./word-collections.component.scss']
 })
-export class WordPlaylistsDialogComponent implements OnInit {
+export class WordCollectionsDialogComponent implements OnInit {
   isWordFavorite$;
   createMode: Boolean;
 
@@ -26,7 +26,7 @@ export class WordPlaylistsDialogComponent implements OnInit {
   playlists: FormArray;
 
   constructor(
-    public dialogRef: MatDialogRef<WordPlaylistsDialogComponent>,
+    public dialogRef: MatDialogRef<WordCollectionsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     private store: Store<any>,
     private formBuilder: FormBuilder,
@@ -63,7 +63,7 @@ export class WordPlaylistsDialogComponent implements OnInit {
         this.playlistsFormArray.push(
           this.formBuilder.group({
             name: [playlist.name],
-            value: [playlist.value],
+            value: [playlist.words.indexOf(this.data.word._id) !== -1],
             _id: [playlist._id]
           })
         );
