@@ -20,7 +20,7 @@
     getCollection: getCollection,
     getAllCollections: getAllCollections,
     deleteCollection: deleteCollection,
-    deleteCollections: deleteCollections
+    deleteWordFromCollection: deleteWordFromCollection
   };
 
   /**
@@ -85,19 +85,59 @@
    * @return {*} la requête
    */
   async function addWordToCollection(req, res) {
+    console.log('addWordToCollection IN');
     try {
       const collectionId = lodash.get(req, 'params.collectionID');
       const data = lodash.get(req, 'body');
       const wordId = lodash.get(data, 'wordId');
 
-      console.log('updateCollection collectionId', collectionId);
-      console.log('updateCollection wordId', wordId);
+      console.log('addWordToCollection collectionId', collectionId);
+      console.log('addWordToCollection wordId', wordId);
 
       const collectionUpdated = await CollectionSvc.addWordToCollection(
         collectionId,
         wordId
       );
 
+      console.log(
+        'collectionUpdated addWordToCollection Service',
+        collectionUpdated
+      );
+      return res.status(200).send({
+        data: collectionUpdated
+      });
+    } catch (err) {
+      return res.status(500).send({
+        message: 'error in collection update',
+        error: err.toString()
+      });
+    }
+  }
+
+  /**
+   * @description Retirer un word d'une Collection
+   * @param {object} req - la requête
+   * @param {object} res - la réponse
+   * @return {*} la requête
+   */
+  async function deleteWordFromCollection(req, res) {
+    console.log('deleteWordFromCollection IN', req.body);
+    try {
+      const collectionId = lodash.get(req, 'params.collectionID');
+      const wordId = lodash.get(req, 'params.wordID');
+
+      console.log('deleteWordFromCollection collectionId', collectionId);
+      console.log('deleteWordFromCollection wordId', wordId);
+
+      const collectionUpdated = await CollectionSvc.deleteWordFromCollection(
+        collectionId,
+        wordId
+      );
+
+      console.log(
+        'collectionUpdated deleteWordFromCollection Service',
+        collectionUpdated
+      );
       return res.status(200).send({
         data: collectionUpdated
       });

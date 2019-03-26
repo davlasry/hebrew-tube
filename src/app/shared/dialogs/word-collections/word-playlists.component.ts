@@ -85,12 +85,17 @@ export class WordPlaylistsDialogComponent implements OnInit {
     if (value) {
       // add word to collection
       this.collectionsService
-        .adWordToCollection(collectionId, this.data.word._id)
+        .addWordToCollection(collectionId, this.data.word._id)
         .subscribe(result => {
           console.log('updateCollection result', result);
         });
     } else {
       // remove word from collection
+      this.collectionsService
+        .deleteWordFromCollection(collectionId, this.data.word._id)
+        .subscribe(result => {
+          console.log('updateCollection result', result);
+        });
     }
   }
 

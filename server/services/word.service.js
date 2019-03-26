@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // External dependencies
@@ -13,7 +13,6 @@
   const ContextSvc = require('./context.service');
   const FavoriteSvc = require('./favorite.service');
 
-
   // Interface du service
   module.exports = {
     createWord: createWord,
@@ -24,7 +23,6 @@
   };
 
   // Implémentation
-
 
   /**
    * @description Création d'un word
@@ -39,24 +37,23 @@
     // if (!lodash.get(wordData, 'hebrew') || !lodash.get(wordData, 'french')) {
     if (!lodash.get(wordData, 'hebrew')) {
       throw new Error({
-        error: ('Invalid parameters')
+        error: 'Invalid parameters'
       });
     }
-
 
     // IMPORTANT NOTE
     // In here, if the user wants to create a word but there already is an existing one with the same field hebrew,
     // the word is automatically updated to the new params
-    const existingWord = await checkExistingHebrewWord(lodash.get(wordData, 'hebrew'));
+    const existingWord = await checkExistingHebrewWord(
+      lodash.get(wordData, 'hebrew')
+    );
     if (existingWord) {
       // console.log("existingWord", existingWord);
       return await updateWord(wordData);
     }
 
     return await WordDAO.createWord(wordData);
-
   }
-
 
   /**
    * @description Update d'un word
@@ -71,24 +68,24 @@
     // if (!lodash.get(wordData, 'hebrew') || !lodash.get(wordData, 'french')) {
     if (!lodash.get(wordData, 'hebrew')) {
       throw new Error({
-        error: ('Invalid parameters')
+        error: 'Invalid parameters'
       });
     }
 
-    const existingWord = await checkExistingHebrewWord(lodash.get(wordData, 'hebrew'));
+    const existingWord = await checkExistingHebrewWord(
+      lodash.get(wordData, 'hebrew')
+    );
     // console.log("updateWord service existingWord", existingWord);
     if (!existingWord) {
       throw new Error({
-        error: ('Invalid parameters')
+        error: 'Invalid parameters'
       });
     }
 
-    lodash.set(wordData, '_id', existingWord._id)
+    lodash.set(wordData, '_id', existingWord._id);
 
     return await WordDAO.updateWord(wordData);
-
   }
-
 
   /**
    * @description Récupère les data d'un word par son ID
@@ -98,9 +95,7 @@
    * @return {Promise<object>} - Le word
    */
   async function getWord(wordID) {
-
     return await WordDAO.getWord(wordID);
-
   }
 
   /**
@@ -111,11 +106,8 @@
    * @return {Promise<object>} - Les data de tous les words
    */
   async function getAllWords() {
-
     return await WordDAO.getAllWords();
-
   }
-
 
   /**
    * @description Suppression d'un word par son ID
@@ -125,7 +117,6 @@
    * @return {Promise<object>} - Confirmation delete
    */
   async function deleteWord(wordID) {
-
     // console.log('deleteWord wordID', wordID);
 
     const wordContexts = await ContextSvc.getAllContextsForWord(wordID);
@@ -138,11 +129,7 @@
     await FavoriteSvc.deleteAllFavoritesWithWord(wordID);
 
     return await WordDAO.deleteWord(wordID);
-
   }
-
-
-
 
   /* private function */
 
@@ -151,9 +138,6 @@
   async function checkExistingHebrewWord(hebrewWord) {
     return await WordDAO.checkExistingHebrewWord(hebrewWord);
     // console.log("checkExistingHebrewWord service", existingHebrewWord);
-    return existingHebrewWord;
-
+    // return existingHebrewWord;
   }
-
-
 })();

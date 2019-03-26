@@ -8,8 +8,13 @@ const Collectionontroller = require('../controller/collection.controller');
 router.put(
   '/:collectionID',
   Auth.isConnected,
-  Auth.isAdmin,
   Collectionontroller.addWordToCollection
+);
+
+router.delete(
+  '/:collectionID/:wordID',
+  Auth.isConnected,
+  Collectionontroller.deleteWordFromCollection
 );
 
 router.post(

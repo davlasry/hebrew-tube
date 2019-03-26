@@ -15,7 +15,9 @@
     getCollection: getCollection,
     getAllCollections: getAllCollections,
     checkExistingCollection: checkExistingCollection,
-    deleteCollection: deleteCollection
+    deleteCollection: deleteCollection,
+    addWordToCollection: addWordToCollection,
+    deleteWordFromCollection: deleteWordFromCollection
   };
 
   async function createCollection(collectionData) {
@@ -56,21 +58,47 @@
     });
   }
 
-  async function addWordToCollection(collectionData) {
+  async function addWordToCollection(collectionId, wordId) {
+    console.log('addWordToCollection DAO collectionId', collectionId);
+    console.log('addWordToCollection DAO wordId', wordId);
     return new Promise(async function(resolve, reject) {
       try {
-        const existingCollection = await CollectionMongo.findOne({
-          name: lodash.get(collectionData, 'name')
-        });
-        if (!!existingCollection === false) {
-          return reject('nonExistingCollection');
+        const collection = await CollectionMongo.findOne({ _id: collectionId });
+
+        console.log(collection.words);
+
+        if (collection.words.indexOf(wordId.toString())) {
+          collection.words.push(wordId);
+        } else {
+          throw new Error('Word already exists in collection');
         }
 
-        const collectionUpdated = await existingCollection.save();
+        console.log(collection);
 
-        return resolve(collectionUpdated);
+        return resolve(collection);
       } catch (err) {
         console.log('Error in collection.dao addWordToCollection', err);
+        reject(err);
+      }
+    });
+  }
+
+  async function deleteWordFromCollection(collectionId, wordId) {
+    console.log('deleteWordFromCollection DAO collectionId', collectionId);
+    console.log('deleteWordFromCollection DAO wordId', wordId);
+    return new Promise(async function(resolve, reject) {
+      try {
+        const collection = await CollectionMongo.findOne({ _id: collectionId });
+
+        console.log(collection.words);
+
+        collection.words.splice(collection.words.indexOf(wordId), 1);
+
+        console.log(collection);
+
+        return resolve(collection);
+      } catch (err) {
+        console.log('Error in collection.dao deleteWordFromCollection', err);
         reject(err);
       }
     });

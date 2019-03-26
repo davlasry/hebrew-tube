@@ -28,11 +28,18 @@ export class CollectionsService {
     );
   }
 
-  adWordToCollection(collectionId, wordId): Observable<any> {
+  addWordToCollection(collectionId, wordId): Observable<any> {
     console.log('ADD WORD TO COLLECTION SERVICE', collectionId, wordId);
     return this.http.put<any>(
       `${environment.API_URL}/collection/${collectionId}`,
       { wordId }
+    );
+  }
+
+  deleteWordFromCollection(collectionId, wordId): Observable<any> {
+    console.log('ADD WORD TO COLLECTION SERVICE', collectionId, wordId);
+    return this.http.delete<any>(
+      `${environment.API_URL}/collection/${collectionId}/${wordId}`
     );
   }
 

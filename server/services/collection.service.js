@@ -20,7 +20,8 @@
     addWordToCollection: addWordToCollection,
     getCollection: getCollection,
     getAllCollections: getAllCollections,
-    deleteCollection: deleteCollection
+    deleteCollection: deleteCollection,
+    deleteWordFromCollection: deleteWordFromCollection
   };
 
   // Implémentation
@@ -91,22 +92,27 @@
    * @return {Promise<object>} - Les data du collection
    */
   async function addWordToCollection(collectionId, wordId) {
+    console.log('addWordToCollectio SERVICE wordId:', wordId);
+    console.log('addWordToCollectio SERVICE collectionId:', collectionId);
     if (!collectionId || !wordId) {
       throw new Error({
         error: 'Invalid parameters'
       });
     }
 
-    // const existingCollection = await checkExistingWordInCollection(
-    //   lodash.get(collectionData, 'hebrew')
-    // );
-    // if (!existingCollection) {
-    //   throw new Error({
-    //     error: 'Invalid parameters'
-    //   });
-    // }
+    return await CollectionDAO.addWordToCollection(collectionId, wordId);
+  }
 
-    return await CollectionDAO.addWordToCollection(collectionData);
+  async function deleteWordFromCollection(collectionId, wordId) {
+    console.log('deleteWordFromCollection SERVICE wordId:', wordId);
+    console.log('deleteWordFromCollection SERVICE collectionId:', collectionId);
+    if (!collectionId || !wordId) {
+      throw new Error({
+        error: 'Invalid parameters'
+      });
+    }
+
+    return await CollectionDAO.deleteWordFromCollection(collectionId, wordId);
   }
 
   /**
