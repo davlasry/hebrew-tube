@@ -100,7 +100,7 @@
       );
 
       console.log(
-        'collectionUpdated addWordToCollection Service',
+        'collectionUpdated addWordToCollection Controller',
         collectionUpdated
       );
       return res.status(200).send({

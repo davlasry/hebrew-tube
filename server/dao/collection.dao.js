@@ -67,13 +67,14 @@
 
         console.log(collection.words);
 
-        if (collection.words.indexOf(wordId.toString())) {
+        if (collection.words.indexOf(wordId.toString()) == -1) {
           collection.words.push(wordId);
+          collection.save();
         } else {
           throw new Error('Word already exists in collection');
         }
 
-        console.log(collection);
+        console.log('addWordToCollection collection:', collection);
 
         return resolve(collection);
       } catch (err) {
@@ -93,8 +94,9 @@
         console.log(collection.words);
 
         collection.words.splice(collection.words.indexOf(wordId), 1);
+        collection.save();
 
-        console.log(collection);
+        console.log('collection:', collection);
 
         return resolve(collection);
       } catch (err) {
