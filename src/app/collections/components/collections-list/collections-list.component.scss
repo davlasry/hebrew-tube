@@ -8,6 +8,10 @@
       width: 300px;
       margin-right: 40px;
 
+      .create-collection {
+        margin-top: 20px;
+      }
+
       .collection {
         margin: 15px 0;
 
@@ -28,4 +32,8 @@
       }
     }
   }
+}
+
+/deep/ .mat-select-value {
+  color: $pink;
 }

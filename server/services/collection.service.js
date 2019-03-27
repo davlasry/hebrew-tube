@@ -147,16 +147,16 @@
   async function deleteCollection(collectionID) {
     console.log('deleteCollection collectionID', collectionID);
 
-    const collectionContexts = await ContextSvc.getAllContextsForCollection(
-      collectionID
-    );
+    // const collectionContexts = await ContextSvc.getAllContextsForCollection(
+    //   collectionID
+    // );
 
-    if (collectionContexts.length > 0) {
-      console.log('WORD IS USED IN CONTEXTS');
-      throw new Error('Not allowed, collection is used in Contexts');
-    }
+    // if (collectionContexts.length > 0) {
+    //   console.log('WORD IS USED IN CONTEXTS');
+    //   throw new Error('Not allowed, collection is used in Contexts');
+    // }
 
-    await FavoriteSvc.deleteAllFavoritesWithCollection(collectionID);
+    // await FavoriteSvc.deleteAllFavoritesWithCollection(collectionID);
 
     return await CollectionDAO.deleteCollection(collectionID);
   }

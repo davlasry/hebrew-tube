@@ -1,0 +1,27 @@
+<div class="container">
+  <h3 mat-dialog-title>
+    Are you sure you want to delete the selected collection?
+  </h3>
+  <div mat-dialog-content>
+    {{ data.collection.name }}
+  </div>
+
+  <div
+    class="buttons"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    mat-dialog-actions
+  >
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+    <button
+      mat-raised-button
+      color="warn"
+      [mat-dialog-close]="1"
+      type="submit"
+      (click)="onSubmit()"
+    >
+      <mat-icon>delete</mat-icon>
+      Delete
+    </button>
+  </div>
+</div>

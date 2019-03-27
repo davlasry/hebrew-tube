@@ -161,6 +161,7 @@
       const collectionID = lodash.get(req, 'params.collectionID');
 
       const collection = await CollectionSvc.getCollection(collectionID);
+      // console.log('collection:', collection);
 
       return res.status(200).send({
         data: collection

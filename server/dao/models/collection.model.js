@@ -14,7 +14,7 @@
       words: [
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'WordSchema'
+          ref: 'Word'
           // required: true
         }
       ]

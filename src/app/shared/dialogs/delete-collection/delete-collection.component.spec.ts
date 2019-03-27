@@ -1,0 +1,23 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { DeleteCollectionComponent } from './delete-collection.component';
+
+describe('AddNewWordComponent', () => {
+  let component: DeleteCollectionComponent;
+  let fixture: ComponentFixture<DeleteCollectionComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [DeleteCollectionComponent]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(DeleteCollectionComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

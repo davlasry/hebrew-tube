@@ -26,6 +26,7 @@
       color: inherit;
       margin: 10px 0;
       color: #979ca9;
+      transition: color 0.2s linear;
 
       .menu-icon {
         width: 100%;
@@ -36,6 +37,7 @@
       }
 
       &:hover {
+        transition: color 0.2s linear;
         color: #ff3a7d;
       }
 

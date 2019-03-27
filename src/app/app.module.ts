@@ -29,6 +29,8 @@ import { VideoModule } from './video/video.module';
 import { LearnModule } from './learn/learn.module';
 import { WordCollectionsDialogComponent } from './shared/dialogs/word-collections/word-collections.component';
 import { CollectionsModule } from './collections/collections.module';
+import { DeleteCollectionComponent } from './shared/dialogs/delete-collection/delete-collection.component';
+import { AddNewUserComponent } from './shared/dialogs/add-new-user/add-new-user.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { CollectionsModule } from './collections/collections.module';
     EditWordDialogComponent,
     ProfileComponent,
     ViewWordDialogComponent,
-    WordCollectionsDialogComponent
+    WordCollectionsDialogComponent,
+    DeleteCollectionComponent,
+    AddNewUserComponent
   ],
   entryComponents: [
     AddNewWordComponent,
@@ -46,7 +50,9 @@ import { CollectionsModule } from './collections/collections.module';
     DeleteVideoDialogComponent,
     EditWordDialogComponent,
     ViewWordDialogComponent,
-    WordCollectionsDialogComponent
+    WordCollectionsDialogComponent,
+    DeleteCollectionComponent,
+    AddNewUserComponent
   ],
   imports: [
     AppRoutingModule,

@@ -103,20 +103,37 @@
     });
   }
 
+  // async function getCollection(collectionID) {
+  //   return new Promise(async function(resolve, reject) {
+  //     await CollectionMongo.findOne(
+  //       {
+  //         _id: collectionID
+  //       },
+  //       async function(err, res) {
+  //         if (err) {
+  //           console.log('Error in collection.dao getCollection', err);
+  //           return reject(err);
+  //         }
+  //         return resolve(res);
+  //       }
+  //     );
+  //   });
+  // }
+
   async function getCollection(collectionID) {
     return new Promise(async function(resolve, reject) {
-      await CollectionMongo.findOne(
-        {
-          _id: collectionID
-        },
-        async function(err, res) {
+      return await CollectionMongo.findOne({
+        _id: collectionID
+      })
+        .populate({ path: 'words', model: 'Word' })
+        .exec(function(err, story) {
+          // console.log('story:', story);
           if (err) {
-            console.log('Error in collection.dao getCollection', err);
             return reject(err);
           }
-          return resolve(res);
-        }
-      );
+
+          return resolve(lodash.get(story, '_doc'));
+        });
     });
   }
 
