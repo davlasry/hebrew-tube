@@ -10,11 +10,12 @@
         required: true
       },
       id_user: String,
+      privacy: String,
       words: [
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'WordSchema',
-          required: true
+          ref: 'WordSchema'
+          // required: true
         }
       ]
     },

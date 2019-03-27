@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>Collections</h1>
+  <div class="collections-container" fxLayout="row" fxLayoutAlign="start start">
+    <div class="collections-list">
+      <div
+        *ngFor="let collection of collections"
+        class="collection"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <a
+          [routerLink]="['/collections', collection._id]"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >{{ collection.name }}</a
+        >
+        <button mat-icon-button color="accent">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

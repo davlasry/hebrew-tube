@@ -28,6 +28,7 @@ import { DeleteVideoDialogComponent } from './shared/dialogs/delete-video-dialog
 import { VideoModule } from './video/video.module';
 import { LearnModule } from './learn/learn.module';
 import { WordCollectionsDialogComponent } from './shared/dialogs/word-collections/word-collections.component';
+import { CollectionsModule } from './collections/collections.module';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { WordCollectionsDialogComponent } from './shared/dialogs/word-collection
     SharedModule,
     WordsModule,
     VideoModule,
+    CollectionsModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([UserEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : []

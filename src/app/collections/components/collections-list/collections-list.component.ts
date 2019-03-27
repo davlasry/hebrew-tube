@@ -4,12 +4,12 @@ import { map } from 'rxjs/operators';
 import { CollectionsService } from 'src/app/core/services/collections.service';
 
 @Component({
-  selector: 'app-libraries',
-  templateUrl: './libraries.component.html',
-  styleUrls: ['./libraries.component.scss']
+  selector: 'app-collections-list',
+  templateUrl: './collections-list.component.html',
+  styleUrls: ['./collections-list.component.scss']
 })
-export class LibrariesComponent implements OnInit {
-  libraries;
+export class CollectionsListComponent implements OnInit {
+  collections;
   currentLibrary;
   newCollection;
 
@@ -31,7 +31,7 @@ export class LibrariesComponent implements OnInit {
   getLibraryList() {
     this.collectionsService.getCollections().subscribe(result => {
       console.log(result);
-      this.libraries = result['data'];
+      this.collections = result['data'];
     });
   }
 

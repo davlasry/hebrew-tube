@@ -1,46 +1,98 @@
 <div class="header">
   <a class="logo" routerLink="">HT</a>
   <nav fxLayout="column" fxLayoutAlign="start center">
-    <a [routerLink]="['/videos', 'list']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
-      *ngIf="isLoggedIn">
+    <a
+      [routerLink]="['/videos', 'list']"
+      [routerLinkActive]="['is-active']"
+      [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isLoggedIn"
+    >
       <mat-icon class="menu-icon">movie</mat-icon>
     </a>
-    <a [routerLink]="['/videos', 'favorite']" [routerLinkActive]="['is-active']"
-      [routerLinkActiveOptions]="{ exact: true }" *ngIf="isLoggedIn">
+    <a
+      [routerLink]="['/videos', 'favorite']"
+      [routerLinkActive]="['is-active']"
+      [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isLoggedIn"
+    >
       <mat-icon class="menu-icon">video_library</mat-icon>
     </a>
-    <a [routerLink]="['/videos', 'create']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn"
-      [routerLinkActiveOptions]="{ exact: true }">
+    <a
+      [routerLink]="['/videos', 'create']"
+      [routerLinkActive]="['is-active']"
+      *ngIf="isLoggedIn"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       <mat-icon class="menu-icon">add_to_queue</mat-icon>
     </a>
-    <a [routerLink]="['/words', 'list']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn"
-      [routerLinkActiveOptions]="{ exact: true }">
+    <a
+      [routerLink]="['/words', 'list']"
+      [routerLinkActive]="['is-active']"
+      *ngIf="isLoggedIn"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       <mat-icon class="menu-icon">library_books</mat-icon>
     </a>
-    <a [routerLink]="['/words', 'my-words']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn"
-      [routerLinkActiveOptions]="{ exact: true }">
+    <a
+      [routerLink]="['/words', 'my-words']"
+      [routerLinkActive]="['is-active']"
+      *ngIf="isLoggedIn"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       <mat-icon class="menu-icon">assignment</mat-icon>
     </a>
-    <a [routerLink]="['/users', 'list']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
-      *ngIf="isAdmin">
+    <a
+      [routerLink]="['/users', 'list']"
+      [routerLinkActive]="['is-active']"
+      [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isAdmin"
+    >
       <mat-icon class="menu-icon">people</mat-icon>
     </a>
-    <a [routerLink]="['/words/library/favoris']" [routerLinkActive]="['is-active']"
-      [routerLinkActiveOptions]="{ exact: true }" *ngIf="isLoggedIn">
+    <a
+      [routerLink]="['/collections']"
+      [routerLinkActive]="['is-active']"
+      [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isLoggedIn"
+    >
       <mat-icon class="menu-icon">bookmarks</mat-icon>
     </a>
-    <a [routerLink]="['/learn']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
-      *ngIf="isLoggedIn">
+    <a
+      [routerLink]="['/learn']"
+      [routerLinkActive]="['is-active']"
+      [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isLoggedIn"
+    >
       <mat-icon class="menu-icon">school</mat-icon>
     </a>
-    <a [routerLink]="['/login']" [routerLinkActive]="['is-active']" *ngIf="!isLoggedIn">Login</a>
-    <a [routerLink]="['/signup']" [routerLinkActive]="['is-active']" *ngIf="!isLoggedIn">Signup</a>
+    <a
+      [routerLink]="['/login']"
+      [routerLinkActive]="['is-active']"
+      *ngIf="!isLoggedIn"
+      >Login</a
+    >
+    <a
+      [routerLink]="['/signup']"
+      [routerLinkActive]="['is-active']"
+      *ngIf="!isLoggedIn"
+      >Signup</a
+    >
   </nav>
-  <div *ngIf="isLoggedIn" class="user" fxLayout="column" fxLayoutAlign="center center">
+  <div
+    *ngIf="isLoggedIn"
+    class="user"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+  >
     <a (click)="onClickSignout()" *ngIf="isLoggedIn">
       <mat-icon class="user-icon">logout</mat-icon>
     </a>
-    <a [routerLink]="['/profile']" fxLayout="column" fxLayoutAlign="center center" [routerLinkActive]="['is-active']">
+    <a
+      [routerLink]="['/profile']"
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      [routerLinkActive]="['is-active']"
+    >
       <mat-icon class="user-icon">account_circle</mat-icon>
       <span>{{ currentUser?.firstName | titlecase }}</span>
     </a>
