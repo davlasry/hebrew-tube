@@ -1,29 +1,46 @@
-<div class="container">
+<div class="words-list-container">
   <div class="loadingSpinner" *ngIf="wordsLoading">
     <mat-spinner></mat-spinner>
   </div>
   <div class="if-words" *ngIf="!wordsLoading">
     <div class="header-buttons">
       <app-add-word></app-add-word>
-      <button color="warn" mat-raised-button [disabled]="false" (click)="deleteSelection()">
+      <button
+        color="warn"
+        mat-raised-button
+        [disabled]="false"
+        (click)="deleteSelection()"
+      >
         <mat-icon>delete</mat-icon>
         Delete Selection
       </button>
     </div>
     <div class="table">
-      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        class="mat-elevation-z8"
+      >
         <!--- Note that these columns can be defined in any order.
                         The actual rendered columns are set as a property on the row definition" -->
 
         <!-- Checkbox Column -->
         <ng-container matColumnDef="select">
           <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
-              [indeterminate]="selection.hasValue() && !isAllSelected()">
+            <mat-checkbox
+              (change)="$event ? masterToggle() : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+            >
             </mat-checkbox>
           </th>
           <td mat-cell *matCellDef="let row">
-            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+            <mat-checkbox
+              (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)"
+            >
             </mat-checkbox>
           </td>
         </ng-container>
@@ -61,11 +78,23 @@
           <th mat-header-cell *matHeaderCellDef>Actions</th>
           <td mat-cell *matCellDef="let word">
             <div class="buttons">
-              <button mat-icon-button color="accent" *ngIf="!checkIfWordInMyWords(word._id)">
-                <mat-icon (click)="onAddToMyWords(word, $event)">favorite_border</mat-icon>
+              <button
+                mat-icon-button
+                color="accent"
+                *ngIf="!checkIfWordInMyWords(word._id)"
+              >
+                <mat-icon (click)="onAddToMyWords(word, $event)"
+                  >favorite_border</mat-icon
+                >
               </button>
-              <button mat-icon-button color="accent" *ngIf="checkIfWordInMyWords(word._id)">
-                <mat-icon (click)="onDeleteFromMyWords(word, $event)">favorite</mat-icon>
+              <button
+                mat-icon-button
+                color="accent"
+                *ngIf="checkIfWordInMyWords(word._id)"
+              >
+                <mat-icon (click)="onDeleteFromMyWords(word, $event)"
+                  >favorite</mat-icon
+                >
               </button>
               <button mat-icon-button color="accent">
                 <mat-icon (click)="onDeleteWord(word)">delete</mat-icon>
@@ -77,8 +106,16 @@
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row (click)="showWord(row)" class="matTableRow" *matRowDef="let row; columns: displayedColumns"></tr>
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+        ></tr>
+        <tr
+          mat-row
+          (click)="showWord(row)"
+          class="matTableRow"
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
       </table>
     </div>
   </div>

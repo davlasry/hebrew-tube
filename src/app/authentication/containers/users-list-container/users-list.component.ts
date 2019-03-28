@@ -19,7 +19,7 @@ export class UsersListComponent implements OnInit {
     this.users$ = this.usersService
       .getAllUsers()
       .pipe(map(result => result.data));
-    this.users$.subscribe(result => console.log(result));
+    // this.users$.subscribe(result => console.log(result));
   }
 
   addUser() {

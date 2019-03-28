@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // External dependencies
@@ -11,15 +11,14 @@
 
   // service
 
-
   // transverse
-
 
   module.exports = {
     createWord: createWord,
     updateWord: updateWord,
     getWord: getWord,
     getAllWords: getAllWords,
+    searchWord: searchWord,
     deleteWord: deleteWord,
     deleteWords: deleteWords
   };
@@ -69,8 +68,6 @@
     }
   }
 
-
-
   /**
    * @description Récupération d'un word
    * @param {object} req - la requête
@@ -86,7 +83,30 @@
       return res.status(200).send({
         data: word
       });
+    } catch (err) {
+      return res.status(500).send({
+        auth: false,
+        error: err.toString()
+      });
+    }
+  }
 
+  /**
+   * @description Récupération d'un word
+   * @param {object} req - la requête
+   * @param {object} res - la réponse
+   * @return {*} la requête
+   */
+  async function searchWord(req, res) {
+    try {
+      const searchString = lodash.get(req, 'params.searchString');
+      // console.log('searchString:', searchString);
+
+      const words = await WordSvc.searchWord(searchString);
+
+      return res.status(200).send({
+        data: words
+      });
     } catch (err) {
       return res.status(500).send({
         auth: false,
@@ -108,7 +128,6 @@
       return res.status(200).send({
         data: words
       });
-
     } catch (err) {
       return res.status(500).send({
         auth: false,
@@ -135,7 +154,6 @@
       return res.status(200).send({
         wordID: wordToDeleteID
       });
-
     } catch (err) {
       return res.status(500).send({
         auth: false,
@@ -161,9 +179,7 @@
 
       await Promise.all(promises);
 
-
       return res.status(200).send('words successfully deleted');
-
     } catch (err) {
       return res.status(500).send({
         auth: false,
@@ -171,8 +187,4 @@
       });
     }
   }
-
-
-
-
 })();

@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // External dependencies
@@ -14,7 +14,6 @@
   // dao
   const VideoDAO = require('../dao/video.dao');
 
-
   // Interface du service
   module.exports = {
     createVideo: createVideo,
@@ -26,7 +25,6 @@
 
   // Implémentation
 
-
   /**
    * @description Création d'une video
    *
@@ -35,28 +33,30 @@
    * @return {Promise<object>} - Les data de la video
    */
   async function createVideo(videoData) {
-
     // console.log('createVideo Service', videoData);
 
     if (!lodash.get(videoData, 'link') || !lodash.get(videoData, 'name')) {
       throw new Error({
-        error: ('Invalid parameters')
+        error: 'Invalid parameters'
       });
     }
 
     const subtitlesData = lodash.get(videoData, 'subtitles');
-    const subtitlesFormatted = await SubtitleSvc.fromFrontToDBManager(subtitlesData);
+    const subtitlesFormatted = await SubtitleSvc.fromFrontToDBManager(
+      subtitlesData
+    );
 
     lodash.set(videoData, 'subtitles', subtitlesFormatted);
 
     const videoCreated = await VideoDAO.createVideo(videoData);
 
-    await ContextSvc.createContextsForVideo(lodash.get(videoCreated, '_id'), videoData);
+    await ContextSvc.createContextsForVideo(
+      lodash.get(videoCreated, '_id'),
+      videoData
+    );
 
     return videoCreated;
-
   }
-
 
   /**
    * @description Update d'un video
@@ -66,13 +66,12 @@
    * @return {Promise<object>} - Les data de la video
    */
   async function updateVideo(videoID, videoData) {
-
     if (!lodash.get(videoData, 'link') || !lodash.get(videoData, 'name')) {
       throw new Error('Invalid parameters - missing link or name');
     }
 
     const existingVideo = await getVideo(videoID);
-    // console.log("existingVideo", existingVideo);
+    // console.log('existingVideo', existingVideo);
     if (!existingVideo) {
       throw new Error('Bad ID - Invalid parameters');
     }
@@ -81,17 +80,17 @@
 
     const subtitlesData = lodash.get(videoData, 'subtitles');
     // console.log('subtitlesData', subtitlesData);
-    const subtitlesFormatted = await SubtitleSvc.fromFrontToDBManager(subtitlesData);
-    // console.log('subtitlesFormatted', subtitlesFormatted);
+    const subtitlesFormatted = await SubtitleSvc.fromFrontToDBManager(
+      subtitlesData
+    );
+    console.log('subtitlesFormatted', subtitlesFormatted);
     lodash.set(videoData, 'subtitles', subtitlesFormatted);
-    // console.log('nsewVideoData', videoData);
+    // console.log('newVideoData', videoData);
 
     await ContextSvc.createContextsForVideo(videoID, videoData);
 
     return await VideoDAO.updateVideo(videoID, videoData);
-
   }
-
 
   /**
    * @description Récupère les data d'une video par son ID
@@ -101,7 +100,6 @@
    * @return {Promise<object>} - Les data de la video
    */
   async function getVideo(videoID) {
-
     const videoData = await VideoDAO.getVideo(videoID);
 
     // const subtitlesData = lodash.get(videoData, 'subtitles');
@@ -109,7 +107,6 @@
 
     // // lodash.set(videoData, 'subtitles', subtitlesFormatted);
     return videoData;
-
   }
 
   /**
@@ -120,11 +117,8 @@
    * @return {Promise<object>} - Les data de toutes les videos
    */
   async function getAllVideos() {
-
     return await VideoDAO.getAllVideos();
-
   }
-
 
   /**
    * @description Suppression d'une vidéo par son ID
@@ -134,13 +128,11 @@
    * @return {Promise<object>} - Confirmation
    */
   async function deleteVideo(videoID) {
-
     await ContextSvc.deleteContextsForVideo(videoID);
 
     await FavoriteSvc.deleteAllFavoritesWithVideo(videoID);
 
     return await VideoDAO.deleteVideo(videoID);
-
   }
 
   /* private function */
@@ -160,7 +152,4 @@
   //     createdAt: lodash.get(wordData, 'createdAt')
   //   };
   // }
-
-
-
 })();

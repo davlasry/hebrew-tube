@@ -1,18 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { VideosService } from 'src/app/core/services/videos.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { startWith, map, filter } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { startWith, map } from 'rxjs/operators';
 import { WordsService } from 'src/app/core/services/words.service';
-import { YoutubeApiService } from 'src/app/core/services/youtube-api.service';
-
-import * as xml2js from 'xml2js';
 
 import * as Subtitle from 'subtitle';
 
-// ES6 / TypeScript
-import { getSubtitles } from 'youtube-captions-scraper';
-import { HttpClient } from '@angular/common/http';
+import * as jsondiffpatch from 'jsondiffpatch';
+
 import { Store, select } from '@ngrx/store';
 import { getAllWords } from 'src/app/words/state/selectors/words.selectors';
 
@@ -53,10 +49,7 @@ export class EditVideoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private videosService: VideosService,
-    private router: Router,
     private route: ActivatedRoute,
-    private youtubeApiService: YoutubeApiService,
-    private http: HttpClient,
     private store: Store<any>,
     private wordsService: WordsService // private store: Store<WordsState>
   ) {}
@@ -352,5 +345,26 @@ export class EditVideoComponent implements OnInit {
     });
     // this.store.dispatch(new AddWord(this.wordForm.value));
     // this.router.navigateByUrl('/videos');
+  }
+
+  getDiff() {
+    // sample data
+    var country = {
+      name: 'Argentina',
+      capital: 'Buenos Aires',
+      independence: new Date(1816, 6, 9),
+      unasur: true
+    };
+
+    // clone country, using dateReviver for Date objects
+    var country2 = JSON.parse(
+      JSON.stringify(country),
+      jsondiffpatch.dateReviver
+    );
+
+    // make some changes
+    country2.name = 'Republica Argentina';
+    country2.population = 41324992;
+    delete country2.capital;
   }
 }

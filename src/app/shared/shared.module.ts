@@ -21,9 +21,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { YoutubeCurrentTime } from './pipes/youtubeCurrentTime';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
-  declarations: [YoutubeCurrentTime],
+  declarations: [YoutubeCurrentTime, SearchComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -68,7 +69,8 @@ import { YoutubeCurrentTime } from './pipes/youtubeCurrentTime';
     FlexLayoutModule,
     MatMenuModule,
     YoutubeCurrentTime,
-    MatTooltipModule
+    MatTooltipModule,
+    SearchComponent
   ]
 })
 export class SharedModule {}

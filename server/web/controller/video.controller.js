@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // External dependencies
@@ -11,9 +11,7 @@
 
   // service
 
-
   // transverse
-
 
   module.exports = {
     createVideo: createVideo,
@@ -34,7 +32,6 @@
     try {
       const videoData = lodash.get(req, 'body');
       const videoCreated = await VideoSvc.createVideo(videoData);
-
 
       return res.status(200).send({
         data: videoCreated
@@ -57,6 +54,7 @@
     // console.log(req.body);
     try {
       const videoData = lodash.get(req, 'body');
+      console.log('videoData:', videoData);
       const videoID = lodash.get(req, 'params.videoID');
 
       const videoUpdated = await VideoSvc.updateVideo(videoID, videoData);
@@ -72,8 +70,6 @@
     }
   }
 
-
-
   /**
    * @description Récupération d'une video
    * @param {object} req - la requête
@@ -88,7 +84,6 @@
       return res.status(200).send({
         data: video
       });
-
     } catch (err) {
       return res.status(500).send({
         auth: false,
@@ -110,7 +105,6 @@
       return res.status(200).send({
         data: videos
       });
-
     } catch (err) {
       return res.status(500).send({
         auth: false,
@@ -134,7 +128,6 @@
       return res.status(200).send({
         videoID: videoToDeleteID
       });
-
     } catch (err) {
       return res.status(500).send({
         auth: false,
@@ -142,7 +135,4 @@
       });
     }
   }
-
-
-
 })();

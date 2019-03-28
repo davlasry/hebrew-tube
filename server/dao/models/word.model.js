@@ -1,24 +1,28 @@
-(function () {
+(function() {
   'use strict';
 
   const mongoose = require('mongoose');
 
-  const WordSchema = new mongoose.Schema({
-    hebrew: {
-      type: String,
-      unique: true,
-      required: true
+  const WordSchema = new mongoose.Schema(
+    {
+      hebrew: {
+        type: String,
+        unique: true,
+        required: true
+      },
+      french: {
+        type: String
+        // required: true
+      },
+      pronunciation: String,
+      type: String
     },
-    french: {
-      type: String,
-      // required: true
-    },
-    pronunciation: String,
-    type: String
-  }, {
-    timestamps: true
-  });
+    {
+      timestamps: true
+    }
+  );
+
+  WordSchema.index({ hebrew: 'text', french: 'text' });
 
   exports.WordSchema = WordSchema;
-
 })();

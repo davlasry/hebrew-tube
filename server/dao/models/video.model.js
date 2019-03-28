@@ -1,9 +1,10 @@
-(function () {
+(function() {
   'use strict';
 
-    const mongoose = require('mongoose');
+  const mongoose = require('mongoose');
 
-    const VideoSchema = new mongoose.Schema({
+  const VideoSchema = new mongoose.Schema(
+    {
       link: {
         type: String,
         required: true
@@ -12,20 +13,23 @@
         type: String,
         required: true
       },
-      subtitles: [{
-        start: Number,
-        end: Number,
-        words: [{
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Word'
-        }]
-      }]
+      subtitles: [
+        {
+          startTime: Number,
+          endTime: Number,
+          words: [
+            {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: 'Word'
+            }
+          ]
+        }
+      ]
     },
     {
       timestamps: true
-    });
+    }
+  );
 
-    exports.VideoSchema = VideoSchema;
-
+  exports.VideoSchema = VideoSchema;
 })();
-

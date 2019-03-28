@@ -18,6 +18,7 @@
     createWord: createWord,
     updateWord: updateWord,
     getWord: getWord,
+    searchWord: searchWord,
     getAllWords: getAllWords,
     deleteWord: deleteWord
   };
@@ -96,6 +97,17 @@
    */
   async function getWord(wordID) {
     return await WordDAO.getWord(wordID);
+  }
+
+  /**
+   * @description Récupère les data d'un word par son ID
+   *
+   * @param {string} uid - id du word
+   *
+   * @return {Promise<object>} - Le word
+   */
+  async function searchWord(searchString) {
+    return await WordDAO.searchWord(searchString);
   }
 
   /**

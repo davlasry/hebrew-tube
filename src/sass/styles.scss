@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica;
+  font-family: 'Helvetica Neue', Helvetica;
   border: 0;
   margin: 0;
   padding: 0;
@@ -48,4 +48,25 @@ a {
 
 mat-dialog-container {
   overflow: hidden !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #c7c7c7;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #505050;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(94, 94, 94);
 }

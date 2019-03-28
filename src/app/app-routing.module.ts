@@ -7,6 +7,7 @@ import { CustomPreloading } from './custom-preloading';
 import { AuthGuard } from './core/guards/auth-guard.service';
 import { HomeComponent } from './core/layout/home/home.component';
 import { LearnContainerComponent } from './learn/containers/learn-container/learn-container.component';
+import { SearchResultsComponent } from './core/search/search-results/search-results.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
   // },
   { path: 'login', component: LogInComponent },
   { path: 'signup', component: SignUpComponent },
+  { path: 'search/:string', component: SearchResultsComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
   // { path: '**', component: 'NotFoundComponent' }
 ];

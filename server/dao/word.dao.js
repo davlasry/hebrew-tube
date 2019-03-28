@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // External dependencies
@@ -13,6 +13,7 @@
     createWord: createWord,
     updateWord: updateWord,
     getWord: getWord,
+    searchWord: searchWord,
     getAllWords: getAllWords,
     checkExistingHebrewWord: checkExistingHebrewWord,
     deleteWord: deleteWord
@@ -20,9 +21,8 @@
 
   async function createWord(wordData) {
     // console.log('createWord Dao', wordData);
-    return new Promise(async function (resolve, reject) {
+    return new Promise(async function(resolve, reject) {
       try {
-
         const data = {
           hebrew: lodash.get(wordData, 'hebrew'),
           french: lodash.get(wordData, 'french'),
@@ -34,20 +34,17 @@
         const wordCreated = await newWord.save();
 
         return resolve(wordCreated);
-
       } catch (err) {
         console.log('Error in word.dao createWord', err);
         return reject(err);
       }
     });
-
   }
 
   async function updateWord(wordData) {
     // console.log('updateWord DAO', wordData);
-    return new Promise(async function (resolve, reject) {
+    return new Promise(async function(resolve, reject) {
       try {
-
         const existingWord = await WordMongo.findOne({
           hebrew: lodash.get(wordData, 'hebrew')
         });
@@ -68,75 +65,95 @@
         const wordUpdated = await existingWord.save();
 
         return resolve(wordUpdated);
-
       } catch (err) {
         console.log('Error in word.dao updateWord', err);
         reject(err);
       }
     });
-
   }
-
-
 
   async function getWord(wordID) {
-    return new Promise(async function (resolve, reject) {
-      await WordMongo.findOne({
-        _id: wordID
-      }, async function (err, res) {
-        if (err) {
-          console.log('Error in word.dao getWord', err);
-          return reject(err);
+    return new Promise(async function(resolve, reject) {
+      await WordMongo.findOne(
+        {
+          _id: wordID
+        },
+        async function(err, res) {
+          if (err) {
+            console.log('Error in word.dao getWord', err);
+            return reject(err);
+          }
+          return resolve(res);
         }
-        return resolve(res);
-      });
+      );
     });
   }
 
-
+  async function searchWord(searchString) {
+    console.log('searchString:', searchString);
+    return new Promise(async function(resolve, reject) {
+      await WordMongo.find(
+        {
+          $text: { $search: searchString }
+        },
+        async function(err, res) {
+          if (err) {
+            console.log('Error in word.dao searchWord', err);
+            return reject(err);
+          }
+          return resolve(res);
+        }
+      );
+    });
+  }
 
   async function getAllWords() {
-    return new Promise(async function (resolve, reject) {
-      await WordMongo.find({}, async function (err, res) {
-        if (err) {
-          console.log('Error in word.dao getAllWords', err);
-          return reject(err);
-        }
-        return resolve(res);
-      });
+    return new Promise(async function(resolve, reject) {
+      await WordMongo.find({})
+        .limit(20)
+        .exec(function(err, res) {
+          if (err) {
+            console.log('Error in word.dao getAllWords', err);
+            return reject(err);
+          }
+          return resolve(res);
+        });
     });
   }
-
 
   async function checkExistingHebrewWord(hebrew) {
-    return new Promise(async function (resolve, reject) {
-      await WordMongo.findOne({
-        hebrew: hebrew
-      }, async function (err, res) {
-        if (err) {
-          console.log('Error in word.dao checkExistingHebrewWord', err);
-          return reject(err);
+    return new Promise(async function(resolve, reject) {
+      await WordMongo.findOne(
+        {
+          hebrew: hebrew
+        },
+        async function(err, res) {
+          if (err) {
+            console.log('Error in word.dao checkExistingHebrewWord', err);
+            return reject(err);
+          }
+          // console.log("checkExistingHebrewWord word", res);
+          return resolve(res);
         }
-        // console.log("checkExistingHebrewWord word", res);
-        return resolve(res);
-      });
+      );
     });
   }
-
 
   async function deleteWord(wordID) {
     // console.log('deleteWord DAO', wordID);
-    return new Promise(async function (resolve, reject) {
-      await WordMongo.remove({
-        _id: wordID
-      }, async function (err, res) {
-        if (err) {
-          console.log('Error in word.dao delete', err);
-          return reject(err);
+    return new Promise(async function(resolve, reject) {
+      await WordMongo.remove(
+        {
+          _id: wordID
+        },
+        async function(err, res) {
+          if (err) {
+            console.log('Error in word.dao delete', err);
+            return reject(err);
+          }
+          return resolve(res);
         }
-        return resolve(res);
-      });
+      );
     });
   }
-
 })();

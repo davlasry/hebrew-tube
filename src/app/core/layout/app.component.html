@@ -1,8 +1,15 @@
 <div class="app-container">
-  <app-sidebar [currentUser]="currentUser$ | async" [isLoggedIn]="isLoggedIn$ | async" [isAdmin]="isAdmin$ | async"
-    (signOut)="signOut()"></app-sidebar>
+  <app-sidebar
+    [currentUser]="currentUser$ | async"
+    [isLoggedIn]="isLoggedIn$ | async"
+    [isAdmin]="isAdmin$ | async"
+    (signOut)="signOut()"
+  ></app-sidebar>
 
-  <div class="router-container">
-    <router-outlet></router-outlet>
+  <div class="right-part" fxLayout="column">
+    <app-header fxLayout="column"></app-header>
+    <div class="router-container" flex>
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

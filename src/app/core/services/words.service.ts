@@ -16,6 +16,13 @@ export class WordsService {
     return this.http.get<any>(`${environment.API_URL}/word/${id}`);
   }
 
+  searchWord(searchString): Observable<any> {
+    // console.log(id);
+    return this.http.get<any>(
+      `${environment.API_URL}/word/search/${searchString}`
+    );
+  }
+
   getWordContext(id): Observable<any> {
     // console.log(id);
     return this.http.get<any>(`${environment.API_URL}/context/${id}`);

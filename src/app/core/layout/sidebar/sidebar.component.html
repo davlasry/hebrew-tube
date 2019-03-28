@@ -6,75 +6,104 @@
       [routerLinkActive]="['is-active']"
       [routerLinkActiveOptions]="{ exact: true }"
       *ngIf="isLoggedIn"
+      fxLayout="column"
+      fxLayoutAlign="center center"
     >
       <mat-icon class="menu-icon">movie</mat-icon>
+      <span>Videos</span>
     </a>
     <a
       [routerLink]="['/videos', 'favorite']"
       [routerLinkActive]="['is-active']"
       [routerLinkActiveOptions]="{ exact: true }"
       *ngIf="isLoggedIn"
+      fxLayout="column"
+      fxLayoutAlign="center center"
     >
       <mat-icon class="menu-icon">video_library</mat-icon>
+      <span>My Videos</span>
     </a>
     <a
       [routerLink]="['/videos', 'create']"
       [routerLinkActive]="['is-active']"
       *ngIf="isLoggedIn"
       [routerLinkActiveOptions]="{ exact: true }"
+      fxLayout="column"
+      fxLayoutAlign="center center"
     >
       <mat-icon class="menu-icon">add_to_queue</mat-icon>
+      <span>Create Video</span>
     </a>
     <a
       [routerLink]="['/words', 'list']"
       [routerLinkActive]="['is-active']"
       *ngIf="isLoggedIn"
       [routerLinkActiveOptions]="{ exact: true }"
+      fxLayout="column"
+      fxLayoutAlign="center center"
     >
       <mat-icon class="menu-icon">library_books</mat-icon>
+      <span>Words</span>
+      <span></span>
     </a>
     <a
       [routerLink]="['/words', 'my-words']"
       [routerLinkActive]="['is-active']"
       *ngIf="isLoggedIn"
       [routerLinkActiveOptions]="{ exact: true }"
+      fxLayout="column"
+      fxLayoutAlign="center center"
     >
       <mat-icon class="menu-icon">assignment</mat-icon>
+      <span>My Words</span>
     </a>
     <a
       [routerLink]="['/users', 'list']"
       [routerLinkActive]="['is-active']"
       [routerLinkActiveOptions]="{ exact: true }"
       *ngIf="isAdmin"
+      fxLayout="column"
+      fxLayoutAlign="center center"
     >
       <mat-icon class="menu-icon">people</mat-icon>
+      <span>Users</span>
     </a>
     <a
       [routerLink]="['/collections']"
       [routerLinkActive]="['is-active']"
       [routerLinkActiveOptions]="{ exact: true }"
       *ngIf="isLoggedIn"
+      fxLayout="column"
+      fxLayoutAlign="center center"
     >
       <mat-icon class="menu-icon">bookmarks</mat-icon>
+      <span>Collections</span>
     </a>
     <a
       [routerLink]="['/learn']"
       [routerLinkActive]="['is-active']"
       [routerLinkActiveOptions]="{ exact: true }"
       *ngIf="isLoggedIn"
+      fxLayout="column"
+      fxLayoutAlign="center center"
     >
       <mat-icon class="menu-icon">school</mat-icon>
+      <span>Learn</span>
     </a>
     <a
       [routerLink]="['/login']"
       [routerLinkActive]="['is-active']"
       *ngIf="!isLoggedIn"
+      fxLayout="column"
+      fxLayoutAlign="center center"
       >Login</a
     >
     <a
       [routerLink]="['/signup']"
       [routerLinkActive]="['is-active']"
       *ngIf="!isLoggedIn"
+      fxLayout="column"
+      fxLayoutAlign="center center"
       >Signup</a
     >
   </nav>

@@ -211,10 +211,10 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
           //   subtitles[subtitles.length - 1].endTime
           // );
           if (this.currentTime < subtitles[subtitles.length - 1].endTime) {
-            console.log(
-              'subtitles[subtitles.length - 1].endTime',
-              subtitles[subtitles.length - 1].endTime
-            );
+            // console.log(
+            //   'subtitles[subtitles.length - 1].endTime',
+            //   subtitles[subtitles.length - 1].endTime
+            // );
             // console.log('subtitles', subtitles);
             // console.log('loopActivated', this.loopActivated);
             if (this.loopActivated) {
@@ -224,11 +224,11 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
                 );
               }
             } else {
-              console.log(
-                'subtitles[this.selectedSentence]',
-                subtitles[this.selectedSentence]
-              );
-              console.log('this.selectedSentence', this.selectedSentence);
+              // console.log(
+              //   'subtitles[this.selectedSentence]',
+              //   subtitles[this.selectedSentence]
+              // );
+              // console.log('this.selectedSentence', this.selectedSentence);
               this.selectedSentence = subtitles.findIndex(elem => {
                 // console.log(elem.startTime, elem.endTime);
                 return (

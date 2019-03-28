@@ -15,6 +15,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { DeleteDialogComponent } from 'src/app/shared/dialogs/delete-word-dialog/delete-dialog.component';
 import { WordCollectionsDialogComponent } from 'src/app/shared/dialogs/word-collections/word-collections.component';
+import { WordsService } from 'src/app/core/services/words.service';
 
 @Component({
   selector: 'app-my-words',
@@ -50,13 +51,18 @@ export class MyWordsComponent implements OnInit, OnChanges {
 
   selection: SelectionModel<any>;
 
-  constructor(private router: Router, public dialog: MatDialog) {}
+  constructor(
+    private router: Router,
+    public dialog: MatDialog,
+    private wordsService: WordsService
+  ) {}
 
   ngOnInit() {
     this.selection = new SelectionModel<any>(true);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes in MY WORDS:', changes);
     if (this.myWords.length > 0) {
       this.dataSource = new MatTableDataSource(this.myWords);
       this.dataSource.sort = this.sort;
