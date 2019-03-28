@@ -20,6 +20,7 @@ import { getAllWords } from 'src/app/words/state/selectors/words.selectors';
 export class EditVideoComponent implements OnInit {
   videoForm: FormGroup;
   video: any;
+  videoClone: any;
 
   convertSubtitles = false;
 
@@ -194,8 +195,9 @@ export class EditVideoComponent implements OnInit {
   getVideo(): void {
     const id: string = this.route.snapshot.paramMap.get('id');
     this.videosService.getVideo(id).subscribe(result => {
-      console.log('getVideo videodata', result);
+      // console.log('getVideo videodata', result);
       this.video = result.data;
+      this.videoClone = { ...this.video };
       this.initVideoForm();
       this.setWords(this.video.subtitles);
     });
@@ -335,36 +337,53 @@ export class EditVideoComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.videoForm.get('youtubeLink'));
-    this.videoForm.patchValue({
-      lastEdit: Date.now()
+    // this.getDiff();
+
+    console.log('this.videoForm.value', this.videoForm.value);
+
+    this.videoForm.value.subtitles.forEach((subtitle, index) => {
+      const subtitleClone = this.videoClone.subtitles[index];
+      console.log('subtitleClone:', subtitleClone);
+      if (subtitle.startTime != subtitleClone.startTime) {
+        console.log('Different startTime');
+      } else if (subtitle.startTime != subtitleClone.startTime) {
+        console.log('Different endTime');
+      } else {
+        console.log('everything is unchanged');
+      }
+
+      subtitleClone.words = subtitleClone.words.map(word => {
+        return {
+          hebrew: word.hebrew,
+          french: word.french,
+          pronunciation: word.pronunciation,
+          type: word.type
+        };
+      });
+
+      if (
+        JSON.stringify(subtitle.words) !== JSON.stringify(subtitleClone.words)
+      ) {
+        console.log('Words were changed');
+      } else {
+        console.log('Words are identical');
+      }
     });
-    console.log(this.videoForm.value);
-    this.videosService.saveVideo(this.videoForm.value).subscribe(res => {
-      console.log(res);
-    });
+
+    // this.videoForm
+
+    // this.videosService.saveVideo(this.videoForm.value).subscribe(res => {
+    //   console.log(res);
+    // });
+
     // this.store.dispatch(new AddWord(this.wordForm.value));
     // this.router.navigateByUrl('/videos');
   }
 
   getDiff() {
-    // sample data
-    var country = {
-      name: 'Argentina',
-      capital: 'Buenos Aires',
-      independence: new Date(1816, 6, 9),
-      unasur: true
-    };
-
-    // clone country, using dateReviver for Date objects
-    var country2 = JSON.parse(
-      JSON.stringify(country),
-      jsondiffpatch.dateReviver
-    );
-
-    // make some changes
-    country2.name = 'Republica Argentina';
-    country2.population = 41324992;
-    delete country2.capital;
+    var left = { a: 3, b: 4 };
+    var right = { a: 3, c: 9 };
+    var delta = jsondiffpatch.diff(left, right);
+    console.log('delta:', delta);
   }
 }
