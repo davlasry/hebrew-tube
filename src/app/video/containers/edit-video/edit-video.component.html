@@ -3,6 +3,9 @@
   <button (click)="convertSubtitles=false">CANCEL</button>
   <button (click)="convertSrt()">IMPORT</button>
 </div>
+<div class="loadingSpinner" *ngIf="!video && !convertSubtitles">
+  <mat-spinner></mat-spinner>
+</div>
 <div class="container" *ngIf="video && !convertSubtitles">
   <div class="header">
     <a [routerLink]="['/videos', 'list']">
@@ -81,7 +84,8 @@
     <div formArrayName="subtitles">
       <div [formGroupName]="selectedSubtitle" class="words-area">
         <div class="buttons">
-          <button mat-raised-button color="primary" [disabled]="selectedSubtitle == subtitlesForm.length - 1" (click)="goNextSubtitle()">
+          <button mat-raised-button color="primary" [disabled]="selectedSubtitle == subtitlesForm.length - 1"
+            (click)="goNextSubtitle()">
             <mat-icon>chevron_left</mat-icon>
           </button>
 
@@ -94,14 +98,15 @@
           </button>
         </div>
         <div class="words" formArrayName="words">
-          <div *ngFor="let word of videoForm['controls'].subtitles['controls'][this.selectedSubtitle].controls['words'].controls; let j=index"
+          <div
+            *ngFor="let word of videoForm['controls'].subtitles['controls'][this.selectedSubtitle].controls['words'].controls; let j=index"
             [formGroupName]="j" class="word">
             <mat-form-field>
               <input type="text" style="direction: rtl; text-align:right" placeholder="Hebrew" aria-label="Hebrew"
                 matInput formControlName="hebrew" [matAutocomplete]="auto">
               <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let filteredWord of filteredWords[selectedSubtitle][j] | async" [value]="filteredWord.hebrew"
-                  (onSelectionChange)="onAutocompleteSelect(filteredWord.hebrew, j)">
+                <mat-option *ngFor="let filteredWord of filteredWords[selectedSubtitle][j] | async"
+                  [value]="filteredWord.hebrew" (onSelectionChange)="onAutocompleteSelect(filteredWord.hebrew, j)">
                   {{ filteredWord.hebrew }}
                 </mat-option>
               </mat-autocomplete>

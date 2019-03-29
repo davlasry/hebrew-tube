@@ -1,3 +1,8 @@
-<h1>WELCOME TO THE LEARN MODULE</h1>
-<a [routerLink]="['.', 'home']">Home</a>
+<div class="module-container">
+  <h1>Apprendre en jouant</h1>
+  <nav class="module-menu" fxLayout="row" fxLayoutGap="10px">
+    <a [routerLink]="['.', 'home']">Home</a>
+    <a [routerLink]="['.', 'genre']">Masc/Fém</a>
+  </nav>
+</div>
 <router-outlet></router-outlet>

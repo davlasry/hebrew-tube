@@ -38,6 +38,11 @@ a {
   align-items: center;
 }
 
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: $pink;
+}
+
 .matTableRow {
   cursor: pointer;
 

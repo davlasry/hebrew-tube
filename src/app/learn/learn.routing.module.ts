@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../core/guards/auth-guard.service';
 import { LearnComponent } from './components/learn/learn.component';
 import { LearnContainerComponent } from './containers/learn-container/learn-container.component';
+import { GenreComponent } from './containers/genre/genre.component';
 
 const routes: Routes = [
   {
@@ -11,11 +12,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: LearnComponent }
-      // {
-      //   path: 'create',
-      //   component: CreateVideoComponent
-      // },
+      { path: 'home', component: LearnComponent },
+      {
+        path: 'genre',
+        component: GenreComponent
+      }
       // {
       //   path: 'edit/:id',
       //   component: EditVideoComponent

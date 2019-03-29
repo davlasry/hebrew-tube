@@ -1,0 +1,16 @@
+$pink: #ff3a7d;
+
+.module-container {
+  padding: 20px 20px 0 20px;
+
+  .module-menu {
+
+    a {
+      color: white;
+
+      &:hover {
+        color: $pink;
+      }
+    }
+  }
+}

@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { YoutubeCurrentTime } from './pipes/youtubeCurrentTime';
 
@@ -44,7 +45,8 @@ import { YoutubeCurrentTime } from './pipes/youtubeCurrentTime';
     MatDialogModule,
     FlexLayoutModule,
     MatMenuModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatRadioModule
   ],
   exports: [
     CommonModule,
@@ -68,7 +70,8 @@ import { YoutubeCurrentTime } from './pipes/youtubeCurrentTime';
     FlexLayoutModule,
     MatMenuModule,
     YoutubeCurrentTime,
-    MatTooltipModule
+    MatTooltipModule,
+    MatRadioModule
   ]
 })
 export class SharedModule {}

@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>זכר או נקבה?</h2>
+
+  <p>
+    Devinez si le mot est masculin ou féminin
+  </p>
+
+  <div class="for-container" fxLayout="column" fxLayoutAlign="center center">
+    <div class="question-form" fxLayout="column" fxLayoutAlign="center center">
+      <div class="word">בחור</div>
+      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="choice">
+        <mat-radio-button class="example-radio-button" value="masc">
+          Masculin
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="fem">
+          Féminin
+        </mat-radio-button>
+      </mat-radio-group>
+      <button mat-raised-button color="primary" (click)="onClickConfirm()">Confirm</button>
+    </div>
+  </div>
+
+  <div class="result" *ngIf="result">
+    {{result}}
+    <button mat-raised-button>Suivant</button>
+  </div>
+</div>
