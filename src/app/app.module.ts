@@ -26,8 +26,11 @@ import { ViewWordDialogComponent } from './shared/dialogs/view-word/view-word.co
 import { AppComponent } from './core/layout/app.component';
 import { DeleteVideoDialogComponent } from './shared/dialogs/delete-video-dialog/delete-video-dialog.component';
 import { VideoModule } from './video/video.module';
-import { WordPlaylistsDialogComponent } from './shared/dialogs/word-playlists/word-playlists.component';
 import { LearnModule } from './learn/learn.module';
+import { WordCollectionsDialogComponent } from './shared/dialogs/word-collections/word-collections.component';
+import { CollectionsModule } from './collections/collections.module';
+import { DeleteCollectionComponent } from './shared/dialogs/delete-collection/delete-collection.component';
+import { AddNewUserComponent } from './shared/dialogs/add-new-user/add-new-user.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,9 @@ import { LearnModule } from './learn/learn.module';
     EditWordDialogComponent,
     ProfileComponent,
     ViewWordDialogComponent,
-    WordPlaylistsDialogComponent
+    WordCollectionsDialogComponent,
+    DeleteCollectionComponent,
+    AddNewUserComponent
   ],
   entryComponents: [
     AddNewWordComponent,
@@ -45,7 +50,9 @@ import { LearnModule } from './learn/learn.module';
     DeleteVideoDialogComponent,
     EditWordDialogComponent,
     ViewWordDialogComponent,
-    WordPlaylistsDialogComponent
+    WordCollectionsDialogComponent,
+    DeleteCollectionComponent,
+    AddNewUserComponent
   ],
   imports: [
     AppRoutingModule,
@@ -57,6 +64,7 @@ import { LearnModule } from './learn/learn.module';
     SharedModule,
     WordsModule,
     VideoModule,
+    CollectionsModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([UserEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : []

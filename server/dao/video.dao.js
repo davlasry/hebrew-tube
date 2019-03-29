@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // External dependencies
@@ -18,9 +18,8 @@
   };
 
   async function createVideo(videoData) {
-    return new Promise(async function (resolve, reject) {
+    return new Promise(async function(resolve, reject) {
       try {
-
         const data = {
           link: lodash.get(videoData, 'link'),
           name: lodash.get(videoData, 'name'),
@@ -33,19 +32,16 @@
         const videoCreated = await newVideo.save();
 
         return resolve(videoCreated);
-
       } catch (err) {
         console.log('Error in video.dao createVideo', err);
         return reject(err);
       }
     });
-
   }
 
   async function updateVideo(videoID, videoData) {
-    return new Promise(async function (resolve, reject) {
+    return new Promise(async function(resolve, reject) {
       try {
-
         const existingVideo = await VideoMongo.findOne({
           _id: videoID
         });
@@ -58,7 +54,7 @@
         existingVideo.name = lodash.get(videoData, 'name');
         existingVideo.subtitles = lodash.get(videoData, 'subtitles');
         // console.log('existingVideo after merge', existingVideo);
-        // existingVideo.markModified('subtitles');
+        existingVideo.markModified('subtitles');
         const videoUpdated = await existingVideo.save();
         // const videoUpdated = await VideoMongo.findOneAndUpdate({
         //   _id: existingVideo._id
@@ -71,42 +67,32 @@
         // console.log('videoUpdated', videoUpdated);
 
         return resolve(videoUpdated);
-
       } catch (err) {
         console.log('Error in video.dao updateVideo', err);
         reject(err);
       }
     });
-
   }
 
-
-
   async function getVideo(videoID) {
-    return new Promise(async function (resolve, reject) {
-      return await VideoMongo.
-      findOne({
+    return new Promise(async function(resolve, reject) {
+      return await VideoMongo.findOne({
         _id: videoID
-      }).
-      populate('subtitles.words').
-      exec(function (err, story) {
-        if (err) {
-          return reject(err);
-        }
+      })
+        .populate({ path: 'subtitles.words', model: 'Word' })
+        .exec(function(err, story) {
+          if (err) {
+            return reject(err);
+          }
 
-        return resolve(lodash.get(story, '_doc'));
-      });
-
-
-
+          return resolve(lodash.get(story, '_doc'));
+        });
     });
   }
 
-
-
   async function getAllVideos() {
-    return new Promise(async function (resolve, reject) {
-      await VideoMongo.find({}, async function (err, res) {
+    return new Promise(async function(resolve, reject) {
+      await VideoMongo.find({}, async function(err, res) {
         if (err) {
           console.log('Error in video.dao getAllVideos', err);
           return reject(err);
@@ -116,20 +102,20 @@
     });
   }
 
-
-
   async function deleteVideo(videoID) {
-    return new Promise(async function (resolve, reject) {
-      await VideoMongo.remove({
-        _id: videoID
-      }, async function (err, res) {
-        if (err) {
-          console.log('Error in video.dao delete', err);
-          return reject(err);
+    return new Promise(async function(resolve, reject) {
+      await VideoMongo.remove(
+        {
+          _id: videoID
+        },
+        async function(err, res) {
+          if (err) {
+            console.log('Error in video.dao delete', err);
+            return reject(err);
+          }
+          return resolve(res);
         }
-        return resolve(res);
-      });
+      );
     });
   }
-
 })();

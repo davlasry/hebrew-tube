@@ -12,7 +12,6 @@ import { MyWordsComponent } from './components/my-words/my-words.component';
 import { WordsComponent } from './words.component';
 import { reducers } from './state';
 import { MyWordsEffects } from './state/effects/myWords.effects';
-import { LibrariesComponent } from './components/libraries/libraries.component';
 import { WordsListContainerComponent } from './containers/words-list-container/words-list-container.component';
 import { MyWordsContainerComponent } from './containers/my-words-container/my-words-container.component';
 
@@ -32,8 +31,7 @@ import { MyWordsContainerComponent } from './containers/my-words-container/my-wo
     WordsComponent,
     MyWordsComponent,
     MyWordsContainerComponent,
-    WordsComponent,
-    LibrariesComponent
+    WordsComponent
   ]
 })
 export class WordsModule {}

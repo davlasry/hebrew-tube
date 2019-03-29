@@ -1,0 +1,69 @@
+<div class="container">
+  <h3 mat-dialog-title>Add a new user</h3>
+  <div mat-dialog-content>
+    <form [formGroup]="userForm" autocomplete="off">
+      <mat-form-field class="form-field">
+        <input
+          type="text"
+          matInput
+          placeholder="First Name"
+          formControlName="firstName"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          type="text"
+          placeholder="Last Name"
+          matInput
+          formControlName="lastName"
+          required
+          autocomplete="off"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          type="email"
+          placeholder="Email"
+          matInput
+          formControlName="email"
+          required
+          autocomplete="off"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          type="password"
+          placeholder="Password"
+          matInput
+          formControlName="password"
+          required
+          autocomplete="new-password"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Privacy</mat-label>
+        <mat-select formControlName="role">
+          <mat-option *ngFor="let role of roles" [value]="role.value">
+            {{ role.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <div>
+    <button mat-raised-button (click)="resetForm()">Reset Form</button>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [mat-dialog-close]="1"
+      type="submit"
+      [disabled]="!userForm.valid"
+      (click)="onSubmit()"
+    >
+      Save
+    </button>
+  </div>
+</div>

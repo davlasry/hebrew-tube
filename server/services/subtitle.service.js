@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // External dependencies
@@ -10,7 +10,6 @@
   // dao
   const WordSvc = require('../services/word.service');
 
-
   // Interface du service
   module.exports = {
     fromFrontToDBManager: fromFrontToDBManager,
@@ -18,7 +17,6 @@
   };
 
   // Implémentation
-
 
   /**
    * @description Manager pour storage des datas en DB
@@ -28,7 +26,6 @@
    * @return {Promise<object>} - Les data formatté pour être stocké en DB
    */
   async function fromFrontToDBManager(subtitleData) {
-
     // console.log('fromFrontToDBManager', subtitleData);
 
     const promises = [];
@@ -40,7 +37,6 @@
     }
 
     return await Promise.all(promises);
-
   }
 
   /**
@@ -51,7 +47,6 @@
    * @return {Promise<object>} - Les data formatté pour être envoyé au Front
    */
   async function fromDBToFrontManager(subtitleData) {
-
     const promises = [];
 
     for (let i = 0; i < subtitleData.length; i++) {
@@ -59,10 +54,7 @@
     }
 
     return await Promise.all(promises);
-
   }
-
-
 
   /* private functions */
 
@@ -71,7 +63,6 @@
   // 3 - On fait une liste des ID des words
   // 4 - On remplace les "words" par la liste d'IDs
   async function formatSubtitleToDB(subtitleData) {
-
     const subtitleWords = lodash.get(subtitleData, 'words');
     // console.log('subtitleWords', subtitleWords);
 
@@ -98,7 +89,6 @@
   // 2 - On récupère les data du Word via l'ID
   // 3 - On remplace la liste d'IDs des words par leurs datas
   async function formatSubtitleToFront(subtitleData) {
-
     const subtitleWords = lodash.get(subtitleData, 'words');
 
     const promises = [];
@@ -112,6 +102,4 @@
 
     return subtitleData;
   }
-
-
 })();

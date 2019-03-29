@@ -1,0 +1,35 @@
+@import '../../../../sass/custom-theme.scss';
+
+.search-container {
+  //   padding: 10px;
+  .input-container {
+    padding: 0 10px;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 0px solid #c1c7cd;
+    background: #fff;
+
+    .search-icon {
+      color: $pink;
+      font-size: 21px;
+      height: 21px;
+      width: 21px;
+      margin-right: 4px;
+    }
+
+    .search-input {
+      width: 100px;
+      transition: width 0.3s ease-in-out;
+      //   padding: 5px 0;
+      height: 30px;
+      border-width: 0;
+      outline: none;
+      color: #1d1d1d;
+
+      &:focus {
+        width: 200px;
+        transition: width 0.3s ease-in-out;
+      }
+    }
+  }
+}

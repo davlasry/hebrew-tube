@@ -1,0 +1,12 @@
+<div class="search-container" fxLayout="row" fxLayoutAlign="start center">
+  <div class="input-container" fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon class="search-icon">search</mat-icon>
+    <input
+      type="text"
+      placeholder="Search"
+      #searchBar
+      class="search-input"
+      (keydown)="onKeyDown($event, searchBar.value)"
+    />
+  </div>
+</div>

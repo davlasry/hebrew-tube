@@ -28,6 +28,21 @@ export class CollectionsService {
     );
   }
 
+  addWordToCollection(collectionId, wordId): Observable<any> {
+    console.log('ADD WORD TO COLLECTION SERVICE', collectionId, wordId);
+    return this.http.put<any>(
+      `${environment.API_URL}/collection/${collectionId}`,
+      { wordId }
+    );
+  }
+
+  deleteWordFromCollection(collectionId, wordId): Observable<any> {
+    console.log('ADD WORD TO COLLECTION SERVICE', collectionId, wordId);
+    return this.http.delete<any>(
+      `${environment.API_URL}/collection/${collectionId}/${wordId}`
+    );
+  }
+
   updateCollection(collectionId, wordId): Observable<any> {
     console.log('UPDATE COLLECTION SERVICE', collectionId, wordId);
     return this.http.post<any>(

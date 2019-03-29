@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="header">
+    <h1>Collections</h1>
+  </div>
+  <div class="content" *ngIf="collections">
+    <div
+      class="collections-container"
+      fxLayout="row"
+      fxLayoutAlign="start start"
+    >
+      <div class="collections-list">
+        <div
+          *ngFor="let collection of collections"
+          class="collection"
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+        >
+          <a
+            [routerLink]="['/collections', collection._id]"
+            [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ collection.name }}</a
+          >
+          <button
+            mat-icon-button
+            color="accent"
+            (click)="onClickDeleteCollection(collection)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onCreateCollection()"
+          *ngIf="!createMode"
+        >
+          <mat-icon>add</mat-icon>
+          CREATE COLLECTION
+        </button>
+      </div>
+
+      <div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  <div class="footer" fxLayout="column" *ngIf="createMode">
+    <h3 fxFlex>New Collection</h3>
+    <div
+      class="create-collection"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      fxLayoutGap="30px"
+    >
+      <mat-form-field class="form-field">
+        <input
+          type="email"
+          matInput
+          placeholder="Name"
+          [(ngModel)]="newCollection"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Privacy</mat-label>
+        <mat-select [(ngModel)]="collectionPrivacy">
+          <mat-option
+            *ngFor="let setting of privacyOptions"
+            value="setting.value"
+          >
+            {{ setting.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="onSaveCollection()">
+        SAVE
+      </button>
+    </div>
+  </div>
+</div>

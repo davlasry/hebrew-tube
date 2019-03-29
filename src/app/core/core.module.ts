@@ -14,10 +14,19 @@ import { HomeComponent } from './layout/home/home.component';
 import { AppComponent } from './layout/app.component';
 import { CollectionsService } from './services/collections.service';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { SearchResultsComponent } from './search/search-results/search-results.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule, SharedModule],
-  declarations: [SidebarComponent, AppComponent, HomeComponent],
+  declarations: [
+    SidebarComponent,
+    AppComponent,
+    HomeComponent,
+    HeaderComponent,
+    HeaderComponent,
+    SearchResultsComponent
+  ],
   providers: [
     WordsService,
     YoutubeApiService,

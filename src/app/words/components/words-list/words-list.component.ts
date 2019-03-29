@@ -7,11 +7,13 @@ import {
   Output,
   ViewChild,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  AfterViewInit
 } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
+import { WordsService } from 'src/app/core/services/words.service';
 
 @Component({
   selector: 'app-words-list',
@@ -19,6 +21,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./words-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+// export class WordsListComponent implements OnInit, AfterViewInit {
 export class WordsListComponent implements OnInit, OnChanges {
   @Input() words;
   @Input() myWords;
@@ -43,13 +46,14 @@ export class WordsListComponent implements OnInit, OnChanges {
 
   selection: SelectionModel<any>;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private wordsService: WordsService) {}
 
   ngOnInit() {
     this.selection = new SelectionModel<any>(true);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('Changes in WORDS LIST', this.words);
     if (this.words.length > 0) {
       this.dataSource = new MatTableDataSource(this.words);
       this.dataSource.sort = this.sort;
@@ -104,5 +108,18 @@ export class WordsListComponent implements OnInit, OnChanges {
     const wordsToDelete = this.selection.selected.map(word => word._id);
     this.selection.clear();
     this.deleteWords.emit(wordsToDelete);
+  }
+
+  searchWord(searchString) {
+    console.log('searchString:', searchString);
+    this.wordsService.searchWord(searchString).subscribe(result => {
+      console.log('result:', result);
+    });
+  }
+
+  onKeyDown(event, searchString) {
+    if (event.keyCode == 13) {
+      this.searchWord(searchString);
+    }
   }
 }

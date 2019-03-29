@@ -29,13 +29,13 @@
    */
   async function createUser(req, res) {
     try {
-      const userID = lodash.get(req, 'userID');
-      if (userID) {
-        return res.status(500).send({
-          auth: false,
-          error: 'Invalid parameters'
-        });
-      }
+      // const userID = lodash.get(req, 'userID');
+      // if (userID) {
+      //   return res.status(500).send({
+      //     auth: false,
+      //     error: 'Already logged in'
+      //   });
+      // }
 
       const userData = lodash.get(req, 'body');
 

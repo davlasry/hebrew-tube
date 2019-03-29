@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { CollectionsService } from 'src/app/core/services/collections.service';
+import { Router, ActivatedRoute } from '@angular/router/src';
+import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-libraries',
-  templateUrl: './libraries.component.html',
-  styleUrls: ['./libraries.component.scss']
+  selector: 'app-collections-list-container',
+  templateUrl: './collections-list-container.component.html',
+  styleUrls: ['./collections-list-container.component.scss']
 })
-export class LibrariesComponent implements OnInit {
-  libraries;
+export class CollectionsListContainerComponent implements OnInit {
+  collections;
   currentLibrary;
   newCollection;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
+    // private route: ActivatedRoute,
+    // private router: Router,
     private collectionsService: CollectionsService
   ) {}
 
   ngOnInit() {
-    this.route.params.pipe(map(params => params.id)).subscribe(libraryId => {
-      console.log('libraryId', libraryId);
-      this.currentLibrary = libraryId;
-    });
+    // this.route.params.pipe(map(params => params.id)).subscribe(libraryId => {
+    //   console.log('libraryId', libraryId);
+    //   this.currentLibrary = libraryId;
+    // });
 
     this.getLibraryList();
   }
@@ -31,7 +31,7 @@ export class LibrariesComponent implements OnInit {
   getLibraryList() {
     this.collectionsService.getCollections().subscribe(result => {
       console.log(result);
-      this.libraries = result['data'];
+      this.collections = result['data'];
     });
   }
 

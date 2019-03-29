@@ -1,3 +1,5 @@
+@import '../../../../sass/custom-theme.scss';
+
 .header {
   background-color: #5b5f67;
   color: White;
@@ -6,41 +8,68 @@
   align-items: center;
   padding: 20px 0;
   height: 100%;
-  width: 80px;
 
   .logo {
     color: inherit;
     font-size: 40px;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #fff;
+    color: $pink;
   }
 
   nav {
     // height: 60px;
     flex: 1;
+    width: 105px;
 
     a {
-      text-transform: uppercase;
       cursor: pointer;
       color: inherit;
-      margin: 10px 0;
       color: #979ca9;
+      transition: color 0.2s linear;
+      padding: 10px 8px;
+      width: 100%;
 
       .menu-icon {
         width: 100%;
         // font-weight: bold;
-        line-height: 30px;
+        // line-height: 30px;
         font-size: 40px;
         height: 100%;
+        text-align: center;
       }
 
-      &:hover {
-        color: #ff3a7d;
+      span {
+        font-size: 11px;
+        margin-top: 4px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 18px;
+        width: 100%;
+        text-transform: uppercase;
+      }
+
+      &:hover .menu-icon {
+        transition: color 0.2s linear;
+        color: $pink;
+      }
+
+      &:hover span {
+        transition: color 0.2s linear;
+        color: white;
       }
 
       &.is-active {
-        color: #ff3a7d;
+        border-left: 4px solid $pink;
+      }
+
+      &.is-active span {
+        color: white;
+      }
+
+      &.is-active .menu-icon {
+        color: $pink;
+        font-weight: normal;
       }
     }
   }

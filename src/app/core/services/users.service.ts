@@ -18,9 +18,10 @@ export class UsersService {
   }
 
   signUp(signUpForm) {
-    // console.log(signUpForm.value);
-    signUpForm.value.role = 'admin';
-    // console.log(signUpForm.value);
+    console.log(signUpForm.value);
+    if (!signUpForm.value.role) {
+      signUpForm.value.role = 'user';
+    }
     return this.http.post<any>(`${environment.API_URL}/user`, signUpForm.value);
   }
 

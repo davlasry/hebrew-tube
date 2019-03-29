@@ -14,7 +14,8 @@ import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { DeleteDialogComponent } from 'src/app/shared/dialogs/delete-word-dialog/delete-dialog.component';
-import { WordPlaylistsDialogComponent } from 'src/app/shared/dialogs/word-playlists/word-playlists.component';
+import { WordCollectionsDialogComponent } from 'src/app/shared/dialogs/word-collections/word-collections.component';
+import { WordsService } from 'src/app/core/services/words.service';
 
 @Component({
   selector: 'app-my-words',
@@ -50,13 +51,18 @@ export class MyWordsComponent implements OnInit, OnChanges {
 
   selection: SelectionModel<any>;
 
-  constructor(private router: Router, public dialog: MatDialog) {}
+  constructor(
+    private router: Router,
+    public dialog: MatDialog,
+    private wordsService: WordsService
+  ) {}
 
   ngOnInit() {
     this.selection = new SelectionModel<any>(true);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes in MY WORDS:', changes);
     if (this.myWords.length > 0) {
       this.dataSource = new MatTableDataSource(this.myWords);
       this.dataSource.sort = this.sort;
@@ -115,7 +121,7 @@ export class MyWordsComponent implements OnInit, OnChanges {
 
   onClickFavorite(event, word) {
     event.stopPropagation();
-    const dialogRef = this.dialog.open(WordPlaylistsDialogComponent, {
+    const dialogRef = this.dialog.open(WordCollectionsDialogComponent, {
       // width: '250px',
       data: { word: word }
     });

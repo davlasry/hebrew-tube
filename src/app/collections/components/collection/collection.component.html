@@ -1,0 +1,11 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="collection-container">
+  <div *ngIf="!currentCollection || currentCollection?.words.length == 0">
+    The collection is empty. Start adding words to the collection.
+  </div>
+  <div *ngFor="let word of currentCollection?.words">
+    <div>{{ word.hebrew }}</div>
+    <div>{{ word.french }}</div>
+    <div>{{ word.pronunciation }}</div>
+    <div>{{ word.type }}</div>
+  </div>
+</div>

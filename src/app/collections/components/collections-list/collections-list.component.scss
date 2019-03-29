@@ -1,0 +1,39 @@
+@import '../../../../sass/custom-theme.scss';
+
+.container {
+  .collections-container {
+    margin-top: 40px;
+
+    .collections-list {
+      width: 300px;
+      margin-right: 40px;
+
+      .create-collection {
+        margin-top: 20px;
+      }
+
+      .collection {
+        margin: 15px 0;
+
+        a {
+          color: white;
+          font-size: 18px;
+          // height: 40px;
+          display: inline-block;
+
+          &.active {
+            color: $pink;
+          }
+
+          &:hover {
+            color: $pink;
+          }
+        }
+      }
+    }
+  }
+}
+
+/deep/ .mat-select-value {
+  color: $pink;
+}

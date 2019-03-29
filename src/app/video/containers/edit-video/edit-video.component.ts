@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { VideosService } from 'src/app/core/services/videos.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { startWith, map, filter } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { startWith, map } from 'rxjs/operators';
 import { WordsService } from 'src/app/core/services/words.service';
-import { YoutubeApiService } from 'src/app/core/services/youtube-api.service';
-
-import * as xml2js from 'xml2js';
 
 import * as Subtitle from 'subtitle';
 
-// ES6 / TypeScript
-import { getSubtitles } from 'youtube-captions-scraper';
-import { HttpClient } from '@angular/common/http';
+import * as jsondiffpatch from 'jsondiffpatch';
+
+import { Store, select } from '@ngrx/store';
+import { getAllWords } from 'src/app/words/state/selectors/words.selectors';
 
 @Component({
   selector: 'app-edit-video',
@@ -22,6 +20,7 @@ import { HttpClient } from '@angular/common/http';
 export class EditVideoComponent implements OnInit {
   videoForm: FormGroup;
   video: any;
+  videoClone: any;
 
   convertSubtitles = false;
 
@@ -51,10 +50,8 @@ export class EditVideoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private videosService: VideosService,
-    private router: Router,
     private route: ActivatedRoute,
-    private youtubeApiService: YoutubeApiService,
-    private http: HttpClient,
+    private store: Store<any>,
     private wordsService: WordsService // private store: Store<WordsState>
   ) {}
 
@@ -140,9 +137,9 @@ export class EditVideoComponent implements OnInit {
   }
 
   getWords() {
-    this.wordsService.getWords().subscribe(result => {
-      this.wordsList = result['data'];
-      console.log('getWords wordsList', this.wordsList);
+    this.store.pipe(select(getAllWords)).subscribe(words => {
+      this.wordsList = words;
+      console.log('this.wordsList', this.wordsList);
       this.getVideo();
     });
   }
@@ -198,8 +195,9 @@ export class EditVideoComponent implements OnInit {
   getVideo(): void {
     const id: string = this.route.snapshot.paramMap.get('id');
     this.videosService.getVideo(id).subscribe(result => {
-      console.log('getVideo videodata', result);
+      // console.log('getVideo videodata', result);
       this.video = result.data;
+      this.videoClone = { ...this.video };
       this.initVideoForm();
       this.setWords(this.video.subtitles);
     });
@@ -252,7 +250,7 @@ export class EditVideoComponent implements OnInit {
         const foundWord = this.wordsList.find(existingWord => {
           return existingWord.hebrew === word.hebrew;
         });
-        console.log(foundWord);
+        // console.log(foundWord);
         if (foundWord) {
           word.french = foundWord.french;
           word.pronunciation = foundWord.pronunciation;
@@ -339,15 +337,53 @@ export class EditVideoComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.videoForm.get('youtubeLink'));
-    this.videoForm.patchValue({
-      lastEdit: Date.now()
+    // this.getDiff();
+
+    console.log('this.videoForm.value', this.videoForm.value);
+
+    this.videoForm.value.subtitles.forEach((subtitle, index) => {
+      const subtitleClone = this.videoClone.subtitles[index];
+      console.log('subtitleClone:', subtitleClone);
+      if (subtitle.startTime != subtitleClone.startTime) {
+        console.log('Different startTime');
+      } else if (subtitle.startTime != subtitleClone.startTime) {
+        console.log('Different endTime');
+      } else {
+        console.log('everything is unchanged');
+      }
+
+      subtitleClone.words = subtitleClone.words.map(word => {
+        return {
+          hebrew: word.hebrew,
+          french: word.french,
+          pronunciation: word.pronunciation,
+          type: word.type
+        };
+      });
+
+      if (
+        JSON.stringify(subtitle.words) !== JSON.stringify(subtitleClone.words)
+      ) {
+        console.log('Words were changed');
+      } else {
+        console.log('Words are identical');
+      }
     });
-    console.log(this.videoForm.value);
-    this.videosService.saveVideo(this.videoForm.value).subscribe(res => {
-      console.log(res);
-    });
+
+    // this.videoForm
+
+    // this.videosService.saveVideo(this.videoForm.value).subscribe(res => {
+    //   console.log(res);
+    // });
+
     // this.store.dispatch(new AddWord(this.wordForm.value));
     // this.router.navigateByUrl('/videos');
+  }
+
+  getDiff() {
+    var left = { a: 3, b: 4 };
+    var right = { a: 3, c: 9 };
+    var delta = jsondiffpatch.diff(left, right);
+    console.log('delta:', delta);
   }
 }
