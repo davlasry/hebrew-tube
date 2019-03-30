@@ -1,6 +1,7 @@
 @import '../../../../sass/custom-theme.scss';
 
 .search-container {
+
   //   padding: 10px;
   .input-container {
     padding: 0 10px;
@@ -21,10 +22,11 @@
       width: 100px;
       transition: width 0.3s ease-in-out;
       //   padding: 5px 0;
-      height: 30px;
+      height: 35px;
       border-width: 0;
       outline: none;
       color: #1d1d1d;
+      font-size: 14px;
 
       &:focus {
         width: 200px;

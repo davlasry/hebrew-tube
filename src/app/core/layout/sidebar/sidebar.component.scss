@@ -27,7 +27,7 @@
       color: inherit;
       color: #979ca9;
       transition: color 0.2s linear;
-      padding: 10px 8px;
+      margin-bottom: 20px;
       width: 100%;
 
       .menu-icon {
@@ -74,30 +74,5 @@
     }
   }
 
-  .user {
-    cursor: pointer;
-    margin: 20px 0 0 0;
 
-    a {
-      color: inherit;
-      font-size: 13px;
-      cursor: pointer;
-      color: #aaaeb9;
-
-      .user-icon {
-        width: 100%;
-        height: 100%;
-        font-size: 35px;
-        margin: 5px 0;
-      }
-
-      &:hover {
-        color: #ff3a7d;
-      }
-
-      &.is-active {
-        color: #ff3a7d;
-      }
-    }
-  }
 }

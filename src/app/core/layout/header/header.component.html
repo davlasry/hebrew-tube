@@ -1,3 +1,14 @@
-<div class="header" fxLayout="column" fxLayoutAlgin="start start">
+<div class="header" fxLayout="row" fxLayoutAlgin="start center">
+  <div fxFlex></div>
   <app-search></app-search>
+  <div class="user" fxLayout="row" fxLayoutAlign="center center">
+    <a fxLayout="column" fxLayoutAlign="center center" [routerLinkActive]="['is-active']">
+      <mat-icon class="user-icon">notifications</mat-icon>
+      <!-- <span>{{ currentUser?.firstName | titlecase }}</span> -->
+    </a>
+    <a [routerLink]="['/profile']" fxLayout="column" fxLayoutAlign="center center" [routerLinkActive]="['is-active']">
+      <mat-icon class="user-icon">account_circle</mat-icon>
+      <!-- <span>{{ currentUser?.firstName | titlecase }}</span> -->
+    </a>
+  </div>
 </div>
