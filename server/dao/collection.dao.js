@@ -39,15 +39,22 @@
     });
   }
 
-  async function updateCollection(collectionData) {
+  async function updateCollection(collectionData, collectionID) {
+    console.log('collectionData:', collectionData);
     return new Promise(async function(resolve, reject) {
       try {
         const existingCollection = await CollectionMongo.findOne({
-          name: lodash.get(collectionData, 'name')
+          _id: collectionID
         });
         if (!!existingCollection === false) {
           return reject('nonExistingCollection');
         }
+
+        console.log(lodash.get(collectionData, 'name'));
+        existingCollection.name = lodash.get(collectionData, 'name');
+        existingCollection.privacy = lodash.get(collectionData, 'privacy');
+
+        console.log('existingCollection:', existingCollection);
 
         const collectionUpdated = await existingCollection.save();
 

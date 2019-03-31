@@ -2,10 +2,10 @@
 
 .container {
   .collections-container {
-    margin-top: 40px;
+    margin-top: 10px;
 
     .collections-list {
-      width: 300px;
+      width: 400px;
       margin-right: 40px;
 
       .create-collection {
@@ -14,6 +14,13 @@
 
       .collection {
         margin: 15px 0;
+
+        .lock-icon {
+          font-size: 15px;
+          height: 15px;
+          width: 15px;
+          margin-left: 10px;
+        }
 
         a {
           color: white;

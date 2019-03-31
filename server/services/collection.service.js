@@ -62,26 +62,19 @@
    *
    * @return {Promise<object>} - Les data du collection
    */
-  async function updateCollection(collectionData) {
-    if (
-      !lodash.get(collectionData, 'hebrew') ||
-      !lodash.get(collectionData, 'french')
-    ) {
-      throw new Error({
-        error: 'Invalid parameters'
-      });
-    }
+  async function updateCollection(collectionData, collectionID) {
+    console.log('collectionData in SERVICE:', collectionData);
 
-    const existingCollection = await checkExistingHebrewCollection(
-      lodash.get(collectionData, 'hebrew')
-    );
-    if (!existingCollection) {
-      throw new Error({
-        error: 'Invalid parameters'
-      });
-    }
+    // if (
+    //   !lodash.get(collectionData, 'name') ||
+    //   !lodash.get(collectionData, 'privacy')
+    // ) {
+    //   throw new Error({
+    //     error: 'Invalid parameters'
+    //   });
+    // }
 
-    return await CollectionDAO.updateCollection(collectionData);
+    return await CollectionDAO.updateCollection(collectionData, collectionID);
   }
 
   /**
