@@ -1,4 +1,3 @@
-
 const router = require('express').Router();
 
 
@@ -20,4 +19,3 @@ router.delete('/:userID', Auth.isConnected, Auth.isAdmin, UserController.deleteU
 
 
 module.exports = router;
-

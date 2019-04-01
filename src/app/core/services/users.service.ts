@@ -33,10 +33,10 @@ export class UsersService {
     return this.http.get<any>(`${environment.API_URL}/user`);
   }
 
-  updateUser(recipeId, userDetails) {
-    // console.log('updateUser Service', userDetails);
-    return this.http.patch<any>(
-      `${environment.API_URL}/users/words/${recipeId}`,
+  updateUser(userDetails) {
+    console.log('updateUser Service', userDetails);
+    return this.http.post<any>(
+      `${environment.API_URL}/user/${userDetails.id}`,
       userDetails
     );
   }
