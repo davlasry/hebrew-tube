@@ -17,24 +17,25 @@ export class CollectionsListComponent implements OnInit {
   createMode: Boolean;
   collectionPrivacy: String;
 
+  privacies = [
+    { value: 'private', viewValue: 'Private' },
+    { value: 'public', viewValue: 'Public' }
+  ];
+
+  editedCollection;
+
   privacyOptions = [
     { value: 'public', viewValue: 'Public' },
     { value: 'private', viewValue: 'Private' }
   ];
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private collectionsService: CollectionsService,
     public dialog: MatDialog
   ) {}
 
   ngOnInit() {
-    // this.route.params.pipe(map(params => params.id)).subscribe(libraryId => {
-    //   console.log('libraryId', libraryId);
-    //   this.currentLibrary = libraryId;
-    // });
-
     this.createMode = false;
 
     this.getLibraryList();
@@ -48,11 +49,6 @@ export class CollectionsListComponent implements OnInit {
   }
 
   getCurrentLibrary() {}
-
-  // onLibraryClick(library) {
-  // this.currentLibrary = library;
-  // this.router.navigateByUrl(`words/library/${library}`);
-  // }
 
   onClickDeleteCollection(collection) {
     console.log('DELETE COLLECTION COMPONENT');
@@ -84,6 +80,23 @@ export class CollectionsListComponent implements OnInit {
       .subscribe(result => {
         this.newCollection = '';
         console.log(result);
+      });
+  }
+
+  onClickEditCollection(collection) {
+    this.editedCollection = collection;
+  }
+
+  onClickSaveEditCollection(newCollectionName, newCollectionPrivacy) {
+    console.log('newCollectionName:', newCollectionName);
+    this.editedCollection.name = newCollectionName;
+    this.editedCollection.privacy = newCollectionPrivacy;
+    console.log('this.collections:', this.collections);
+    this.collectionsService
+      .updateCollection(this.editedCollection)
+      .subscribe(result => {
+        console.log('result:', result);
+        this.editedCollection = '';
       });
   }
 }

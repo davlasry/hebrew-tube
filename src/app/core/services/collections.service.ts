@@ -43,11 +43,11 @@ export class CollectionsService {
     );
   }
 
-  updateCollection(collectionId, wordId): Observable<any> {
-    console.log('UPDATE COLLECTION SERVICE', collectionId, wordId);
+  updateCollection(collection): Observable<any> {
+    console.log('UPDATE COLLECTION SERVICE', collection);
     return this.http.post<any>(
-      `${environment.API_URL}/collection/${collectionId}`,
-      { collectionId, wordId }
+      `${environment.API_URL}/collection/${collection._id}`,
+      collection
     );
   }
 }
