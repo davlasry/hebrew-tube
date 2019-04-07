@@ -1,8 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Store } from '@ngrx/store';
-import { EditWord } from 'src/app/words/state/actions/words.actions';
 
 @Component({
   selector: 'app-edit-word-dialog',
@@ -15,22 +13,21 @@ export class EditWordDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EditWordDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data,
-    private store: Store<any>
+    @Inject(MAT_DIALOG_DATA) public data
   ) {}
 
   ngOnInit() {
+    console.log(this.data);
+
     this.wordForm = this.fb.group({
       hebrew: [
         this.data.word.hebrew,
         [Validators.required, Validators.pattern(/^[א-ת\s]+$/)]
       ],
-      definitions: this.fb.array(this.setInitialDefinitions())
+      french: [this.data.word.french, [Validators.required]],
+      pronunciation: [this.data.word.pronunciation, [Validators.required]],
+      _id: [this.data.word._id]
     });
-  }
-
-  get definitionsForm() {
-    return this.wordForm.get('definitions') as FormArray;
   }
 
   onNoClick(): void {
@@ -39,32 +36,7 @@ export class EditWordDialogComponent implements OnInit {
 
   onSave(): void {
     console.log(this.wordForm.value);
-    this.store.dispatch(new EditWord(this.wordForm));
-    // this.dialogRef.close(this.wordForm.value);
-  }
-
-  setInitialDefinitions() {
-    return this.data.word.definitions.map(definition => {
-      return this.fb.group({
-        french: [definition.french],
-        english: [definition.english],
-        phonetic: [definition.phonetic],
-        notes: [definition.notes]
-      });
-    });
-  }
-
-  addDefinition() {
-    const definitionGroup = this.fb.group({
-      french: [''],
-      english: [''],
-      phonetic: [''],
-      notes: ['']
-    });
-    this.definitionsForm.push(definitionGroup);
-  }
-
-  deleteDefinition(i) {
-    this.definitionsForm.removeAt(i);
+    // this.wordForm.patchValue({ _id: this.data.word._id });
+    this.dialogRef.close(this.wordForm.value);
   }
 }

@@ -1,5 +1,12 @@
 <div class="container">
-  <app-words-list [words]="words$ | async" [myWords]="myWords$ | async" [wordsLoading]="wordsLoading$ | async"
-    (addToMyWords)="addToMyWords($event)" (deleteFromMyWords)="deleteFromMyWords($event)" (deleteWords)="deleteManyWords($event)"
-    (deleteWord)="deleteWord($event)"></app-words-list>
+  <app-words-list
+    [words]="words$ | async"
+    [myWords]="myWords$ | async"
+    [wordsLoading]="wordsLoading$ | async"
+    (addToMyWords)="addToMyWords($event)"
+    (deleteFromMyWords)="deleteFromMyWords($event)"
+    (deleteWords)="deleteManyWords($event)"
+    (deleteWord)="deleteWord($event)"
+    (editWord)="editWord($event)"
+  ></app-words-list>
 </div>

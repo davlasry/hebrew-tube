@@ -122,6 +122,8 @@
    * @return {*} la requête
    */
   async function getAllWords(req, res) {
+    console.log('req.body', req.body);
+    console.log('req', req);
     try {
       const words = await WordSvc.getAllWords();
 

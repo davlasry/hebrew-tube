@@ -1,6 +1,17 @@
-<div class="container">
-  <p>{{ data.word.hebrew }}</p>
-  <p>{{ data.word.french }}</p>
+<div class="dialog-container">
+  <div class="word-field" fxLayout="row" fxLayoutAlign="start center">
+    <img
+      class="flag"
+      src="assets/img/israel-flag.png"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+    />
+    <span>{{ data.word.hebrew }}</span>
+  </div>
+  <div class="word-field" fxLayout="row" fxLayoutAlign="start center">
+    <img class="flag" src="assets/img/france-flag.png" />
+    <span>{{ data.word.french }}</span>
+  </div>
   <p>{{ data.word.pronunciation }}</p>
   <p>{{ data.word.type }}</p>
   <div>

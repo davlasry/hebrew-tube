@@ -10,10 +10,11 @@ import {
   SimpleChanges,
   AfterViewInit
 } from '@angular/core';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { WordsService } from 'src/app/core/services/words.service';
+import { ViewWordDialogComponent } from 'src/app/shared/dialogs/view-word/view-word.component';
 
 @Component({
   selector: 'app-words-list',
@@ -30,6 +31,7 @@ export class WordsListComponent implements OnInit, OnChanges {
   @Output() deleteFromMyWords = new EventEmitter();
   @Output() addToMyWords = new EventEmitter();
   @Output() deleteWord = new EventEmitter();
+  @Output() editWord = new EventEmitter();
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -46,7 +48,7 @@ export class WordsListComponent implements OnInit, OnChanges {
 
   selection: SelectionModel<any>;
 
-  constructor(private router: Router, private wordsService: WordsService) {}
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit() {
     this.selection = new SelectionModel<any>(true);
@@ -62,12 +64,23 @@ export class WordsListComponent implements OnInit, OnChanges {
 
   showWord(row) {
     console.log('showWord', row);
-    this.router.navigate(['/words', row._id]);
+    const dialogRef = this.dialog.open(ViewWordDialogComponent, {
+      // width: '250px',
+      data: { word: row }
+    });
+    // this.router.navigate(['/words', row._id]);
   }
 
   onDeleteWord(word) {
+    event.stopPropagation();
     console.log('onDeleteWord', word);
     this.deleteWord.emit(word);
+  }
+
+  onEditWord(word) {
+    event.stopPropagation();
+    console.log('onEditWord', word);
+    this.editWord.emit(word);
   }
 
   onDeleteFromMyWords(word, event) {
@@ -108,18 +121,5 @@ export class WordsListComponent implements OnInit, OnChanges {
     const wordsToDelete = this.selection.selected.map(word => word._id);
     this.selection.clear();
     this.deleteWords.emit(wordsToDelete);
-  }
-
-  searchWord(searchString) {
-    console.log('searchString:', searchString);
-    this.wordsService.searchWord(searchString).subscribe(result => {
-      console.log('result:', result);
-    });
-  }
-
-  onKeyDown(event, searchString) {
-    if (event.keyCode == 13) {
-      this.searchWord(searchString);
-    }
   }
 }

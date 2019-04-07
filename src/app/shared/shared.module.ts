@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { YoutubeCurrentTime } from './pipes/youtubeCurrentTime';
 import { SearchComponent } from './components/search/search.component';
@@ -47,7 +48,8 @@ import { SearchComponent } from './components/search/search.component';
     FlexLayoutModule,
     MatMenuModule,
     MatTooltipModule,
-    MatRadioModule
+    MatRadioModule,
+    MatPaginatorModule
   ],
   exports: [
     CommonModule,
@@ -73,7 +75,8 @@ import { SearchComponent } from './components/search/search.component';
     YoutubeCurrentTime,
     MatTooltipModule,
     MatRadioModule,
-    SearchComponent
+    SearchComponent,
+    MatPaginatorModule
   ]
 })
 export class SharedModule {}

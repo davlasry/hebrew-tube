@@ -97,6 +97,9 @@
                 >
               </button>
               <button mat-icon-button color="accent">
+                <mat-icon (click)="onEditWord(word)">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="accent">
                 <mat-icon (click)="onDeleteWord(word)">delete</mat-icon>
               </button>
               <button mat-icon-button color="accent">
@@ -118,5 +121,6 @@
         ></tr>
       </table>
     </div>
+    <mat-paginator [length]="10" [pageSize]="3"></mat-paginator>
   </div>
 </div>

@@ -1,6 +1,19 @@
 // :host {
 //   color: black;
 
+.dialog-container {
+  min-width: 400px;
+
+  .word-field {
+    margin-bottom: 10px;
+
+    .flag {
+      width: 20px;
+      margin-right: 15px;
+    }
+  }
+}
+
 //   mat-form-field {
 //     margin-right: 10px;
 //   }

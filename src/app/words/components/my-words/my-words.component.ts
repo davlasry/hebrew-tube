@@ -51,11 +51,7 @@ export class MyWordsComponent implements OnInit, OnChanges {
 
   selection: SelectionModel<any>;
 
-  constructor(
-    private router: Router,
-    public dialog: MatDialog,
-    private wordsService: WordsService
-  ) {}
+  constructor(private router: Router, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.selection = new SelectionModel<any>(true);
