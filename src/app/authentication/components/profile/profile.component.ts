@@ -5,6 +5,7 @@ import { getUser } from '../../state/user.selectors';
 import { Observable } from 'rxjs';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
+import { UsersService } from 'src/app/core/services/users.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,11 @@ export class ProfileComponent implements OnInit {
   editMode: Boolean;
   userForm: FormGroup;
 
-  constructor(private store: Store<UserState>, private fb: FormBuilder) {
+  constructor(
+    private store: Store<UserState>,
+    private fb: FormBuilder,
+    private usersService: UsersService
+  ) {
     this.editMode = false;
   }
 
@@ -27,11 +32,13 @@ export class ProfileComponent implements OnInit {
     this.user$
       .pipe(
         map(user => {
+          console.log(user);
           return this.fb.group({
             email: [user.email, [Validators.required]],
             role: [user.role, [Validators.required, Validators.minLength(5)]],
             firstName: [user.firstName, [Validators.required]],
-            lastName: [user.lastName, [Validators.required]]
+            lastName: [user.lastName, [Validators.required]],
+            id: [user.id]
           });
         })
       )
@@ -43,5 +50,11 @@ export class ProfileComponent implements OnInit {
   onClickSave() {
     console.log('--SAVE USER--');
     this.editMode = false;
+    // this.userForm.patchValue({
+    //   id: this.user
+    // });
+    this.usersService.updateUser(this.userForm.value).subscribe(result => {
+      console.log(result);
+    });
   }
 }
