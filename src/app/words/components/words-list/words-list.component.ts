@@ -73,41 +73,36 @@ export class WordsListComponent implements OnInit, OnChanges {
     this.selection = new SelectionModel<any>(true);
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+    if (!this.paginatorSubscription) {
+      this.paginatorSubscription = this.paginator.page
+        .pipe(
+          startWith({
+            pageIndex: 0,
+            pageSize: 20
+          }),
+          distinctUntilChanged()
+        )
+        .subscribe(res => {
+          console.log(res);
+          const payload = {
+            sortOrder: 'asc',
+            pageNumber: res['pageIndex'] + 1,
+            pageSize: res['pageSize']
+          };
+          this.wordsService.getWords(payload).subscribe(res => {
+            this.dataSource.data = [...res.data];
+            console.log('this.dataSource:', this.dataSource);
+            console.log('res', res);
+          });
+        });
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log('changes:', changes);
     console.log('Changes in WORDS LIST', this.words);
     console.log('Changes in WORDS LIST', this.wordsLoading);
-    // if (this.newWords.length > 0) {
-    //   this.dataSource = new MatTableDataSource(this.newWords);
-    //   this.dataSource.sort = this.sort;
-    // }
-    if (!this.wordsLoading) {
-      if (!this.paginatorSubscription) {
-        this.paginatorSubscription = this.paginator.page
-          .pipe(
-            startWith({
-              pageIndex: 0,
-              pageSize: 20
-            }),
-            distinctUntilChanged()
-          )
-          .subscribe(res => {
-            console.log(res);
-            const payload = {
-              sortOrder: 'asc',
-              pageNumber: res['pageIndex'] + 1,
-              pageSize: res['pageSize']
-            };
-            this.wordsService.getWords(payload).subscribe(res => {
-              this.dataSource.data = [...res.data];
-              console.log('this.dataSource:', this.dataSource);
-              console.log('res', res);
-            });
-          });
-      }
-    }
   }
 
   ngOnDestroy() {
