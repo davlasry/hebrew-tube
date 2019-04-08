@@ -84,4 +84,6 @@ export class WordsListContainerComponent implements OnInit {
       }
     });
   }
+
+  getWords() {}
 }

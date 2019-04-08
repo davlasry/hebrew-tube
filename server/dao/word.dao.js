@@ -107,10 +107,14 @@
     });
   }
 
-  async function getAllWords() {
+  async function getAllWords(sortOrder, pageNumber, pageSize) {
     return new Promise(async function(resolve, reject) {
       await WordMongo.find({})
-        .limit(20)
+        .skip(pageSize * pageNumber - pageSize)
+        .limit(pageSize)
+        .sort({
+          hebrew: sortOrder
+        })
         .exec(function(err, res) {
           if (err) {
             console.log('Error in word.dao getAllWords', err);

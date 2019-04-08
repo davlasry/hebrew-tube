@@ -123,9 +123,15 @@
    */
   async function getAllWords(req, res) {
     console.log('req.body', req.body);
-    console.log('req', req);
+    console.log('req.query', req.query);
+    // console.log('req', req);
+
+    const sortOrder = lodash.get(req, 'query.sortOrder');
+    const pageNumber = lodash.get(req, 'query.pageNumber');
+    const pageSize = lodash.get(req, 'query.pageSize');
+
     try {
-      const words = await WordSvc.getAllWords();
+      const words = await WordSvc.getAllWords(sortOrder, pageNumber, pageSize);
 
       return res.status(200).send({
         data: words

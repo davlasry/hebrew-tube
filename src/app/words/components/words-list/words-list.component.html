@@ -2,7 +2,8 @@
   <div class="loadingSpinner" *ngIf="wordsLoading">
     <mat-spinner></mat-spinner>
   </div>
-  <div class="if-words" *ngIf="!wordsLoading">
+  <!-- <div class="if-words" *ngIf="!wordsLoading"> -->
+  <div class="if-words" *ngIf="true">
     <div class="header-buttons">
       <app-add-word></app-add-word>
       <button
@@ -121,6 +122,6 @@
         ></tr>
       </table>
     </div>
-    <mat-paginator [length]="10" [pageSize]="3"></mat-paginator>
+    <mat-paginator [length]="500" [pageSize]="20"></mat-paginator>
   </div>
 </div>

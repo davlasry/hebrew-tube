@@ -117,8 +117,10 @@
    *
    * @return {Promise<object>} - Les data de tous les words
    */
-  async function getAllWords() {
-    return await WordDAO.getAllWords();
+  async function getAllWords(sortOrer, pageNumber, pageSize) {
+    pageNumber = parseInt(pageNumber, 10);
+    pageSize = parseInt(pageSize, 10);
+    return await WordDAO.getAllWords(sortOrer, pageNumber, pageSize);
   }
 
   /**

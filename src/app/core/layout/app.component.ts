@@ -63,7 +63,12 @@ export class AppComponent implements OnInit {
       if (isLoggedIn) {
         this.store.pipe(select(getWordsLoaded)).subscribe(hasLoaded => {
           if (!hasLoaded) {
-            this.store.dispatch(new LoadWords());
+            const payload = {
+              sortOrder: 'asc',
+              pageNumber: 1,
+              pageSize: 20
+            };
+            this.store.dispatch(new LoadWords(payload));
           }
         });
 

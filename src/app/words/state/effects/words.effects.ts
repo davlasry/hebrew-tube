@@ -18,7 +18,8 @@ import {
   DeleteWordSuccess,
   EDIT_WORD,
   EditWord,
-  EditWordSuccess
+  EditWordSuccess,
+  LoadWords
 } from '../actions/words.actions';
 import { Observable, of } from 'rxjs';
 import { UserSignOut } from 'src/app/authentication/state/user.actions';
@@ -27,16 +28,16 @@ import { UserSignOut } from 'src/app/authentication/state/user.actions';
 export class WordsEffects {
   constructor(private actions$: Actions, private wordsService: WordsService) {}
 
-  // @Effect()
-  // getWords$ = this.actions$.ofType(LOAD_WORDS).pipe(
-  //   switchMap(() => {
-  //     // console.log('LOAD WORDS');
-  //     return this.wordsService.getWords().pipe(
-  //       map((words: any) => new LoadWordsSuccess(words.data)),
-  //       catchError(error => of(new LoadWordsFail(error)))
-  //     );
-  //   })
-  // );
+  @Effect()
+  getWords$ = this.actions$.ofType(LOAD_WORDS).pipe(
+    switchMap((action: LoadWords) => {
+      console.log('LOAD WORDS', action.payload);
+      return this.wordsService.getWords(action.payload).pipe(
+        map((words: any) => new LoadWordsSuccess(words.data)),
+        catchError(error => of(new LoadWordsFail(error)))
+      );
+    })
+  );
 
   // @Effect()
   // getWordsFail$ = this.actions$.ofType(LOAD_WORDS_FAIL).pipe(

@@ -15,6 +15,8 @@ export const DELETE_MANY_WORDS_SUCCESS =
 
 export class LoadWords implements Action {
   readonly type = LOAD_WORDS;
+
+  constructor(public payload: any) {}
 }
 
 export class LoadWordsSuccess implements Action {

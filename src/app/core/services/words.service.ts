@@ -7,13 +7,12 @@ import { environment } from '../../../environments/environment';
 export class WordsService {
   constructor(private http: HttpClient) {}
 
-  getWords(
-    id,
-    sortOrder = 'asc',
-    pageNumber = 0,
-    pageSize = 20
-  ): Observable<any> {
-    console.log('GET WORDS SERVICE', id, sortOrder, pageNumber, pageSize);
+  getWords(payload): Observable<any> {
+    console.log('payload:', payload);
+    const sortOrder = payload.sortOrder;
+    const pageNumber = payload.pageNumber;
+    const pageSize = payload.pageSize;
+    console.log('GET WORDS SERVICE', sortOrder, pageNumber, pageSize);
     return this.http.get<any>(`${environment.API_URL}/word/`, {
       params: new HttpParams()
         // .set('filter', filter)

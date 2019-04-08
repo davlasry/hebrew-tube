@@ -10,11 +10,25 @@ import {
   SimpleChanges,
   AfterViewInit
 } from '@angular/core';
-import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
+import {
+  MatSort,
+  MatTableDataSource,
+  MatDialog,
+  MatPaginator,
+  PageEvent
+} from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { WordsService } from 'src/app/core/services/words.service';
 import { ViewWordDialogComponent } from 'src/app/shared/dialogs/view-word/view-word.component';
+import { merge, of, Subscription } from 'rxjs';
+import {
+  startWith,
+  switchMap,
+  map,
+  catchError,
+  distinctUntilChanged
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-words-list',
@@ -32,10 +46,14 @@ export class WordsListComponent implements OnInit, OnChanges {
   @Output() addToMyWords = new EventEmitter();
   @Output() deleteWord = new EventEmitter();
   @Output() editWord = new EventEmitter();
+  @Output() getWords = new EventEmitter();
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource;
+  paginatorSubscription: Subscription;
+  newWords = [];
 
   displayedColumns: string[] = [
     'select',
@@ -48,23 +66,57 @@ export class WordsListComponent implements OnInit, OnChanges {
 
   selection: SelectionModel<any>;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private wordsService: WordsService) {}
 
   ngOnInit() {
+    this.dataSource = new MatTableDataSource();
     this.selection = new SelectionModel<any>(true);
   }
 
+  ngAfterViewInit() {}
+
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes:', changes);
     console.log('Changes in WORDS LIST', this.words);
-    if (this.words.length > 0) {
-      this.dataSource = new MatTableDataSource(this.words);
-      this.dataSource.sort = this.sort;
+    console.log('Changes in WORDS LIST', this.wordsLoading);
+    // if (this.newWords.length > 0) {
+    //   this.dataSource = new MatTableDataSource(this.newWords);
+    //   this.dataSource.sort = this.sort;
+    // }
+    if (!this.wordsLoading) {
+      if (!this.paginatorSubscription) {
+        this.paginatorSubscription = this.paginator.page
+          .pipe(
+            startWith({
+              pageIndex: 0,
+              pageSize: 20
+            }),
+            distinctUntilChanged()
+          )
+          .subscribe(res => {
+            console.log(res);
+            const payload = {
+              sortOrder: 'asc',
+              pageNumber: res['pageIndex'] + 1,
+              pageSize: res['pageSize']
+            };
+            this.wordsService.getWords(payload).subscribe(res => {
+              this.dataSource.data = [...res.data];
+              console.log('this.dataSource:', this.dataSource);
+              console.log('res', res);
+            });
+          });
+      }
     }
+  }
+
+  ngOnDestroy() {
+    this.paginatorSubscription.unsubscribe();
   }
 
   showWord(row) {
     console.log('showWord', row);
-    const dialogRef = this.dialog.open(ViewWordDialogComponent, {
+    this.dialog.open(ViewWordDialogComponent, {
       // width: '250px',
       data: { word: row }
     });
