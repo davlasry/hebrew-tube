@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   // External dependencies
@@ -21,7 +21,7 @@
 
   async function createWord(wordData) {
     // console.log('createWord Dao', wordData);
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
       try {
         const data = {
           hebrew: lodash.get(wordData, 'hebrew'),
@@ -42,8 +42,8 @@
   }
 
   async function updateWord(wordData) {
-    // console.log('updateWord DAO', wordData);
-    return new Promise(async function(resolve, reject) {
+    console.log('updateWord DAO', wordData);
+    return new Promise(async function (resolve, reject) {
       try {
         const existingWord = await WordMongo.findOne({
           hebrew: lodash.get(wordData, 'hebrew')
@@ -60,7 +60,7 @@
         existingWord.pronunciation = lodash.get(wordData, 'pronunciation');
         existingWord._id = lodash.get(wordData, '_id');
 
-        // console.log("updateWord DAO existingWord", existingWord);
+        console.log("updateWord DAO existingWord", existingWord);
 
         const wordUpdated = await existingWord.save();
 
@@ -73,12 +73,11 @@
   }
 
   async function getWord(wordID) {
-    return new Promise(async function(resolve, reject) {
-      await WordMongo.findOne(
-        {
+    return new Promise(async function (resolve, reject) {
+      await WordMongo.findOne({
           _id: wordID
         },
-        async function(err, res) {
+        async function (err, res) {
           if (err) {
             console.log('Error in word.dao getWord', err);
             return reject(err);
@@ -91,12 +90,13 @@
 
   async function searchWord(searchString) {
     console.log('searchString:', searchString);
-    return new Promise(async function(resolve, reject) {
-      await WordMongo.find(
-        {
-          $text: { $search: searchString }
+    return new Promise(async function (resolve, reject) {
+      await WordMongo.find({
+          $text: {
+            $search: searchString
+          }
         },
-        async function(err, res) {
+        async function (err, res) {
           if (err) {
             console.log('Error in word.dao searchWord', err);
             return reject(err);
@@ -108,14 +108,14 @@
   }
 
   async function getAllWords(sortOrder, pageNumber, pageSize) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
       await WordMongo.find({})
         .skip(pageSize * pageNumber - pageSize)
         .limit(pageSize)
         .sort({
           hebrew: sortOrder
         })
-        .exec(function(err, res) {
+        .exec(function (err, res) {
           if (err) {
             console.log('Error in word.dao getAllWords', err);
             return reject(err);
@@ -126,12 +126,11 @@
   }
 
   async function checkExistingHebrewWord(hebrew) {
-    return new Promise(async function(resolve, reject) {
-      await WordMongo.findOne(
-        {
+    return new Promise(async function (resolve, reject) {
+      await WordMongo.findOne({
           hebrew: hebrew
         },
-        async function(err, res) {
+        async function (err, res) {
           if (err) {
             console.log('Error in word.dao checkExistingHebrewWord', err);
             return reject(err);
@@ -145,12 +144,11 @@
 
   async function deleteWord(wordID) {
     // console.log('deleteWord DAO', wordID);
-    return new Promise(async function(resolve, reject) {
-      await WordMongo.remove(
-        {
+    return new Promise(async function (resolve, reject) {
+      await WordMongo.remove({
           _id: wordID
         },
-        async function(err, res) {
+        async function (err, res) {
           if (err) {
             console.log('Error in word.dao delete', err);
             return reject(err);

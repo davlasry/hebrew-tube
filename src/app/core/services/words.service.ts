@@ -54,9 +54,12 @@ export class WordsService {
     return this.http.delete<any>(`${environment.API_URL}/word/`);
   }
 
-  editWord(word): Observable<any> {
-    console.log('EDIT WORD SERVICE', word);
-    return this.http.post<any>(`${environment.API_URL}/word/${word._id}`, word);
+  updateWord(word, overwrite): Observable<any> {
+    console.log('UPDATE WORD SERVICE', word);
+    return this.http.post<any>(`${environment.API_URL}/word/${word._id}`, {
+      wordData: word,
+      overwrite
+    });
   }
 
   // deleteManyWords(wordsIds): Observable<any> {

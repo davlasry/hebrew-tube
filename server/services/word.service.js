@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   // External dependencies
@@ -63,8 +63,9 @@
    *
    * @return {Promise<object>} - Les data du word
    */
-  async function updateWord(wordData) {
-    // console.log('updateWord service', wordData);
+  async function updateWord(wordData, overwrite) {
+    console.log('updateWord service wordData', wordData);
+    console.log('updateWord service overwite', overwrite);
 
     // if (!lodash.get(wordData, 'hebrew') || !lodash.get(wordData, 'french')) {
     if (!lodash.get(wordData, 'hebrew')) {
@@ -76,16 +77,20 @@
     const existingWord = await checkExistingHebrewWord(
       lodash.get(wordData, 'hebrew')
     );
-    // console.log("updateWord service existingWord", existingWord);
+    console.log("updateWord service existingWord", existingWord);
+
     if (!existingWord) {
-      throw new Error({
-        error: 'Invalid parameters'
-      });
+      if (!overwrite) {
+        throw new Error({
+          error: 'Invalid parameters'
+        });
+      } else {
+        return await WordDAO.updateWord(wordData, overwrite);
+      }
+    } else {
+      lodash.set(wordData, '_id', existingWord._id);
+      return await WordDAO.updateWord(wordData, overwrite);
     }
-
-    lodash.set(wordData, '_id', existingWord._id);
-
-    return await WordDAO.updateWord(wordData);
   }
 
   /**

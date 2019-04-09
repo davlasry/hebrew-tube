@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   // External dependencies
@@ -54,8 +54,12 @@
    */
   async function updateWord(req, res) {
     try {
-      const wordData = lodash.get(req, 'body');
-      const wordUpdated = await WordSvc.updateWord(wordData);
+      const wordData = lodash.get(req, 'body.wordData');
+      console.log('wordData:', wordData)
+      const overwrite = lodash.get(req, 'body.overwrite');
+      console.log('overwrite:', overwrite)
+
+      const wordUpdated = await WordSvc.updateWord(wordData, overwrite);
 
       return res.status(200).send({
         data: wordUpdated

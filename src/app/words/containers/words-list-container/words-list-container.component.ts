@@ -80,7 +80,11 @@ export class WordsListContainerComponent implements OnInit {
       console.log('The dialog was closed');
       console.log(result);
       if (result) {
-        this.store.dispatch(new EditWord(result));
+        const data = {
+          wordData: result,
+          overwrite: true
+        };
+        this.store.dispatch(new EditWord(data));
       }
     });
   }

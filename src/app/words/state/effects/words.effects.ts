@@ -87,12 +87,14 @@ export class WordsEffects {
   editWord$: Observable<any> = this.actions$.ofType(EDIT_WORD).pipe(
     switchMap((action: EditWord) => {
       console.log('EDIT WORD EFFECT', action.payload);
-      return this.wordsService.editWord(action.payload).pipe(
-        map(res => {
-          console.log(res);
-          return new EditWordSuccess(res.word);
-        })
-      );
+      return this.wordsService
+        .updateWord(action.payload.wordData, action.payload.overwrite)
+        .pipe(
+          map(res => {
+            console.log(res);
+            return new EditWordSuccess(res.word);
+          })
+        );
     })
   );
 }
