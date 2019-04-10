@@ -38,7 +38,8 @@ export class UserEffects {
   ) {}
 
   @Effect()
-  checkToken$: Observable<any> = this.actions$.ofType(CHECK_TOKEN).pipe(
+  checkToken$: Observable<any> = this.actions$.pipe(
+    ofType(CHECK_TOKEN),
     switchMap((action: CheckToken) => {
       return this.jwtService.checkIfTokenValid().pipe(
         map(auth => {
@@ -51,7 +52,8 @@ export class UserEffects {
   );
 
   @Effect()
-  loadUser$: Observable<any> = this.actions$.ofType(LOAD_USER).pipe(
+  loadUser$: Observable<any> = this.actions$.pipe(
+    ofType(LOAD_USER),
     map((action: LoadUser) => action.payload),
     switchMap(payload => {
       // console.log('LOAD USER EFFECT PAYLOAD', payload);
@@ -65,7 +67,8 @@ export class UserEffects {
   );
 
   @Effect()
-  logIn$: Observable<any> = this.actions$.ofType(LOGIN).pipe(
+  logIn$: Observable<any> = this.actions$.pipe(
+    ofType(LOGIN),
     map((action: Login) => action.payload),
     switchMap(payload => {
       console.log('LOGIN EFFECT', payload);
@@ -87,7 +90,8 @@ export class UserEffects {
   );
 
   @Effect()
-  signIn$: Observable<any> = this.actions$.ofType(SIGN_UP).pipe(
+  signIn$: Observable<any> = this.actions$.pipe(
+    ofType(SIGN_UP),
     map((action: SignUp) => action.payload),
     switchMap(payload => {
       // console.log('SIGNUP EFFECT', payload);

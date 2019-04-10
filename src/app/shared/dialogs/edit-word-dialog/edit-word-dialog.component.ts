@@ -17,7 +17,7 @@ export class EditWordDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.data);
+    console.log('DATA EDIT WORD DIALOG', this.data);
 
     this.wordForm = this.fb.group({
       hebrew: [
@@ -35,7 +35,7 @@ export class EditWordDialogComponent implements OnInit {
   }
 
   onSave(): void {
-    console.log(this.wordForm.value);
+    // console.log(this.wordForm.value);
     // this.wordForm.patchValue({ _id: this.data.word._id });
     this.dialogRef.close(this.wordForm.value);
   }

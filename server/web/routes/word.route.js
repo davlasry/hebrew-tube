@@ -5,6 +5,12 @@ const Auth = require('../../core/auth.core');
 const WordController = require('../controller/word.controller');
 
 // Définition des routes
+router.post(
+  '/deleteMany',
+  Auth.isConnected,
+  Auth.isAdmin,
+  WordController.deleteWords
+);
 router.post('/', Auth.isConnected, Auth.isAdmin, WordController.createWord);
 router.post(
   '/:wordID',
@@ -28,6 +34,5 @@ router.delete(
   Auth.isAdmin,
   WordController.deleteWord
 );
-router.delete('/', Auth.isConnected, Auth.isAdmin, WordController.deleteWords);
 
 module.exports = router;

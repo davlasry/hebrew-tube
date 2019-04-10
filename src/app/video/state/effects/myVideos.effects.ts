@@ -34,7 +34,8 @@ export class MyVideosEffects {
   );
 
   @Effect()
-  addToMyVideos$: Observable<any> = this.actions$.ofType(ADD_TO_MY_VIDEOS).pipe(
+  addToMyVideos$: Observable<any> = this.actions$.pipe(
+    ofType(ADD_TO_MY_VIDEOS),
     switchMap((action: AddToMyVideos) => {
       const payload = action.payload;
       // console.log('ADD TO MY VIDEOS EFFECT', action.payload);

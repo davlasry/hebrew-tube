@@ -1,9 +1,6 @@
 <div class="words-list-container">
-  <div class="loadingSpinner" *ngIf="wordsLoading">
-    <mat-spinner></mat-spinner>
-  </div>
   <!-- <div class="if-words" *ngIf="!wordsLoading"> -->
-  <div class="if-words" *ngIf="true">
+  <div class="if-words">
     <div class="header-buttons">
       <app-add-word></app-add-word>
       <button
@@ -17,6 +14,9 @@
       </button>
     </div>
     <div class="table">
+      <div class="loadingSpinner" *ngIf="wordsLoading">
+        <mat-spinner></mat-spinner>
+      </div>
       <table
         mat-table
         [dataSource]="dataSource"

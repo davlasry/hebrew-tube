@@ -56,12 +56,12 @@ export function myWordsReducer(
     }
 
     case myWordsActions.DELETE_MANY_FROM_MY_WORDS_SUCCESS: {
-      console.log('DELETE MANY FROM MY WORDS REDUCER', action.payload);
+      // console.log('DELETE MANY FROM MY WORDS REDUCER', action.payload);
       return adapter.removeMany(action.payload.words, state);
     }
 
     case myWordsActions.DELETE_FROM_MY_WORDS_SUCCESS: {
-      console.log('DELETE FROM MY WORDS REDUCER', action.payload);
+      // console.log('DELETE FROM MY WORDS REDUCER', action.payload);
       return adapter.removeOne(action.payload, state);
     }
 

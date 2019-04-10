@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // External dependencies
@@ -77,7 +77,7 @@
     const existingWord = await checkExistingHebrewWord(
       lodash.get(wordData, 'hebrew')
     );
-    console.log("updateWord service existingWord", existingWord);
+    console.log('updateWord service existingWord', existingWord);
 
     if (!existingWord) {
       if (!overwrite) {

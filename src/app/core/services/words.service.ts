@@ -8,11 +8,11 @@ export class WordsService {
   constructor(private http: HttpClient) {}
 
   getWords(payload): Observable<any> {
-    console.log('payload:', payload);
+    // console.log('payload GET WORDS SERVICE:', payload);
     const sortOrder = payload.sortOrder;
     const pageNumber = payload.pageNumber;
     const pageSize = payload.pageSize;
-    console.log('GET WORDS SERVICE', sortOrder, pageNumber, pageSize);
+    // console.log('GET WORDS SERVICE', sortOrder, pageNumber, pageSize);
     return this.http.get<any>(`${environment.API_URL}/word/`, {
       params: new HttpParams()
         // .set('filter', filter)
@@ -40,18 +40,21 @@ export class WordsService {
   }
 
   addWord(word): Observable<any> {
-    console.log('ADD WORD SERVICE', word);
+    // console.log('ADD WORD SERVICE', word);
     return this.http.post<any>(`${environment.API_URL}/word`, word);
   }
 
   deleteWord(wordId): Observable<any> {
-    console.log('DELETE WORD SERVICE', wordId);
+    // console.log('DELETE WORD SERVICE', wordId);
     return this.http.delete<any>(`${environment.API_URL}/word/${wordId}`);
   }
 
-  deleteManyWords(wordId): Observable<any> {
-    console.log('DELETE MANY WORDS SERVICE', wordId);
-    return this.http.delete<any>(`${environment.API_URL}/word/`);
+  deleteManyWords(wordsIds): Observable<any> {
+    // console.log('DELETE MANY WORDS SERVICE', wordsIds);
+    return this.http.post<any>(
+      `${environment.API_URL}/word/deleteMany`,
+      wordsIds
+    );
   }
 
   updateWord(word, overwrite): Observable<any> {

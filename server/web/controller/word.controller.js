@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // External dependencies
@@ -55,9 +55,9 @@
   async function updateWord(req, res) {
     try {
       const wordData = lodash.get(req, 'body.wordData');
-      console.log('wordData:', wordData)
+      console.log('wordData:', wordData);
       const overwrite = lodash.get(req, 'body.overwrite');
-      console.log('overwrite:', overwrite)
+      console.log('overwrite:', overwrite);
 
       const wordUpdated = await WordSvc.updateWord(wordData, overwrite);
 
@@ -181,8 +181,10 @@
    * @return {*} la requête
    */
   async function deleteWords(req, res) {
+    console.log('req.body', req.body);
     try {
       const wordsIDArray = lodash.get(req, 'body');
+      console.log('wordsIDArray:', wordsIDArray);
 
       const promises = [];
       for (let i = 0; i < wordsIDArray.length; i++) {
@@ -191,7 +193,7 @@
 
       await Promise.all(promises);
 
-      return res.status(200).send('words successfully deleted');
+      return res.status(200).send(wordsIDArray);
     } catch (err) {
       return res.status(500).send({
         auth: false,

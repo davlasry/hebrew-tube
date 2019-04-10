@@ -24,7 +24,8 @@ export class VideosEffects {
   ) {}
 
   @Effect()
-  getVideos$ = this.actions$.ofType(LOAD_VIDEOS).pipe(
+  getVideos$ = this.actions$.pipe(
+    ofType(LOAD_VIDEOS),
     switchMap(() => {
       // console.log('LOAD VIDEOS');
       return this.videosService
@@ -50,7 +51,8 @@ export class VideosEffects {
   );
 
   @Effect()
-  deleteVideo$ = this.actions$.ofType(DELETE_VIDEO).pipe(
+  deleteVideo$ = this.actions$.pipe(
+    ofType(DELETE_VIDEO),
     switchMap((action: DeleteVideo) => {
       console.log('DELETE VIDEO EFFECT', action.payload);
       return this.videosService.deleteVideo(action.payload).pipe(

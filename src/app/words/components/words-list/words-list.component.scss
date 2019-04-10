@@ -10,9 +10,30 @@
   display: flex;
   flex-direction: column;
 
+  .loadingSpinner {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 40%;
+    min-width: 40%;
+
+    /deep/ mat-spinner {
+      width: 200px !important;
+      height: 200px !important;
+
+      svg {
+        width: 200px !important;
+        height: 200px !important;
+      }
+    }
+  }
+
   .if-words {
     display: flex;
     flex-direction: column;
+    height: 100%;
 
     .header-buttons {
       margin-bottom: 20px;
@@ -21,6 +42,9 @@
     .table {
       flex: 1;
       overflow: auto;
+      // min-height: 100%;
+      background: #ffffff;
+      position: relative;
 
       table {
         width: 100%;

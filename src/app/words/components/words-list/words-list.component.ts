@@ -50,9 +50,11 @@ export class WordsListComponent implements OnInit, OnChanges {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  dataSource;
+  dataSource = new MatTableDataSource([]);
   paginatorSubscription: Subscription;
   newWords = [];
+
+  currentPage = 0;
 
   displayedColumns: string[] = [
     'select',
@@ -63,7 +65,7 @@ export class WordsListComponent implements OnInit, OnChanges {
     'buttons'
   ];
 
-  pageSize: Number;
+  pageSize: number;
 
   selection: SelectionModel<any>;
 
@@ -72,58 +74,104 @@ export class WordsListComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource();
+    console.log('this.dataSource:', this.dataSource);
     this.selection = new SelectionModel<any>(true);
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+    // if (this.paginatorSubscription) {
+    //   this.paginatorSubscription.unsubscribe();
+    // }
+    // setTimeout(() => {
+    //   return (this.paginatorSubscription = this.paginator.page
+    //     .pipe(
+    //       startWith({
+    //         pageIndex: 0,
+    //         pageSize: 20
+    //       })
+    //       // distinctUntilChanged()
+    //     )
+    //     .subscribe(res => {
+    //       console.log('res', res);
+    //       // console.log('this.words:', this.words);
+    //       this.dataSource.data = this.words.slice(
+    //         res.pageIndex * res.pageSize,
+    //         res.pageIndex * res.pageSize + res.pageSize
+    //       );
+    //     }));
+    // }, 1000);
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     // console.log('changes:', changes);
-    // console.log('Changes in WORDS LIST', this.words);
-    // console.log('Changes in WORDS LIST', this.wordsLoading);
-    if (this.words.length > 0 && !this.paginatorSubscription) {
-      const intervalSubscription = interval(500).subscribe(val => {
-        console.log('val:', val);
-        if (this.paginatorSubscription) {
-          intervalSubscription.unsubscribe();
-        }
-        if (this.paginator) {
-          this.paginatorSubscription = this.paginator.page
-            .pipe(
-              startWith({
-                pageIndex: 0,
-                pageSize: 20
-              }),
-              distinctUntilChanged()
-            )
-            .subscribe(res => {
-              // console.log('res', res);
-              // console.log(this.words);
-              // console.log(
-              //   this.words.slice(
-              //     res.pageIndex * res.pageSize,
-              //     res.pageIndex * res.pageSize + res.pageSize
-              //   )
-              // );
-              this.dataSource.data = this.words.slice(
-                res.pageIndex * res.pageSize,
-                res.pageIndex * res.pageSize + res.pageSize
-              );
-              // console.log('this.dataSource:', this.dataSource);
-              // const payload = {
-              //   sortOrder: 'asc',
-              //   pageNumber: res['pageIndex'] + 1,
-              //   pageSize: res['pageSize']
-              // };
-              // this.wordsService.getWords(payload).subscribe(res => {
-              //   this.dataSource.data = [...res.data];
-              //   console.log('this.dataSource:', this.dataSource);
-              //   console.log('res', res);
-              // });
-            });
-        }
-      });
+    // console.log('Changes in WORDS LIST words', this.words);
+    // console.log('this.paginatorSubscription:', this.paginatorSubscription);
+    // console.log('Changes in WORDS LIST wordsLoading', this.wordsLoading);
+    // if (this.paginatorSubscription) {
+    //   this.paginatorSubscription.unsubscribe();
+    // }
+    // if (this.paginator) {
+    // this.paginatorSubscription = this.paginator.page
+    //   .pipe(
+    //     startWith({
+    //       pageIndex: 0,
+    //       pageSize: 20
+    //     })
+    //     // distinctUntilChanged()
+    //   )
+    //   .subscribe(res => {
+    //     console.log('res', res);
+    //     this.dataSource.data = this.words.slice(
+    //       res.pageIndex * res.pageSize,
+    //       res.pageIndex * res.pageSize + res.pageSize
+    //     );
+    //   });
+    // }
+    if (this.words.length > 0) {
+      // if (this.words.length > 0 && !this.paginatorSubscription) {
+      // const intervalSubscription = interval(500).subscribe(val => {
+      //   // console.log('val:', val);
+      //   if (this.paginatorSubscription) {
+      //     intervalSubscription.unsubscribe();
+      //   }
+      if (this.paginator) {
+        this.paginatorSubscription = this.paginator.page
+          .pipe(
+            startWith({
+              pageIndex: this.currentPage,
+              pageSize: this.pageSize
+            })
+            // distinctUntilChanged()
+          )
+          .subscribe(res => {
+            console.log('res', res);
+            this.currentPage = res.pageIndex;
+            // console.log(this.words[0]);
+            this.dataSource.data = this.words.slice(
+              res.pageIndex * this.pageSize,
+              res.pageIndex * this.pageSize + this.pageSize
+            );
+            // console.log(
+            //   this.words.slice(
+            //     res.pageIndex * res.pageSize,
+            //     res.pageIndex * res.pageSize + res.pageSize
+            //   )
+            // );
+            // console.log('this.dataSource:', this.dataSource);
+            // const payload = {
+            //   sortOrder: 'asc',
+            //   pageNumber: res['pageIndex'] + 1,
+            //   pageSize: res['pageSize']
+            // };
+            // this.wordsService.getWords(payload).subscribe(res => {
+            //   this.dataSource.data = [...res.data];
+            //   console.log('this.dataSource:', this.dataSource);
+            //   console.log('res', res);
+            // });
+            // });
+          });
+      }
+      // // });
     }
   }
 
@@ -132,7 +180,7 @@ export class WordsListComponent implements OnInit, OnChanges {
   }
 
   showWord(row) {
-    console.log('showWord', row);
+    // console.log('showWord', row);
     this.dialog.open(ViewWordDialogComponent, {
       // width: '250px',
       data: { word: row }
@@ -142,25 +190,25 @@ export class WordsListComponent implements OnInit, OnChanges {
 
   onDeleteWord(word) {
     event.stopPropagation();
-    console.log('onDeleteWord', word);
+    // console.log('onDeleteWord', word);
     this.deleteWord.emit(word);
   }
 
   onEditWord(word) {
     event.stopPropagation();
-    console.log('onEditWord', word);
+    // console.log('onEditWord', word);
     this.editWord.emit(word);
   }
 
   onDeleteFromMyWords(word, event) {
     event.stopPropagation();
-    console.log('Delete From My Words Words-list component', word);
+    // console.log('Delete From My Words Words-list component', word);
     this.deleteFromMyWords.emit(word);
   }
 
   onAddToMyWords(word, event) {
     event.stopPropagation();
-    console.log('Add To My Words Words-list component', word);
+    // console.log('Add To My Words Words-list component', word);
     this.addToMyWords.emit(word);
   }
 
@@ -188,6 +236,8 @@ export class WordsListComponent implements OnInit, OnChanges {
   deleteSelection() {
     // console.log(this.selection.selected.map(word => word._id));
     const wordsToDelete = this.selection.selected.map(word => word._id);
+    // console.log('wordsToDelete:', wordsToDelete);
+
     this.selection.clear();
     this.deleteWords.emit(wordsToDelete);
   }

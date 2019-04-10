@@ -33,7 +33,8 @@ export class MyWordsEffects {
   );
 
   @Effect()
-  addToMyWords$: Observable<any> = this.actions$.ofType(ADD_TO_MY_WORDS).pipe(
+  addToMyWords$: Observable<any> = this.actions$.pipe(
+    ofType(ADD_TO_MY_WORDS),
     switchMap((action: AddToMyWords) => {
       const payload = action.payload;
       // console.log('ADD TO MY WORDS EFFECT', action.payload);

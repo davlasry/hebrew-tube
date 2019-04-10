@@ -51,25 +51,36 @@ export function allWordsReducer(
     }
 
     case wordsList.LOAD_WORDS_FAIL: {
-      console.log('LOAD WORDS FAIL REDUCER', action.payload.error.message);
+      // console.log('LOAD WORDS FAIL REDUCER', action.payload.error.message);
       return state;
     }
 
     case wordsList.ADD_WORD_SUCCESS: {
-      // console.log('ADD WORD SUCCESS REDUCER', action.payload);
+      console.log('ADD WORD SUCCESS REDUCER', action.payload.data);
       return adapter.addOne(action.payload.data, state);
     }
 
     case wordsList.EDIT_WORD_SUCCESS: {
       console.log('EDIT WORD SUCCESS REDUCER', action.payload);
-      // return adapter.removeOne(action.payload, state);
-      // return adapter.removeOne(action.payload.word._id, state);
+      console.log('state', state);
+      return adapter.updateOne(
+        { id: action.payload._id, changes: action.payload },
+        state
+      );
+      // return adapter.updateOne(
+      //   {
+      //     id: action.payload._id,
+      //     changes: {
+      //       id: action.payload
+      //     }
+      //   },
+      //   state
+      // );
     }
 
     case wordsList.DELETE_WORD_SUCCESS: {
       // console.log(action.payload);
       return adapter.removeOne(action.payload, state);
-      // return adapter.removeOne(action.payload.word._id, state);
     }
 
     case wordsList.DELETE_MANY_WORDS_SUCCESS: {

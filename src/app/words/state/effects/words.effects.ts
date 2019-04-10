@@ -1,6 +1,6 @@
 import { WordsService } from '../../../core/services/words.service';
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { switchMap, map, catchError } from 'rxjs/operators';
 
 import {
@@ -19,7 +19,8 @@ import {
   EDIT_WORD,
   EditWord,
   EditWordSuccess,
-  LoadWords
+  LoadWords,
+  DeleteManyWordsSuccess
 } from '../actions/words.actions';
 import { Observable, of } from 'rxjs';
 import { UserSignOut } from 'src/app/authentication/state/user.actions';
@@ -29,9 +30,10 @@ export class WordsEffects {
   constructor(private actions$: Actions, private wordsService: WordsService) {}
 
   @Effect()
-  getWords$ = this.actions$.ofType(LOAD_WORDS).pipe(
+  getWords$ = this.actions$.pipe(
+    ofType(LOAD_WORDS),
     switchMap((action: LoadWords) => {
-      console.log('LOAD WORDS', action.payload);
+      // console.log('LOAD WORDS', action.payload);
       return this.wordsService.getWords(action.payload).pipe(
         map((words: any) => new LoadWordsSuccess(words.data)),
         catchError(error => of(new LoadWordsFail(error)))
@@ -51,9 +53,10 @@ export class WordsEffects {
   // );
 
   @Effect()
-  addWord$ = this.actions$.ofType(ADD_WORD).pipe(
+  addWord$ = this.actions$.pipe(
+    ofType(ADD_WORD),
     switchMap((action: AddWord) => {
-      console.log('ADD WORD EFFECT', action.payload);
+      // console.log('ADD WORD EFFECT', action.payload);
       return this.wordsService.addWord(action.payload).pipe(
         map(word => new AddWordSuccess(word))
         // catchError(error => new LoadWordsFail(error))
@@ -62,19 +65,22 @@ export class WordsEffects {
   );
 
   @Effect()
-  deleteManyWords$: Observable<any> = this.actions$
-    .ofType(DELETE_MANY_WORDS)
-    .pipe(
-      switchMap((action: DeleteManyWords) => {
-        // console.log(action.payload);
-        return this.wordsService
-          .deleteManyWords(action.payload)
-          .pipe(map(words => new DeleteManyWords({ words })));
-      })
-    );
+  deleteManyWords$: Observable<any> = this.actions$.pipe(
+    ofType(DELETE_MANY_WORDS),
+    switchMap((action: DeleteManyWords) => {
+      // console.log('action.payload', action.payload);
+      return this.wordsService.deleteManyWords(action.payload).pipe(
+        map(words => {
+          // console.log('words:', words);
+          return new DeleteManyWordsSuccess(words);
+        })
+      );
+    })
+  );
 
   @Effect()
-  deleteWord$: Observable<any> = this.actions$.ofType(DELETE_WORD).pipe(
+  deleteWord$: Observable<any> = this.actions$.pipe(
+    ofType(DELETE_WORD),
     switchMap((action: DeleteWord) => {
       console.log('DELETE WORD EFFECT', action.payload);
       return this.wordsService
@@ -84,15 +90,16 @@ export class WordsEffects {
   );
 
   @Effect()
-  editWord$: Observable<any> = this.actions$.ofType(EDIT_WORD).pipe(
+  editWord$: Observable<any> = this.actions$.pipe(
+    ofType(EDIT_WORD),
     switchMap((action: EditWord) => {
       console.log('EDIT WORD EFFECT', action.payload);
       return this.wordsService
         .updateWord(action.payload.wordData, action.payload.overwrite)
         .pipe(
           map(res => {
-            console.log(res);
-            return new EditWordSuccess(res.word);
+            console.log('res editWord EFFECT', res.data);
+            return new EditWordSuccess(res.data);
           })
         );
     })
