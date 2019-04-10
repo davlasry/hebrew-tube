@@ -18,10 +18,9 @@ import {
   PageEvent
 } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Router } from '@angular/router';
 import { WordsService } from 'src/app/core/services/words.service';
 import { ViewWordDialogComponent } from 'src/app/shared/dialogs/view-word/view-word.component';
-import { merge, of, Subscription } from 'rxjs';
+import { merge, of, Subscription, interval } from 'rxjs';
 import {
   startWith,
   switchMap,
@@ -64,45 +63,68 @@ export class WordsListComponent implements OnInit, OnChanges {
     'buttons'
   ];
 
+  pageSize: Number;
+
   selection: SelectionModel<any>;
 
-  constructor(public dialog: MatDialog, private wordsService: WordsService) {}
+  constructor(public dialog: MatDialog, private wordsService: WordsService) {
+    this.pageSize = 20;
+  }
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource();
     this.selection = new SelectionModel<any>(true);
   }
 
-  ngAfterViewInit() {
-    if (!this.paginatorSubscription) {
-      this.paginatorSubscription = this.paginator.page
-        .pipe(
-          startWith({
-            pageIndex: 0,
-            pageSize: 20
-          }),
-          distinctUntilChanged()
-        )
-        .subscribe(res => {
-          console.log(res);
-          const payload = {
-            sortOrder: 'asc',
-            pageNumber: res['pageIndex'] + 1,
-            pageSize: res['pageSize']
-          };
-          this.wordsService.getWords(payload).subscribe(res => {
-            this.dataSource.data = [...res.data];
-            console.log('this.dataSource:', this.dataSource);
-            console.log('res', res);
-          });
-        });
-    }
-  }
+  ngAfterViewInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes:', changes);
-    console.log('Changes in WORDS LIST', this.words);
-    console.log('Changes in WORDS LIST', this.wordsLoading);
+    // console.log('changes:', changes);
+    // console.log('Changes in WORDS LIST', this.words);
+    // console.log('Changes in WORDS LIST', this.wordsLoading);
+    if (this.words.length > 0 && !this.paginatorSubscription) {
+      const intervalSubscription = interval(500).subscribe(val => {
+        console.log('val:', val);
+        if (this.paginatorSubscription) {
+          intervalSubscription.unsubscribe();
+        }
+        if (this.paginator) {
+          this.paginatorSubscription = this.paginator.page
+            .pipe(
+              startWith({
+                pageIndex: 0,
+                pageSize: 20
+              }),
+              distinctUntilChanged()
+            )
+            .subscribe(res => {
+              // console.log('res', res);
+              // console.log(this.words);
+              // console.log(
+              //   this.words.slice(
+              //     res.pageIndex * res.pageSize,
+              //     res.pageIndex * res.pageSize + res.pageSize
+              //   )
+              // );
+              this.dataSource.data = this.words.slice(
+                res.pageIndex * res.pageSize,
+                res.pageIndex * res.pageSize + res.pageSize
+              );
+              // console.log('this.dataSource:', this.dataSource);
+              // const payload = {
+              //   sortOrder: 'asc',
+              //   pageNumber: res['pageIndex'] + 1,
+              //   pageSize: res['pageSize']
+              // };
+              // this.wordsService.getWords(payload).subscribe(res => {
+              //   this.dataSource.data = [...res.data];
+              //   console.log('this.dataSource:', this.dataSource);
+              //   console.log('res', res);
+              // });
+            });
+        }
+      });
+    }
   }
 
   ngOnDestroy() {

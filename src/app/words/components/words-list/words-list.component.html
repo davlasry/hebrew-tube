@@ -122,6 +122,9 @@
         ></tr>
       </table>
     </div>
-    <mat-paginator [length]="500" [pageSize]="20"></mat-paginator>
+    <mat-paginator
+      [length]="words.length"
+      [pageSize]="pageSize"
+    ></mat-paginator>
   </div>
 </div>

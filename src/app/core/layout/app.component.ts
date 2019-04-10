@@ -65,8 +65,8 @@ export class AppComponent implements OnInit {
           if (!hasLoaded) {
             const payload = {
               sortOrder: 'asc',
-              pageNumber: 1,
-              pageSize: 20
+              pageNumber: 0,
+              pageSize: 0
             };
             this.store.dispatch(new LoadWords(payload));
           }

@@ -68,7 +68,9 @@ export class EditVideoComponent implements OnInit {
       let words = subtitle.text
         .replace(/(?:\r\n|\r|\n)/g, ' ')
         .replace('"', '"')
-        .match(/[a-z\u0590-\u05fe]+(?:'[a-z\u0590-\u05fe]+)*|[!?.](?![!?.])/g);
+        .match(
+          /[a-z\u0590-\u05fe]+(?:'[a-z\u0590-\u05fe]+)*|[!?.,'";:/-/](?![!?.,'";:/-/])/g
+        );
       // console.log(words);
       words = words.map(word => {
         return { hebrew: word, french: '', pronunciation: '', type: '' };
@@ -93,32 +95,32 @@ export class EditVideoComponent implements OnInit {
     return +timeArray[0] * 60 * 60 + +timeArray[1] * 60 + +timeArray[2];
   }
 
-  decodeHTML = html => {
-    const txt = document.createElement('textarea');
-    txt.innerHTML = html;
-    console.log('txt decodeHTML', txt);
-    return txt.value;
-  };
+  // decodeHTML = html => {
+  //   const txt = document.createElement('textarea');
+  //   txt.innerHTML = html;
+  //   console.log('txt decodeHTML', txt);
+  //   return txt.value;
+  // };
 
-  transformTranscript() {
-    // console.log('this.transcript', this.transcript);
-    this.newSubtitle = this.transcript.map(subtitle => {
-      // console.log('subtitle string', subtitle['_']);
-      let words = subtitle['_'].split(' ');
-      // console.log('words', words);
-      words = words.map(word => {
-        word = word.replace('\n', ' ').replace('"', '');
-        return { hebrew: word, french: '', pronunciation: '', type: '' };
-      });
-      // console.log('words', words);
-      return {
-        startTime: subtitle['$']['start'],
-        endTime: subtitle['$']['start'] + subtitle['$']['dur'],
-        words
-      };
-    });
-    console.log('this.newSubtitle', this.newSubtitle);
-  }
+  // transformTranscript() {
+  //   // console.log('this.transcript', this.transcript);
+  //   this.newSubtitle = this.transcript.map(subtitle => {
+  //     // console.log('subtitle string', subtitle['_']);
+  //     let words = subtitle['_'].split(' ');
+  //     // console.log('words', words);
+  //     words = words.map(word => {
+  //       word = word.replace('\n', ' ').replace('"', '');
+  //       return { hebrew: word, french: '', pronunciation: '', type: '' };
+  //     });
+  //     // console.log('words', words);
+  //     return {
+  //       startTime: subtitle['$']['start'],
+  //       endTime: subtitle['$']['start'] + subtitle['$']['dur'],
+  //       words
+  //     };
+  //   });
+  //   console.log('this.newSubtitle', this.newSubtitle);
+  // }
 
   get subtitlesForm(): FormArray {
     return this.videoForm.get('subtitles') as FormArray;
@@ -342,39 +344,37 @@ export class EditVideoComponent implements OnInit {
     console.log('this.videoForm.value', this.videoForm.value);
 
     this.videoForm.value.subtitles.forEach((subtitle, index) => {
-      const subtitleClone = this.videoClone.subtitles[index];
-      console.log('subtitleClone:', subtitleClone);
-      if (subtitle.startTime != subtitleClone.startTime) {
-        console.log('Different startTime');
-      } else if (subtitle.startTime != subtitleClone.startTime) {
-        console.log('Different endTime');
-      } else {
-        console.log('everything is unchanged');
-      }
-
-      subtitleClone.words = subtitleClone.words.map(word => {
-        return {
-          hebrew: word.hebrew,
-          french: word.french,
-          pronunciation: word.pronunciation,
-          type: word.type
-        };
-      });
-
-      if (
-        JSON.stringify(subtitle.words) !== JSON.stringify(subtitleClone.words)
-      ) {
-        console.log('Words were changed');
-      } else {
-        console.log('Words are identical');
-      }
+      // const subtitleClone = this.videoClone.subtitles[index];
+      // console.log('subtitleClone:', subtitleClone);
+      // if (subtitle.startTime != subtitleClone.startTime) {
+      //   console.log('Different startTime');
+      // } else if (subtitle.startTime != subtitleClone.startTime) {
+      //   console.log('Different endTime');
+      // } else {
+      //   console.log('everything is unchanged');
+      // }
+      // subtitleClone.words = subtitleClone.words.map(word => {
+      //   return {
+      //     hebrew: word.hebrew,
+      //     french: word.french,
+      //     pronunciation: word.pronunciation,
+      //     type: word.type
+      //   };
+      // });
+      // if (
+      //   JSON.stringify(subtitle.words) !== JSON.stringify(subtitleClone.words)
+      // ) {
+      //   console.log('Words were changed');
+      // } else {
+      //   console.log('Words are identical');
+      // }
     });
 
     // this.videoForm
 
-    // this.videosService.saveVideo(this.videoForm.value).subscribe(res => {
-    //   console.log(res);
-    // });
+    this.videosService.saveVideo(this.videoForm.value).subscribe(res => {
+      console.log(res);
+    });
 
     // this.store.dispatch(new AddWord(this.wordForm.value));
     // this.router.navigateByUrl('/videos');
