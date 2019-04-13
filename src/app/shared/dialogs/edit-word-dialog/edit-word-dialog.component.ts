@@ -1,7 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { typeOptions } from '../../models/word';
+import {
+  typeOptions,
+  numberOptions,
+  genreOptions,
+  formeOptions,
+  timeOptions
+} from '../../models/word';
 
 @Component({
   selector: 'app-edit-word-dialog',
@@ -11,6 +17,10 @@ import { typeOptions } from '../../models/word';
 export class EditWordDialogComponent implements OnInit {
   wordForm: FormGroup;
   types = typeOptions;
+  genres = genreOptions;
+  numbers = numberOptions;
+  formes = formeOptions;
+  times = timeOptions;
 
   constructor(
     private fb: FormBuilder,
@@ -29,6 +39,11 @@ export class EditWordDialogComponent implements OnInit {
       french: [this.data.word.french, [Validators.required]],
       pronunciation: [this.data.word.pronunciation, [Validators.required]],
       type: [this.data.word.type],
+      forme: [this.data.word.forme],
+      time: [this.data.word.time],
+      genre: [this.data.word.genre],
+      number: [this.data.word.number],
+      infinitif: [this.data.word.infinitif],
       _id: [this.data.word._id]
     });
   }
