@@ -1,0 +1,24 @@
+<div class="search-word-container" fxLayout="column" fxLayoutAlign="start start">
+  <div class="word-container" fxLayout="row">
+    <div class="word-data">
+      <div class="hebrew">
+        <img class="flag" src="assets/img/israel-flag.png" />
+        <span class="hebrew-word">{{ result.hebrew }}</span>
+        <span class="pronunciation" *ngIf="result.pronunciation">[{{ result.pronunciation }}]</span>
+      </div>
+      <div class="french">
+        <img class="flag" src="assets/img/france-flag.png" />
+        <span>{{ result.french }}</span>
+      </div>
+      <div class="type" *ngIf="result.type">
+        {{ result.type }}
+      </div>
+    </div>
+    <div fxFlex></div>
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="editWord()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

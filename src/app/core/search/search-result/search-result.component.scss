@@ -1,0 +1,34 @@
+.search-word-container {
+  margin-bottom: 20px;
+
+  .word-container {
+    width: 100%;
+    background-color: #5a5e67;
+    color: #cecece;
+    border-radius: 10px;
+
+    padding: 10px 20px;
+
+    .flag {
+      width: 20px;
+      margin-right: 15px;
+    }
+
+    .hebrew {
+      margin-bottom: 10px;
+
+      .hebrew-word {
+        margin-right: 10px;
+      }
+
+      .pronunciation {
+        font-style: italic;
+      }
+    }
+
+    .french {
+      margin-bottom: 10px;
+    }
+  }
+
+}

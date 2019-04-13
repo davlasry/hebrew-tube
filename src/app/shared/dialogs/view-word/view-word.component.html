@@ -1,11 +1,6 @@
 <div class="dialog-container">
   <div class="word-field" fxLayout="row" fxLayoutAlign="start center">
-    <img
-      class="flag"
-      src="assets/img/israel-flag.png"
-      fxLayout="row"
-      fxLayoutAlign="start center"
-    />
+    <img class="flag" src="assets/img/israel-flag.png" />
     <span>{{ data.word.hebrew }}</span>
   </div>
   <div class="word-field" fxLayout="row" fxLayoutAlign="start center">
@@ -15,20 +10,10 @@
   <p>{{ data.word.pronunciation }}</p>
   <p>{{ data.word.type }}</p>
   <div>
-    <button
-      mat-icon-button
-      color="accent"
-      (click)="deleteFromMyWords()"
-      *ngIf="(isWordFavorite$ | async)"
-    >
+    <button mat-icon-button color="accent" (click)="deleteFromMyWords()" *ngIf="(isWordFavorite$ | async)">
       <mat-icon>favorite</mat-icon>
     </button>
-    <button
-      mat-icon-button
-      color="accent"
-      (click)="addToMyWords()"
-      *ngIf="!(isWordFavorite$ | async)"
-    >
+    <button mat-icon-button color="accent" (click)="addToMyWords()" *ngIf="!(isWordFavorite$ | async)">
       <mat-icon>favorite_border</mat-icon>
     </button>
   </div>

@@ -16,6 +16,7 @@ import { CollectionsService } from './services/collections.service';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SearchResultsComponent } from './search/search-results/search-results.component';
+import { SearchResultComponent } from './search/search-result/search-result.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule, SharedModule],
@@ -25,7 +26,8 @@ import { SearchResultsComponent } from './search/search-results/search-results.c
     HomeComponent,
     HeaderComponent,
     HeaderComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    SearchResultComponent
   ],
   providers: [
     WordsService,

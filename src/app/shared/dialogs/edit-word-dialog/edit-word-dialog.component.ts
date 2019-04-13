@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { typeOptions } from '../../models/word';
 
 @Component({
   selector: 'app-edit-word-dialog',
@@ -9,6 +10,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 })
 export class EditWordDialogComponent implements OnInit {
   wordForm: FormGroup;
+  types = typeOptions;
 
   constructor(
     private fb: FormBuilder,
@@ -26,6 +28,7 @@ export class EditWordDialogComponent implements OnInit {
       ],
       french: [this.data.word.french, [Validators.required]],
       pronunciation: [this.data.word.pronunciation, [Validators.required]],
+      type: [this.data.word.type],
       _id: [this.data.word._id]
     });
   }

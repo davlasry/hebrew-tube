@@ -1,6 +1,4 @@
 <div class="container">
   <div class="results-count">{{ results.length }} words found</div>
-  <div *ngFor="let result of results">
-    <span>{{ result.hebrew }}</span> | <span>{{ result.french }}</span>
-  </div>
+  <app-search-result *ngFor="let result of results" [result]="result"></app-search-result>
 </div>

@@ -4,6 +4,7 @@ import { VideosService } from 'src/app/core/services/videos.service';
 import { ActivatedRoute } from '@angular/router';
 import { startWith, map } from 'rxjs/operators';
 import { WordsService } from 'src/app/core/services/words.service';
+import { typeOptions } from 'src/app/shared/models/word';
 
 import * as Subtitle from 'subtitle';
 
@@ -22,6 +23,8 @@ export class EditVideoComponent implements OnInit {
   video: any;
   videoClone: any;
 
+  types = typeOptions;
+
   convertSubtitles = false;
 
   selectedSubtitle = 0;
@@ -37,15 +40,6 @@ export class EditVideoComponent implements OnInit {
   finalResult;
 
   srtCopy;
-
-  types = [
-    { value: 'nom', viewValue: 'nom' },
-    { value: 'verbe', viewValue: 'verbe' },
-    { value: 'pronom', viewValue: 'pronom' },
-    { value: 'adjectif', viewValue: 'adjectif' },
-    { value: 'adverbe', viewValue: 'adverbe' },
-    { value: 'ponctuation', viewValue: 'ponctuation' }
-  ];
 
   constructor(
     private fb: FormBuilder,
