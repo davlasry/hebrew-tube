@@ -2,7 +2,7 @@
   <div class="header">
     <h1>Videos</h1>
 
-    <a [routerLink]="['.', 'create']">
+    <a [routerLink]="['/videos', 'create']">
       <button mat-raised-button>
         <mat-icon>add</mat-icon>
         Create a Video
@@ -12,8 +12,18 @@
   <div class="loadingSpinner" *ngIf="!isVideosLoaded">
     <mat-spinner></mat-spinner>
   </div>
-  <div class="is-videos" *ngIf="isVideosLoaded" fxLayout="row wrap" fxLayoutAlign="flex-start">
-    <app-video-card (deleteVideo)="onDeleteVideo($event)" fxFlex="0 1 calc(33.3%)" [video]="video" *ngFor="let video of videos"></app-video-card>
+  <div
+    class="is-videos"
+    *ngIf="isVideosLoaded"
+    fxLayout="row wrap"
+    fxLayoutAlign="flex-start"
+  >
+    <app-video-card
+      (deleteVideo)="onDeleteVideo($event)"
+      fxFlex="0 1 calc(33.3%)"
+      [video]="video"
+      *ngFor="let video of videos"
+    ></app-video-card>
   </div>
   <!-- <div class="is-videos" *ngIf="isVideosLoaded">
     <div class="video" *ngFor="let video of videos">
