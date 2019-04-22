@@ -12,7 +12,7 @@ export class VideosService {
   }
 
   getVideo(id): Observable<any> {
-    // console.log('getVideo ID service', id);
+    console.log('getVideo ID service', id);
     return this.http.get<any>(`${environment.API_URL}/video/${id}`);
   }
 
