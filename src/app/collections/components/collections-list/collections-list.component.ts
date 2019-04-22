@@ -4,6 +4,9 @@ import { map } from 'rxjs/operators';
 import { CollectionsService } from 'src/app/core/services/collections.service';
 import { DeleteCollectionComponent } from 'src/app/shared/dialogs/delete-collection/delete-collection.component';
 import { MatDialog } from '@angular/material';
+import { Store, select } from '@ngrx/store';
+import { WordsState } from 'src/app/words/state';
+import { getCollections } from 'src/app/words/state/selectors/collections.selectors';
 
 @Component({
   selector: 'app-collections-list',
@@ -11,7 +14,7 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['./collections-list.component.scss']
 })
 export class CollectionsListComponent implements OnInit {
-  collections;
+  collections$;
   currentLibrary;
   newCollection;
   createMode: Boolean;
@@ -32,20 +35,22 @@ export class CollectionsListComponent implements OnInit {
   constructor(
     private router: Router,
     private collectionsService: CollectionsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private store: Store<WordsState>
   ) {}
 
   ngOnInit() {
     this.createMode = false;
 
-    this.getLibraryList();
+    this.getCollections();
   }
 
-  getLibraryList() {
-    this.collectionsService.getCollections().subscribe(result => {
-      console.log(result);
-      this.collections = result['data'];
-    });
+  getCollections() {
+    // this.collectionsService.getCollections().subscribe(result => {
+    //   console.log(result);
+    //   this.collections = result['data'];
+    // });
+    this.collections$ = this.store.pipe(select(getCollections));
   }
 
   getCurrentLibrary() {}
@@ -91,7 +96,7 @@ export class CollectionsListComponent implements OnInit {
     console.log('newCollectionName:', newCollectionName);
     this.editedCollection.name = newCollectionName;
     this.editedCollection.privacy = newCollectionPrivacy;
-    console.log('this.collections:', this.collections);
+    // console.log('this.collections:', this.collections);
     this.collectionsService
       .updateCollection(this.editedCollection)
       .subscribe(result => {

@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'collections',
     component: CollectionsContainerComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       // { path: '', redirectTo: 'list/', pathMatch: 'full' },
       {

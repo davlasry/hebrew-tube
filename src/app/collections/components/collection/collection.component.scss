@@ -1,3 +1,28 @@
 .collection-container {
-  padding: 40px;
+  padding: 20px 0;
+
+  .word {
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 10px 15px;
+
+    &:hover {
+      background-color: #666a73;
+    }
+
+    .word-field {
+      margin: 10px 0;
+
+      .word-field-icon {
+        width: 30px;
+      }
+    }
+  }
+}
+
+
+
+:host {
+  overflow: auto;
+  height: 100%;
 }

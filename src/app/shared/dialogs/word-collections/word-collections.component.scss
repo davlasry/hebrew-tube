@@ -1,5 +1,5 @@
 .dialog-container {
-  // min-height: 300px;
+  height: 300px;
 
   .header {
     .close-icon {
@@ -8,8 +8,7 @@
     }
   }
 
-  .content {
-  }
+  .content {}
 }
 
 .word {
@@ -28,6 +27,7 @@
 
 .playlists {
   width: 300px;
+  min-height: 200px;
   padding: 0 5px;
   overflow: hidden;
 
@@ -46,6 +46,7 @@
     height: 200px;
     overflow: auto;
     margin-bottom: 10px;
+    padding: 0 15px;
 
     collections-list {
       height: 180px;

@@ -159,11 +159,13 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
           words: []
         });
       }
-      let lastSubtitle = this.video.subtitles[this.video.subtitles.length - 1];
-      if (lastSubtitle.endTime == 0) {
+      const lastSubtitle = this.video.subtitles[
+        this.video.subtitles.length - 1
+      ];
+      if (lastSubtitle.endTime === 0) {
         lastSubtitle.endTime = lastSubtitle.startTime + 2;
       }
-      console.log('this.video.subtitles', this.video.subtitles);
+      // console.log('this.video.subtitles', this.video.subtitles);
       /* Get current subtitle starting time */
       if (this.indexSubtitleStartTime) {
         this.subtitleStartTime = parseFloat(
@@ -204,24 +206,24 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
     this.timerSubscription = this.timer
       .pipe(takeWhile(v => this.currentTime < this.videoLength))
       .subscribe(time => {
-        console.log(time);
+        // console.log(time);
         const subtitles = this.video.subtitles;
         // console.log(subtitles);
         if (this.isPlayerReady) {
           this.currentTime = this.youtubePlayer.getCurrentTime() + 0.2;
-          console.log('this.currentTime:', this.currentTime);
-          console.log('time:', time);
-          console.log(
-            'subtitles[subtitles.length - 1].endTime',
-            subtitles[subtitles.length - 1].endTime
-          );
+          // console.log('this.currentTime:', this.currentTime);
+          // console.log('time:', time);
+          // console.log(
+          //   'subtitles[subtitles.length - 1].endTime',
+          //   subtitles[subtitles.length - 1].endTime
+          // );
           if (this.currentTime < subtitles[subtitles.length - 1].endTime) {
-            console.log(
-              'subtitles[subtitles.length - 1].endTime',
-              subtitles[subtitles.length - 1].endTime
-            );
-            console.log('subtitles', subtitles);
-            console.log('loopActivated', this.loopActivated);
+            // console.log(
+            //   'subtitles[subtitles.length - 1].endTime',
+            //   subtitles[subtitles.length - 1].endTime
+            // );
+            // console.log('subtitles', subtitles);
+            // console.log('loopActivated', this.loopActivated);
             if (this.loopActivated) {
               if (this.currentTime > subtitles[this.selectedSentence].endTime) {
                 this.youtubePlayer.skipTo(
@@ -229,11 +231,11 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
                 );
               }
             } else {
-              console.log(
-                'subtitles[this.selectedSentence]',
-                subtitles[this.selectedSentence]
-              );
-              console.log('this.selectedSentence', this.selectedSentence);
+              // console.log(
+              //   'subtitles[this.selectedSentence]',
+              //   subtitles[this.selectedSentence]
+              // );
+              // console.log('this.selectedSentence', this.selectedSentence);
               this.selectedSentence = subtitles.findIndex(elem => {
                 // console.log(elem.startTime, elem.endTime);
                 return (
@@ -242,7 +244,7 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
                 );
               });
             }
-            console.log('selectedSentence', this.selectedSentence);
+            // console.log('selectedSentence', this.selectedSentence);
           }
         }
       });

@@ -14,6 +14,7 @@ import { reducers } from './state';
 import { MyWordsEffects } from './state/effects/myWords.effects';
 import { WordsListContainerComponent } from './containers/words-list-container/words-list-container.component';
 import { MyWordsContainerComponent } from './containers/my-words-container/my-words-container.component';
+import { CollectionsEffects } from './state/effects/collections.effects';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { MyWordsContainerComponent } from './containers/my-words-container/my-wo
     CommonModule,
     WordsRoutingModule,
     StoreModule.forFeature('words', reducers),
-    EffectsModule.forFeature([WordsEffects, MyWordsEffects])
+    EffectsModule.forFeature([WordsEffects, MyWordsEffects, CollectionsEffects])
   ],
   declarations: [
     WordsListComponent,

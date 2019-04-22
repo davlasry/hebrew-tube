@@ -15,7 +15,6 @@ export class CollectionComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private collectionsService: CollectionsService
   ) {}
 
@@ -37,12 +36,12 @@ export class CollectionComponent implements OnInit {
   // }
 
   onSaveCollection() {
-    console.log('new collection', this.newCollection);
+    // console.log('new collection', this.newCollection);
     // this.createMode = false;
     this.collectionsService
       .createCollection({ name: this.newCollection })
       .subscribe(result => {
-        console.log(result);
+        // console.log(result);
       });
   }
 }

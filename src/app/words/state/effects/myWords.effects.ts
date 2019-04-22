@@ -11,7 +11,8 @@ import {
   AddToMyWords,
   DeleteFromMyWords,
   AddToMyWordsSuccess,
-  DeleteFromMyWordsSuccess
+  DeleteFromMyWordsSuccess,
+  LoadMyWords
 } from '../actions/myWords.actions';
 import { Observable } from 'rxjs';
 
@@ -22,7 +23,7 @@ export class MyWordsEffects {
   @Effect()
   getMyWords$ = this.actions$.pipe(
     ofType(LOAD_MY_WORDS),
-    switchMap((action: LoadMyWordsSuccess) => {
+    switchMap((action: LoadMyWords) => {
       // console.log('GET MY WORDS EFFECT', action.payload);
       return this.usersService.getWordsByUser(action.payload).pipe(
         map(myWords => {

@@ -9,6 +9,7 @@ import {
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import { CollectionsService } from 'src/app/core/services/collections.service';
+import { getCollections } from 'src/app/words/state/selectors/collections.selectors';
 
 @Component({
   selector: 'app-word-collections',
@@ -21,9 +22,9 @@ export class WordCollectionsDialogComponent implements OnInit {
 
   newCollection;
 
-  playlistsForm: FormGroup;
+  collectionsForm: FormGroup;
 
-  playlists: FormArray;
+  collections: FormArray;
 
   constructor(
     public dialogRef: MatDialogRef<WordCollectionsDialogComponent>,
@@ -34,47 +35,46 @@ export class WordCollectionsDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.playlistsForm = this.formBuilder.group({
-      playlists: this.formBuilder.array([])
+    this.collectionsForm = this.formBuilder.group({
+      collections: this.formBuilder.array([])
     });
 
     this.createMode = false;
 
-    console.log('this.playlistsForm', this.playlistsForm);
+    console.log('this.playlistsForm', this.collectionsForm);
 
     this.getCollections();
   }
 
-  get playlistsFormArray() {
-    return this.playlistsForm.get('playlists') as FormArray;
+  get collectionsFormArray() {
+    return this.collectionsForm.get('collections') as FormArray;
   }
 
   getCollections() {
-    this.collectionsService.getCollections().subscribe(result => {
-      console.log('getCollections result', result);
-      this.addPlaylist(result['data']);
+    this.store.pipe(select(getCollections)).subscribe(collections => {
+      this.addCollections(collections);
     });
   }
 
-  addPlaylist(playlists) {
+  addCollections(collections) {
     // console.log('addPlaylist playlists', playlists);
-    if (playlists) {
-      for (const playlist of playlists) {
-        this.playlistsFormArray.push(
+    if (collections) {
+      for (const collection of collections) {
+        this.collectionsFormArray.push(
           this.formBuilder.group({
-            name: [playlist.name],
-            value: [playlist.words.indexOf(this.data.word._id) !== -1],
-            _id: [playlist._id]
+            name: [collection.name],
+            value: [collection.words.indexOf(this.data.word._id) !== -1],
+            _id: [collection._id]
           })
         );
         // console.log('this.playlistsFormArray', this.playlistsFormArray);
       }
     } else {
-      const playlist = this.formBuilder.group({
+      const collection = this.formBuilder.group({
         name: [''],
         value: [false]
       });
-      this.playlistsFormArray.push(playlist);
+      this.collectionsFormArray.push(collection);
     }
   }
 
@@ -111,7 +111,7 @@ export class WordCollectionsDialogComponent implements OnInit {
       .createCollection({ name: this.newCollection })
       .subscribe(result => {
         console.log(result);
-        this.addPlaylist([result.data]);
+        this.addCollections([result.data]);
       });
   }
 

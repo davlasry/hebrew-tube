@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CollectionsService } from 'src/app/core/services/collections.service';
 import { Router, ActivatedRoute } from '@angular/router/src';
 import { map } from 'rxjs/operators';
+import { WordsState } from 'src/app/words/state';
+import { Store, select } from '@ngrx/store';
+import { getCollections } from 'src/app/words/state/selectors/collections.selectors';
 
 @Component({
   selector: 'app-collections-list-container',
@@ -9,14 +12,14 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./collections-list-container.component.scss']
 })
 export class CollectionsListContainerComponent implements OnInit {
-  collections;
+  collections$;
   currentLibrary;
   newCollection;
 
   constructor(
     // private route: ActivatedRoute,
     // private router: Router,
-    private collectionsService: CollectionsService
+    private store: Store<WordsState>
   ) {}
 
   ngOnInit() {
@@ -25,14 +28,15 @@ export class CollectionsListContainerComponent implements OnInit {
     //   this.currentLibrary = libraryId;
     // });
 
-    this.getLibraryList();
+    this.getCollections();
   }
 
-  getLibraryList() {
-    this.collectionsService.getCollections().subscribe(result => {
-      console.log(result);
-      this.collections = result['data'];
-    });
+  getCollections() {
+    // this.collectionsService.getCollections().subscribe(result => {
+    //   console.log(result);
+    //   this.collections = result['data'];
+    // });
+    this.collections$ = this.store.pipe(select(getCollections));
   }
 
   getCurrentLibrary() {}
@@ -45,10 +49,10 @@ export class CollectionsListContainerComponent implements OnInit {
   onSaveCollection() {
     console.log('new collection', this.newCollection);
     // this.createMode = false;
-    this.collectionsService
-      .createCollection({ name: this.newCollection })
-      .subscribe(result => {
-        console.log(result);
-      });
+    // this.collectionsService
+    //   .createCollection({ name: this.newCollection })
+    //   .subscribe(result => {
+    //     console.log(result);
+    //   });
   }
 }

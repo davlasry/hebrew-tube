@@ -1,9 +1,6 @@
-<p>
-  collections-list-container works!
-</p>
-<div class="container">
+<!-- <div class="container">
   <h1>Collections</h1>
-  <div *ngFor="let collection of collections">
+  <div *ngFor="let collection of collections$ | async">
     <div>
       <a [routerLink]="['/collections', collection._id]">{{
         collection.name
@@ -13,4 +10,4 @@
   </div>
   <h2>{{ currentLibrary }}</h2>
 </div>
-<router-outlet></router-outlet>
+<router-outlet></router-outlet> -->

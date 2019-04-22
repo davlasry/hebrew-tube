@@ -18,56 +18,31 @@
     <div class="playlists">
       <div class="playlist-title">Enregistrer dans...</div>
       <!-- <div class="loadingSpinner" *ngIf="true"> -->
-      <div class="loadingSpinner" *ngIf="!playlistsFormArray">
+      <div class="loadingSpinner" *ngIf="collectionsFormArray.length == 0">
         <mat-spinner></mat-spinner>
       </div>
-      <form
-        [formGroup]="playlistsForm"
-        class="collections-form"
-        *ngIf="playlistsFormArray.length > 0"
-      >
-        <div formArrayName="playlists" class="collections-list">
-          <div
-            *ngFor="
-              let playlist of playlistsForm.controls['playlists'].controls;
+      <form [formGroup]="collectionsForm" class="collections-form" *ngIf="collectionsFormArray.length > 0">
+        <div formArrayName="collections" class="collections-list">
+          <div *ngFor="
+              let collection of collectionsForm.controls['collections'].controls;
               let i = index
-            "
-            [formGroupName]="i"
-            class="checkbox"
-          >
-            <mat-checkbox
-              formControlName="value"
-              (change)="onCheckboxClick($event, playlist.controls?._id?.value)"
-            >
-              {{ playlist.controls?.name?.value }}
+            " [formGroupName]="i" class="checkbox">
+            <mat-checkbox formControlName="value" (change)="onCheckboxClick($event, collection.controls?._id?.value)">
+              {{ collection.controls?.name?.value }}
             </mat-checkbox>
           </div>
         </div>
       </form>
       <div class="buttons">
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="onCreateCollection()"
-          *ngIf="!createMode"
-        >
+        <button mat-raised-button color="primary" (click)="onCreateCollection()" *ngIf="!createMode">
           <mat-icon>add</mat-icon>
           CREATE COLLECTION
         </button>
         <div class="create-collection" *ngIf="createMode">
           <mat-form-field class="form-field">
-            <input
-              type="email"
-              matInput
-              placeholder="Name"
-              [(ngModel)]="newCollection"
-            />
+            <input type="email" matInput placeholder="Name" [(ngModel)]="newCollection" />
           </mat-form-field>
-          <button
-            mat-raised-button
-            color="primary"
-            (click)="onSaveCollection()"
-          >
+          <button mat-raised-button color="primary" (click)="onSaveCollection()">
             SAVE
           </button>
         </div>

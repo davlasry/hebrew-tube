@@ -18,8 +18,10 @@ import { LoadWords } from '../../words/state/actions/words.actions';
 import { LoadMyWords } from '../../words/state/actions/myWords.actions';
 import { getMyWordsLoaded } from '../../words/state/reducers/myWords.reducers';
 import { getIsVideosLoaded } from 'src/app/video/state/selectors/videos.selectors';
+import { getCollectionsLoaded } from 'src/app/words/state/selectors/collections.selectors';
 import { LoadVideos } from 'src/app/video/state/actions/videos.actions';
 import { LoadMyVideos } from 'src/app/video/state/actions/myVideos.actions';
+import { LoadCollections } from 'src/app/words/state/actions/collections.actions';
 
 @Component({
   selector: 'app-root',
@@ -71,6 +73,13 @@ export class AppComponent implements OnInit {
               pageSize: 0
             };
             this.store.dispatch(new LoadWords(payload));
+          }
+        });
+
+        this.store.pipe(select(getCollectionsLoaded)).subscribe(hasLoaded => {
+          // console.log('hasLoaded:', hasLoaded);
+          if (!hasLoaded) {
+            this.store.dispatch(new LoadCollections());
           }
         });
 
