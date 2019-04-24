@@ -17,9 +17,15 @@ import {
   DeleteCollectionSuccess,
   EditCollection,
   EDIT_COLLECTION,
-  EditCollectionSuccess
+  EditCollectionSuccess,
+  RemoveWordFromCollection,
+  REMOVE_WORD_FROM_COLLECTION,
+  RemoveWordFromCollectionSuccess,
+  AddWordToCollection,
+  ADD_WORD_TO_COLLECTION
 } from '../actions/collections.actions';
 import { CollectionsService } from 'src/app/core/services/collections.service';
+import { CollectionsRoutingModule } from 'src/app/collections/collections.routing.module';
 
 @Injectable()
 export class CollectionsEffects {
@@ -77,6 +83,42 @@ export class CollectionsEffects {
           return new EditCollectionSuccess(res.data);
         })
       );
+    })
+  );
+
+  @Effect()
+  removeWordFromCollection$: Observable<any> = this.actions$.pipe(
+    ofType(REMOVE_WORD_FROM_COLLECTION),
+    switchMap((action: RemoveWordFromCollection) => {
+      console.log('REMOVE WORD FROM COLLECTION EFFECT', action.payload);
+      return this.collectionsService
+        .deleteWordFromCollection(
+          action.payload.collectionId,
+          action.payload.wordId
+        )
+        .pipe(
+          map(res => {
+            console.log('res removeWordFromCollection EFFECT', res.data);
+            return new RemoveWordFromCollectionSuccess(res.data);
+          })
+        );
+    })
+  );
+
+  @Effect()
+  addWordToCollection$: Observable<any> = this.actions$.pipe(
+    ofType(ADD_WORD_TO_COLLECTION),
+    switchMap((action: AddWordToCollection) => {
+      const { collectionId, wordId } = action.payload;
+      console.log('REMOVE WORD FROM COLLECTION EFFECT', action.payload);
+      return this.collectionsService
+        .addWordToCollection(collectionId, wordId)
+        .pipe(
+          map(res => {
+            console.log('res removeWordFromCollection EFFECT', res.data);
+            return new RemoveWordFromCollectionSuccess(res.data);
+          })
+        );
     })
   );
 }

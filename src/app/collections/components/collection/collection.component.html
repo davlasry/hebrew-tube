@@ -1,19 +1,28 @@
 <div fxLayout="column" fxLayoutAlign="start start" class="collection-container" fxFlex>
-  <div *ngIf="!currentCollection || currentCollection?.words.length == 0">
+  <div *ngIf="!currentCollection || currentCollection?.words.length == 0" class="empty-collection">
     The collection is empty. Start adding words to the collection.
   </div>
   <div *ngFor="let word of currentCollection?.words" class="word" fxLayout="row" fxLayoutAlign="space-between center">
     <div class="info">
-      <div>{{ word.hebrew }}</div>
-      <div>{{ word.french }}</div>
       <div class="word-field" fxLayout="row" fxLayoutAlign="start center">
-        <mat-icon class="word-field-icon">volume_up</mat-icon>
-        <span>{{ word.pronunciation }}</span>
+        <img class="flag" src="assets/img/israel-flag.png" />
+        <span>{{ word.hebrew }}</span>
+        <span class="italic" *ngIf="word?.pronunciation">[{{ word.pronunciation }}]</span>
       </div>
-      {{ word.type }}
+      <div class="word-field" fxLayout="row" fxLayoutAlign="start center">
+        <img class="flag" src="assets/img/france-flag.png" />
+        <span>{{ word.french }}</span>
+      </div>
+      <!-- <div class="word-field" fxLayout="row" fxLayoutAlign="start center" *ngIf="word?.pronunciation">
+        <mat-icon class="word-field-icon">hearing</mat-icon>
+
+      </div> -->
+      <div class="word-field" fxLayout="row" fxLayoutAlign="start center">
+        {{ word.type }}
+      </div>
     </div>
     <div class="buttons">
-      <button mat-icon-button color="accent">
+      <button mat-icon-button color="accent" (click)="removeWordFromCollection(word)">
         <mat-icon>remove_circle</mat-icon>
       </button>
     </div>

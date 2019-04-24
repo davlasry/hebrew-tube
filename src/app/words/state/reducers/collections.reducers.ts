@@ -58,12 +58,12 @@ export function collectionsReducer(
     }
 
     case collectionsList.ADD_COLLECTION_SUCCESS: {
-      console.log('ADD WORD SUCCESS REDUCER', action.payload.data);
+      console.log('ADD COLLECTION SUCCESS REDUCER', action.payload.data);
       return adapter.addOne(action.payload.data, state);
     }
 
     case collectionsList.EDIT_COLLECTION_SUCCESS: {
-      console.log('EDIT WORD SUCCESS REDUCER', action.payload);
+      console.log('EDIT COLLECTION SUCCESS REDUCER', action.payload);
       console.log('state', state);
       return adapter.updateOne(
         { id: action.payload._id, changes: action.payload },
@@ -74,6 +74,23 @@ export function collectionsReducer(
     case collectionsList.DELETE_COLLECTION_SUCCESS: {
       // console.log(action.payload);
       return adapter.removeOne(action.payload, state);
+    }
+
+    case collectionsList.ADD_WORD_TO_COLLECTION: {
+      // console.log('ADD WORD TO COLLECTION REDUCER', action.payload);
+      // console.log('state', state);
+      // let newWords = [...state.entities[action.payload.collectionId].words, wordId];
+      const updatedCollection = {
+        ...state.entities[action.payload.collectionId]
+      };
+      updatedCollection.words = [
+        ...updatedCollection.words,
+        action.payload.wordId
+      ];
+      return adapter.updateOne(
+        { id: action.payload.collectionId, changes: updatedCollection },
+        state
+      );
     }
 
     default: {

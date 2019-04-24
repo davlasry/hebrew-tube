@@ -1,6 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { WordCollectionsDialogComponent } from 'src/app/shared/dialogs/word-collections/word-collections.component';
+import { Store } from '@ngrx/store';
+import { WordsState } from 'src/app/words/state';
+import { EditWordDialogComponent } from 'src/app/shared/dialogs/edit-word-dialog/edit-word-dialog.component';
+import { EditWord } from 'src/app/words/state/actions/words.actions';
 
 @Component({
   selector: 'app-search-result',
@@ -10,18 +14,33 @@ import { WordCollectionsDialogComponent } from 'src/app/shared/dialogs/word-coll
 export class SearchResultComponent implements OnInit {
   @Input() result;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private store: Store<WordsState>) {}
 
   ngOnInit() {}
-
-  editWord() {
-    console.log('EDIT WORD');
-  }
 
   onClickFavorite(event) {
     const dialogRef = this.dialog.open(WordCollectionsDialogComponent, {
       // width: '250px',
       data: { word: this.result }
+    });
+  }
+
+  editWord() {
+    console.log('edit word', this.result);
+    const dialogRef = this.dialog.open(EditWordDialogComponent, {
+      // width: '250px',
+      data: { word: this.result }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      if (result) {
+        const data = {
+          wordData: result,
+          overwrite: true
+        };
+        this.store.dispatch(new EditWord(data));
+      }
     });
   }
 }

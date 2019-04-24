@@ -10,53 +10,57 @@
   <div class="content" *ngIf="(collections$ | async)?.length > 0; else loading" style="overflow: hidden"
     fxLayout="column">
     <div class="collections-container" fxLayout="row" fxLayoutAlign="start start">
-      <div class="collections-list">
-        <div *ngFor="let collection of collections$ | async" class="collection" fxLayout="row"
-          fxLayoutAlign="space-between center">
-          <div style="width: 100%" *ngIf="collection._id != editedCollection?._id" fxLayout="row"
+      <div fxLayout="column" class="collections-list">
+        <div fxLayout="column">
+          <div *ngFor="let collection of collections$ | async" class="collection" fxLayout="row"
             fxLayoutAlign="space-between center">
-            <div fxLayout="row" fxLayoutAlign="start center">
-              <a [routerLink]="['/collections', collection._id]" [routerLinkActive]="['active']"
-                [routerLinkActiveOptions]="{ exact: true }">{{ collection.name }}</a>
-              <mat-icon class="lock-icon" *ngIf="collection.privacy == 'private'">lock</mat-icon>
+            <div style="width: 100%" *ngIf="collection._id != editedCollection?._id" fxLayout="row"
+              fxLayoutAlign="space-between center">
+              <div fxLayout="row" fxLayoutAlign="start center">
+                <a [routerLink]="['/collections', collection._id]" [routerLinkActive]="['active']"
+                  [routerLinkActiveOptions]="{ exact: true }">{{ collection.name }}</a>
+                <mat-icon class="lock-icon" *ngIf="collection.privacy == 'private'">lock</mat-icon>
+              </div>
+              <div fxFlex></div>
+              <div class="buttons">
+                <button mat-icon-button color="accent" (click)="onClickEditCollection(collection)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="accent" (click)="onClickDeleteCollection(collection)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
             </div>
-            <div fxFlex></div>
-            <div class="buttons">
-              <button mat-icon-button color="accent" (click)="onClickEditCollection(collection)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="accent" (click)="onClickDeleteCollection(collection)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
-          </div>
-          <div *ngIf="collection._id == editedCollection?._id" fxLayout="row" fxLayoutAlign="start center"
-            style="width: 100%">
-            <input type="text" #newCollectionName [value]="editedCollection.name" style="margin-right: 20px;" />
-            <mat-form-field style="width: 85px;">
-              <mat-select placeholder="Privacy" #newCollectionPrivacy [value]="editedCollection.privacy">
-                <mat-option *ngFor="let privacy of privacies" [value]="privacy.value">
-                  {{ privacy.viewValue }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div fxFlex></div>
-            <div class="buttons">
-              <button mat-icon-button color="accent" (click)="editedCollection = ''">
-                <mat-icon>cancel</mat-icon>
-              </button>
-              <button mat-icon-button color="accent" (click)="
-                  onClickSaveEditCollection(
-                    newCollectionName.value,
-                    newCollectionPrivacy.value
-                  )
-                ">
-                <mat-icon>save</mat-icon>
-              </button>
+            <div *ngIf="collection._id == editedCollection?._id" fxLayout="row" fxLayoutAlign="start center"
+              style="width: 100%">
+              <input type="text" #newCollectionName [value]="editedCollection.name" style="margin-right: 20px;" />
+              <mat-form-field style="width: 85px;">
+                <mat-select placeholder="Privacy" #newCollectionPrivacy [value]="editedCollection.privacy">
+                  <mat-option *ngFor="let privacy of privacies" [value]="privacy.value">
+                    {{ privacy.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div fxFlex></div>
+              <div class="buttons">
+                <button mat-icon-button color="accent" (click)="editedCollection = ''">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+                <button mat-icon-button color="accent" (click)="
+                    onClickSaveEditCollection(
+                      newCollectionName.value,
+                      newCollectionPrivacy.value
+                    )
+                  ">
+                  <mat-icon>save</mat-icon>
+                </button>
+              </div>
             </div>
           </div>
         </div>
-        <button mat-raised-button color="primary" (click)="onCreateCollection()" *ngIf="!createMode">
+        <div fxFlex></div>
+        <button mat-raised-button mat-accent color="accent" (click)="onCreateCollection()">
+          <!-- <button mat-raised-button mat-accent color="accent" (click)="onCreateCollection()" *ngIf="!createMode"> -->
           <mat-icon>add</mat-icon>
           CREATE COLLECTION
         </button>
@@ -67,7 +71,7 @@
       </div>
     </div>
   </div>
-  <div class="footer" fxLayout="column" *ngIf="createMode">
+  <!-- <div class="footer" fxLayout="column" *ngIf="createMode">
     <h3 fxFlex>New Collection</h3>
     <div class="create-collection" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30px">
       <mat-form-field class="form-field">
@@ -88,5 +92,5 @@
         SAVE
       </button>
     </div>
-  </div>
+  </div> -->
 </div>

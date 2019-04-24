@@ -10,6 +10,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import { CollectionsService } from 'src/app/core/services/collections.service';
 import { getCollections } from 'src/app/words/state/selectors/collections.selectors';
+import { AddWordToCollection } from 'src/app/words/state/actions/collections.actions';
 
 @Component({
   selector: 'app-word-collections',
@@ -84,11 +85,14 @@ export class WordCollectionsDialogComponent implements OnInit {
     console.log('this.data', this.data);
     if (value) {
       // add word to collection
-      this.collectionsService
-        .addWordToCollection(collectionId, this.data.word._id)
-        .subscribe(result => {
-          console.log('updateCollection result', result);
-        });
+      this.store.dispatch(
+        new AddWordToCollection({ wordId: this.data.word._id, collectionId })
+      );
+      // this.collectionsService
+      //   .addWordToCollection(collectionId, this.data.word._id)
+      //   .subscribe(result => {
+      //     console.log('updateCollection result', result);
+      //   });
     } else {
       // remove word from collection
       this.collectionsService
