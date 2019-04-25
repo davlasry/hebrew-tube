@@ -1,11 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {
-  Validators,
-  FormGroup,
-  FormBuilder,
-  FormArray,
-  FormControl
-} from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import { CollectionsService } from 'src/app/core/services/collections.service';
@@ -40,7 +34,6 @@ export class WordCollectionsDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data,
     private store: Store<any>,
     private formBuilder: FormBuilder,
-    private collectionsService: CollectionsService
   ) {}
 
   ngOnInit() {
@@ -50,7 +43,7 @@ export class WordCollectionsDialogComponent implements OnInit {
 
     this.createMode = false;
 
-    console.log('this.playlistsForm', this.collectionsForm);
+    // console.log('this.playlistsForm', this.collectionsForm);
 
     this.getCollections();
   }
@@ -66,18 +59,18 @@ export class WordCollectionsDialogComponent implements OnInit {
         first()
       )
       .subscribe(collections => {
-        console.log('collections:', collections);
+        // console.log('collections:', collections);
         this.addCollections(collections);
       });
   }
 
   addCollections(collections) {
-    console.log('addCollections collections', collections);
+    // console.log('addCollections collections', collections);
     if (collections) {
       for (const collection of collections) {
-        console.log('collection:', collection);
+        // console.log('collection:', collection);
         const wordsIds = collection.words.map(word => word._id);
-        console.log('wordsIds:', wordsIds);
+        // console.log('wordsIds:', wordsIds);
         this.collectionsFormArray.push(
           this.formBuilder.group({
             name: [collection.name],
@@ -98,8 +91,8 @@ export class WordCollectionsDialogComponent implements OnInit {
 
   onCheckboxClick(event, collectionId) {
     const value = event.checked;
-    console.log(collectionId, value);
-    console.log('this.data', this.data);
+    // console.log(collectionId, value);
+    // console.log('this.data', this.data);
     if (value) {
       // add word to collection
       this.store.dispatch(
@@ -122,7 +115,7 @@ export class WordCollectionsDialogComponent implements OnInit {
   }
 
   onSaveCollection() {
-    console.log('new collection', { name: this.newCollection });
+    // console.log('new collection', { name: this.newCollection });
     this.createMode = false;
     this.store.dispatch(new AddCollection({ name: this.newCollection }));
     // TODO - ADD COLLECTION AFTER ADD COLLECTION SUCCESS

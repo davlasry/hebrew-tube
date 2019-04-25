@@ -27,12 +27,11 @@ export const getCollectionsLoaded = createSelector(
 );
 
 export const getCollectionById = (id: string) => {
-  console.log('id:', id);
+  // console.log('id:', id);
   return createSelector(
     getCollectionsEntities,
     collections => {
-      console.log('id:', id);
-      console.log('collections:', collections);
+      // console.log('collections:', collections);
       return collections[id];
     }
   );

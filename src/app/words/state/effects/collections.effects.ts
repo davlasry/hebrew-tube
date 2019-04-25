@@ -41,7 +41,7 @@ export class CollectionsEffects {
       // console.log('LOAD COLLECTIONS EFFECT', action);
       return this.collectionsService.getCollections().pipe(
         map((collections: any) => {
-          console.log('collections:', collections);
+          // console.log('collections:', collections);
           return new LoadCollectionsSuccess(collections.data);
         }),
         catchError(error => of(new LoadCollectionsFail(error)))
@@ -53,7 +53,7 @@ export class CollectionsEffects {
   addCollection$ = this.actions$.pipe(
     ofType(ADD_COLLECTION),
     switchMap((action: AddCollection) => {
-      console.log('ADD COLLECTION EFFECT', action.payload);
+      // console.log('ADD COLLECTION EFFECT', action.payload);
       return this.collectionsService.createCollection(action.payload).pipe(
         map(collection => new AddCollectionSuccess(collection))
         // catchError(error => new LoadWordsFail(error))
@@ -90,13 +90,13 @@ export class CollectionsEffects {
   removeWordFromCollection$: Observable<any> = this.actions$.pipe(
     ofType(REMOVE_WORD_FROM_COLLECTION),
     switchMap((action: RemoveWordFromCollection) => {
-      console.log('REMOVE WORD FROM COLLECTION EFFECT', action.payload);
+      // console.log('REMOVE WORD FROM COLLECTION EFFECT', action.payload);
       const { collectionId, wordId } = action.payload;
       return this.collectionsService
         .deleteWordFromCollection(collectionId, wordId)
         .pipe(
           map(res => {
-            console.log('res removeWordFromCollection EFFECT', res.data);
+            // console.log('res removeWordFromCollection EFFECT', res.data);
             return new RemoveWordFromCollectionSuccess(res.data);
           })
         );
@@ -107,13 +107,13 @@ export class CollectionsEffects {
   addWordToCollection$: Observable<any> = this.actions$.pipe(
     ofType(ADD_WORD_TO_COLLECTION),
     switchMap((action: AddWordToCollection) => {
-      console.log('ADD WORD TO COLLECTION EFFECT', action.payload);
+      // console.log('ADD WORD TO COLLECTION EFFECT', action.payload);
       const { collectionId, word } = action.payload;
       return this.collectionsService
         .addWordToCollection(collectionId, word._id)
         .pipe(
           map(res => {
-            console.log('res addWordToCollection EFFECT', res.data);
+            // console.log('res addWordToCollection EFFECT', res.data);
             return new AddWordToCollectionSuccess(res.data);
           })
         );
