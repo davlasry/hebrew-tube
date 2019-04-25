@@ -35,28 +35,6 @@ app.use(passport.initialize());
 
 app.use(AuthCore.getUserID());
 
-// // Import routes
-// const wordsRoutes = require('./routes/words');
-// const sessionsRoutes = require('./routes/sessions');
-// const usersRoutes = require('./routes/users');
-// const authRoutes = require('./routes/auth');
-// const videosRoutes = require('./routes/videos');
-
-// // Use routes
-// app.use('/api/words', wordsRoutes);
-// app.use('/api/sessions', sessionsRoutes);
-// app.use('/api/auth', authRoutes);
-// app.use('/api/videos', videosRoutes);
-// app.use('/api/users', passport.authenticate('jwt', { session: false }), usersRoutes);
-
-// Static Angular Build
-app.use(express.static(path.join(__dirname, './dist/')))
-
-// Serve the index.html Angular file
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './dist/index.html'));
-})
-
 
 function createServer() {
   // const port = Number(process.env.PORT || 4600);
@@ -107,6 +85,14 @@ exports.app = app;
 
 // On charge les routes
 require('./server/web/index');
+
+// Static Angular Build
+app.use(express.static(path.join(__dirname, './dist/')))
+
+// Serve the index.html Angular file
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './dist/index.html'));
+})
 
 // Get the user picture from the picture URL
 app.get('/youtubeApi/:url(*)', function (req, res) {
