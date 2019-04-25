@@ -17,6 +17,7 @@ export class SearchResultsComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
+      console.log('params:', params);
       const searchString = params.get('string');
       this.searchWord(searchString);
     });

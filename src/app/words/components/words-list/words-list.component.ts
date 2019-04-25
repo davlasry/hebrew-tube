@@ -75,7 +75,7 @@ export class WordsListComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    console.log('this.dataSource:', this.dataSource);
+    // console.log('this.dataSource:', this.dataSource);
     this.selection = new SelectionModel<any>(true);
   }
 

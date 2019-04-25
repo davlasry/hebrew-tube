@@ -22,6 +22,7 @@ import { getCollectionsLoaded } from 'src/app/words/state/selectors/collections.
 import { LoadVideos } from 'src/app/video/state/actions/videos.actions';
 import { LoadMyVideos } from 'src/app/video/state/actions/myVideos.actions';
 import { LoadCollections } from 'src/app/words/state/actions/collections.actions';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -35,7 +36,11 @@ export class AppComponent implements OnInit {
 
   currentUserId;
 
-  constructor(private jwtService: JwtService, private store: Store<any>) {}
+  constructor(
+    private jwtService: JwtService,
+    private store: Store<any>,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.currentUser$ = this.store.pipe(select(getUser));
