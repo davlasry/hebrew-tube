@@ -7,7 +7,6 @@ const http = require('http');
 const path = require('path');
 const passport = require('passport');
 const cors = require('cors');
-const lodash = require('lodash');
 
 const Database = require('./server/core/database.core');
 const AuthCore = require('./server/core/auth.core');
@@ -50,13 +49,13 @@ app.use(AuthCore.getUserID());
 // app.use('/api/videos', videosRoutes);
 // app.use('/api/users', passport.authenticate('jwt', { session: false }), usersRoutes);
 
-// // Static Angular Build
-// app.use(express.static(path.join(__dirname, '../dist/')))
+// Static Angular Build
+app.use(express.static(path.join(__dirname, './dist/')))
 
-// // Serve the index.html Angular file
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../dist/index.html'));
-// })
+// Serve the index.html Angular file
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './dist/index.html'));
+})
 
 
 function createServer() {
@@ -103,7 +102,7 @@ app.get('/toto', function (req, res) {
 })
 
 
-// On ewport l'app
+// On export l'app
 exports.app = app;
 
 // On charge les routes
