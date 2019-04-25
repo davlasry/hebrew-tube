@@ -3,11 +3,12 @@ import { CollectionsService } from 'src/app/core/services/collections.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { WordsState } from 'src/app/words/state';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import {
   DeleteCollection,
   RemoveWordFromCollection
 } from 'src/app/words/state/actions/collections.actions';
+import { getCollectionById } from 'src/app/words/state/selectors/collections.selectors';
 
 @Component({
   selector: 'app-collection',
@@ -16,8 +17,9 @@ import {
 })
 export class CollectionComponent implements OnInit {
   collections;
-  currentCollection;
+  currentCollection$;
   newCollection;
+  currentCollectionId;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,10 +30,16 @@ export class CollectionComponent implements OnInit {
   ngOnInit() {
     this.route.params.pipe(map(params => params.id)).subscribe(collectionId => {
       // console.log('collectionId', collectionId);
-      this.collectionsService.getCollection(collectionId).subscribe(result => {
-        // console.log('result', result);
-        this.currentCollection = result.data;
-      });
+      // this.collectionsService.getCollection(collectionId).subscribe(result => {
+      //   // console.log('result', result);
+      //   this.currentCollection = result.data;
+      // });
+      this.currentCollection$ = this.store.pipe(
+        select(getCollectionById(collectionId))
+      );
+      this.currentCollection$.subscribe(
+        collection => (this.currentCollectionId = collection._id)
+      );
     });
   }
 
@@ -56,7 +64,7 @@ export class CollectionComponent implements OnInit {
     console.log('remove word', word);
     this.store.dispatch(
       new RemoveWordFromCollection({
-        collectionId: this.currentCollection._id,
+        collectionId: this.currentCollectionId,
         wordId: word._id
       })
     );

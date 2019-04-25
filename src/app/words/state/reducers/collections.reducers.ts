@@ -57,6 +57,11 @@ export function collectionsReducer(
       return state;
     }
 
+    // case collectionsList.ADD_COLLECTION: {
+    //   console.log('ADD COLLECTION REDUCER', action.payload.data);
+    //   return adapter.addOne(action.payload.data, state);
+    // }
+
     case collectionsList.ADD_COLLECTION_SUCCESS: {
       console.log('ADD COLLECTION SUCCESS REDUCER', action.payload.data);
       return adapter.addOne(action.payload.data, state);
@@ -77,18 +82,29 @@ export function collectionsReducer(
     }
 
     case collectionsList.ADD_WORD_TO_COLLECTION: {
-      // console.log('ADD WORD TO COLLECTION REDUCER', action.payload);
-      // console.log('state', state);
-      // let newWords = [...state.entities[action.payload.collectionId].words, wordId];
+      console.log('ADD WORD TO COLLECTION REDUCER:', action.payload);
+      const { collectionId, word } = action.payload;
       const updatedCollection = {
-        ...state.entities[action.payload.collectionId]
+        ...state.entities[collectionId]
+      };
+      updatedCollection.words = [...updatedCollection.words, word];
+      return adapter.updateOne(
+        { id: collectionId, changes: updatedCollection },
+        state
+      );
+    }
+
+    case collectionsList.REMOVE_WORD_FROM_COLLECTION: {
+      console.log('REMOVE WORD FROM COLLECTION REDUCER:', action.payload);
+      const { collectionId, wordId } = action.payload;
+      const updatedCollection = {
+        ...state.entities[collectionId]
       };
       updatedCollection.words = [
-        ...updatedCollection.words,
-        action.payload.wordId
+        ...updatedCollection.words.filter(item => item._id !== wordId)
       ];
       return adapter.updateOne(
-        { id: action.payload.collectionId, changes: updatedCollection },
+        { id: collectionId, changes: updatedCollection },
         state
       );
     }

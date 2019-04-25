@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   // External dependencies
@@ -30,6 +30,7 @@
    * @return {*} la requête
    */
   async function createCollection(req, res) {
+    console.log('req.body:', req.body)
     try {
       const collectionData = lodash.get(req, 'body');
       const userID = lodash.get(req, 'userID');

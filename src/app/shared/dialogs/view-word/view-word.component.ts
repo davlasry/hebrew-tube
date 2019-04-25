@@ -33,7 +33,7 @@ export class ViewWordDialogComponent implements OnInit {
     // console.log(this.data);
     this.isWordFavorite$ = this.store.select(getMyWordsIds).pipe(
       map((myWords: string[]) => {
-        console.log('getMyWordsIds', myWords);
+        // console.log('getMyWordsIds', myWords);
         return myWords.indexOf(this.data.word._id) !== -1;
       })
       // distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))

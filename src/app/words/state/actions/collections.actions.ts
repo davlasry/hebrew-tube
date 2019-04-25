@@ -88,7 +88,7 @@ export class AddWordToCollection implements Action {
 
   constructor(public payload: any) {}
 }
-export class AddWordToCollectionCollectionSuccess implements Action {
+export class AddWordToCollectionSuccess implements Action {
   readonly type = ADD_WORD_TO_COLLECTION_SUCCESS;
 
   constructor(public payload: any) {}
@@ -107,4 +107,4 @@ export type Actions =
   | RemoveWordFromCollection
   | RemoveWordFromCollectionSuccess
   | AddWordToCollection
-  | AddWordToCollectionCollectionSuccess;
+  | AddWordToCollectionSuccess;

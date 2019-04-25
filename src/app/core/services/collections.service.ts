@@ -37,7 +37,7 @@ export class CollectionsService {
   }
 
   deleteWordFromCollection(collectionId, wordId): Observable<any> {
-    console.log('ADD WORD TO COLLECTION SERVICE', collectionId, wordId);
+    console.log('REMOVE WORD FROM COLLECTION SERVICE', collectionId, wordId);
     return this.http.delete<any>(
       `${environment.API_URL}/collection/${collectionId}/${wordId}`
     );

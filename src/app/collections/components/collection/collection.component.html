@@ -1,8 +1,9 @@
 <div fxLayout="column" fxLayoutAlign="start start" class="collection-container" fxFlex>
-  <div *ngIf="!currentCollection || currentCollection?.words.length == 0" class="empty-collection">
+  <div *ngIf="!currentCollection$ || (currentCollection$ | async)?.words.length == 0" class="empty-collection">
     The collection is empty. Start adding words to the collection.
   </div>
-  <div *ngFor="let word of currentCollection?.words" class="word" fxLayout="row" fxLayoutAlign="space-between center">
+  <div *ngFor="let word of (currentCollection$ | async)?.words" class="word" fxLayout="row"
+    fxLayoutAlign="space-between center">
     <div class="info">
       <div class="word-field" fxLayout="row" fxLayoutAlign="start center">
         <img class="flag" src="assets/img/israel-flag.png" />

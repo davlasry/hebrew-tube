@@ -9,8 +9,16 @@ import {
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import { CollectionsService } from 'src/app/core/services/collections.service';
-import { getCollections } from 'src/app/words/state/selectors/collections.selectors';
-import { AddWordToCollection } from 'src/app/words/state/actions/collections.actions';
+import {
+  getCollections,
+  getCollectionsLoaded
+} from 'src/app/words/state/selectors/collections.selectors';
+import {
+  AddWordToCollection,
+  RemoveWordFromCollection,
+  AddCollection
+} from 'src/app/words/state/actions/collections.actions';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-word-collections',
@@ -52,19 +60,28 @@ export class WordCollectionsDialogComponent implements OnInit {
   }
 
   getCollections() {
-    this.store.pipe(select(getCollections)).subscribe(collections => {
-      this.addCollections(collections);
-    });
+    this.store
+      .pipe(
+        select(getCollections),
+        first()
+      )
+      .subscribe(collections => {
+        console.log('collections:', collections);
+        this.addCollections(collections);
+      });
   }
 
   addCollections(collections) {
-    // console.log('addPlaylist playlists', playlists);
+    console.log('addCollections collections', collections);
     if (collections) {
       for (const collection of collections) {
+        console.log('collection:', collection);
+        const wordsIds = collection.words.map(word => word._id);
+        console.log('wordsIds:', wordsIds);
         this.collectionsFormArray.push(
           this.formBuilder.group({
             name: [collection.name],
-            value: [collection.words.indexOf(this.data.word._id) !== -1],
+            value: [wordsIds.indexOf(this.data.word._id) !== -1],
             _id: [collection._id]
           })
         );
@@ -86,20 +103,16 @@ export class WordCollectionsDialogComponent implements OnInit {
     if (value) {
       // add word to collection
       this.store.dispatch(
-        new AddWordToCollection({ wordId: this.data.word._id, collectionId })
+        new AddWordToCollection({ word: this.data.word, collectionId })
       );
-      // this.collectionsService
-      //   .addWordToCollection(collectionId, this.data.word._id)
-      //   .subscribe(result => {
-      //     console.log('updateCollection result', result);
-      //   });
     } else {
       // remove word from collection
-      this.collectionsService
-        .deleteWordFromCollection(collectionId, this.data.word._id)
-        .subscribe(result => {
-          console.log('updateCollection result', result);
-        });
+      this.store.dispatch(
+        new RemoveWordFromCollection({
+          wordId: this.data.word._id,
+          collectionId
+        })
+      );
     }
   }
 
@@ -109,14 +122,12 @@ export class WordCollectionsDialogComponent implements OnInit {
   }
 
   onSaveCollection() {
-    console.log('new collection', this.newCollection);
+    console.log('new collection', { name: this.newCollection });
     this.createMode = false;
-    this.collectionsService
-      .createCollection({ name: this.newCollection })
-      .subscribe(result => {
-        console.log(result);
-        this.addCollections([result.data]);
-      });
+    this.store.dispatch(new AddCollection({ name: this.newCollection }));
+    // TODO - ADD COLLECTION AFTER ADD COLLECTION SUCCESS
+    // [find a way to wait until success, maybe only subscribe to the result but
+    // then will take time to update the list in the dialog]...
   }
 
   onNoClick(): void {

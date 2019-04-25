@@ -28,6 +28,7 @@ import {
   catchError,
   distinctUntilChanged
 } from 'rxjs/operators';
+import { WordCollectionsDialogComponent } from 'src/app/shared/dialogs/word-collections/word-collections.component';
 
 @Component({
   selector: 'app-words-list',
@@ -240,5 +241,13 @@ export class WordsListComponent implements OnInit, OnChanges {
 
     this.selection.clear();
     this.deleteWords.emit(wordsToDelete);
+  }
+
+  onClickFavorite(event, word) {
+    event.stopPropagation();
+    const dialogRef = this.dialog.open(WordCollectionsDialogComponent, {
+      // width: '250px',
+      data: { word: word }
+    });
   }
 }

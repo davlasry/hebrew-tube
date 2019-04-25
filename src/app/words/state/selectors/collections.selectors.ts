@@ -4,7 +4,10 @@ import { getWordsState, WordsState } from '..';
 
 export const getCollectionsState = createSelector(
   getWordsState,
-  (state: WordsState) => state.collections
+  (state: WordsState) => {
+    // console.log('state:', state);
+    return state.collections;
+  }
 );
 export const getCollections = createSelector(
   getCollectionsState,
@@ -24,8 +27,13 @@ export const getCollectionsLoaded = createSelector(
 );
 
 export const getCollectionById = (id: string) => {
-  createSelector(
+  console.log('id:', id);
+  return createSelector(
     getCollectionsEntities,
-    words => words[id]
+    collections => {
+      console.log('id:', id);
+      console.log('collections:', collections);
+      return collections[id];
+    }
   );
 };

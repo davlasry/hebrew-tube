@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   // External dependencies
@@ -21,7 +21,7 @@
   };
 
   async function createCollection(collectionData, userID) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
       try {
         const data = {
           name: lodash.get(collectionData, 'name'),
@@ -41,7 +41,7 @@
 
   async function updateCollection(collectionData, collectionID) {
     console.log('collectionData:', collectionData);
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
       try {
         const existingCollection = await CollectionMongo.findOne({
           _id: collectionID
@@ -69,9 +69,11 @@
   async function addWordToCollection(collectionId, wordId) {
     // console.log('addWordToCollection DAO collectionId', collectionId);
     // console.log('addWordToCollection DAO wordId', wordId);
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
       try {
-        const collection = await CollectionMongo.findOne({ _id: collectionId });
+        const collection = await CollectionMongo.findOne({
+          _id: collectionId
+        });
 
         if (collection.words.indexOf(wordId.toString()) == -1) {
           collection.words.push(wordId);
@@ -93,9 +95,11 @@
   async function deleteWordFromCollection(collectionId, wordId) {
     // console.log('deleteWordFromCollection DAO collectionId', collectionId);
     // console.log('deleteWordFromCollection DAO wordId', wordId);
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
       try {
-        const collection = await CollectionMongo.findOne({ _id: collectionId });
+        const collection = await CollectionMongo.findOne({
+          _id: collectionId
+        });
 
         collection.words.splice(collection.words.indexOf(wordId), 1);
         collection.save();
@@ -110,60 +114,58 @@
     });
   }
 
-  // async function getCollection(collectionID) {
-  //   return new Promise(async function(resolve, reject) {
-  //     await CollectionMongo.findOne(
-  //       {
-  //         _id: collectionID
-  //       },
-  //       async function(err, res) {
-  //         if (err) {
-  //           console.log('Error in collection.dao getCollection', err);
-  //           return reject(err);
-  //         }
-  //         return resolve(res);
-  //       }
-  //     );
-  //   });
-  // }
-
   async function getCollection(collectionID) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
       return await CollectionMongo.findOne({
-        _id: collectionID
-      })
-        .populate({ path: 'words', model: 'Word' })
-        .exec(function(err, story) {
-          // console.log('story:', story);
+          _id: collectionID
+        })
+        .populate({
+          path: 'words',
+          model: 'Word'
+        })
+        .exec(function (err, collection) {
+          // console.log('collection._doc:', collection._doc);
           if (err) {
             return reject(err);
           }
 
-          return resolve(lodash.get(story, '_doc'));
+          return resolve(lodash.get(collection, '_doc'));
         });
     });
   }
 
   async function getAllCollections() {
-    return new Promise(async function(resolve, reject) {
-      await CollectionMongo.find({}, async function(err, res) {
-        if (err) {
-          console.log('Error in collection.dao getAllCollections', err);
-          return reject(err);
-        }
-        return resolve(res);
-      });
+    return new Promise(async function (resolve, reject) {
+      return await CollectionMongo.find({})
+        .populate({
+          path: 'words',
+          model: 'Word'
+        })
+        .exec(function (err, collections) {
+          // console.log('collections:', collections);
+          if (err) {
+            return reject(err);
+          }
+
+          return resolve(collections);
+        });
+      // await CollectionMongo.find({}, async function (err, res) {
+      //   if (err) {
+      //     console.log('Error in collection.dao getAllCollections', err);
+      //     return reject(err);
+      //   }
+      //   return resolve(res);
+      // });
     });
   }
 
   async function checkExistingCollection(name, userID) {
-    return new Promise(async function(resolve, reject) {
-      await CollectionMongo.findOne(
-        {
+    return new Promise(async function (resolve, reject) {
+      await CollectionMongo.findOne({
           name: name,
           id_user: userID
         },
-        async function(err, res) {
+        async function (err, res) {
           if (err) {
             console.log('Error in collection.dao checkExistingCollection', err);
             return reject(err);
@@ -176,12 +178,11 @@
 
   async function deleteCollection(collectionID) {
     console.log('deleteCollection DAO', collectionID);
-    return new Promise(async function(resolve, reject) {
-      await CollectionMongo.deleteOne(
-        {
+    return new Promise(async function (resolve, reject) {
+      await CollectionMongo.deleteOne({
           _id: collectionID
         },
-        async function(err, res) {
+        async function (err, res) {
           if (err) {
             console.log('Error in collection.dao delete', err);
             return reject(err);
