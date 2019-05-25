@@ -27,7 +27,7 @@
       // margin-right: 40px;
       padding: 10px 20px 30px;
       height: 100%;
-      background-color: #666a73;
+      background-color: #2f2f2f;
 
       .create-collection {
         margin-top: 20px;
@@ -41,11 +41,15 @@
           height: 15px;
           width: 15px;
           margin-left: 10px;
+
+          mat-icon {
+            font-size: 22px;
+          }
         }
 
         a {
-          color: white;
-          font-size: 18px;
+          color: #636262;
+          font-size: 15px;
           // height: 40px;
           display: inline-block;
 
@@ -54,7 +58,7 @@
           }
 
           &:hover {
-            color: $pink;
+            color: #c7c4c5;
           }
         }
       }

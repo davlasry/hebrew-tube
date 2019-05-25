@@ -16,24 +16,31 @@ import { getCollectionById } from 'src/app/words/state/selectors/collections.sel
   styleUrls: ['./collection.component.scss']
 })
 export class CollectionComponent implements OnInit {
-  collections;
+  // collections;
   currentCollection$;
   newCollection;
   currentCollectionId;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private collectionsService: CollectionsService,
     private store: Store<WordsState>
   ) {}
 
   ngOnInit() {
+    console.log('INSIDE');
     this.route.params.pipe(map(params => params.id)).subscribe(collectionId => {
       // console.log('collectionId', collectionId);
       // this.collectionsService.getCollection(collectionId).subscribe(result => {
       //   // console.log('result', result);
       //   this.currentCollection = result.data;
       // });
+      // console.log('collections:', this.collections[0]);
+      // if (!collectionId) {
+      //   this.router.navigateByUrl('/collections', this.collections[0]._id);
+      // }
+
       this.currentCollection$ = this.store.pipe(
         select(getCollectionById(collectionId))
       );

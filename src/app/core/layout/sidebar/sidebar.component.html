@@ -6,11 +6,11 @@
       <mat-icon class="menu-icon">movie</mat-icon>
       <span>Videos</span>
     </a>
-    <a [routerLink]="['/videos', 'favorite']" [routerLinkActive]="['is-active']"
+    <!-- <a [routerLink]="['/videos', 'favorite']" [routerLinkActive]="['is-active']"
       [routerLinkActiveOptions]="{ exact: true }" *ngIf="isLoggedIn" fxLayout="column" fxLayoutAlign="center center">
       <mat-icon class="menu-icon">video_library</mat-icon>
       <span>My Videos</span>
-    </a>
+    </a> -->
     <a [routerLink]="['/videos', 'create']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn"
       [routerLinkActiveOptions]="{ exact: true }" fxLayout="column" fxLayoutAlign="center center">
       <mat-icon class="menu-icon">add_to_queue</mat-icon>
@@ -22,16 +22,16 @@
       <span>Words</span>
       <span></span>
     </a>
-    <a [routerLink]="['/words', 'my-words']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn"
+    <!-- <a [routerLink]="['/words', 'my-words']" [routerLinkActive]="['is-active']" *ngIf="isLoggedIn"
       [routerLinkActiveOptions]="{ exact: true }" fxLayout="column" fxLayoutAlign="center center">
       <mat-icon class="menu-icon">assignment</mat-icon>
       <span>My Words</span>
-    </a>
-    <a [routerLink]="['/users', 'list']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
+    </a> -->
+    <!-- <a [routerLink]="['/users', 'list']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
       *ngIf="isAdmin" fxLayout="column" fxLayoutAlign="center center">
       <mat-icon class="menu-icon">people</mat-icon>
       <span>Users</span>
-    </a>
+    </a> -->
     <a [routerLink]="['/collections']" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: false }"
       *ngIf="isLoggedIn" fxLayout="column" fxLayoutAlign="center center">
       <mat-icon class="menu-icon">bookmarks</mat-icon>

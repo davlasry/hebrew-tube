@@ -1,6 +1,18 @@
 .container {
-    padding: 20px 50px;
-    mat-form-field {
-        margin-right: 20px;
-    }
+  padding: 20px 50px;
+
+  mat-form-field {
+    margin-right: 20px;
+  }
+
+  .form-container {
+    padding: 25px;
+  }
+
+  .header {
+    padding: 0 25px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+  }
 }

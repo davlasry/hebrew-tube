@@ -58,13 +58,16 @@
 
     .sentence-container {
       padding: 20px 20px;
-      background-color: grey;
+      background-color: #bfbfbf;
+      border-radius: 7px;
       flex: 1;
       height: 160px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      -webkit-box-shadow: 0px 0px 13px 0px rgba(152, 152, 152, 0.33);
+      box-shadow: 0px 0px 13px 0px rgba(152, 152, 152, 0.33);
 
       .sentence {
         display: flex;
@@ -80,10 +83,10 @@
         margin: 0 10px;
         cursor: pointer;
         font-size: 30px;
-        line-height: 60px;
+        line-height: 40px;
 
         &:hover {
-          text-decoration: underline dotted blue;
+          text-decoration: underline dotted $pink;
         }
 
         .definition {
@@ -91,15 +94,22 @@
           justify-content: center;
           align-items: center;
           position: absolute;
-          border: 1px solid white;
-          padding: 10px;
+          // border: 1px solid white;
+          // padding: 10px;
           bottom: 50px;
           left: 50%;
-          margin-left: -100px;
+          transform: translate(-50%, 0);
           background-color: white;
           color: black;
           width: 200px;
           font-size: 18px;
+          box-shadow: 0px 0px 13px 0px rgba(152, 152, 152, 0.33);
+          opacity: 0;
+
+          &.show {
+            opacity: 1;
+            transition: all 0.3s linear;
+          }
         }
       }
     }
