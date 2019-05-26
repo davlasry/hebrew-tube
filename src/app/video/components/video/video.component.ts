@@ -55,6 +55,8 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
 
   video: any;
 
+  punctuations = [',', '.', '?', '!', ';', ':', '"', "'", '(', ')', '-'];
+
   constructor(
     private youtubePlayer: YoutubePlayerService,
     private route: ActivatedRoute,

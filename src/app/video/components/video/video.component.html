@@ -39,9 +39,11 @@
           <div class="word" *ngFor="
               let word of video.subtitles[selectedSentence].words;
               let i = index
-            " (click)="onClickWord(word)" (mouseover)="showDefinition(i)" (mouseout)="showDefinition(null)">
+            " (click)="onClickWord(word)" (mouseover)="showDefinition(i)" (mouseout)="showDefinition(null)"
+            [ngClass]="{'punctuation': punctuations.indexOf(word.hebrew) != -1}">
             <span>{{ word.hebrew }}</span>
-            <div class="definition" [ngClass]="{'show': i === definitionShowed && word.french}">
+            <div class="definition"
+              [ngClass]="{'show': i === definitionShowed && word.french, 'long': word.french.length > 15}">
               <span>{{ word.french }}</span>
               <!-- <span *ngIf="word.pronunciation">
                 - [{{ word.pronunciation }}]</span> -->
