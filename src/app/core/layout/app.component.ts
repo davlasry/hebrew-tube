@@ -23,6 +23,8 @@ import { LoadVideos } from 'src/app/video/state/actions/videos.actions';
 import { LoadMyVideos } from 'src/app/video/state/actions/myVideos.actions';
 import { LoadCollections } from 'src/app/words/state/actions/collections.actions';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -39,10 +41,17 @@ export class AppComponent implements OnInit {
   constructor(
     private jwtService: JwtService,
     private store: Store<any>,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
+    this.http
+      .get<any>(`${environment.API_URL}/word/search/מבחן`)
+      .subscribe(res => {
+        console.log(res);
+      });
+
     this.currentUser$ = this.store.pipe(select(getUser));
     this.currentUser$.subscribe(currentUser => {
       // console.log('currentUser', currentUser);
