@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.http
-      .get<any>(`${environment.API_URL}/word/search/מבחן`)
+      .get<any>(`${environment.API_URL}/word/scrap/מבחן`)
       .subscribe(res => {
         console.log(res);
       });

@@ -15,7 +15,7 @@ router.post(
 );
 
 // Search Word translation on Morfix
-router.get('/search/:word', (req, res, next) => {
+router.get('/scrap/:word', (req, res, next) => {
   const word = req.params.word;
   console.log(word);
   searchInMorfix(word).then(result => {
