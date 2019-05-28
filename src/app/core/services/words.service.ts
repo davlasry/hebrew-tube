@@ -65,6 +65,10 @@ export class WordsService {
     });
   }
 
+  searchReverso(word): Observable<any> {
+    return this.http.get<any>(`${environment.API_URL}/word/search/${word}`);
+  }
+
   // deleteManyWords(wordsIds): Observable<any> {
   //   return this.http.delete<any>(`${environment.API_URL}/word`, {
   //     wordsIds
