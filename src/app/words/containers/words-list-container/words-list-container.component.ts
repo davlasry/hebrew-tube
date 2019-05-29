@@ -76,17 +76,6 @@ export class WordsListContainerComponent implements OnInit {
       // width: '250px',
       data: { word: wordToEdit }
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-      if (result) {
-        const data = {
-          wordData: result,
-          overwrite: true
-        };
-        this.store.dispatch(new EditWord(data));
-      }
-    });
   }
 
   getWords() {}

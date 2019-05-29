@@ -1,4 +1,25 @@
 <div class="container">
-  <div class="results-count">{{ results.length }} words found</div>
-  <app-search-result *ngFor="let result of results" [result]="result"></app-search-result>
+  <!-- <div *ngIf="(results$| async) as results">
+    <div>results.data: {{results?.data}}</div>
+
+    {{(results$ | async)?.data.length}}
+  </div> -->
+  <ng-template #loadingTemplate>
+    <div class="loadingSpinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
+  <div class="result" *ngIf="(results$ | async) as results; else loadingTemplate">
+    <div class="results-count" *ngIf="results?.data.length > 0; else noResult">
+      <div class="results-count">
+        {{results?.data.length}}
+        word(s)
+        found
+      </div>
+      <app-search-result *ngFor="let result of (results$ | async)?.data" [result]="result"></app-search-result>
+    </div>
+    <ng-template #noResult>
+      <div class="results-count">No word found</div>
+    </ng-template>
+  </div>
 </div>

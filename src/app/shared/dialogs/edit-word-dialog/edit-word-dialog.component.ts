@@ -9,6 +9,9 @@ import {
   timeOptions
 } from '../../models/word';
 import { WordsService } from 'src/app/core/services/words.service';
+import { EditWord } from 'src/app/words/state/actions/words.actions';
+import { Store } from '@ngrx/store';
+import { WordsState } from 'src/app/words/state';
 
 @Component({
   selector: 'app-edit-word-dialog',
@@ -27,6 +30,7 @@ export class EditWordDialogComponent implements OnInit {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EditWordDialogComponent>,
     private wordsService: WordsService,
+    private store: Store<WordsState>,
     @Inject(MAT_DIALOG_DATA) public data
   ) {}
 
@@ -61,8 +65,11 @@ export class EditWordDialogComponent implements OnInit {
   }
 
   onSave(): void {
-    // console.log(this.wordForm.value);
-    // this.wordForm.patchValue({ _id: this.data.word._id });
+    const data = {
+      wordData: this.wordForm.value,
+      overwrite: true
+    };
+    this.store.dispatch(new EditWord(data));
     this.dialogRef.close(this.wordForm.value);
   }
 }
