@@ -145,7 +145,7 @@ export class WordsListComponent implements OnInit, OnChanges {
             // distinctUntilChanged()
           )
           .subscribe(res => {
-            console.log('res', res);
+            // console.log('res', res);
             this.currentPage = res.pageIndex;
             // console.log(this.words[0]);
             this.dataSource.data = this.words.slice(

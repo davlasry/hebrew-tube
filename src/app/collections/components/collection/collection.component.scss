@@ -1,5 +1,5 @@
 .collection-container {
-  // padding: 20px;
+  padding: 20px;
 
   .empty-collection {
     padding: 20px;
@@ -10,7 +10,7 @@
     padding: 10px 15px;
 
     &:nth-child(odd) {
-      background-color: #424242;
+      // background-color: #424242;
     }
 
     &:nth-child(even) {
@@ -18,7 +18,7 @@
     }
 
     &:hover {
-      background-color: #655c5f;
+      // background-color: #cacaca;
     }
 
     .word-field {

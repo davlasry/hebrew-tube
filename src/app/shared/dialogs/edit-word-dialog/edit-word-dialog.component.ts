@@ -8,6 +8,7 @@ import {
   formeOptions,
   timeOptions
 } from '../../models/word';
+import { WordsService } from 'src/app/core/services/words.service';
 
 @Component({
   selector: 'app-edit-word-dialog',
@@ -25,6 +26,7 @@ export class EditWordDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EditWordDialogComponent>,
+    private wordsService: WordsService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {}
 
@@ -50,6 +52,12 @@ export class EditWordDialogComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onFill() {
+    this.wordsService.searchReverso(this.data.word.hebrew).subscribe(word => {
+      console.log(word);
+    });
   }
 
   onSave(): void {
