@@ -16,5 +16,8 @@
     <button mat-icon-button color="accent" (click)="addToMyWords()" *ngIf="!(isWordFavorite$ | async)">
       <mat-icon>favorite_border</mat-icon>
     </button>
+    <button mat-raised-button color="primary" (click)="onClickEdit()">
+      <mat-icon>edit</mat-icon>
+    </button>
   </div>
 </div>

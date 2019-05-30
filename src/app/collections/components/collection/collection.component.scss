@@ -8,13 +8,14 @@
   .word {
     width: 100%;
     padding: 10px 15px;
+    margin-bottom: 10px;
 
     &:nth-child(odd) {
       // background-color: #424242;
     }
 
     &:nth-child(even) {
-      background-color: inherit;
+      // background-color: inherit;
     }
 
     &:hover {

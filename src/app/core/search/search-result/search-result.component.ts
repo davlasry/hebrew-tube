@@ -4,7 +4,6 @@ import { WordCollectionsDialogComponent } from 'src/app/shared/dialogs/word-coll
 import { Store } from '@ngrx/store';
 import { WordsState } from 'src/app/words/state';
 import { EditWordDialogComponent } from 'src/app/shared/dialogs/edit-word-dialog/edit-word-dialog.component';
-import { EditWord } from 'src/app/words/state/actions/words.actions';
 
 @Component({
   selector: 'app-search-result',
@@ -26,7 +25,7 @@ export class SearchResultComponent implements OnInit {
   }
 
   editWord() {
-    console.log('edit word', this.result);
+    // console.log('edit word', this.result);
     const dialogRef = this.dialog.open(EditWordDialogComponent, {
       // width: '250px',
       data: { word: this.result }

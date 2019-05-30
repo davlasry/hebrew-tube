@@ -16,6 +16,7 @@ import { ViewWordDialogComponent } from 'src/app/shared/dialogs/view-word/view-w
 import { Store, select } from '@ngrx/store';
 import { getUser } from 'src/app/authentication/state/user.selectors';
 import { VideosService } from 'src/app/core/services/videos.service';
+import { EditWordDialogComponent } from 'src/app/shared/dialogs/edit-word-dialog/edit-word-dialog.component';
 
 @Component({
   selector: 'app-video',
@@ -193,7 +194,15 @@ export class VideoComponent implements OnInit, AfterContentInit, OnDestroy {
     /* When the word dialog is closed */
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.youtubePlayer.resumeVideo();
+      // this.youtubePlayer.resumeVideo();
+      if (result === 'edit') {
+        this.dialog.open(EditWordDialogComponent, {
+          minWidth: '60%',
+          // minHeight: '400px',
+          height: '60%',
+          data: { word }
+        });
+      }
     });
   }
 

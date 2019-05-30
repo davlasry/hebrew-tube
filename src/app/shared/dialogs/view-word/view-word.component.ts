@@ -60,6 +60,10 @@ export class ViewWordDialogComponent implements OnInit {
     );
   }
 
+  onClickEdit() {
+    this.dialogRef.close('edit');
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }

@@ -11,14 +11,54 @@
       <mat-form-field>
         <input type="text" placeholder="pronunciation" matInput formControlName="pronunciation">
       </mat-form-field>
-      <div>
-      </div>
+      <mat-form-field>
+        <mat-select placeholder="Type" formControlName="type">
+          <mat-option *ngFor="let type of types" [value]="type.value">
+            {{ type.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="wordForm.value?.type == 'verbe'">
+        <mat-select placeholder="Forme" formControlName="forme">
+          <mat-option *ngFor="let forme of formes" [value]="forme.value" #presentatif>
+            {{ forme.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="wordForm.value?.type == 'verbe' && wordForm.value?.forme != 'infinitif'">
+        <mat-select placeholder="Temps" formControlName="time">
+          <mat-option *ngFor="let time of times" [value]="time.value" #presentatif>
+            {{ time.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="form-field"
+        *ngIf="wordForm.value?.type == 'verbe' && wordForm.value?.forme != 'infinitif'">
+        <input type="text" matInput placeholder="Infinitif" formControlName="infinitif" />
+      </mat-form-field>
+      <mat-form-field
+        *ngIf="wordForm.value?.type != 'adverbe' && wordForm.value?.type != 'presentatif' && wordForm.value?.forme != 'infinitif'">
+        <mat-select placeholder="Genre" formControlName="genre">
+          <mat-option *ngFor="let genre of genres" [value]="genre.value" #presentatif>
+            {{ genre.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field
+        *ngIf="wordForm.value?.type != 'adverbe' && wordForm.value?.type != 'presentatif' && wordForm.value?.forme != 'infinitif'">
+        <mat-select placeholder="Nombre" formControlName="number">
+          <mat-option *ngFor="let number of numbers" [value]="number.value">
+            {{ number.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </form>
   </div>
 
   <div>
     <button mat-raised-button (click)="resetForm()">Reset Form</button>
     <button mat-raised-button (click)="onNoClick()">Cancel</button>
-    <button mat-raised-button color="primary" [mat-dialog-close]="1" type="submit" [disabled]="!wordForm.valid" (click)="onSubmit()">Save</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="1" type="submit" [disabled]="!wordForm.valid"
+      (click)="onSubmit()">Save</button>
   </div>
 </div>
