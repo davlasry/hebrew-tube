@@ -21,7 +21,6 @@
 
 
   function getUserID() {
-    console.log('getUserID');
     return async (req, res, next) => {
       try {
         let userID = null;

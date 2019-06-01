@@ -31,7 +31,8 @@
     reconnectTries: Number.MAX_VALUE,
     poolSize: 10,
     dbName: 'HebrewApp',
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useCreateIndex: true
   };
 
 
