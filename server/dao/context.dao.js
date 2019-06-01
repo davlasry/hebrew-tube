@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   // External dependencies
@@ -16,7 +16,7 @@
   };
 
   async function createContext(wordID, videoID, subtitleIndex) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
       try {
 
         const data = {
@@ -30,7 +30,7 @@
 
         return resolve(contextCreated);
 
-      } catch(err) {
+      } catch (err) {
         console.log('Error in context.dao createContext', err);
         return reject(err);
       }
@@ -41,23 +41,44 @@
 
 
   async function getAllContextsForWord(wordID) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
+      return await ContextMongo.find({
+          id_word: wordID
+        })
+        .populate({
+          path: 'id_video',
+          model: 'Video',
+          select: 'name'
+        })
+        .exec(function (err, videos) {
+          if (err) {
+            return reject(err);
+          }
 
-        await ContextMongo.find({id_word: wordID}, async function(err, res) {
-            if (err) {
-                console.log('Error in context.dao getAllContextsForWord', err);
-                return reject(err);
-            }
-            return resolve(res);
+          return resolve(videos);
         });
+    });
+    return new Promise(async function (resolve, reject) {
+
+      await ContextMongo.find({
+        id_word: wordID
+      }, async function (err, res) {
+        if (err) {
+          console.log('Error in context.dao getAllContextsForWord', err);
+          return reject(err);
+        }
+        return resolve(res);
+      });
     });
   }
 
 
 
   async function deleteContextsForVideo(videoID) {
-    return new Promise(async function(resolve, reject) {
-      await ContextMongo.remove({id_video: videoID}, async function(err, res) {
+    return new Promise(async function (resolve, reject) {
+      await ContextMongo.remove({
+        id_video: videoID
+      }, async function (err, res) {
         if (err) {
           console.log('Error in context.dao deleteContextsForVideo', err);
           return reject(err);

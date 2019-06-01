@@ -149,13 +149,6 @@
 
           return resolve(collections);
         });
-      // await CollectionMongo.find({}, async function (err, res) {
-      //   if (err) {
-      //     console.log('Error in collection.dao getAllCollections', err);
-      //     return reject(err);
-      //   }
-      //   return resolve(res);
-      // });
     });
   }
 

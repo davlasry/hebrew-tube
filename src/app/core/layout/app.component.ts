@@ -46,11 +46,11 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.http
-      .get<any>(`${environment.API_URL}/word/scrap/מבחן`)
-      .subscribe(res => {
-        console.log(res);
-      });
+    // this.http
+    //   .get<any>(`${environment.API_URL}/word/scrap/מבחן`)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //   });
 
     this.currentUser$ = this.store.pipe(select(getUser));
     this.currentUser$.subscribe(currentUser => {

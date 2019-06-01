@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit, AfterViewChecked {
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    console.log('this.route:', this.route);
+    // console.log('this.route:', this.route);
     // console.log('this.router:', this.router);
 
     this.router.events.subscribe(event => {

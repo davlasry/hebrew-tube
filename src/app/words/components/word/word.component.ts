@@ -36,32 +36,21 @@ export class WordComponent implements OnInit {
     });
   }
 
-  // getWordContext() {
-  //   this.wordsService.getWordContext(this.wordId).subscribe(result => {
-  //     console.log(result);
-  //     this.store
-  //       .pipe(select(getVideoById, { id: result.data.id_video }))
-  //       .subscribe(video => {
-  //         this.video = video;
-  //         console.log(video);
-  //       });
-  //   });
-  // }
-
   getWordContext() {
     this.wordsService.getWordContext(this.wordId).subscribe(result => {
       console.log(result);
       this.contexts = result.data;
       console.log('this.contexts', this.contexts);
-      result = result.data.map(context => context.id_video);
-      this.store
-        .pipe(select(getVideosByID, { ids: result }))
-        .subscribe(videos => {
-          if (videos[0]) {
-            this.videos = videos;
-            console.log(videos);
-          }
-        });
+      result = result.data.map(context => context.id_video._id);
     });
+    //   this.store
+    //     .pipe(select(getVideosByID, { ids: result }))
+    //     .subscribe(videos => {
+    //       if (videos[0]) {
+    //         this.videos = videos;
+    //         console.log(videos);
+    //       }
+    //     });
+    // });
   }
 }

@@ -13,6 +13,15 @@
       <div class="type" *ngIf="result.type">
         {{ result.type }}
       </div>
+      <div>
+        <div *ngIf="videos">
+          Context:
+          <a *ngFor="let video of videos; let i = index"
+            [routerLink]="['/videos', video._id, contexts[i].subtitleIndex + 1]">
+            {{ video.name }}
+          </a>
+        </div>
+      </div>
     </div>
     <div fxFlex></div>
     <div class="actions">

@@ -16,7 +16,7 @@ export interface MyVideosState extends EntityState<any> {
 
 // NGRX/ENTITY
 export const adapter: EntityAdapter<any> = createEntityAdapter<any>({
-  selectId: video => video.id_video
+  selectId: video => video.id_video._id
   // sortComparer: sortByCreatedAt
 });
 
