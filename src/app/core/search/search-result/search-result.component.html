@@ -14,11 +14,13 @@
         {{ result.type }}
       </div>
       <div>
-        <div *ngIf="videos">
-          Context:
-          <a *ngFor="let video of videos; let i = index"
-            [routerLink]="['/videos', video._id, contexts[i].subtitleIndex + 1]">
-            {{ video.name }}
+        <div *ngIf="contexts?.length > 0">
+          {{contexts.length}} Context:
+          <a *ngFor="let context of contexts; let i = index"
+            [routerLink]="['/videos', context.id_video._id, contexts[i].subtitleIndex + 2]" class="video-name">
+            <!-- {{video | json}} -->
+            <!-- {{context | json}} -->
+            {{context.id_video.name}}
           </a>
         </div>
       </div>

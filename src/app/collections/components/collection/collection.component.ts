@@ -29,7 +29,6 @@ export class CollectionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('INSIDE');
     this.route.params.pipe(map(params => params.id)).subscribe(collectionId => {
       // console.log('collectionId', collectionId);
       // this.collectionsService.getCollection(collectionId).subscribe(result => {

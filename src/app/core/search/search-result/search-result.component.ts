@@ -52,9 +52,9 @@ export class SearchResultComponent implements OnInit {
         // map((context: any) => context.id_video)
       )
       .subscribe((result: any) => {
-        console.log(result);
+        console.log('result:', result);
         this.contexts = result;
-        this.videos = result.map(context => context.id_video._id);
+        // this.videos = result.map(context => context.id_video.name);
       });
     //   this.store
     //     .pipe(select(getVideosByID, { ids: result }))
