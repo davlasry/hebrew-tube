@@ -20,6 +20,7 @@ export class AddWordComponent implements OnInit {
   onClickAddWord() {
     const dialogRef = this.dialog.open(AddNewWordComponent, {
       // width: '250px',
+      // margin: '0 auto'
     });
 
     dialogRef.afterClosed().subscribe(result => {
