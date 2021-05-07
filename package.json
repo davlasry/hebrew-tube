@@ -38,7 +38,7 @@
     "jsondiffpatch": "^0.3.11",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "mongoose": "^5.4.22",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.10",
