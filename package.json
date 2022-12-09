@@ -34,7 +34,7 @@
     "core-js": "^2.6.5",
     "cors": "^2.8.4",
     "encodeurl": "^1.0.2",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "jsondiffpatch": "^0.3.11",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
